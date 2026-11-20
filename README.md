@@ -15,11 +15,14 @@ On 1,549 answerable ETOM requests, ToolRank ranked a valid tool first 35 more ti
 
 ## Run locally
 
+[Download the checkpoint and model card](https://huggingface.co/christianengel/mcp-toolrank-33m).
+
 ```sh
 uv sync --locked --extra cpu --group onnx --group examples
+uv run --no-sync hf download christianengel/mcp-toolrank-33m \
+  --revision 08b109f86e88c43304732fcb45432dc67c294cdb \
+  --local-dir artifacts/mcp-toolrank-33m
 ```
-
-Use a local checkpoint directory. [Model card](docs/MODERN_MODEL_CARD.md)
 
 ```python
 from toolrank.selector import ToolSelector
