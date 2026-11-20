@@ -4,7 +4,10 @@ import numpy as np
 from sklearn.feature_extraction.text import TfidfVectorizer
 
 from examples.catalog_lexical import CatalogLexicalIndex
-from examples.rank_onnx import CompactCatalog, OnnxToolRank, evaluate, read_cases, read_catalog, top_indices
+from examples.rank_onnx import (
+    CompactCatalog, OnnxToolRank, allowed_negative_exceedances, calibrate, evaluate, read_cases,
+    read_catalog, top_indices,
+)
 
 from toolrank.lexical import Bm25Index, lexical_text
 
@@ -77,6 +80,29 @@ class CatalogEvaluationTests(unittest.TestCase):
             np.testing.assert_allclose(tfidf, expected_tfidf[row], atol=1e-12)
             np.testing.assert_allclose(bm25, expected_bm25[row], atol=3e-7)
         np.testing.assert_array_equal(CatalogLexicalIndex(["_"]).blend("empty", np.array([.3])), [.3])
+
+    def test_order_statistic_respects_the_requested_false_accept_bound(self):
+        self.assertIsNone(allowed_negative_exceedances(28, .1, .95))
+        self.assertEqual(allowed_negative_exceedances(29, .1, .95), 0)
+        self.assertEqual(allowed_negative_exceedances(100, .1, .95), 4)
+
+    def test_calibration_excludes_float32_ties(self):
+        cases = [("0.75", set())] * 29 + [("0.8", {"calendar"})]
+        result = calibrate(cases, score_requests=lambda requests: list(map(float, requests)),
+                           max_false_accept=.1, confidence=.95)
+        self.assertEqual(result["min_score"], float(np.nextafter(np.float32(.75), np.float32(np.inf))))
+        self.assertEqual(result["accepted_no_match_on_calibration"], 0)
+        self.assertEqual(result["accepted_answerable_on_calibration"], 1)
+
+    def test_too_few_calibration_negatives_does_not_score_requests(self):
+        def unused_scores(requests):
+            self.fail("calibration must check sample size before encoding")
+
+        result = calibrate([("unknown", set())], score_requests=unused_scores,
+                           max_false_accept=.1, confidence=.95)
+        self.assertEqual(result["status"], "insufficient_no_match_cases")
+        self.assertIsNone(result["min_score"])
+        self.assertEqual(result["minimum_no_match_cases"], 29)
 
     def test_json_rpc_catalog_and_case_validation(self):
         tools = read_catalog({"result": {"tools": [{"name": "calendar"}]}})
