@@ -1,0 +1,10 @@
+{
+  "repo": "christianengel/mcp-toolrank-33m",
+  "revision": "a24a121266154006e2bd2e32a41576437c3455c2",
+  "files": {
+    "tokenizer.json": "91f1def9b9391fdabe028cd3f3fcc4efd34e5d1f08c3bf2de513ebb5911a1854",
+    "sentence_bert_config.json": "65c2293c310f5476a8d1cbada277722c3e7ae5b5ddbaa2d2fe5d075f410d6d02",
+    "config_sentence_transformers.json": "7453db62f635567117454bf0599899107d43569c95d5353b5993d809c39379cf",
+    "onnx/embedding-int8.onnx": "ba0e544669eac502cac535d3ed53b9cf5b530b5fd929d4a7bddd787abe08ea33"
+  }
+}

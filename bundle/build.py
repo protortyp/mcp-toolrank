@@ -1,6 +1,7 @@
 """Build the desktop bundle from this checkout and the public ToolRank checkpoint."""
 
 import argparse
+import json
 from hashlib import sha256
 from pathlib import Path
 from tempfile import TemporaryDirectory
@@ -9,14 +10,7 @@ from zipfile import ZIP_DEFLATED, ZipFile, ZipInfo
 
 BUNDLE = Path(__file__).resolve().parent
 ROOT = BUNDLE.parent
-MODEL_ID = "christianengel/mcp-toolrank-33m"
-REVISION = "a24a121266154006e2bd2e32a41576437c3455c2"
-MODEL_FILES = {
-    "tokenizer.json": "91f1def9b9391fdabe028cd3f3fcc4efd34e5d1f08c3bf2de513ebb5911a1854",
-    "sentence_bert_config.json": "65c2293c310f5476a8d1cbada277722c3e7ae5b5ddbaa2d2fe5d075f410d6d02",
-    "config_sentence_transformers.json": "7453db62f635567117454bf0599899107d43569c95d5353b5993d809c39379cf",
-    "onnx/embedding-int8.onnx": "ba0e544669eac502cac535d3ed53b9cf5b530b5fd929d4a7bddd787abe08ea33",
-}
+MODEL = json.loads((BUNDLE / "model.json").read_text())
 SERVER_FILES = ("search_mcp.py", "rank_onnx.py", "catalog_lexical.py", "catalog_int8.onnx")
 
 
@@ -35,12 +29,12 @@ def build(output: Path) -> None:
             add("LICENSE", (ROOT / "LICENSE").read_bytes())
             for name in SERVER_FILES:
                 add(f"src/{name}", (ROOT / "examples" / name).read_bytes())
-            for name, expected_hash in MODEL_FILES.items():
-                url = f"https://huggingface.co/{MODEL_ID}/resolve/{REVISION}/{name}"
+            for name, expected_hash in MODEL["files"].items():
+                url = f"https://huggingface.co/{MODEL['repo']}/resolve/{MODEL['revision']}/{name}"
                 with urlopen(url, timeout=90) as source:
                     contents = source.read()
                 if sha256(contents).hexdigest() != expected_hash:
-                    raise ValueError(f"Checksum mismatch for {name} at {REVISION}")
+                    raise ValueError(f"Checksum mismatch for {name} at {MODEL['revision']}")
                 add(f"model/{name}", contents)
         archive.replace(output)
 

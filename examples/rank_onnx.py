@@ -340,9 +340,12 @@ def calibration_scope(checkpoint, tool_catalog, model_file, catalog_precision, t
     }
 
 
-def main():
+def main(*, resolve_checkpoint=None):
     parser = argparse.ArgumentParser()
-    parser.add_argument("checkpoint", type=Path)
+    if resolve_checkpoint is None:
+        parser.add_argument("checkpoint", type=Path)
+    else:
+        parser.add_argument("--checkpoint", type=Path, help="use a local checkpoint folder")
     parser.add_argument("catalog", type=Path, help="an MCP tools/list result or an array of tool definitions")
     parser.add_argument("request", nargs="?")
     parser.add_argument("--evaluate", type=Path, metavar="LABELS", help="measure on labeled requests")
@@ -378,15 +381,20 @@ def main():
     except (OSError, ValueError) as error:
         parser.error(str(error))
 
+    if args.calibrate and not tools:
+        parser.error("calibration requires a nonempty tool catalog")
+    if args.checkpoint is None:
+        try:
+            args.checkpoint = resolve_checkpoint()
+        except (OSError, ValueError) as error:
+            parser.error(str(error))
+
     def load(model_file):
         return OnnxToolRank(args.checkpoint, tools, threads=args.threads, model_file=model_file,
                             catalog_precision=args.catalog_precision, hybrid=args.hybrid and args.calibrate is None,
                             cache_dir=args.catalog_cache)
 
     if args.calibrate:
-        if not tools:
-            parser.error("calibration requires a nonempty tool catalog")
-
         def score_requests(requests):
             retriever = load(args.model_file)
             return [retriever.cosine_scores(request).max() for request in requests]
