@@ -7,7 +7,6 @@ from math import log2
 from pathlib import Path
 import platform
 import random
-import resource
 from statistics import median, quantiles
 import subprocess
 import sys
@@ -125,12 +124,15 @@ async def worker(args, protocol):
         if len(times) == 1:
             first_vectors = len(gateway.index.vectors)
             first_fallback = getattr(gateway.index, "fallbacks", 0)
+    # Linux getrusage can retain the parent's high-water mark across exec.
+    peak_kib = next(int(line.split()[1]) for line in Path("/proc/self/status").read_text().splitlines()
+                    if line.startswith("VmHWM:"))
     return {"rankings": observations, "run": {
         "seed": args.seed, "first_case": shuffled[0]["id"],
         "first_documents": first_vectors, "first_used_fallback": bool(first_fallback),
         "cold_first_ms": import_ms + setup_ms + times[0],
         "after_first_search_ms": percentile(times[1:]),
-        "peak_rss_mib": resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / 1024,
+        "peak_rss_mib": peak_kib / 1024,
         "fallback_queries": getattr(gateway.index, "fallbacks", 0),
         "final_documents": len(gateway.index.vectors)}}
 
@@ -167,7 +169,8 @@ def run(args, protocol):
                                          if line.startswith("model name")),
                              "platform": platform.platform(), "python": platform.python_version()},
                 "protocol_sha256": digest(PROTOCOL), "source_sha256": digest(__file__),
-                "protocol": protocol, "datasets": {}, "external_compute_usd": 0}
+                "protocol": protocol, "rss_source": "/proc/self/status VmHWM", "datasets": {},
+                "external_compute_usd": 0}
     with TemporaryDirectory() as directory:
         fixture = Path(directory) / "catalog.json"
         for dataset in args.datasets:
