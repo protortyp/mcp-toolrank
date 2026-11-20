@@ -1,0 +1,37 @@
+{
+  "manifest_version": "0.4",
+  "name": "mcp-toolrank",
+  "display_name": "MCP ToolRank",
+  "version": "0.6.0",
+  "description": "Search a local MCP tool catalog with the ToolRank CPU embedding model.",
+  "author": {"name": "Christian Engel"},
+  "repository": {"type": "git", "url": "https://github.com/protortyp/mcp-toolrank"},
+  "license": "Apache-2.0",
+  "server": {
+    "type": "uv",
+    "entry_point": "src/search_mcp.py",
+    "mcp_config": {
+      "command": "uv",
+      "args": [
+        "run", "--locked", "--project", "${__dirname}", "python",
+        "${__dirname}/src/search_mcp.py", "${__dirname}/model",
+        "${user_config.catalog}", "--hybrid"
+      ]
+    }
+  },
+  "tools": [
+    {"name": "search_tools", "description": "Find tool definitions for a request in the local catalog."}
+  ],
+  "user_config": {
+    "catalog": {
+      "type": "file",
+      "title": "Tool catalog",
+      "description": "JSON tool array or MCP tools/list response.",
+      "required": true
+    }
+  },
+  "compatibility": {
+    "platforms": ["linux"],
+    "runtimes": {"python": ">=3.12,<3.13"}
+  }
+}

@@ -17,7 +17,8 @@ jobs:
         with:
           python-version: "3.12"
       - run: uv sync --locked --extra cpu --group research --group onnx-backend --group examples
-      - run: uv run --no-sync python -m compileall -q toolrank examples
+      - run: uv run --no-sync python -m compileall -q toolrank examples bundle/build.py
+      - run: uv lock --check --project bundle
       - run: uv run --no-sync python -c "from toolrank.selector import ToolSelector; from examples.langchain_agent import build_agent; import pydantic_ai, onnxruntime"
       - run: uv run --no-sync python -m unittest discover -s tests
       - run: uv run --locked --script examples/search_mcp.py --help
