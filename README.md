@@ -1,6 +1,6 @@
 # MCP ToolRank
 
-Shortlist English MCP and API tools by cosine similarity between a request and cached tool descriptions. The 33.36M-parameter model produces 384-dimensional embeddings and accepts up to 512 tokens.
+Shortlist English MCP and API tools by cosine similarity to cached descriptions. 33.36M parameters, 384 dimensions, 512-token limit.
 
 ## Benchmarks
 
@@ -11,13 +11,15 @@ Shortlist English MCP and API tools by cosine similarity between a request and c
 | ToolScout | 81.42% | 72.30% | 80.73% | 28.66% |
 | Tool-Embed-0.6B | 93.06% | 88.70% | 93.00% | 39.43% |
 
-On 1,549 answerable ETOM requests, ToolRank ranked a valid tool first 35 more times than BGE. The +1.18-point compact nDCG@10 gain reproduced across three seeds (95% provider-cluster interval +0.53 to +1.85). CPU query encoding was 12.71 ms p50 on a Ryzen 9 5950X with four threads. [Full results](docs/RELEASE_REVIEW.md)
+Across 1,549 answerable ETOM requests, ToolRank had 35 more top-ranked hits than BGE. Compact nDCG@10 gained +1.18 points across three seeds (95% provider-cluster interval +0.53 to +1.85). CPU query encoding took 12.71 ms p50 (Ryzen 9 5950X, four threads). [Full results](docs/RELEASE_REVIEW.md)
 
 ## Run locally
 
-For a 34 MB CPU graph and a PyTorch-free runner, see [INT8 ONNX](docs/ONNX_INT8.md).
+[MCP stdio setup](docs/MCP_SERVER.md)
 
-[Download the checkpoint and model card](https://huggingface.co/christianengel/mcp-toolrank-33m).
+[34 MB CPU ONNX and PyTorch-free runner](docs/ONNX_INT8.md)
+
+[Checkpoint and model card](https://huggingface.co/christianengel/mcp-toolrank-33m)
 
 ```sh
 uv sync --locked --extra cpu --group onnx --group examples
@@ -34,10 +36,18 @@ selector = ToolSelector.from_checkpoint("artifacts/mcp-toolrank-33m", catalog)
 matches = selector.rank("What can I see at the museum today?", k=3)
 ```
 
-[CPU ONNX](examples/onnx_cpu.py) · [LangChain](examples/langchain_agent.py) · [Pydantic AI](examples/pydantic_agent.py)
+[CPU ONNX](examples/onnx_cpu.py)
+
+[LangChain](examples/langchain_agent.py)
+
+[Pydantic AI](examples/pydantic_agent.py)
 
 ## Data and limitations
 
-Training used 5,098 Toucan requests and 263 tool descriptions matched to pinned sources. The tested compact threshold accepted 30 of 91 infeasible ETOM requests. Calibrate rejection on your catalog.
+Training used 5,098 Toucan requests and 263 pinned-source tool descriptions. The compact threshold accepted 30 of 91 infeasible ETOM requests. Calibrate on your catalog.
 
-[Reproduce training and evaluation](docs/MODERN_MCP.md) · [Technical write-up](docs/MODERN_ARTICLE.md) · [Apache-2.0](LICENSE)
+[Reproduce training and evaluation](docs/MODERN_MCP.md)
+
+[Technical write-up](docs/MODERN_ARTICLE.md)
+
+[Apache-2.0](LICENSE)
