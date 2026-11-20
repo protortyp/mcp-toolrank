@@ -88,6 +88,7 @@ class GatewayConfig(BaseModel):
     timeout_seconds: float = Field(default=10, gt=0, le=300)
     refresh_seconds: float = Field(default=30, gt=0, le=3600)
     min_cosine: float | None = Field(default=None, ge=-1, le=1)
+    calibration_report: Path | None = None
     cache_dir: Path | None = None
 
     @model_validator(mode="after")
@@ -96,6 +97,8 @@ class GatewayConfig(BaseModel):
             raise ValueError("server IDs must be unique")
         if self.ranking == "bm25" and self.min_cosine is not None:
             raise ValueError("min_cosine requires hybrid ranking")
+        if self.calibration_report is not None and (self.ranking != "hybrid" or self.min_cosine is not None):
+            raise ValueError("calibration_report requires hybrid ranking and replaces min_cosine")
         return self
 
 
@@ -118,6 +121,25 @@ class Entry:
         return {"id": self.id, "revision": self.revision, "server": self.server,
                 "invocable": self.invocable, "name": self.tool.name,
                 "description": self.tool.description, "inputSchema": deepcopy(self.tool.inputSchema)}
+
+
+class CalibrationScope(BaseModel):
+    catalog_sha256: str
+    scorer_sha256: str
+    invocable_only: bool
+
+
+class CalibratedCutoff(BaseModel):
+    schema_version: Literal[1]
+    status: Literal["calibrated"]
+    min_score: float = Field(allow_inf_nan=False)
+    scope: CalibrationScope
+
+
+def catalog_digest(entries, invocable_only):
+    records = [(entry.id, entry.revision, entry.invocable) for entry in entries
+               if not invocable_only or entry.invocable]
+    return sha256(json.dumps(sorted(records), separators=(",", ":")).encode()).hexdigest()
 
 
 def failure(code, message, **fields):
@@ -306,6 +328,11 @@ class SearchIndex:
         self.documents = None
         self.lock = Lock()
 
+    @property
+    def scorer_digest(self):
+        scorer = "gateway-bm25-v1" if self.encoder is None else "gateway-max-cosine-v1"
+        return sha256(f"{scorer}\0{np.__version__}\0{self.namespace}".encode()).hexdigest()
+
     def _path(self, text):
         cache_key = sha256(f"{self.namespace}\0{text}".encode()).hexdigest()
         return self.cache_dir / f"toolrank-v1-{cache_key}.npz"
@@ -356,9 +383,7 @@ class SearchIndex:
                 scores = self.lexical.bm25_scores(query)
                 valid = np.flatnonzero(scores > 0)
             else:
-                query_vector = self.encoder.encode([self.encoder.prefix + query])[0]
-                # Avoid dispatching a single-query dot product to a threaded BLAS pool.
-                cosine = np.einsum("ij,j->i", self.documents, query_vector)
+                cosine = self._cosine(query)
                 scores = self.lexical.blend(query, cosine)
                 valid = np.arange(len(entries)) if min_cosine is None else np.flatnonzero(cosine >= min_cosine)
         if invocable_only:
@@ -366,6 +391,21 @@ class SearchIndex:
         order = valid[top_indices(scores[valid], limit)]
         return [entries[i].public() | {"cosine": None if cosine is None else float(cosine[i]),
                                        "ranking_score": float(scores[i])} for i in order]
+
+    def _cosine(self, query):
+        query_vector = self.encoder.encode([self.encoder.prefix + query])[0]
+        # Avoid dispatching a single-query dot product to a threaded BLAS pool.
+        return np.einsum("ij,j->i", self.documents, query_vector)
+
+    def max_cosines(self, entries, queries, *, invocable_only=False):
+        if self.encoder is None or not entries:
+            raise ValueError("Cosine calibration needs a hybrid index and a nonempty catalog")
+        eligible = np.array([not invocable_only or entry.invocable for entry in entries])
+        if not eligible.any():
+            raise ValueError("Cosine calibration needs eligible tools")
+        with self.lock:
+            self._update(entries)
+            return [self._cosine(query)[eligible].max() for query in queries]
 
 
 def limit_tool_bytes(matches, budget):
@@ -380,9 +420,10 @@ def limit_tool_bytes(matches, budget):
 
 
 class Gateway:
-    def __init__(self, config, index):
+    def __init__(self, config, index, *, calibration=None):
         self.config = config
         self.index = index
+        self.calibration = calibration
         self.upstreams = {server.id: Upstream(server, config.timeout_seconds, config.refresh_seconds)
                           for server in config.servers}
         self.search_lock = asyncio.Lock()
@@ -402,7 +443,28 @@ class Gateway:
             "onnxruntime": rank_onnx.ort.__version__,
             "tokenizers": rank_onnx.tokenizers_version,
         }, sort_keys=True)
-        return cls(config, SearchIndex(encoder, namespace=namespace, cache_dir=config.cache_dir))
+        index = SearchIndex(encoder, namespace=namespace, cache_dir=config.cache_dir)
+        calibration = None
+        if config.calibration_report is not None:
+            calibration = CalibratedCutoff.model_validate_json(config.calibration_report.read_text(encoding="utf-8"))
+            if calibration.scope.scorer_sha256 != index.scorer_digest:
+                raise ValueError("Calibration report was fitted with a different scorer")
+        return cls(config, index, calibration=calibration)
+
+    def catalog_entries(self):
+        return sorted((entry for upstream in self.upstreams.values() for entry in upstream.entries.values()),
+                      key=lambda entry: entry.id)
+
+    def calibration_scope(self, entries, invocable_only):
+        return CalibrationScope(catalog_sha256=catalog_digest(entries, invocable_only),
+                                scorer_sha256=self.index.scorer_digest, invocable_only=invocable_only)
+
+    def _calibration_matches(self, entries, invocable_only):
+        return self.calibration is None or self.calibration.scope == self.calibration_scope(entries, invocable_only)
+
+    def _search_response(self, matches, decision):
+        return {"matches": matches, "decision": decision,
+                "upstreams": {key: upstream.state for key, upstream in self.upstreams.items()}}
 
     @asynccontextmanager
     async def running(self):
@@ -430,29 +492,32 @@ class Gateway:
         if max_tool_bytes is not None and (type(max_tool_bytes) is not int or max_tool_bytes < 2):
             raise ValueError("max_tool_bytes must be an integer of at least two")
         async with self.search_lock:
-            entries = {key: entry for upstream in self.upstreams.values() for key, entry in upstream.entries.items()}
-            searchable = bool(entries) and (not invocable_only or any(entry.invocable for entry in entries.values()))
+            entries = self.catalog_entries()
+            if not self._calibration_matches(entries, invocable_only):
+                return self._search_response([], "calibration_scope_mismatch")
+            threshold = self.calibration.min_score if self.calibration is not None else self.config.min_cosine
+            searchable = bool(entries) and (not invocable_only or any(entry.invocable for entry in entries))
             matches = []
             if searchable:
-                matches = await asyncio.to_thread(self.index.search, [entries[key] for key in sorted(entries)],
-                                                  query, limit, self.config.min_cosine,
+                matches = await asyncio.to_thread(self.index.search, entries, query, limit, threshold,
                                                   invocable_only=invocable_only)
+            if self.calibration is not None and not self._calibration_matches(self.catalog_entries(), invocable_only):
+                return self._search_response([], "calibration_scope_mismatch")
             current = [match for match in matches if self._current(match)]
             if not current:
                 decision = "empty"
                 if searchable and not matches:
                     if self.config.ranking == "bm25":
                         decision = "no_lexical_overlap"
-                    elif self.config.min_cosine is not None:
+                    elif threshold is not None:
                         decision = "no_match_above_threshold"
             else:
-                decision = "ranked_unverified" if self.config.min_cosine is None else "above_threshold"
+                decision = "ranked_unverified" if threshold is None else "above_threshold"
                 if max_tool_bytes is not None:
                     current = limit_tool_bytes(current, max_tool_bytes)
                     if not current:
                         decision = "max_tool_bytes_exceeded"
-            return {"matches": current, "decision": decision,
-                    "upstreams": {key: upstream.state for key, upstream in self.upstreams.items()}}
+            return self._search_response(current, decision)
 
     def _current(self, match):
         entry = self.upstreams[match["server"]].entries.get(match["id"])
@@ -500,17 +565,37 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("config", type=Path)
     parser.add_argument("--checkpoint", type=Path, help="use a local ONNX checkpoint folder")
+    modes = parser.add_mutually_exclusive_group()
+    modes.add_argument("--calibrate", type=Path, metavar="LABELS", help="fit a cutoff on the live catalog")
+    modes.add_argument("--evaluate", type=Path, metavar="LABELS", help="measure the configured gateway on held-out labels")
+    parser.add_argument("--invocable-only", action="store_true", help="score the invocation allowlist for labeled runs")
+    parser.add_argument("--max-false-accept", type=float, default=.10)
+    parser.add_argument("--confidence", type=float, default=.95)
+    parser.add_argument("--limit", type=int, default=5, help="shortlist size for labeled evaluation")
     args = parser.parse_args()
+    if args.invocable_only and not (args.calibrate or args.evaluate):
+        parser.error("--invocable-only requires --calibrate or --evaluate")
     try:
         config = GatewayConfig.model_validate_json(args.config.read_text(encoding="utf-8"))
+        if config.calibration_report is not None:
+            config = config.model_copy(update={"calibration_report": args.config.parent / config.calibration_report})
         gateway = Gateway.from_config(config, args.checkpoint)
     except (OSError, ValueError):
-        parser.exit(2, "Could not load ToolRank gateway configuration or checkpoint.\n")
+        parser.exit(2, "Could not load ToolRank gateway configuration, checkpoint, or calibration report.\n")
     # The SDK can log malformed protocol payloads. Keep upstream data off stdio logs.
     for name in ("mcp", "httpx", "httpcore"):
         logger = logging.getLogger(name)
         logger.handlers = [logging.NullHandler()]
         logger.propagate = False
+    if args.calibrate or args.evaluate:
+        from .gateway_calibration import run_labeled
+
+        try:
+            report = asyncio.run(run_labeled(gateway, args))
+        except ValueError as error:
+            parser.exit(2, f"Gateway labeled run failed. {error}\n")
+        print(json.dumps(report, indent=2))
+        return
     build_server(gateway).run()
 
 

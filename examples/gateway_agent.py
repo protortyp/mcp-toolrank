@@ -106,6 +106,8 @@ async def run_workflow(client, query, model_turn):
         })
         if discovery.isError or discovery.structuredContent is None:
             raise RuntimeError("Gateway discovery failed")
+        if discovery.structuredContent.get("decision") == "calibration_scope_mismatch":
+            raise RuntimeError("Gateway calibration does not match the invocation catalog")
         targets, menu = tool_menu(discovery.structuredContent["matches"])
         turn = await model_turn(query, tuple(observations), menu)
         if not turn.proposals:

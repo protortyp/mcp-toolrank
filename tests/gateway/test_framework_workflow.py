@@ -53,3 +53,12 @@ class FrameworkWorkflowTests(unittest.IsolatedAsyncioTestCase):
         client.call_tool.assert_awaited_once_with("search_tools", {
             "query": "Find the record", "limit": 5, "invocable_only": True,
         })
+
+    async def test_stale_calibration_is_a_configuration_error(self):
+        client = SimpleNamespace(call_tool=AsyncMock(return_value=result({
+            "matches": [], "decision": "calibration_scope_mismatch",
+        })))
+        model = AsyncMock()
+        with self.assertRaisesRegex(RuntimeError, "calibration does not match"):
+            await run_workflow(client, "Find the record", model)
+        model.assert_not_awaited()
