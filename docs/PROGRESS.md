@@ -19,3 +19,5 @@
 - Live calibration cut unsupported NWS suggestions from 24/24 to 3/24 with 14/24 supported coverage, missing both targets. Catalog changes invalidated the cutoff. [Gateway calibration](GATEWAY_CALIBRATION.md)
 - Rebuilt the CPU wheel byte-for-byte from source. Its demo passed from a clean directory on Python 3.12 and 3.13. Browser BM25 starts without weights, with local inference on demand. [Release preview](RELEASE_PREVIEW.md)
 - Verified gateway 0.2.0 preview artifacts, including the separately versioned desktop bundle with 43 pinned notices. [Checks](../results/gateway_release_smoke.json)
+- Listed static desktop search bundle 0.7.1 in the MCP Registry. The workflow verified SHA-256 and published via GitHub OIDC. [Registry](https://registry.modelcontextprotocol.io/?q=io.github.protortyp%2Fmcp-toolrank)
+- Lexical shortlisting sped up ETOM’s first search and missed the later p95 gate. Length bucketing missed both gates. [Cold search pilot](SHORTLIST_HYBRID_PILOT.md)

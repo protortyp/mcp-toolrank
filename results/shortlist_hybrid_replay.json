@@ -1,0 +1,841 @@
+{
+  "revision": "3ad54637d331732b30843302b9efa6ab8c0f95be",
+  "checkpoint": {
+    "tokenizer.json": "91f1def9b9391fdabe028cd3f3fcc4efd34e5d1f08c3bf2de513ebb5911a1854",
+    "sentence_bert_config.json": "65c2293c310f5476a8d1cbada277722c3e7ae5b5ddbaa2d2fe5d075f410d6d02",
+    "config_sentence_transformers.json": "7453db62f635567117454bf0599899107d43569c95d5353b5993d809c39379cf",
+    "onnx/embedding-int8.onnx": "ba0e544669eac502cac535d3ed53b9cf5b530b5fd929d4a7bddd787abe08ea33"
+  },
+  "hardware": {
+    "cpu": "AMD Ryzen 9 5950X 16-Core Processor",
+    "platform": "Linux-7.0.0-42-generic-x86_64-with-glibc2.39",
+    "python": "3.12.13"
+  },
+  "protocol_sha256": "e3452fcae0a26eb193213e6a80da6ddf037996dd80b7836654efa7db4be6fc12",
+  "source_sha256": "448f4355805455fb50e31dac19efa6b2a6fc0956801b8d4de2accc70e6d8111d",
+  "protocol": {
+    "candidate_width": 64,
+    "return_limit": 10,
+    "candidate_generation": "Top lexical score (.4 TF-IDF + .15 BM25), positive scores only, stable tool IDs. Use full hybrid when fewer than 10 eligible tools share terms.",
+    "bucket_order": "Sort document texts by character count before batches of up to 32. Preserve the original order for lexical and dense scoring.",
+    "checkpoints": [
+      "a24a121266154006e2bd2e32a41576437c3455c2"
+    ],
+    "datasets": [
+      "etom-plain",
+      "api"
+    ],
+    "measurement": "Three independent cold processes, same first query across strategies per seed. Then one shuffled pass; p95 includes remaining lazy index work. No disk embedding cache.",
+    "seeds": [
+      11,
+      23,
+      37
+    ],
+    "lexical_gate": {
+      "required_etom_cold_speedup": 3.0,
+      "minimum_paired_ndcg_delta_lower_95": -0.01,
+      "maximum_unsupported_accept_delta": 0,
+      "maximum_etom_warm_p95_multiplier": 1.25
+    },
+    "bucket_gate": {
+      "required_etom_cold_speedup": 1.5,
+      "required_exact_top10_fraction": 1.0,
+      "maximum_etom_warm_p95_multiplier": 1.25
+    }
+  },
+  "rss_source": "/proc/self/status VmHWM",
+  "datasets": {
+    "api": {
+      "source": {
+        "data/onnx_int8_holdout.json": "ec11f47f29f6560bf0039f29674ac4765b85c35a9ac724f8406507e929387d8c"
+      },
+      "tools": 24,
+      "runs": {
+        "bm25": [
+          {
+            "seed": 11,
+            "first_case": "usgs_quakes/058",
+            "first_documents": 0,
+            "first_used_fallback": false,
+            "cold_first_ms": 264.05931427143514,
+            "after_first_search_ms": {
+              "p50": 0.12237206101417542,
+              "p95": 0.16581984236836433
+            },
+            "peak_rss_mib": 65.10546875,
+            "fallback_queries": 0,
+            "final_documents": 0,
+            "quality": {
+              "ndcg_at_10": 0.8836278544296456,
+              "hit_at_10": 1.0,
+              "complete_at_10": 1.0,
+              "supported": 72,
+              "unsupported": 24,
+              "unsupported_accepted": 24
+            },
+            "exact_top10_fraction": 0.0,
+            "paired_ndcg": {
+              "delta": -0.03210145333430258,
+              "ci95": [
+                -0.06973028041114272,
+                0.0068377581864973915
+              ],
+              "clusters": 6
+            }
+          },
+          {
+            "seed": 23,
+            "first_case": "fdc/038",
+            "first_documents": 0,
+            "first_used_fallback": false,
+            "cold_first_ms": 293.7152520753443,
+            "after_first_search_ms": {
+              "p50": 0.12146309018135071,
+              "p95": 0.1784440129995346
+            },
+            "peak_rss_mib": 65.140625,
+            "fallback_queries": 0,
+            "final_documents": 0,
+            "quality": {
+              "ndcg_at_10": 0.8836278544296456,
+              "hit_at_10": 1.0,
+              "complete_at_10": 1.0,
+              "supported": 72,
+              "unsupported": 24,
+              "unsupported_accepted": 24
+            },
+            "exact_top10_fraction": 0.0,
+            "paired_ndcg": {
+              "delta": -0.03210145333430258,
+              "ci95": [
+                -0.06973028041114272,
+                0.0068377581864973915
+              ],
+              "clusters": 6
+            }
+          },
+          {
+            "seed": 37,
+            "first_case": "worldbank/088",
+            "first_documents": 0,
+            "first_used_fallback": false,
+            "cold_first_ms": 288.85828889906406,
+            "after_first_search_ms": {
+              "p50": 0.11985190212726593,
+              "p95": 0.13824696652591228
+            },
+            "peak_rss_mib": 65.01953125,
+            "fallback_queries": 0,
+            "final_documents": 0,
+            "quality": {
+              "ndcg_at_10": 0.8836278544296456,
+              "hit_at_10": 1.0,
+              "complete_at_10": 1.0,
+              "supported": 72,
+              "unsupported": 24,
+              "unsupported_accepted": 24
+            },
+            "exact_top10_fraction": 0.0,
+            "paired_ndcg": {
+              "delta": -0.03210145333430258,
+              "ci95": [
+                -0.06973028041114272,
+                0.0068377581864973915
+              ],
+              "clusters": 6
+            }
+          }
+        ],
+        "hybrid": [
+          {
+            "seed": 11,
+            "first_case": "usgs_quakes/058",
+            "first_documents": 24,
+            "first_used_fallback": false,
+            "cold_first_ms": 528.9673160295933,
+            "after_first_search_ms": {
+              "p50": 2.910302020609379,
+              "p95": 3.902488946914673
+            },
+            "peak_rss_mib": 168.8046875,
+            "fallback_queries": 0,
+            "final_documents": 24,
+            "quality": {
+              "ndcg_at_10": 0.9157293077639483,
+              "hit_at_10": 1.0,
+              "complete_at_10": 1.0,
+              "supported": 72,
+              "unsupported": 24,
+              "unsupported_accepted": 24
+            },
+            "exact_top10_fraction": 1.0,
+            "paired_ndcg": {
+              "delta": 0.0,
+              "ci95": [
+                0.0,
+                0.0
+              ],
+              "clusters": 6
+            }
+          },
+          {
+            "seed": 23,
+            "first_case": "fdc/038",
+            "first_documents": 24,
+            "first_used_fallback": false,
+            "cold_first_ms": 551.8413907848299,
+            "after_first_search_ms": {
+              "p50": 3.1030660029500723,
+              "p95": 4.060678090900183
+            },
+            "peak_rss_mib": 169.62109375,
+            "fallback_queries": 0,
+            "final_documents": 24,
+            "quality": {
+              "ndcg_at_10": 0.9157293077639483,
+              "hit_at_10": 1.0,
+              "complete_at_10": 1.0,
+              "supported": 72,
+              "unsupported": 24,
+              "unsupported_accepted": 24
+            },
+            "exact_top10_fraction": 1.0,
+            "paired_ndcg": {
+              "delta": 0.0,
+              "ci95": [
+                0.0,
+                0.0
+              ],
+              "clusters": 6
+            }
+          },
+          {
+            "seed": 37,
+            "first_case": "worldbank/088",
+            "first_documents": 24,
+            "first_used_fallback": false,
+            "cold_first_ms": 529.9629690125585,
+            "after_first_search_ms": {
+              "p50": 2.9280208982527256,
+              "p95": 3.5771393682807684
+            },
+            "peak_rss_mib": 170.3515625,
+            "fallback_queries": 0,
+            "final_documents": 24,
+            "quality": {
+              "ndcg_at_10": 0.9157293077639483,
+              "hit_at_10": 1.0,
+              "complete_at_10": 1.0,
+              "supported": 72,
+              "unsupported": 24,
+              "unsupported_accepted": 24
+            },
+            "exact_top10_fraction": 1.0,
+            "paired_ndcg": {
+              "delta": 0.0,
+              "ci95": [
+                0.0,
+                0.0
+              ],
+              "clusters": 6
+            }
+          }
+        ],
+        "lexical": [
+          {
+            "seed": 11,
+            "first_case": "usgs_quakes/058",
+            "first_documents": 12,
+            "first_used_fallback": false,
+            "cold_first_ms": 539.634473156184,
+            "after_first_search_ms": {
+              "p50": 4.211548948660493,
+              "p95": 5.103536136448383
+            },
+            "peak_rss_mib": 161.30859375,
+            "fallback_queries": 23,
+            "final_documents": 24,
+            "quality": {
+              "ndcg_at_10": 0.9208552834087891,
+              "hit_at_10": 1.0,
+              "complete_at_10": 1.0,
+              "supported": 72,
+              "unsupported": 24,
+              "unsupported_accepted": 24
+            },
+            "exact_top10_fraction": 0.125,
+            "paired_ndcg": {
+              "delta": 0.005125975644840868,
+              "ci95": [
+                0.0,
+                0.015377926934522603
+              ],
+              "clusters": 6
+            }
+          },
+          {
+            "seed": 23,
+            "first_case": "fdc/038",
+            "first_documents": 24,
+            "first_used_fallback": true,
+            "cold_first_ms": 574.5025207288563,
+            "after_first_search_ms": {
+              "p50": 3.8977530784904957,
+              "p95": 5.345421843230724
+            },
+            "peak_rss_mib": 168.6484375,
+            "fallback_queries": 23,
+            "final_documents": 24,
+            "quality": {
+              "ndcg_at_10": 0.9157293077639483,
+              "hit_at_10": 1.0,
+              "complete_at_10": 1.0,
+              "supported": 72,
+              "unsupported": 24,
+              "unsupported_accepted": 24
+            },
+            "exact_top10_fraction": 0.5,
+            "paired_ndcg": {
+              "delta": 0.0,
+              "ci95": [
+                0.0,
+                0.0
+              ],
+              "clusters": 6
+            }
+          },
+          {
+            "seed": 37,
+            "first_case": "worldbank/088",
+            "first_documents": 13,
+            "first_used_fallback": false,
+            "cold_first_ms": 565.4061071109027,
+            "after_first_search_ms": {
+              "p50": 3.112685866653919,
+              "p95": 4.2739358730614185
+            },
+            "peak_rss_mib": 163.6875,
+            "fallback_queries": 23,
+            "final_documents": 24,
+            "quality": {
+              "ndcg_at_10": 0.9208552834087891,
+              "hit_at_10": 1.0,
+              "complete_at_10": 1.0,
+              "supported": 72,
+              "unsupported": 24,
+              "unsupported_accepted": 24
+            },
+            "exact_top10_fraction": 0.11458333333333333,
+            "paired_ndcg": {
+              "delta": 0.005125975644840868,
+              "ci95": [
+                0.0,
+                0.015377926934522603
+              ],
+              "clusters": 6
+            }
+          }
+        ],
+        "bucketed": [
+          {
+            "seed": 11,
+            "first_case": "usgs_quakes/058",
+            "first_documents": 24,
+            "first_used_fallback": false,
+            "cold_first_ms": 577.0319446455687,
+            "after_first_search_ms": {
+              "p50": 3.3568809740245342,
+              "p95": 4.84492601826787
+            },
+            "peak_rss_mib": 169.65625,
+            "fallback_queries": 0,
+            "final_documents": 24,
+            "quality": {
+              "ndcg_at_10": 0.9157293077639483,
+              "hit_at_10": 1.0,
+              "complete_at_10": 1.0,
+              "supported": 72,
+              "unsupported": 24,
+              "unsupported_accepted": 24
+            },
+            "exact_top10_fraction": 1.0,
+            "paired_ndcg": {
+              "delta": 0.0,
+              "ci95": [
+                0.0,
+                0.0
+              ],
+              "clusters": 6
+            }
+          },
+          {
+            "seed": 23,
+            "first_case": "fdc/038",
+            "first_documents": 24,
+            "first_used_fallback": false,
+            "cold_first_ms": 520.4685470089316,
+            "after_first_search_ms": {
+              "p50": 3.8219010457396507,
+              "p95": 5.501316767185926
+            },
+            "peak_rss_mib": 167.4140625,
+            "fallback_queries": 0,
+            "final_documents": 24,
+            "quality": {
+              "ndcg_at_10": 0.9157293077639483,
+              "hit_at_10": 1.0,
+              "complete_at_10": 1.0,
+              "supported": 72,
+              "unsupported": 24,
+              "unsupported_accepted": 24
+            },
+            "exact_top10_fraction": 1.0,
+            "paired_ndcg": {
+              "delta": 0.0,
+              "ci95": [
+                0.0,
+                0.0
+              ],
+              "clusters": 6
+            }
+          },
+          {
+            "seed": 37,
+            "first_case": "worldbank/088",
+            "first_documents": 24,
+            "first_used_fallback": false,
+            "cold_first_ms": 548.9225187338889,
+            "after_first_search_ms": {
+              "p50": 3.4290931653231382,
+              "p95": 5.485176248475909
+            },
+            "peak_rss_mib": 168.5546875,
+            "fallback_queries": 0,
+            "final_documents": 24,
+            "quality": {
+              "ndcg_at_10": 0.9157293077639483,
+              "hit_at_10": 1.0,
+              "complete_at_10": 1.0,
+              "supported": 72,
+              "unsupported": 24,
+              "unsupported_accepted": 24
+            },
+            "exact_top10_fraction": 1.0,
+            "paired_ndcg": {
+              "delta": 0.0,
+              "ci95": [
+                0.0,
+                0.0
+              ],
+              "clusters": 6
+            }
+          }
+        ]
+      }
+    },
+    "etom-plain": {
+      "source": {
+        "revision": "790f28727f567b88918420d163c524d46644a694",
+        "sha256": {
+          "mcp_registry.json": "3c362877ec5733cf0fa1d3451b2f353fb97674e66075da0d7a6f41c0f98cc608",
+          "level_1.json": "9b6fdab8926cb5e21abddf0178f018de27d5b9636bd549b45798898b92eee028",
+          "level_2.json": "67abbf2574eda7c48a455b8d537ec218219e774ac7814b48f138d5eb662f10e2",
+          "level_5.json": "3fbbc6445c69176e84d7b514b9558433d28ed8592d95c14e1e4d28eba39129ae"
+        },
+        "documents": 2375,
+        "queries_by_level": {
+          "etom-l1": 781,
+          "etom-l2": 768,
+          "etom-l5": 91
+        },
+        "skipped_queries_with_incomplete_qrels": {
+          "l2": 5
+        }
+      },
+      "tools": 2375,
+      "runs": {
+        "bm25": [
+          {
+            "seed": 11,
+            "first_case": "l2/147",
+            "first_documents": 0,
+            "first_used_fallback": false,
+            "cold_first_ms": 373.10798396356404,
+            "after_first_search_ms": {
+              "p50": 1.0781730525195599,
+              "p95": 1.2268160935491323
+            },
+            "peak_rss_mib": 84.5625,
+            "fallback_queries": 0,
+            "final_documents": 0,
+            "quality": {
+              "ndcg_at_10": 0.8867795868243458,
+              "hit_at_10": 0.9683666881859264,
+              "complete_at_10": 0.921239509360878,
+              "supported": 1549,
+              "unsupported": 91,
+              "unsupported_accepted": 91
+            },
+            "exact_top10_fraction": 0.0,
+            "paired_ndcg": {
+              "delta": -0.04023524799615605,
+              "ci95": [
+                -0.048682315010150544,
+                -0.03202332458142167
+              ],
+              "clusters": 322
+            }
+          },
+          {
+            "seed": 23,
+            "first_case": "l5/48",
+            "first_documents": 0,
+            "first_used_fallback": false,
+            "cold_first_ms": 358.36507100611925,
+            "after_first_search_ms": {
+              "p50": 1.1074438225477934,
+              "p95": 1.6693449579179287
+            },
+            "peak_rss_mib": 84.80078125,
+            "fallback_queries": 0,
+            "final_documents": 0,
+            "quality": {
+              "ndcg_at_10": 0.8867795868243458,
+              "hit_at_10": 0.9683666881859264,
+              "complete_at_10": 0.921239509360878,
+              "supported": 1549,
+              "unsupported": 91,
+              "unsupported_accepted": 91
+            },
+            "exact_top10_fraction": 0.0,
+            "paired_ndcg": {
+              "delta": -0.04023524799615605,
+              "ci95": [
+                -0.048682315010150544,
+                -0.03202332458142167
+              ],
+              "clusters": 322
+            }
+          },
+          {
+            "seed": 37,
+            "first_case": "l2/617",
+            "first_documents": 0,
+            "first_used_fallback": false,
+            "cold_first_ms": 352.3884559981525,
+            "after_first_search_ms": {
+              "p50": 1.0888930410146713,
+              "p95": 1.2738271616399288
+            },
+            "peak_rss_mib": 84.7109375,
+            "fallback_queries": 0,
+            "final_documents": 0,
+            "quality": {
+              "ndcg_at_10": 0.8867795868243458,
+              "hit_at_10": 0.9683666881859264,
+              "complete_at_10": 0.921239509360878,
+              "supported": 1549,
+              "unsupported": 91,
+              "unsupported_accepted": 91
+            },
+            "exact_top10_fraction": 0.0,
+            "paired_ndcg": {
+              "delta": -0.04023524799615605,
+              "ci95": [
+                -0.048682315010150544,
+                -0.03202332458142167
+              ],
+              "clusters": 322
+            }
+          }
+        ],
+        "hybrid": [
+          {
+            "seed": 11,
+            "first_case": "l2/147",
+            "first_documents": 2375,
+            "first_used_fallback": false,
+            "cold_first_ms": 9199.627493042499,
+            "after_first_search_ms": {
+              "p50": 7.179642096161842,
+              "p95": 11.813050135970116
+            },
+            "peak_rss_mib": 296.0703125,
+            "fallback_queries": 0,
+            "final_documents": 2375,
+            "quality": {
+              "ndcg_at_10": 0.9270148348205017,
+              "hit_at_10": 0.9819238218205294,
+              "complete_at_10": 0.9457714654615881,
+              "supported": 1549,
+              "unsupported": 91,
+              "unsupported_accepted": 91
+            },
+            "exact_top10_fraction": 1.0,
+            "paired_ndcg": {
+              "delta": 0.0,
+              "ci95": [
+                0.0,
+                0.0
+              ],
+              "clusters": 322
+            }
+          },
+          {
+            "seed": 23,
+            "first_case": "l5/48",
+            "first_documents": 2375,
+            "first_used_fallback": false,
+            "cold_first_ms": 12921.03041172959,
+            "after_first_search_ms": {
+              "p50": 15.128874918445945,
+              "p95": 25.20084916613996
+            },
+            "peak_rss_mib": 309.93359375,
+            "fallback_queries": 0,
+            "final_documents": 2375,
+            "quality": {
+              "ndcg_at_10": 0.9270148348205017,
+              "hit_at_10": 0.9819238218205294,
+              "complete_at_10": 0.9457714654615881,
+              "supported": 1549,
+              "unsupported": 91,
+              "unsupported_accepted": 91
+            },
+            "exact_top10_fraction": 1.0,
+            "paired_ndcg": {
+              "delta": 0.0,
+              "ci95": [
+                0.0,
+                0.0
+              ],
+              "clusters": 322
+            }
+          },
+          {
+            "seed": 37,
+            "first_case": "l2/617",
+            "first_documents": 2375,
+            "first_used_fallback": false,
+            "cold_first_ms": 15421.608227072284,
+            "after_first_search_ms": {
+              "p50": 11.011556955054402,
+              "p95": 24.164461065083742
+            },
+            "peak_rss_mib": 311.46875,
+            "fallback_queries": 0,
+            "final_documents": 2375,
+            "quality": {
+              "ndcg_at_10": 0.9270148348205017,
+              "hit_at_10": 0.9819238218205294,
+              "complete_at_10": 0.9457714654615881,
+              "supported": 1549,
+              "unsupported": 91,
+              "unsupported_accepted": 91
+            },
+            "exact_top10_fraction": 1.0,
+            "paired_ndcg": {
+              "delta": 0.0,
+              "ci95": [
+                0.0,
+                0.0
+              ],
+              "clusters": 322
+            }
+          }
+        ],
+        "lexical": [
+          {
+            "seed": 11,
+            "first_case": "l2/147",
+            "first_documents": 64,
+            "first_used_fallback": false,
+            "cold_first_ms": 812.3850938864052,
+            "after_first_search_ms": {
+              "p50": 17.466400051489472,
+              "p95": 45.83638394251466
+            },
+            "peak_rss_mib": 308.54296875,
+            "fallback_queries": 0,
+            "final_documents": 2374,
+            "quality": {
+              "ndcg_at_10": 0.925412744796411,
+              "hit_at_10": 0.9793415106520336,
+              "complete_at_10": 0.9425435765009683,
+              "supported": 1549,
+              "unsupported": 91,
+              "unsupported_accepted": 91
+            },
+            "exact_top10_fraction": 0.027439024390243903,
+            "paired_ndcg": {
+              "delta": -0.0016020900240908415,
+              "ci95": [
+                -0.0042583592704376885,
+                0.0007202160441196833
+              ],
+              "clusters": 322
+            }
+          },
+          {
+            "seed": 23,
+            "first_case": "l5/48",
+            "first_documents": 64,
+            "first_used_fallback": false,
+            "cold_first_ms": 1487.4609119724482,
+            "after_first_search_ms": {
+              "p50": 17.997731920331717,
+              "p95": 50.678848987445235
+            },
+            "peak_rss_mib": 307.46875,
+            "fallback_queries": 0,
+            "final_documents": 2374,
+            "quality": {
+              "ndcg_at_10": 0.9245072599487822,
+              "hit_at_10": 0.9806326662362814,
+              "complete_at_10": 0.9431891542930924,
+              "supported": 1549,
+              "unsupported": 91,
+              "unsupported_accepted": 91
+            },
+            "exact_top10_fraction": 0.023170731707317073,
+            "paired_ndcg": {
+              "delta": -0.0025075748717194916,
+              "ci95": [
+                -0.0050314757450171605,
+                -0.000283213410335773
+              ],
+              "clusters": 322
+            }
+          },
+          {
+            "seed": 37,
+            "first_case": "l2/617",
+            "first_documents": 64,
+            "first_used_fallback": false,
+            "cold_first_ms": 1716.546090785414,
+            "after_first_search_ms": {
+              "p50": 12.621202040463686,
+              "p95": 37.89690509438515
+            },
+            "peak_rss_mib": 315.05859375,
+            "fallback_queries": 0,
+            "final_documents": 2374,
+            "quality": {
+              "ndcg_at_10": 0.9249712790585758,
+              "hit_at_10": 0.9793415106520336,
+              "complete_at_10": 0.9418979987088444,
+              "supported": 1549,
+              "unsupported": 91,
+              "unsupported_accepted": 91
+            },
+            "exact_top10_fraction": 0.031097560975609756,
+            "paired_ndcg": {
+              "delta": -0.002043555761926087,
+              "ci95": [
+                -0.004466326290031974,
+                0.0003095995462562783
+              ],
+              "clusters": 322
+            }
+          }
+        ],
+        "bucketed": [
+          {
+            "seed": 11,
+            "first_case": "l2/147",
+            "first_documents": 2375,
+            "first_used_fallback": false,
+            "cold_first_ms": 12393.97783507593,
+            "after_first_search_ms": {
+              "p50": 9.461989859119058,
+              "p95": 21.261058980599046
+            },
+            "peak_rss_mib": 309.4765625,
+            "fallback_queries": 0,
+            "final_documents": 2375,
+            "quality": {
+              "ndcg_at_10": 0.9253591553224984,
+              "hit_at_10": 0.9832149774047773,
+              "complete_at_10": 0.9457714654615881,
+              "supported": 1549,
+              "unsupported": 91,
+              "unsupported_accepted": 91
+            },
+            "exact_top10_fraction": 0.04207317073170732,
+            "paired_ndcg": {
+              "delta": -0.0016556794980035,
+              "ci95": [
+                -0.003875780451328044,
+                0.00038735501849731493
+              ],
+              "clusters": 322
+            }
+          },
+          {
+            "seed": 23,
+            "first_case": "l5/48",
+            "first_documents": 2375,
+            "first_used_fallback": false,
+            "cold_first_ms": 13064.306203275919,
+            "after_first_search_ms": {
+              "p50": 9.727664990350604,
+              "p95": 21.41563897021115
+            },
+            "peak_rss_mib": 311.7109375,
+            "fallback_queries": 0,
+            "final_documents": 2375,
+            "quality": {
+              "ndcg_at_10": 0.9253591553224984,
+              "hit_at_10": 0.9832149774047773,
+              "complete_at_10": 0.9457714654615881,
+              "supported": 1549,
+              "unsupported": 91,
+              "unsupported_accepted": 91
+            },
+            "exact_top10_fraction": 0.04207317073170732,
+            "paired_ndcg": {
+              "delta": -0.0016556794980035,
+              "ci95": [
+                -0.003875780451328044,
+                0.00038735501849731493
+              ],
+              "clusters": 322
+            }
+          },
+          {
+            "seed": 37,
+            "first_case": "l2/617",
+            "first_documents": 2375,
+            "first_used_fallback": false,
+            "cold_first_ms": 13856.223241891712,
+            "after_first_search_ms": {
+              "p50": 6.658998085185885,
+              "p95": 11.912174057215452
+            },
+            "peak_rss_mib": 306.35546875,
+            "fallback_queries": 0,
+            "final_documents": 2375,
+            "quality": {
+              "ndcg_at_10": 0.9253591553224984,
+              "hit_at_10": 0.9832149774047773,
+              "complete_at_10": 0.9457714654615881,
+              "supported": 1549,
+              "unsupported": 91,
+              "unsupported_accepted": 91
+            },
+            "exact_top10_fraction": 0.04207317073170732,
+            "paired_ndcg": {
+              "delta": -0.0016556794980035,
+              "ci95": [
+                -0.003875780451328044,
+                0.00038735501849731493
+              ],
+              "clusters": 322
+            }
+          }
+        ]
+      }
+    }
+  },
+  "external_compute_usd": 0
+}
