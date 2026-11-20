@@ -2,8 +2,8 @@
 
 ## Staged CPU package 0.2.0
 
-- Local MCP gateway with separate discovery and invocation allowlists, stable IDs, pagination, refresh, and reconnect.
-- Schema and revision checks for calls. Verified ONNX checkpoint with incremental catalog caching.
-- Matched retrieval and abstention benchmarks, plus local agent evaluation.
-- LangChain and Pydantic AI examples. Browser comparison, shortlist size, and runtime.
-- CPU wheel supports Python 3.12 and 3.13.
+- Discover stdio and Streamable HTTP tools with stable IDs, refresh, and separate discovery and invocation allowlists.
+- Check arguments and revisions. Cache embeddings from the verified INT8 checkpoint.
+- Choose model-free BM25 or hybrid. Calibrate per catalog and evaluate on holdout.
+- Try the offline wheel demo or verified LangChain and Pydantic AI integrations.
+- Rebuild the wheel from source. Python 3.12 and 3.13 supported. Browser starts in BM25 and loads inference for model-backed modes.

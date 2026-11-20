@@ -17,3 +17,4 @@
 - BM25 started offline with an empty model cache. On ETOM, first search took 0.32 s versus 9.42 s with cold hybrid embeddings. Hybrid led nDCG@10, 92.70 versus 88.68. [Gateway ranking](GATEWAY_RANKING.md)
 - LangChain and Pydantic AI discover tools each turn and discard extra proposals. Each passed two live trials verifying exact HTTP-to-stdio timestamp handoff and final answers. [Framework integrations](FRAMEWORK_INTEGRATIONS.md)
 - Live calibration cut unsupported NWS suggestions from 24/24 to 3/24 with 14/24 supported coverage, missing both targets. Catalog changes invalidated the cutoff. [Gateway calibration](GATEWAY_CALIBRATION.md)
+- Rebuilt the CPU wheel byte-for-byte from source. Its demo passed from a clean directory on Python 3.12 and 3.13. Browser BM25 starts without weights, with local inference on demand. [Release preview](RELEASE_PREVIEW.md)

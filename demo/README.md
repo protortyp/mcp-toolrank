@@ -15,7 +15,7 @@ models:
 
 Use a sample or **Tool catalog** to import MCP or OpenAPI JSON or YAML (128 tools or operations, 1 MB). Local OpenAPI path references work. Supplied MCP schemas appear in results.
 
-First run downloads a 34 MB encoder and WebAssembly. A local worker compares dense, hybrid and BM25, with setup/query times and five-tool JSON size. Examples label known no-matches. Custom results show unverified applicability.
+BM25 starts model-free and returns no matches without term overlap. Dense, hybrid and benchmarking load a 34 MB encoder and WebAssembly. Results show timings, shortlist bytes, and known no-matches. Custom applicability stays unverified.
 
 Run from `demo`.
 

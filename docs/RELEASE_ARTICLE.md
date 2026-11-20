@@ -1,9 +1,9 @@
 # What improved MCP tool retrieval
 
-Fine-tuning 33M-parameter BGE Small helped on compact descriptions. On native MCP JSON and ToolRet, it made little difference when both models used the same scoring. TF-IDF and BM25 raised BGE Small from 28.81 to 37.10 nDCG@10 on ToolRet. Fine-tuning added about a tenth of a point. [Reproduction and results](BASELINE_COMPARISON.md)
+We built a 33M-parameter retriever to shorten agent prompts. With matched hybrid scoring, fine-tuning added 0.70 nDCG@10 points on compact ETOM. Native MCP JSON and ToolRet intervals included zero. Lexical scoring raised BGE Small from 28.81 to 37.10 on ToolRet. [Matched experiments](BASELINE_COMPARISON.md)
 
-The gateway searches several local stdio catalogs, distinguishes duplicate names, preserves schemas, and checks allowlists and definition revisions before routing explicit calls. It uses the existing 34 MB CPU ONNX checkpoint. The browser shows what a five-tool shortlist would put in context. [Gateway](GATEWAY.md)
+The gateway discovers stdio and Streamable HTTP tools, preserves schemas, and checks permissions and revisions before calls. On 2,375 ETOM tools, model-free BM25 reached its first result in 0.32 seconds at 126 MiB peak RSS. Hybrid with uncached embeddings took 9.42 seconds at 287 MiB and scored 92.70 nDCG@10 versus BM25’s 88.68. [Gateway profiles](GATEWAY_RANKING.md)
 
-In a small agent test, ToolRank hybrid completed 16 of 22 trials with 85% fewer schema tokens than the all-tools arm, which completed 12. BGE dense also completed 16. Both hybrids struggled when available tools lacked permission or capability. [Agent evaluation](AGENT_EVALUATION.md)
+With local Qwen 7B and 93 tools, a ten-tool shortlist saved 93.4% of first-turn schema tokens. Shortlisting completed five of seven dependent workflows. The full catalog completed six. Both ran one proposal per turn and replanned after each result. [Agent evaluation](DEPENDENT_WORKFLOWS.md)
 
-For small, stable catalogs, consider passing schemas directly. For centralized authentication, choose a gateway built for that deployment. [Scope and limits](GATEWAY.md)
+Tiny catalogs may fit directly. NWS cosine rejection missed coverage and false-accept targets. The preview serves a trusted local client and requires explicit calls. [Calibration](GATEWAY_CALIBRATION.md) · [Try the preview](RELEASE_PREVIEW.md)

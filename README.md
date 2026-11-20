@@ -1,19 +1,20 @@
 # MCP ToolRank
 
-Discover, rank, and explicitly call allowlisted MCP tools over stdio or Streamable HTTP with a verified 34 MB CPU ONNX encoder.
+Discover, rank, and explicitly invoke allowlisted stdio/Streamable HTTP MCP tools. Model-free BM25 or hybrid with a verified 34 MB CPU encoder.
 
 On 11 simulated workflows, the ToolRank hybrid cut schema tokens by 85% compared with giving Qwen all tools. Both dense models and the ToolRank hybrid completed 16/22 trials. Qwen completed 12/22 with all tools. [Evaluation](docs/AGENT_EVALUATION.md)
 
 ## Try it
 
-The demo discovers the official MCP time and Git servers, then reads the time.
+Try the bundled offline demo from a checkout. It discovers two local tools and passes a clock reading to the calculation server.
 
 ```sh
-uv sync --project cpu --locked --extra gateway --no-editable
-uv run --project cpu --no-sync python examples/gateway_demo.py
+uv build cpu --out-dir dist/staged
+uvx --python 3.12 --from 'dist/staged/toolrank_cpu-0.2.0-py3-none-any.whl[gateway]' \
+  toolrank-gateway --demo
 ```
 
-In a local MCP client, use `search_tools`, then pass the selected ID, revision, and arguments to `invoke_tool`. Set separate discovery and invocation allowlists for one trusted principal. [Configuration](examples/gateway_config.json) · [Gateway guide](docs/GATEWAY.md)
+Set separate discovery and invocation allowlists. Pass the `search_tools` result’s ID and revision with arguments to `invoke_tool`. [Configuration](examples/gateway_config.json) · [Gateway guide](docs/GATEWAY.md) · [Release preview](docs/RELEASE_PREVIEW.md)
 
 Use `toolrank-cpu` for static catalogs on Python 3.12 or 3.13. [CLI and offline setup](docs/UVX_CPU.md) · [OpenAPI import](docs/OPENAPI_CATALOG.md)
 
