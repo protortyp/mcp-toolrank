@@ -89,7 +89,7 @@ async def run(args):
     metadata = {"scope": "Local tool proposals and simulated MCP receipts. Final answers are outside scoring.",
                 "interface": args.interface, "hardware": "NVIDIA RTX 3090, ONNX retrieval on CPU",
                 "model_revision": "bb5d59e06d9551d752d08b292a50eb208b07ab1f",
-                "llama_cpp_revision": "ff52ee964", "cases_sha256": digest(CASES),
+                "llama_cpp_revision": protocol["llama_cpp_revision"], "cases_sha256": digest(CASES),
                 "protocol_sha256": digest(protocol_path), "base_protocol_sha256": digest(PROTOCOL),
                 "source_sha256": digest(Path(__file__)), "base_source_sha256": digest(HERE / "agent.py"),
                 "gguf_sha256": {part.name: digest(part) for part in sorted(args.gguf.glob("*q4_k_m*.gguf"))},

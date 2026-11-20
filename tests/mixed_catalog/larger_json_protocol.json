@@ -1,6 +1,7 @@
 {
   "scope": "Run the same fixed JSON proposal interface with the larger local model after the native endpoint disconnected before its first 93-tool response. Preserve cases, prompts, scoring and ranking methods from agent_protocol.json.",
   "fixed_agent": "Qwen2.5-7B-Instruct Q4_K_M GGUF at bb5d59e06d9551d752d08b292a50eb208b07ab1f. llama.cpp ff52ee964, one 32768-token slot with prompt cache disabled, temperature zero.",
+  "llama_cpp_revision": "ff52ee964",
   "seeds": [11],
   "external_compute_usd": 0
 }
