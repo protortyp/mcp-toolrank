@@ -1,10 +1,10 @@
 # 17M tool retrieval pilot
 
-Three-layer MIT-tagged BGE Micro used 5,098 audited requests and 263 tool descriptions. Shared teacher-mined negatives used provider/name uncertainty masks. Distillation added ToolRank 33M scores to label loss. RTX 3090, three one-epoch seeds, 512-token limit.
+MIT-tagged three-layer BGE Micro trained three RTX 3090 seeds (one epoch, 512 tokens), sharing 5,098 audited requests, 263 tool descriptions, and masked teacher-mined negatives.
 
 ## Development
 
-Family-macro hybrid nDCG@10 across 872 requests, 34 tools, nine disjoint repository families.
+Family-macro hybrid nDCG@10 (872 requests, 34 tools, nine disjoint families).
 
 | Encoder | nDCG@10 |
 | --- | ---: |
@@ -14,13 +14,13 @@ Family-macro hybrid nDCG@10 across 872 requests, 34 tools, nine disjoint reposit
 | Micro, labels only, three seeds | 94.42–94.51% |
 | Micro, distillation, three seeds | 94.45–94.46% |
 
-Distillation shifted −0.04 to +0.03 points per seed. All paired intervals included zero. Both arms had 17.39M parameters. Retraining reproduced development within 0.003 points with different weight hashes. [Replay](../results/micro_distillation_replay.json)
+Distillation intervals included zero. Retrained scores matched within 0.003 points. Weight hashes differed. [Replay](../results/micro_distillation_replay.json)
 
-INT8 label-only seed 11 versus ToolRank measured 17.48 vs 34.09 MB and 94.43% vs 94.65% macro development nDCG@10. Four-thread Ryzen 9 5950X p95 was 1.15 vs 4.21 ms short and 24.08 vs 66.14 ms long (64 interleaved calls per graph/workload).
+Label-only INT8 measured 17.48 vs 34.09 MB. Four-thread Ryzen 9 5950X p95 fell 4.21→1.15 ms short, 66.14→24.08 ms long.
 
 ## Held-out results
 
-Only label-only seed 11 advanced. Protocol froze graph hash, matched hybrid scorer, size/latency limits, and per-catalog noninferiority before holdouts. Ranking excludes unsupported requests.
+Frozen gates evaluated label-only seed 11 on answerable requests.
 
 | Holdout | Micro nDCG@10 | ToolRank nDCG@10 | Difference, points (95% interval) | Gate |
 | --- | ---: | ---: | ---: | --- |
@@ -30,11 +30,13 @@ Only label-only seed 11 advanced. Protocol froze graph hash, matched hybrid scor
 | ETOM OpenAI JSON | 91.44% | 91.80% | -0.35 [-0.95, +0.24] | Pass |
 | ToolRet | — | — | Pending | Running |
 
-**Keep ToolRank 33M.** Compact ETOM failed the −1.00-point lower-bound gate. ToolRet CPU evaluation is running. Exact overlap checks found no training queries or tool texts in the holdouts. [Overlap audit](../results/micro_holdout_overlap.json)
+**Keep ToolRank 33M.** Compact ETOM missed the −1.00-point lower bound. CPU INT8 ToolRet pending. [Overlap audit](../results/micro_holdout_overlap.json)
+
+RTX 3090 FP32 ToolRet delta −2.13 hybrid nDCG@10 points (35-source paired 95% interval −3.59 to −0.84). Indexing took 36.56 vs 98.71 s. [GPU results](../results/micro_toolret_gpu.json)
 
 ## Reproduce
 
-Held-out replay uses the exact archived local checkpoint.
+Archived replay caches by graph, ordered text and batching (`--catalog-cache DIR`).
 
 [Data intake](MODERN_MCP.md) · [Base](https://huggingface.co/TaylorAI/bge-micro-v2/tree/3edf6d7de0faa426b09780416fe61009f26ae589) · [Teacher](https://huggingface.co/christianengel/mcp-toolrank-33m/tree/a24a121266154006e2bd2e32a41576437c3455c2)
 
@@ -61,6 +63,9 @@ uv run --no-sync python -m toolrank.profile_micro_distillation --arm labels \
 uv run --no-sync python -m toolrank.evaluate_micro_holdout \
   --int8 "$int8" --models /path/to/archived-original-models \
   --cpu-profile results/micro_labels_cpu.json --output "$replay/holdout.json"
+.work/venv-micro-cu/bin/python -m toolrank.profile_micro_gpu_toolret \
+  --teacher "$teacher" --candidate /path/to/archived-original-models/labels-11 \
+  --training-record results/micro_distillation_training.json --output "$replay/toolret-gpu.json"
 ```
 
 [Training](../results/micro_distillation_training.json) · [Development](../results/micro_distillation_development.json) · [CPU label-only](../results/micro_labels_cpu.json) · [CPU distilled](../results/micro_distillation_cpu.json) · [Frozen gate](../toolrank/micro_holdout_protocol.json) · [Holdout](../results/micro_holdout.json)
