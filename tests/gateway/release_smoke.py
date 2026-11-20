@@ -115,8 +115,10 @@ async def check(args):
         with ZipFile(args.wheel) as wheel:
             if any(f"toolrank_cpu/{name}" not in wheel.namelist() for name in CHECKPOINT_ASSETS):
                 raise ValueError("Wheel is missing an expected runtime asset")
+        catalog = directory / "catalog.json"
+        catalog.write_text(json.dumps(CATALOG))
         records = []
-        for python in ("3.12", "3.13"):
+        for python in ("3.11", "3.12", "3.13", "3.14"):
             start = perf_counter()
             demo = json.loads(run(["uvx", "--isolated", "--offline", "--python", python,
                                    "--from", f"{args.wheel}[gateway]", "toolrank-gateway", "--demo"], directory))
@@ -127,24 +129,24 @@ async def check(args):
                 raise ValueError("Installed gateway demo returned unexpected results")
             if (directory / "cache/toolrank").exists():
                 raise ValueError("The model-free demo touched the checkpoint cache")
+            ranked = json.loads(run(["uvx", "--isolated", "--offline", "--python", python,
+                                     "--from", str(args.wheel), "toolrank-cpu", str(catalog),
+                                     "What time is it now?", "--checkpoint", str(args.checkpoint), "--hybrid",
+                                     "--limit", "1"], directory))
+            match = ranked[0]["tool"]["name"]
+            if match != "get_current_time":
+                raise ValueError(f"Installed CPU ranker returned an unexpected match on Python {python}")
             records.append({"python": python, "elapsed_seconds": elapsed, "ordered_calls": demo["invoked_tools"],
-                            "minutes_match_clock_receipt": True, "empty_model_cache": True})
+                            "minutes_match_clock_receipt": True, "empty_model_cache": True, "onnx_cli_match": match})
         upstreams = inventory(args, directory) if args.inventory_config or args.client_config else None
         search = live_search(args, directory) if args.search_config else None
-        catalog = directory / "catalog.json"
-        catalog.write_text(json.dumps(CATALOG))
-        ranked = json.loads(run(["uvx", "--isolated", "--offline", "--python", "3.12", "--from", str(args.wheel),
-                                 "toolrank-cpu", str(catalog), "What time is it now?", "--checkpoint",
-                                 str(args.checkpoint), "--hybrid", "--limit", "1"], directory))
-        if ranked[0]["tool"]["name"] != "get_current_time":
-            raise ValueError("Installed CPU ranker returned an unexpected match")
         desktop = await desktop_bundle(args.bundle, directory, catalog)
     return {"revision": subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip(),
             "source_sha256": digest(Path(__file__)), "platform": platform.platform(),
             "uv_version": subprocess.check_output(["uv", "--version"], text=True).strip(),
             "artifacts": {path.name: digest(path) for path in release}, "wheel_rebuild_identical": True,
             "offline_with_cached_dependencies": True, "fresh_install_demos": records,
-            "installed_onnx_cli_match": ranked[0]["tool"]["name"], "desktop_bundle": desktop,
+            "installed_onnx_cli_match": records[0]["onnx_cli_match"], "desktop_bundle": desktop,
             "installed_live_inventory": upstreams, "client_config_imported": bool(args.client_config),
             "installed_live_search": search, "external_compute_usd": 0}
 

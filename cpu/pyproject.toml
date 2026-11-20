@@ -1,14 +1,28 @@
 [project]
 name = "toolrank-cpu"
-version = "0.5.0"
+version = "0.6.0"
 description = "Local ToolRank CPU retrieval for MCP and OpenAPI catalogs"
-requires-python = ">=3.12,<3.14"
+readme = "README.md"
+requires-python = ">=3.11,<3.15"
+classifiers = [
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+]
 license = "Apache-2.0"
 dependencies = [
-    "numpy==2.5.5",
+    "numpy==2.4.6; python_version == '3.11'",
+    "numpy==2.5.5; python_version >= '3.12'",
     "onnxruntime==1.24.1",
     "tokenizers==0.22.2",
 ]
+
+[project.urls]
+Repository = "https://github.com/protortyp/mcp-toolrank"
+Documentation = "https://github.com/protortyp/mcp-toolrank/blob/main/docs/GATEWAY.md"
+Issues = "https://github.com/protortyp/mcp-toolrank/issues"
+Model = "https://huggingface.co/christianengel/mcp-toolrank-33m"
 
 [project.scripts]
 toolrank-cpu = "toolrank_cpu.cli:main"
@@ -29,6 +43,6 @@ build-backend = "hatchling.build"
 packages = ["toolrank_cpu"]
 
 [tool.hatch.build.targets.sdist]
-include = ["/hatch_build.py", "/pyproject.toml", "/toolrank_cpu", "/uv.lock"]
+include = ["/README.md", "/hatch_build.py", "/pyproject.toml", "/toolrank_cpu", "/uv.lock"]
 
 [tool.hatch.build.hooks.custom]
