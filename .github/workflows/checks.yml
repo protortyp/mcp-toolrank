@@ -21,3 +21,17 @@ jobs:
       - run: uv run --no-sync python -c "from toolrank.selector import ToolSelector; from examples.langchain_agent import build_agent; import pydantic_ai, onnxruntime"
       - run: uv run --no-sync python -m unittest discover -s tests
       - run: uv build
+  browser:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: demo
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: "24"
+          cache: npm
+          cache-dependency-path: demo/package-lock.json
+      - run: npm ci
+      - run: npm run build
