@@ -27,6 +27,7 @@ jobs:
       - run: uv run --no-sync python -c "from toolrank.selector import ToolSelector; from examples.langchain_agent import build_agent; import pydantic_ai, onnxruntime"
       - run: uv run --no-sync python -m unittest discover -s tests
       - run: uv run --no-sync python -m unittest discover -s tests/nws_pilot
+      - run: uv run --no-sync python -m unittest discover -s tests/bfcl_shortlist
       - run: uv run --locked --script examples/search_mcp.py --help
       - run: uv run --locked --script examples/openapi_catalog.py --help
       - run: uv build

@@ -21,7 +21,14 @@ async def run(args):
             names = [match["id"] for match in matches]
             if "repository/git_status" not in names or "clock/get_current_time" not in names:
                 raise RuntimeError("Both configured servers must be visible")
-            tool = next(match for match in matches if match["id"] == "clock/get_current_time")
+            executable = await session.call_tool("search_tools", {
+                "query": "What time is it in Tokyo?", "limit": 1, "invocable_only": True,
+            })
+            if executable.isError or [row["id"] for row in executable.structuredContent["matches"]] != [
+                "clock/get_current_time"
+            ]:
+                raise RuntimeError("The execution shortlist must contain only the allowlisted clock tool")
+            tool = executable.structuredContent["matches"][0]
             response = await session.call_tool("invoke_tool", {
                 "tool_id": tool["id"], "revision": tool["revision"], "arguments": {"timezone": "Asia/Tokyo"},
             })

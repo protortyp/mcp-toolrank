@@ -26,7 +26,7 @@ async def clock_tool(args):
     async with stdio_client(StdioServerParameters(command=args.gateway, args=command)) as (read, write):
         async with ClientSession(read, write) as client:
             await client.initialize()
-            found = await client.call_tool("search_tools", {"query": args.query, "limit": 3})
+            found = await client.call_tool("search_tools", {"query": args.query, "limit": 3, "invocable_only": True})
             candidates = (found.structuredContent or {}).get("matches", [])
             clock = next((tool for tool in candidates if tool["id"] == "clock/get_current_time"
                           and tool["invocable"]), None)

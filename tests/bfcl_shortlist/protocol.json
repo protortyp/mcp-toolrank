@@ -1,0 +1,9 @@
+{
+  "selection": "Evaluate all requests in the three pinned BFCL V4 live subsets. Retain original candidate menus and gold function names. Join user messages in original order; exclude assistant and system text.",
+  "retrieval": "BM25, BGE Small INT8 and ToolRank INT8 with identical descriptions and exact deployed hybrid weights. Score each request's native menu. Stable ties follow sorted function name.",
+  "policies": "All tools, rank top five, rank top ten, and use top five only when it saves at least half of compact tool JSON bytes, otherwise retain all. Establish byte savings and complete gold retrieval across all requests and native catalog-size bands.",
+  "abstention": "Transfer each encoder's existing NWS cosine threshold without adjusting it on BFCL. Report BFCL unsupported acceptance separately and compare supported gold retrieval.",
+  "seeds": [20261120],
+  "exclusions": "No tool invocation, no agent success metric, no per-record text release, no training or method tuning.",
+  "external_compute_usd": 0
+}
