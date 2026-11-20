@@ -64,7 +64,7 @@ def static_export(source, target, root, protocol):
     calibration = Calibration(tokenizer, texts)
     with TemporaryDirectory() as directory:
         prepared = Path(directory) / "inferred.onnx"
-        quant_pre_process(source, prepared, skip_optimization=True)
+        quant_pre_process(source, prepared, skip_optimization=True, skip_symbolic_shape=True)
         quantize_static(prepared, target, calibration, quant_format=QuantFormat.QDQ,
                         activation_type=QuantType.QInt8, weight_type=QuantType.QInt8,
                         per_channel=settings["per_channel"], op_types_to_quantize=settings["ops"],
