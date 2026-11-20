@@ -1,6 +1,11 @@
+from pathlib import Path
+from tempfile import TemporaryDirectory
 import unittest
 
+import numpy as np
 import torch
+
+from toolrank.evaluate_micro_holdout import catalog_vectors
 
 from toolrank.train_micro_distillation import keys_and_judgments, softened_kl
 
@@ -27,3 +32,21 @@ class DistillationTests(unittest.TestCase):
         first.backward()
         self.assertTrue(torch.isfinite(student.grad).all())
         self.assertEqual(student.grad[0, 2].item(), 0)
+
+
+    def test_catalog_replay_uses_cached_vectors_without_changing_batch_boundaries(self):
+        calls = []
+
+        class Encoder:
+            def encode(self, texts):
+                calls.append(texts)
+                return np.stack([np.full(384, float(text), dtype=np.float32) for text in texts])
+
+        with TemporaryDirectory() as directory:
+            path = Path(directory) / "catalog.npz"
+            first, cold = catalog_vectors(Encoder(), ["1", "2", "3"], 2, path)
+            cached, warmed = catalog_vectors(Encoder(), ["1", "2", "3"], 2, path)
+            self.assertFalse(cold)
+            self.assertTrue(warmed)
+            self.assertEqual(calls, [["1", "2"], ["3"]])
+            np.testing.assert_equal(first, cached)

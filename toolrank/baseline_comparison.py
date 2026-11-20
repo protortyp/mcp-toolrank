@@ -11,6 +11,7 @@ import numpy as np
 from sklearn.feature_extraction.text import TfidfVectorizer
 import torch
 
+from examples.catalog_lexical import top_indices
 from toolrank.benchmark import encode
 from toolrank.core import BGE, REX, SCOUT, load_model, metrics, write_json
 from toolrank.etom import FILES, REVISION
@@ -132,9 +133,8 @@ def compare(dataset, models, device, batch_size, paired_models=("bge", "toolrank
                  for name, (document, query) in vectors.items()}
         for name, scores in rankings(dense, tfidf, bm25, paired_models):
             # Stable ties use the same sorted tool IDs across systems.
-            indices = np.argsort(-scores, axis=1, kind="stable")[:, :10]
-            per_row[name].extend(measure(order, gold)
-                                 for order, gold in zip(keys[indices], labels[subset], strict=True))
+            per_row[name].extend(measure(keys[top_indices(row, 10)], gold)
+                                 for row, gold in zip(scores, labels[subset], strict=True))
     results = {name: {metric: float(np.mean([row[metric] for row in rows]))
                       for metric in rows[0]} for name, rows in per_row.items()}
     paired = {}
