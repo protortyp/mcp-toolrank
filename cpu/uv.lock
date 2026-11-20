@@ -703,12 +703,14 @@ dependencies = [
 
 [package.optional-dependencies]
 gateway = [
+    { name = "httpx" },
     { name = "jsonschema" },
     { name = "mcp" },
 ]
 
 [package.metadata]
 requires-dist = [
+    { name = "httpx", marker = "extra == 'gateway'", specifier = "==0.28.1" },
     { name = "jsonschema", marker = "extra == 'gateway'", specifier = "==4.26.0" },
     { name = "mcp", marker = "extra == 'gateway'", specifier = "==1.30.0" },
     { name = "numpy", specifier = "==2.5.5" },

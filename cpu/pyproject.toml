@@ -16,6 +16,7 @@ toolrank-gateway = "toolrank_cpu.cli:gateway_main"
 
 [project.optional-dependencies]
 gateway = [
+    "httpx==0.28.1",
     "jsonschema==4.26.0",
     "mcp==1.30.0",
 ]

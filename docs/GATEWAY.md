@@ -1,6 +1,6 @@
 # MCP discovery gateway
 
-ToolRank searches allowed tools across configured stdio servers. Each result includes the original name, description, input schema, and invocation status. Stable IDs use `server/name` to distinguish duplicate names.
+ToolRank searches allowlisted tools over stdio and Streamable HTTP. Results preserve names, descriptions, input schemas, and invocation status. Stable `server/name` IDs distinguish duplicates.
 
 Run the demo from the checkout. It discovers tools on the official time and Git servers and calls the time server. Git is discovery-only.
 
@@ -20,6 +20,20 @@ Use one gateway and cache per trusted local principal. Upstream credentials are 
 [Example configuration](../examples/gateway_config.json) · [MCP tools specification](https://modelcontextprotocol.io/specification/2025-11-25/server/tools)
 
 Python clients can use `Gateway.from_config` and `async with gateway.running()`.
+
+## Streamable HTTP upstreams
+
+Mix stdio and HTTP entries. For HTTP, set `transport` to `streamable_http` and `url` to the MCP endpoint. Optional `bearer_token_env` names a per-upstream token variable. Discovery and invocation allowlists apply. Remote endpoints require HTTPS. Plain HTTP is loopback-only. Direct connections reject redirects to prevent invocation replay. Clients use stdio. The pinned SDK negotiates through MCP `2025-11-25`.
+
+With the gateway extra installed, use separate terminals. The demo calls the HTTP clock and keeps Git discovery-only.
+
+```sh
+uv run --project cpu --no-sync python examples/gateway_http_clock.py
+uv run --project cpu --no-sync python examples/gateway_demo.py \
+  --config examples/gateway_http_config.json
+```
+
+The installed wheel discovered `search_cloudflare_documentation` at `https://docs.mcp.cloudflare.com/mcp` with discovery-only permissions. [Mixed configuration](../examples/gateway_http_config.json) · [Smoke results](../results/gateway_http_smoke.json) · [MCP transport](https://modelcontextprotocol.io/specification/2025-11-25/basic/transports) · [Cloudflare endpoint](https://github.com/cloudflare/mcp-server-cloudflare/blob/main/server.json)
 
 ## MCP Inspector
 

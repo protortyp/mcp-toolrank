@@ -1,6 +1,6 @@
 # MCP ToolRank
 
-Discover, rank, and explicitly call permitted tools across local MCP servers. ToolRank runs on CPU with a verified 34 MB ONNX encoder.
+Discover, rank, and explicitly call allowlisted MCP tools over stdio or Streamable HTTP with a verified 34 MB CPU ONNX encoder.
 
 On 11 simulated workflows, the ToolRank hybrid cut schema tokens by 85% compared with giving Qwen all tools. Both dense models and the ToolRank hybrid completed 16/22 trials. Qwen completed 12/22 with all tools. [Evaluation](docs/AGENT_EVALUATION.md)
 

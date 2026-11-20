@@ -6,18 +6,21 @@ from contextlib import asynccontextmanager
 from copy import deepcopy
 from dataclasses import dataclass
 from hashlib import sha256
+from ipaddress import ip_address
 import json
 import logging
 import os
 from pathlib import Path
 from threading import Lock
-from typing import Annotated
+from typing import Annotated, Literal
 
 import anyio
+import httpx
 import numpy as np
 from jsonschema.validators import validator_for
 from mcp import ClientSession, StdioServerParameters, types
 from mcp.client.stdio import stdio_client
+from mcp.client.streamable_http import streamable_http_client
 from mcp.server.fastmcp import FastMCP
 from mcp.shared.exceptions import McpError
 from pydantic import BaseModel, ConfigDict, Field, model_validator
@@ -32,22 +35,50 @@ class UpstreamConfig(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
     id: str = Field(pattern=r"^[a-zA-Z0-9][a-zA-Z0-9_-]{0,63}$")
-    command: str = Field(min_length=1)
+    transport: Literal["stdio", "streamable_http"] = "stdio"
+    command: str | None = Field(default=None, min_length=1)
     args: list[str] = Field(default_factory=list)
     cwd: str | None = None
     env: dict[str, str] = Field(default_factory=dict)
+    url: str | None = None
+    bearer_token_env: str | None = Field(default=None, pattern=r"^[a-zA-Z_][a-zA-Z0-9_]*$")
     discover: set[str]
     invoke: set[str] = Field(default_factory=set)
 
     @model_validator(mode="after")
-    def validate_allowlists(self):
+    def validate_settings(self):
         if not self.invoke <= self.discover:
             raise ValueError("invoke allowlist must be a subset of discover")
+        if self.transport == "stdio":
+            if self.command is None or self.url is not None or self.bearer_token_env is not None:
+                raise ValueError("stdio requires command and accepts only process settings")
+        else:
+            if self.url is None or self.command is not None or self.args or self.cwd is not None or self.env:
+                raise ValueError("streamable_http requires url and accepts only HTTP settings")
+            validate_http_endpoint(self.url)
         return self
 
     def process_parameters(self):
+        if self.command is None:
+            raise ValueError("This upstream does not start a process")
         return StdioServerParameters(command=self.command, args=self.args, cwd=self.cwd,
                                      env={key: os.environ[value] for key, value in self.env.items()})
+
+
+def validate_http_endpoint(value):
+    try:
+        endpoint = httpx.URL(value)
+    except httpx.InvalidURL:
+        raise ValueError("Invalid Streamable HTTP endpoint") from None
+    if endpoint.scheme not in {"http", "https"} or not endpoint.host or endpoint.userinfo or "#" in value:
+        raise ValueError("Use an absolute MCP endpoint without user information or fragments")
+    if endpoint.scheme == "http":
+        try:
+            loopback = ip_address(endpoint.host).is_loopback
+        except ValueError:
+            loopback = endpoint.host == "localhost"
+        if not loopback:
+            raise ValueError("Remote Streamable HTTP endpoints require HTTPS")
 
 
 class GatewayConfig(BaseModel):
@@ -153,34 +184,59 @@ class Upstream:
             self.ready.set()
 
     async def run(self):
-        try:
+        while not self.stopping:
+            try:
+                self.reconnect = False
+                async with self.connect() as (read, write):
+                    async with ClientSession(read, write, message_handler=self.on_message) as session:
+                        try:
+                            async with asyncio.timeout(self.timeout):
+                                await session.initialize()
+                            while not self.reconnect and not self.stopping:
+                                await self.refresh(session)
+                                if not self.stopping:
+                                    await self.wait_for_change(self.interval)
+                        finally:
+                            self.clear_catalog()
+            except Exception:
+                self.clear_catalog()
+            finally:
+                self.ready.set()
+            if not self.stopping:
+                self.changed.clear()
+                await self.wait_for_change(min(self.interval, 2.0))
+
+    @asynccontextmanager
+    async def connect(self):
+        if self.config.transport == "stdio":
             with open(os.devnull, "w") as quiet:
-                while not self.stopping:
-                    try:
-                        self.reconnect = False
-                        parameters = self.config.process_parameters()
-                        async with stdio_client(parameters, errlog=quiet) as (read, write):
-                            async with ClientSession(read, write, message_handler=self.on_message) as session:
-                                async with asyncio.timeout(self.timeout):
-                                    await session.initialize()
-                                while not self.reconnect and not self.stopping:
-                                    await self.refresh(session)
-                                    if not self.stopping:
-                                        await self.wait_for_change(self.interval)
-                    except Exception:
-                        self.state = "unavailable"
-                    finally:
-                        self.session = None
-                        self.entries = {}
-                        self.state = "unavailable"
-                        self.ready.set()
-                    if not self.stopping:
-                        self.changed.clear()
-                        await self.wait_for_change(min(self.interval, 2.0))
-        finally:
-            self.session = None
-            self.entries = {}
-            self.state = "unavailable"
+                async with stdio_client(self.config.process_parameters(), errlog=quiet) as streams:
+                    yield streams
+            return
+
+        headers = {}
+        if self.config.bearer_token_env:
+            token = os.environ[self.config.bearer_token_env]
+            if not token.strip():
+                raise ValueError("MCP bearer token is empty")
+            headers["Authorization"] = f"Bearer {token}"
+
+        # Bound session cleanup separately from idle server-event streams.
+        async def limit_cleanup(request):
+            if request.method == "DELETE":
+                request.extensions["timeout"] = httpx.Timeout(self.timeout).as_dict()
+
+        async def handle_session_expiry(response):
+            request = response.request
+            if response.status_code == 404 and request.method == "POST" and "mcp-session-id" in request.headers:
+                self.invalidate()
+
+        async with httpx.AsyncClient(headers=headers, timeout=httpx.Timeout(self.timeout, read=300),
+                                     trust_env=False, max_redirects=0,
+                                     event_hooks={"request": [limit_cleanup],
+                                                  "response": [handle_session_expiry]}) as client:
+            async with streamable_http_client(self.config.url, http_client=client) as (read, write, _):
+                yield read, write
 
     async def wait_for_change(self, delay):
         try:
@@ -192,9 +248,13 @@ class Upstream:
         self.stopping = True
         self.changed.set()
 
-    def invalidate(self):
+    def clear_catalog(self):
+        self.session = None
         self.entries = {}
         self.state = "unavailable"
+
+    def invalidate(self):
+        self.clear_catalog()
         self.reconnect = True
         self.changed.set()
 
@@ -421,9 +481,10 @@ def main():
     except (OSError, ValueError):
         parser.exit(2, "Could not load ToolRank gateway configuration or checkpoint.\n")
     # The SDK can log malformed protocol payloads. Keep upstream data off stdio logs.
-    logger = logging.getLogger("mcp")
-    logger.handlers = [logging.NullHandler()]
-    logger.propagate = False
+    for name in ("mcp", "httpx", "httpcore"):
+        logger = logging.getLogger(name)
+        logger.handlers = [logging.NullHandler()]
+        logger.propagate = False
     build_server(gateway).run()
 
 
