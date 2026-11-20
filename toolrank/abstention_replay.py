@@ -13,6 +13,7 @@ import subprocess
 from time import perf_counter
 
 import numpy as np
+import onnxruntime as ort
 
 from examples.catalog_lexical import top_indices, words
 from examples.openapi_catalog import catalog_from_openapi
@@ -113,6 +114,15 @@ def score_queries(ranker, coverage, cases, protocol):
     return samples
 
 
+def wilson_95(count, total):
+    proportion = count / total
+    z = 1.959963984540054
+    center = proportion + z**2 / (2 * total)
+    radius = z * math.sqrt((proportion * (1 - proportion) + z**2 / (4 * total)) / total)
+    scale = 1 + z**2 / total
+    return [max(0.0, (center - radius) / scale), min(1.0, (center + radius) / scale)]
+
+
 def scope_metrics(samples, names, method, k, threshold=None):
     supported = unsupported = hits_1 = hits_k = accepted_supported = accepted_unsupported = 0
     all_indices = np.arange(len(names))
@@ -142,15 +152,13 @@ def scope_metrics(samples, names, method, k, threshold=None):
             "accepted_unsupported": accepted_unsupported, "supported_hits_at_1": hits_1,
             "supported_hits_at_5": hits_k, "supported_hit_at_5": hits_k / supported,
             "supported_coverage": accepted_supported / supported, "false_acceptance": accepted_unsupported / unsupported,
+            "supported_coverage_wilson_95": wilson_95(accepted_supported, supported),
+            "false_acceptance_wilson_95": wilson_95(accepted_unsupported, unsupported),
             "selective_hit_at_5": hits_k / accepted if accepted else None}
 
 
 def validate_catalog(name, catalog, names):
     names = set(names)
-    development = {query.strip().casefold() for query, _ in catalog.calibration}
-    holdout = {query.strip().casefold() for query, _ in catalog.holdout}
-    if development & holdout:
-        raise ValueError(f"Repeated calibration/holdout request in {name}")
     if any(gold - names for _, gold in catalog.calibration + catalog.holdout):
         raise ValueError(f"Invalid relevant tool for {name}")
 
@@ -163,6 +171,10 @@ def replay(checkpoint, protocol):
     k = ranking["top_k"]
     calibrated = {}
     catalog_data = catalogs()
+    development = {query.strip().casefold() for catalog in catalog_data.values() for query, _ in catalog.calibration}
+    holdout = {query.strip().casefold() for catalog in catalog_data.values() for query, _ in catalog.holdout}
+    if development & holdout:
+        raise ValueError("Repeated calibration/holdout request")
     fingerprints = checkpoint_checksums(checkpoint, "embedding-int8.onnx")
     if fingerprints["onnx/embedding-int8.onnx"] != protocol["checkpoint_sha256"]:
         raise ValueError("Use the INT8 graph pinned in the protocol")
@@ -209,16 +221,18 @@ def replay(checkpoint, protocol):
             }
 
     gate = protocol["gate"]
-    local_passes = {
-        method: {name: (record["false_acceptance"] <= gate["max_false_accept"]
-                        and record["supported_coverage"] >= gate["min_supported_coverage"]
-                        and record["supported_hit_at_5"] >= gate["min_supported_hit_at_5"])
-                 for name, result in records.items() if name in calibrated
-                 for record in [result["cutoffs_fitted_from"][name][method]["holdout"]]}
-        for method in protocol["signals"][2:]
-    }
+    local_passes = {method: {} for method in protocol["signals"][2:]}
+    for name in calibrated:
+        local = records[name]["cutoffs_fitted_from"][name]
+        for method, trial in local.items():
+            metrics = trial["holdout"]
+            local_passes[method][name] = (
+                metrics["false_acceptance"] <= gate["max_false_accept"]
+                and metrics["supported_coverage"] >= gate["min_supported_coverage"]
+                and metrics["supported_hit_at_5"] >= gate["min_supported_hit_at_5"]
+            )
     return {"revision": subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip(),
-            "platform": platform.platform(), "numpy": np.__version__,
+            "platform": platform.platform(), "numpy": np.__version__, "onnxruntime": ort.__version__,
             "checkpoint_sha256": fingerprints, "source_sha256": sha256(Path(__file__).read_bytes()).hexdigest(),
             "input_sha256": {str(path.relative_to(ROOT)): sha256(path.read_bytes()).hexdigest() for path in inputs},
             "protocol": protocol, "catalogs": records, "passes_local_gate": local_passes,
