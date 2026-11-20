@@ -1,6 +1,7 @@
 """Audit micro retriever errors and prioritize unjudged training pairs for review."""
 import argparse
 from collections import Counter
+import json
 from pathlib import Path
 import subprocess
 from time import perf_counter
@@ -81,14 +82,16 @@ def audit_mask(training, teacher_scores):
         counts["queries_with_masked_unknown"] += bool((~eligible).any())
         counts["top_unjudged_in_same_repository"] += repositories[top] in same_repository
         counts["top_unjudged_masked"] += not eligible[top]
-        counts["top_unjudged_above_best_positive"] += scores[top] > scores[best]
+        counts["top_unjudged_above_best_positive"] += bool(scores[top] > scores[best])
         if repositories[top] in same_repository:
-            pair = (keys[best], keys[top])
+            judged_siblings = [index for index in gold if repositories[index] == repositories[top]]
+            anchor = judged_siblings[scores[judged_siblings].argmax()]
+            pair = (keys[anchor], keys[top])
             pairs[pair] += 1
-            counts["top_unjudged_same_repository_above_best_positive"] += scores[top] > scores[best]
-            queue.append({"query_id": query["id"], "best_judged": pair[0], "unjudged_candidate": pair[1],
-                          "cosine_gap": float(scores[top] - scores[best])})
-    queue.sort(key=lambda row: (-pairs[row["best_judged"], row["unjudged_candidate"]],
+            counts["top_unjudged_same_repository_above_best_positive"] += bool(scores[top] > scores[best])
+            queue.append({"query_id": query["id"], "judged_sibling": pair[0], "unjudged_candidate": pair[1],
+                          "cosine_gap": float(scores[top] - scores[anchor])})
+    queue.sort(key=lambda row: (-pairs[row["judged_sibling"], row["unjudged_candidate"]],
                                 -row["cosine_gap"], row["query_id"]))
     return dict(counts) | {
         "queries": len(training["queries"]), "tools": len(keys), "repositories": len(set(repositories)),
@@ -155,8 +158,6 @@ def run(args):
         # Local review aid. Identifiers refer to the audited training input only.
         args.review_queue.parent.mkdir(parents=True, exist_ok=True)
         with args.review_queue.open("x", encoding="utf-8") as stream:
-            import json
-
             json.dump(queue, stream, indent=2)
             stream.write("\n")
     return {
