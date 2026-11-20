@@ -1,0 +1,18 @@
+{
+  "ranking": "bm25",
+  "timeout_seconds": 20,
+  "servers": [
+    {
+      "id": "clock",
+      "command": "uvx",
+      "args": ["--python", "3.12", "mcp-server-time==2026.11.18"],
+      "discover": ["get_current_time", "convert_time"]
+    },
+    {
+      "id": "docs",
+      "transport": "streamable_http",
+      "url": "https://docs.mcp.cloudflare.com/mcp",
+      "discover": ["search_cloudflare_documentation"]
+    }
+  ]
+}

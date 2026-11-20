@@ -580,6 +580,12 @@ def build_server(gateway):
     return server
 
 
+async def search_once(gateway, args):
+    async with gateway.running():
+        return await gateway.search(args.search, args.limit, invocable_only=args.invocable_only,
+                                    max_tool_bytes=args.max_tool_bytes)
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("config", type=Path, nargs="?")
@@ -590,12 +596,14 @@ def main():
                        help="list tool names from configured upstreams for allowlist setup")
     modes.add_argument("--import-client-config", type=Path, metavar="OUTPUT",
                        help="write a gateway config from a server-only MCP client JSON file")
+    modes.add_argument("--search", metavar="QUERY", help="search configured upstreams once and print JSON")
     modes.add_argument("--calibrate", type=Path, metavar="LABELS", help="fit a cutoff on the live catalog")
     modes.add_argument("--evaluate", type=Path, metavar="LABELS", help="measure the configured gateway on held-out labels")
-    parser.add_argument("--invocable-only", action="store_true", help="score the invocation allowlist for labeled runs")
+    parser.add_argument("--invocable-only", action="store_true", help="search or evaluate the invocation allowlist")
     parser.add_argument("--max-false-accept", type=float, default=.10)
     parser.add_argument("--confidence", type=float, default=.95)
-    parser.add_argument("--limit", type=int, default=5, help="shortlist size for labeled evaluation")
+    parser.add_argument("--limit", type=int, default=5, help="shortlist size for search or labeled evaluation")
+    parser.add_argument("--max-tool-bytes", type=int, help="compact JSON matches-array budget for --search")
     args = parser.parse_args()
     if args.demo and (args.config is not None or args.checkpoint is not None):
         parser.error("--demo uses its own configuration")
@@ -605,8 +613,12 @@ def main():
         parser.error("--list-upstream-tools works without a checkpoint")
     if args.import_client_config and args.checkpoint is not None:
         parser.error("--import-client-config works without a checkpoint")
-    if args.invocable_only and not (args.calibrate or args.evaluate):
-        parser.error("--invocable-only requires --calibrate or --evaluate")
+    if args.invocable_only and not (args.calibrate or args.evaluate or args.search is not None):
+        parser.error("--invocable-only requires --search, --calibrate or --evaluate")
+    if args.max_tool_bytes is not None and (args.search is None or args.max_tool_bytes < 2):
+        parser.error("--max-tool-bytes requires --search and a value of at least two")
+    if args.search is not None and (not 1 <= len(args.search) <= 8192 or not 1 <= args.limit <= 50):
+        parser.error("--search takes a query of 1–8192 characters and a --limit from 1 to 50")
     # The SDK can log malformed protocol payloads. Keep upstream data off stdio logs.
     for name in ("mcp", "httpx", "httpcore"):
         logger = logging.getLogger(name)
@@ -655,6 +667,14 @@ def main():
         except ValueError as error:
             parser.exit(2, f"Gateway labeled run failed. {error}\n")
         print(json.dumps(report, indent=2))
+        return
+    if args.search is not None:
+        result = asyncio.run(search_once(gateway, args))
+        print(json.dumps(result, indent=2))
+        if result["decision"] == "calibration_scope_mismatch" or any(
+            state != "ready" for state in result["upstreams"].values()
+        ):
+            raise SystemExit(1)
         return
     build_server(gateway).run()
 

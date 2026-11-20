@@ -88,6 +88,22 @@ def inventory(args, directory):
     return result
 
 
+def live_search(args, directory):
+    results = {}
+    for query, expected in (("Get current time", "clock/get_current_time"),
+                            ("Search Cloudflare documentation", "docs/search_cloudflare_documentation")):
+        start = perf_counter()
+        result = json.loads(run(["uvx", "--isolated", "--offline", "--python", "3.12",
+                                 "--from", f"{args.wheel}[gateway]", "toolrank-gateway", str(args.search_config),
+                                 "--search", query, "--limit", "1"], directory))
+        if (result["decision"] != "ranked_unverified" or result["upstreams"] != {"clock": "ready", "docs": "ready"}
+                or [(row["id"], row["invocable"]) for row in result["matches"]] != [(expected, False)]
+                or (directory / "cache/toolrank").exists()):
+            raise ValueError("Installed one-shot search returned an unexpected result")
+        results[query] = {"match": expected, "elapsed_seconds": perf_counter() - start}
+    return {"queries": results, "upstreams": result["upstreams"], "empty_model_cache": True}
+
+
 async def check(args):
     with TemporaryDirectory() as temp:
         directory = Path(temp)
@@ -114,6 +130,7 @@ async def check(args):
             records.append({"python": python, "elapsed_seconds": elapsed, "ordered_calls": demo["invoked_tools"],
                             "minutes_match_clock_receipt": True, "empty_model_cache": True})
         upstreams = inventory(args, directory) if args.inventory_config or args.client_config else None
+        search = live_search(args, directory) if args.search_config else None
         catalog = directory / "catalog.json"
         catalog.write_text(json.dumps(CATALOG))
         ranked = json.loads(run(["uvx", "--isolated", "--offline", "--python", "3.12", "--from", str(args.wheel),
@@ -129,7 +146,7 @@ async def check(args):
             "offline_with_cached_dependencies": True, "fresh_install_demos": records,
             "installed_onnx_cli_match": ranked[0]["tool"]["name"], "desktop_bundle": desktop,
             "installed_live_inventory": upstreams, "client_config_imported": bool(args.client_config),
-            "external_compute_usd": 0}
+            "installed_live_search": search, "external_compute_usd": 0}
 
 
 if __name__ == "__main__":
@@ -141,5 +158,7 @@ if __name__ == "__main__":
                                 help="also inventory the reference time and Cloudflare docs servers")
     inventory_mode.add_argument("--client-config", type=lambda value: Path(value).resolve(),
                                 help="import a client config for the reference time and Cloudflare docs servers")
+    parser.add_argument("--search-config", type=lambda value: Path(value).resolve(),
+                        help="also search the reference time and Cloudflare docs servers")
     args = parser.parse_args()
     args.output.write_text(json.dumps(asyncio.run(check(args)), indent=2) + "\n")
