@@ -6,7 +6,7 @@
   "seeds": [11, 23, 37],
   "weighting": {
     "inverse_frequency_exponent": 0.5,
-    "maximum_ratio_to_mean": 3.0
+    "pre_normalization_cap_to_mean": 3.0
   },
   "arms": {
     "control": "Label-only recipe with uniform row loss.",
