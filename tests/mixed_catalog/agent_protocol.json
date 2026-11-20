@@ -1,0 +1,11 @@
+{
+  "cases": "Twelve fixed authored scenarios on the 93-tool catalog. Ten require two calls and two are unsupported. Alert counts and API records are deterministic simulated receipts. Two ordered cases require an identifier from the first tool response.",
+  "methods": ["all", "bm25_top10", "bge_top10", "toolrank_top10", "toolrank_top10_4096_bytes"],
+  "selection": "Every turn reranks the original request plus its last observation. Use fixed dense-plus-lexical weights. All-tools uses the same schema representation and model. Tool descriptions are data. No tool selection or training was tuned on these tasks.",
+  "execution": "Run one proposal per turn through a local text-model agent. Dispatch only the expected explicitly allowlisted synthetic operations, arguments and sequence. End the trial once the required receipts are returned. Score tool workflow completion, not final answers. No public API calls.",
+  "model": "Qwen2.5-1.5B-Instruct GGUF Q4_K_M eponymous checkpoint at 91cad51170dc346986eccefdc2dd33a9da36ead9, llama.cpp ff52ee964, one 32768-token slot with prompt caching disabled, temperature 0",
+  "seeds": [11, 23],
+  "pilot_gate": "At least 80 percent mean tool-schema token reduction, and at most one fewer completed trial than all tools.",
+  "fixture_correction": "The first partial run was discarded after fixture preflight identified two invalid gold calls. Resolve NWS component references in projected schemas and represent FDC ID as the string its schema requires. Preserve task text, methods, prompt, seeds and scoring.",
+  "external_compute_usd": 0
+}
