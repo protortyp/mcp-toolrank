@@ -13,21 +13,23 @@ models:
 
 # ToolRank MCP Selector
 
-Try published examples or paste MCP `tools/list` responses, result objects, or arrays (up to 128 tools). A browser worker runs the 34 MB INT8 model, caching tool embeddings locally. Requests and catalogs stay in your browser. First use downloads the model, tokenizer, and WebAssembly runtime.
+Try a sample or select **Tool catalog** → **Import file**. Paste JSON or import MCP tool lists and single-file OpenAPI 3.0/3.1 JSON or YAML. Import files can be up to 1 MB, with at most 128 tools or operations. OpenAPI import reads path operations, resolves same-file path item references, and rejects external ones. Import creates search entries only.
 
-After querying, compare Dense and Hybrid top-five results without re-embedding. Dense ranks by embedding cosine. Hybrid adds TF-IDF and name-weighted BM25. Displayed scores remain embedding cosine. Benchmark examples label matches and no-matches. Unlabeled requests can score high without an applicable tool.
+First use downloads the 34 MB INT8 model and WebAssembly runtime. A browser worker handles embedding and lexical ranking. Requests and catalogs stay in your browser.
 
-**Evaluate the API holdout** compares Hit@1 and nDCG@10 locally over 72 answerable requests and 24 tools. Metrics exclude 24 no-match requests. Rejection remains unmeasured.
+Switch between Dense and Hybrid without re-encoding queries. Scores show embedding cosine. Hybrid ranking adds TF-IDF and BM25. Examples label matches and no-matches.
+
+**Evaluate the API holdout** reports Hit@1 and nDCG@10 across 72 answerable requests and 24 tools. It skips 24 no-matches. Rejection remains unmeasured.
 
 ## Run locally
 
-Run in the repository’s `demo` directory.
+Run from `demo`.
 
 ```sh
 npm ci
 npm run dev
 ```
 
-`npm run build` generates the static Space bundle.
+Build the static bundle with `npm run build`. Test the parser with `npm test`.
 
-[Model](https://huggingface.co/christianengel/mcp-toolrank-33m) · [API holdout](https://huggingface.co/datasets/christianengel/toolrank-api-holdout) · [Source and integration guides](https://github.com/protortyp/mcp-toolrank)
+[Model](https://huggingface.co/christianengel/mcp-toolrank-33m) · [API holdout](https://huggingface.co/datasets/christianengel/toolrank-api-holdout) · [Source](https://github.com/protortyp/mcp-toolrank)

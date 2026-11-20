@@ -19,7 +19,7 @@
   <main>
     <div class="intro">
       <h1>Find the right MCP tool</h1>
-      <p>Try a request against the sample catalog, or paste an MCP <code>tools/list</code> response. Your request and catalog stay in this browser.</p>
+      <p>Try the sample catalog or load an MCP catalog or OpenAPI spec. Your request and catalog stay in this browser.</p>
     </div>
     <div class="workspace">
       <form id="rank-form">
@@ -37,7 +37,11 @@
           <summary>Tool catalog</summary>
           <div class="catalog-heading">
             <label for="catalog">Catalog JSON</label>
-            <button id="sample" type="button" class="secondary">Reset sample</button>
+            <div class="catalog-actions">
+              <button id="import-file" type="button" class="secondary">Import file</button>
+              <button id="sample" type="button" class="secondary">Reset sample</button>
+            </div>
+            <input id="catalog-file" type="file" accept=".json,.yaml,.yml,application/json" hidden>
           </div>
           <textarea id="catalog" rows="12" spellcheck="false" maxlength="1000000"></textarea>
         </details>
