@@ -67,6 +67,19 @@ async def desktop_bundle(bundle, directory, input_file):
     return {"version": manifest["version"], "search_match": "get_current_time", "model_notices_verified": len(notices)}
 
 
+def inventory(args, directory):
+    command = ["uvx", "--isolated", "--offline", "--python", "3.12",
+               "--from", f"{args.wheel}[gateway]", "toolrank-gateway",
+               str(args.inventory_config), "--list-upstream-tools"]
+    result = json.loads(run(command, directory))["upstreams"]
+    if (result["clock"]["status"] != "ready" or result["docs"]["status"] != "ready"
+            or result["clock"]["tools"] != ["convert_time", "get_current_time"]
+            or "search_cloudflare_documentation" not in result["docs"]["tools"]
+            or (directory / "cache/toolrank").exists()):
+        raise ValueError("Installed inventory could not list the reference time and docs tools")
+    return result
+
+
 async def check(args):
     with TemporaryDirectory() as temp:
         directory = Path(temp)
@@ -92,6 +105,7 @@ async def check(args):
                 raise ValueError("The model-free demo touched the checkpoint cache")
             records.append({"python": python, "elapsed_seconds": elapsed, "ordered_calls": demo["invoked_tools"],
                             "minutes_match_clock_receipt": True, "empty_model_cache": True})
+        upstreams = inventory(args, directory) if args.inventory_config else None
         catalog = directory / "catalog.json"
         catalog.write_text(json.dumps(CATALOG))
         ranked = json.loads(run(["uvx", "--isolated", "--offline", "--python", "3.12", "--from", str(args.wheel),
@@ -106,6 +120,7 @@ async def check(args):
             "artifacts": {path.name: digest(path) for path in release}, "wheel_rebuild_identical": True,
             "offline_with_cached_dependencies": True, "fresh_install_demos": records,
             "installed_onnx_cli_match": ranked[0]["tool"]["name"], "desktop_bundle": desktop,
+            "installed_live_inventory": upstreams,
             "external_compute_usd": 0}
 
 
@@ -113,5 +128,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     for name in ("wheel", "sdist", "bundle", "checkpoint", "output"):
         parser.add_argument(f"--{name}", type=lambda value: Path(value).resolve(), required=True)
+    parser.add_argument("--inventory-config", type=lambda value: Path(value).resolve(),
+                        help="also inventory the reference time server and live Cloudflare docs endpoint")
     args = parser.parse_args()
     args.output.write_text(json.dumps(asyncio.run(check(args)), indent=2) + "\n")
