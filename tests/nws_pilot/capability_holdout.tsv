@@ -1,0 +1,63 @@
+split	id	operation	query
+holdout	f01	cwsu	I need the service-unit metadata for aviation center ZNY.
+holdout	f02	cwa	Open the archived Center Weather Advisory issued by ZNY on 2026-03-28 with sequence 301.
+holdout	f03	sigmetQuery	List SIGMETs within a date range using the global search.
+holdout	f04	sigmetsByATSU	Show SIGMET bulletins issued by KKCI, across all dates.
+holdout	f05	sigmetsByATSUByDate	Retrieve every KKCI SIGMET for the date 2026-05-12.
+holdout	f06	sigmet	Read the single KKCI SIGMET issued at 1200 UTC on 2026-05-12.
+holdout	f07	icons_summary	Show which weather condition codes the public icon API accepts.
+holdout	f08	icons	Return the day icon in the land set for freezing rain.
+holdout	f09	iconsDualCondition	Build the icon that combines rain and snow for one forecast period.
+holdout	f10	satellite_thumbnails	Fetch the rendered thumbnail for the eastern satellite sector.
+holdout	f11	tafs	List terminal aerodrome forecast messages issued for KDEN.
+holdout	f12	office_briefing	Open the Seattle forecast office briefing index.
+holdout	f13	office_briefing_download_latest	Download the newest weather briefing file published by OAX.
+holdout	f14	office_briefing_download	Download the briefing asset by its ID from OAX.
+holdout	f15	office_weatherstory	List the public weather stories for the Hastings forecast office.
+holdout	f16	office_weatherstory_image	Download one weather story image published by GID using its image ID.
+holdout	f17	radar_server	Get details about one known radar server by identifier.
+holdout	f18	radar_spgds	Return the list of radar SPG distribution servers.
+holdout	f19	radar_queue	Get the queue information for a radar server host.
+holdout	f20	radar_profiler	Return profiler data for radar station KOUN.
+holdout	f21	transmitters	Return the entire register of NOAA Weather Radio transmitters.
+holdout	f22	area_radio	Get the weather radio broadcast listing associated with call sign KHB60.
+holdout	f23	products_query	Find NWS text products using a product type and time window.
+holdout	f24	products_type	List all AFD products without limiting to a particular issuer.
+holdout	f25	location_products	What categories of text bulletins are emitted by the PDT office?
+holdout	f26	zone_list_type	Enumerate forecast zones specifically of type fire.
+holdout	f27	station_observation_list	Return multiple recorded surface reports from KPDX, filtering by time.
+holdout	f28	zone_forecast	Fetch forecast periods for the NWS zone TXZ213.
+holdout	f29	product_types	Find the readable labels and short codes for NWS textual product categories.
+holdout	f30	gridpoint_forecast_hourly	Get the hourly forecast rows for the PQR 112,102 grid cell.
+holdout	fn01	-	Email each member of the airport operations team whenever KKCI issues a SIGMET.
+holdout	fn02	-	Amend an existing Center Weather Advisory to correct its effective altitude.
+holdout	fn03	-	Look up a surface weather station's FAA runway lengths from its station code.
+holdout	fn04	-	Get climate reference normals for hourly wind speeds at KDEN spanning 1991 to 2020.
+holdout	fn05	-	Plot an airport's NOTAM history on a map.
+holdout	fn06	-	Evaluate whether this plane can legally depart given its pilot certification.
+holdout	fn07	-	Make the rain icon purple and save it as a WebP file.
+holdout	fn08	-	Detect clouds in this uploaded satellite thumbnail.
+holdout	fn09	-	Generate a satellite animation from successive image files.
+holdout	fn10	-	Get the copyright status of an arbitrary satellite image URL.
+holdout	fn11	-	Run a speed test against a radar station's network connection.
+holdout	fn12	-	Restart KOUN because its radar data is frozen.
+holdout	fn13	-	Calculate the risk of a missed approach from the weather at KORD.
+holdout	fn14	-	Find the active aircraft arrival gate for flight AA493.
+holdout	fn15	-	Fetch the weather outlook for Zürich.
+holdout	fn16	-	Translate yesterday's local weather story into Urdu.
+holdout	fn17	-	Replace the obsolete PDF briefing on the OAX server.
+holdout	fn18	-	Add a meeting to the PDT weather office calendar.
+holdout	fn19	-	Subscribe me to emergency SMS alerts for the coastal marine region.
+holdout	fn20	-	Show how many people in Florida opened the weather alert website.
+holdout	fn21	-	Retrieve the political district containing a weather station's address.
+holdout	fn22	-	Find past insurer claims filed for weather damage in WAZ558.
+holdout	fn23	-	Infer the roof material on buildings in the current hail-warning polygon.
+holdout	fn24	-	Approve a reimbursement for damage from the latest tornado.
+holdout	fn25	-	Get the live electricity rates for the counties in this forecast zone.
+holdout	fn26	-	Look up the aurora probability for an observation location in Sweden.
+holdout	fn27	-	Open a port authority report listing today's navigation restrictions.
+holdout	fn28	-	Estimate tide height at a pier from last year's tidal gauge time series.
+holdout	fn29	-	Calculate the snowpack water equivalent from this photograph.
+holdout	fn30	-	Suggest a dinner recipe for a rainy evening in Tacoma.
+holdout	fn31	-	What is the market price of natural gas at the Henry Hub?
+holdout	fn32	-	Find the names of my friends who received the last regional NWS bulletin.

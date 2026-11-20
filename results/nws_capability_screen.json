@@ -1,0 +1,100 @@
+{
+  "capability_screen": {
+    "scope": "NWS calibration subset only",
+    "supported": 24,
+    "unsupported": 32,
+    "verifier": "Qwen/Qwen3-Reranker-0.6B",
+    "revision": "e61197ed45024b0ed8a2d74b80b4d909f1255473",
+    "spec_sha256": "ae478b69cdac6449e3b834dca636300f830dde552ac6abc180b1d5e82e2f1d35",
+    "data_sha256": "0b6abde1b1a5fb0dcda1a1c58356a3cc8c0e34fbfb8fe0cbb1e5dcd08e87a278",
+    "source_sha256": "e78ee8e55129645385078a0ee28ae59ccdfe3d2e7e40badb257305009550a928",
+    "seed": 20261120,
+    "gate": {
+      "accepted_supported": 20,
+      "maximum_accepted_unsupported": 3,
+      "accepted_with_gold_at_five": 20
+    },
+    "results": {
+      "compact": {
+        "wall_seconds": 3.1410922079812735,
+        "5": {
+          "top_five_without_cutoff": 21,
+          "accepted_supported": 22,
+          "accepted_unsupported": 3,
+          "accepted_with_gold_at_five": 20,
+          "passed": true
+        },
+        "12": {
+          "top_five_without_cutoff": 21,
+          "accepted_supported": 22,
+          "accepted_unsupported": 3,
+          "accepted_with_gold_at_five": 20,
+          "passed": true
+        }
+      },
+      "details": {
+        "wall_seconds": 4.777721137041226,
+        "5": {
+          "top_five_without_cutoff": 21,
+          "accepted_supported": 22,
+          "accepted_unsupported": 4,
+          "accepted_with_gold_at_five": 20,
+          "passed": false
+        },
+        "12": {
+          "top_five_without_cutoff": 21,
+          "accepted_supported": 22,
+          "accepted_unsupported": 4,
+          "accepted_with_gold_at_five": 20,
+          "passed": false
+        }
+      },
+      "cheap": {
+        "cosine": {
+          "top_five_without_cutoff": 21,
+          "accepted_supported": 17,
+          "accepted_unsupported": 3,
+          "accepted_with_gold_at_five": 15,
+          "passed": false
+        },
+        "hybrid_max": {
+          "top_five_without_cutoff": 21,
+          "accepted_supported": 13,
+          "accepted_unsupported": 3,
+          "accepted_with_gold_at_five": 12,
+          "passed": false
+        },
+        "margin": {
+          "top_five_without_cutoff": 21,
+          "accepted_supported": 2,
+          "accepted_unsupported": 3,
+          "accepted_with_gold_at_five": 2,
+          "passed": false
+        },
+        "standardized": {
+          "top_five_without_cutoff": 21,
+          "accepted_supported": 3,
+          "accepted_unsupported": 4,
+          "accepted_with_gold_at_five": 3,
+          "passed": false
+        }
+      }
+    }
+  },
+  "minilm_screen": {
+    "scope": "calibration only",
+    "model": "cross-encoder/ms-marco-MiniLM-L2-v2",
+    "weights_sha256": "88f11fa671e11c53b5cfe88bb6594139ec4991eaf8cf6a10bd61c9abbc4f691a",
+    "spec_sha256": "ae478b69cdac6449e3b834dca636300f830dde552ac6abc180b1d5e82e2f1d35",
+    "data_sha256": "0b6abde1b1a5fb0dcda1a1c58356a3cc8c0e34fbfb8fe0cbb1e5dcd08e87a278",
+    "cpu_threads": 4,
+    "warm_p95_ms": 12.336622504517434,
+    "results": {
+      "top_five_without_cutoff": 21,
+      "accepted_supported": 19,
+      "accepted_unsupported": 3,
+      "accepted_with_gold_at_five": 18,
+      "passed": false
+    }
+  }
+}
