@@ -59,7 +59,7 @@ class CompactCatalog:
 
 class OnnxToolRank:
     def __init__(self, checkpoint, tools, *, threads=4, model_file="embedding-int8.onnx",
-                 catalog_precision="float32"):
+                 catalog_precision="float32", hybrid=False):
         if catalog_precision not in ("float32", "int8"):
             raise ValueError("catalog_precision must be float32 or int8")
         self.tools = sorted(tools, key=lambda item: item["name"])
@@ -80,6 +80,13 @@ class OnnxToolRank:
         )
         self.inputs = [item.name for item in self.session.get_inputs()]
         descriptions = [f"{item['name']}: {item.get('description') or ''}" for item in self.tools]
+        self.lexical_index = None
+        if hybrid and descriptions:
+            if __package__:
+                from .catalog_lexical import CatalogLexicalIndex
+            else:
+                from catalog_lexical import CatalogLexicalIndex
+            self.lexical_index = CatalogLexicalIndex(descriptions)
         batches = (self.encode(descriptions[i:i + 32]) for i in range(0, len(descriptions), 32))
         if catalog_precision == "int8" and descriptions:
             self.catalog = CompactCatalog(batches, len(descriptions), threads)
@@ -104,10 +111,14 @@ class OnnxToolRank:
         if not request.strip() or not self.tools or not limit:
             return []
         query = self.encode([self.prefix + request])
-        scores = self.catalog.scores(query)[0] if self.catalog else self.docs @ query[0]
-        return [{"tool": self.tools[index], "score": float(scores[index])}
-                for index in top_indices(scores, limit)
-                if min_score is None or scores[index] >= min_score]
+        cosine = self.catalog.scores(query)[0] if self.catalog else self.docs @ query[0]
+        scores = self.lexical_index.blend(request, cosine) if self.lexical_index else cosine
+        if min_score is None:
+            order = top_indices(scores, limit)
+        else:
+            eligible = np.flatnonzero(cosine >= min_score)
+            order = eligible[top_indices(scores[eligible], limit)]
+        return [{"tool": self.tools[index], "score": float(cosine[index])} for index in order]
 
 
 def read_catalog(data):
@@ -150,7 +161,9 @@ def evaluate(retriever, cases, *, limit, min_score):
         start = time.perf_counter()
         matches = retriever.rank(request, limit=limit)
         durations.append((time.perf_counter() - start) * 1_000)
-        accepted = bool(matches) and (min_score is None or matches[0]["score"] >= min_score)
+        accepted = bool(matches)
+        if min_score is not None and (not matches or matches[0]["score"] < min_score):
+            accepted = bool(retriever.rank(request, limit=1, min_score=min_score))
         if not expected:
             unsupported += 1
             accepted_unsupported += accepted
@@ -187,6 +200,7 @@ def main():
     parser.add_argument("--evaluate", type=Path, metavar="LABELS", help="measure on labeled requests")
     parser.add_argument("--model-file", default="embedding-int8.onnx")
     parser.add_argument("--compare-model-file", help="evaluate a second ONNX graph over the same requests")
+    parser.add_argument("--hybrid", action="store_true", help="add fixed TF-IDF and name-weighted BM25 scores")
     parser.add_argument("--catalog-precision", choices=["float32", "int8"], default="float32")
     parser.add_argument("--limit", type=int, default=5)
     parser.add_argument("--min-score", type=float)
@@ -209,7 +223,7 @@ def main():
 
     def load(model_file):
         return OnnxToolRank(args.checkpoint, tools, threads=args.threads, model_file=model_file,
-                            catalog_precision=args.catalog_precision)
+                            catalog_precision=args.catalog_precision, hybrid=args.hybrid)
 
     if args.evaluate:
         models = [args.model_file]
@@ -218,6 +232,8 @@ def main():
         result = {
             "catalog_size": len(tools),
             "threads": args.threads,
+            "catalog_precision": args.catalog_precision,
+            "hybrid": args.hybrid,
             "models": {name: evaluate(load(name), cases, limit=args.limit, min_score=args.min_score)
                        for name in models},
         }

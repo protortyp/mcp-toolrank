@@ -55,6 +55,7 @@ def main():
     parser.add_argument("catalog", type=Path, help="an MCP tools/list result or a tool array")
     parser.add_argument("--model-file", default="embedding-int8.onnx")
     parser.add_argument("--threads", type=int, default=4)
+    parser.add_argument("--hybrid", action="store_true", help="add fixed TF-IDF and name-weighted BM25 scores")
     parser.add_argument("--catalog-precision", choices=["float32", "int8"], default="float32")
     args = parser.parse_args()
     if args.threads < 1:
@@ -62,7 +63,7 @@ def main():
     try:
         tools = read_catalog(json.loads(args.catalog.read_text()))
         retriever = OnnxToolRank(args.checkpoint, tools, threads=args.threads, model_file=args.model_file,
-                                 catalog_precision=args.catalog_precision)
+                                 catalog_precision=args.catalog_precision, hybrid=args.hybrid)
     except (OSError, ValueError) as error:
         parser.error(str(error))
     create_server(retriever).run(transport="stdio")
