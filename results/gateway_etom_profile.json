@@ -1,0 +1,158 @@
+{
+  "hardware": {
+    "cpu": "AMD Ryzen 9 5950X 16-Core Processor",
+    "platform": "Linux-7.0.0-42-generic-x86_64-with-glibc2.39",
+    "python": "3.12.13"
+  },
+  "scope": "Fresh processes with warmed filesystem. Timings exclude transport, disk download, fixture loading and Python startup. First search includes index construction. Warm latency uses the same shuffled cases. Peak RSS is process-wide on Linux.",
+  "dataset": {
+    "revision": "790f28727f567b88918420d163c524d46644a694",
+    "sha256": {
+      "mcp_registry.json": "3c362877ec5733cf0fa1d3451b2f353fb97674e66075da0d7a6f41c0f98cc608",
+      "level_1.json": "9b6fdab8926cb5e21abddf0178f018de27d5b9636bd549b45798898b92eee028",
+      "level_2.json": "67abbf2574eda7c48a455b8d537ec218219e774ac7814b48f138d5eb662f10e2",
+      "level_5.json": "3fbbc6445c69176e84d7b514b9558433d28ed8592d95c14e1e4d28eba39129ae"
+    },
+    "documents": 2375,
+    "queries_by_level": {
+      "etom-l1": 781,
+      "etom-l2": 768,
+      "etom-l5": 91
+    },
+    "skipped_queries_with_incomplete_qrels": {
+      "l2": 5
+    }
+  },
+  "limit": 10,
+  "catalog_tools": 2375,
+  "supported_requests": 1549,
+  "unsupported_requests": 91,
+  "seeds": [
+    11,
+    23,
+    37
+  ],
+  "warm_rounds": 1,
+  "source_sha256": "b7107b35028ee492305425f6c417c187e84f8056b876766f3fb2a46a1d4fcb62",
+  "checkpoint_checksums": {
+    "tokenizer.json": "91f1def9b9391fdabe028cd3f3fcc4efd34e5d1f08c3bf2de513ebb5911a1854",
+    "sentence_bert_config.json": "65c2293c310f5476a8d1cbada277722c3e7ae5b5ddbaa2d2fe5d075f410d6d02",
+    "config_sentence_transformers.json": "7453db62f635567117454bf0599899107d43569c95d5353b5993d809c39379cf",
+    "onnx/embedding-int8.onnx": "ba0e544669eac502cac535d3ed53b9cf5b530b5fd929d4a7bddd787abe08ea33"
+  },
+  "revision": "a4cfd4aa294651c069b534f4dcc3f9abcf069889",
+  "external_compute_usd": 0,
+  "results": {
+    "bm25": {
+      "full_positive_retained": 1427,
+      "required_tool_hits": 1677,
+      "unsupported_with_suggestions": 91,
+      "unsupported_no_lexical_overlap": 0,
+      "ndcg_at_10": 0.8867795868243458,
+      "process_medians": {
+        "import_ms": 262.2241200879216,
+        "model_setup_ms": 1.072998158633709,
+        "first_search_ms": 58.9713950175792,
+        "cold_first_search_ms": 322.25122419185936,
+        "warm_search_p50_ms": 0.9399771224707365,
+        "warm_search_p95_ms": 1.1692208820022643,
+        "peak_rss_mib": 126.046875
+      },
+      "processes": [
+        {
+          "seed": 11,
+          "import_ms": 262.2241200879216,
+          "model_setup_ms": 1.0557090863585472,
+          "first_search_ms": 58.9713950175792,
+          "cold_first_search_ms": 322.25122419185936,
+          "warm_search_p50_ms": 0.965887913480401,
+          "warm_search_p95_ms": 1.6823493875563145,
+          "peak_rss_mib": 126.046875,
+          "model_libraries": []
+        },
+        {
+          "seed": 23,
+          "import_ms": 254.0386279579252,
+          "model_setup_ms": 1.072998158633709,
+          "first_search_ms": 59.831005055457354,
+          "cold_first_search_ms": 314.94263117201626,
+          "warm_search_p50_ms": 0.9399771224707365,
+          "warm_search_p95_ms": 1.1692208820022643,
+          "peak_rss_mib": 126.046875,
+          "model_libraries": []
+        },
+        {
+          "seed": 37,
+          "import_ms": 283.1301339901984,
+          "model_setup_ms": 1.161268912255764,
+          "first_search_ms": 55.66847696900368,
+          "cold_first_search_ms": 339.9598798714578,
+          "warm_search_p50_ms": 0.931448070332408,
+          "warm_search_p95_ms": 1.1014724848791957,
+          "peak_rss_mib": 126.046875,
+          "model_libraries": []
+        }
+      ]
+    },
+    "hybrid": {
+      "full_positive_retained": 1465,
+      "required_tool_hits": 1749,
+      "unsupported_with_suggestions": 91,
+      "unsupported_no_lexical_overlap": 0,
+      "ndcg_at_10": 0.9270148348205017,
+      "process_medians": {
+        "import_ms": 255.64486789517105,
+        "model_setup_ms": 172.38605790771544,
+        "first_search_ms": 8991.88129696995,
+        "cold_first_search_ms": 9423.510524909943,
+        "warm_search_p50_ms": 6.044400040991604,
+        "warm_search_p95_ms": 9.339590405579656,
+        "peak_rss_mib": 287.03125
+      },
+      "processes": [
+        {
+          "seed": 11,
+          "import_ms": 255.64486789517105,
+          "model_setup_ms": 175.9843600448221,
+          "first_search_ms": 8991.88129696995,
+          "cold_first_search_ms": 9423.510524909943,
+          "warm_search_p50_ms": 6.923043867573142,
+          "warm_search_p95_ms": 18.444251525215805,
+          "peak_rss_mib": 303.75,
+          "model_libraries": [
+            "onnxruntime",
+            "tokenizers"
+          ]
+        },
+        {
+          "seed": 23,
+          "import_ms": 397.56576903164387,
+          "model_setup_ms": 172.38605790771544,
+          "first_search_ms": 9043.504742905498,
+          "cold_first_search_ms": 9613.456569844857,
+          "warm_search_p50_ms": 6.044400040991604,
+          "warm_search_p95_ms": 9.339590405579656,
+          "peak_rss_mib": 287.03125,
+          "model_libraries": [
+            "onnxruntime",
+            "tokenizers"
+          ]
+        },
+        {
+          "seed": 37,
+          "import_ms": 251.51141011156142,
+          "model_setup_ms": 170.18734011799097,
+          "first_search_ms": 8909.392856992781,
+          "cold_first_search_ms": 9331.091607222334,
+          "warm_search_p50_ms": 6.006006500683725,
+          "warm_search_p95_ms": 9.288195869885385,
+          "peak_rss_mib": 285.92578125,
+          "model_libraries": [
+            "onnxruntime",
+            "tokenizers"
+          ]
+        }
+      ]
+    }
+  }
+}

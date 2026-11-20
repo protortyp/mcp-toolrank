@@ -49,7 +49,7 @@ def gateway_main():
     try:
         from .gateway import main as run_gateway
     except ModuleNotFoundError as error:
-        if error.name != "mcp":
+        if error.name not in {"anyio", "httpx", "jsonschema", "mcp", "pydantic", "referencing"}:
             raise
         raise SystemExit("Install toolrank-cpu with the gateway extra.") from None
     run_gateway()

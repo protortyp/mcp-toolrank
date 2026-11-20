@@ -21,6 +21,10 @@ Use one gateway and cache per trusted local principal. Upstream credentials are 
 
 Python clients can use `Gateway.from_config` and `async with gateway.running()`.
 
+## Model-free ranking
+
+Set `"ranking": "bm25"` for lexical search without a checkpoint or ONNX session. Hybrid is the default and supports `min_cosine`. BM25 matches have `cosine: null`. `no_lexical_overlap` means eligible tools share no indexed query terms. Overlap leaves relevance unverified. [Measured trade-off](GATEWAY_RANKING.md)
+
 ## Streamable HTTP upstreams
 
 Mix stdio and HTTP entries. For HTTP, set `transport` to `streamable_http` and `url` to the MCP endpoint. Optional `bearer_token_env` names a per-upstream token variable. Discovery and invocation allowlists apply. Remote endpoints require HTTPS. Plain HTTP is loopback-only. Direct connections reject redirects to prevent invocation replay. Clients use stdio. The pinned SDK negotiates through MCP `2025-11-25`.

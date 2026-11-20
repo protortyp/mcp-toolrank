@@ -14,3 +14,4 @@
 - MCP Inspector found five tools across two reference servers from a clean CPU wheel. The clock worked and discovery-only Git returned `not_available`. [Gateway](GATEWAY.md#mcp-inspector)
 - First-proposal dispatch raised full-catalog completion from 3/7 to 6/7. Compaction saved 22.2% of first-turn schema tokens and lost one completion, failing the gate. Keep full schemas. [Workflows](DEPENDENT_WORKFLOWS.md)
 - Streamable HTTP supports per-server bearer tokens and allowlists. The wheel found public Cloudflare docs and called a loopback clock. Tests verified refresh, session expiry, token isolation, and no replay on timeout or redirect. [Gateway](GATEWAY.md#streamable-http-upstreams)
+- BM25 started offline with an empty model cache. On ETOM, first search took 0.32 s versus 9.42 s with cold hybrid embeddings. Hybrid led nDCG@10, 92.70 versus 88.68. [Gateway ranking](GATEWAY_RANKING.md)

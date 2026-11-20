@@ -1,6 +1,7 @@
 """Run real stdio discovery against the reference MCP time and Git servers."""
 import argparse
 import asyncio
+import os
 from pathlib import Path
 
 from mcp import ClientSession, StdioServerParameters
@@ -11,7 +12,10 @@ async def run(args):
     command = [str(args.config)]
     if args.checkpoint:
         command.extend(("--checkpoint", str(args.checkpoint)))
-    async with stdio_client(StdioServerParameters(command=args.gateway, args=command)) as (read, write):
+    env = {key: os.environ[key] for key in ("TOOLRANK_OFFLINE", "XDG_CACHE_HOME", "UV_CACHE_DIR")
+           if key in os.environ}
+    parameters = StdioServerParameters(command=args.gateway, args=command, env=env)
+    async with stdio_client(parameters) as (read, write):
         async with ClientSession(read, write) as session:
             await session.initialize()
             discovery = await session.call_tool("search_tools", {
