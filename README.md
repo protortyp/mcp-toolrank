@@ -6,12 +6,10 @@ On 11 simulated workflows, the ToolRank hybrid cut schema tokens by 85% compared
 
 ## Try it
 
-Try the bundled offline demo from a checkout. It discovers two local tools and passes a clock reading to the calculation server.
+The demo passes a clock reading between two local servers. It runs without a model download.
 
 ```sh
-uv build cpu --out-dir dist/staged
-uvx --python 3.12 --from 'dist/staged/toolrank_cpu-0.2.0-py3-none-any.whl[gateway]' \
-  toolrank-gateway --demo
+uvx --python 3.12 --from 'toolrank-cpu[gateway] @ https://github.com/protortyp/mcp-toolrank/releases/download/cpu-v0.2.0/toolrank_cpu-0.2.0-py3-none-any.whl' toolrank-gateway --demo
 ```
 
 Set separate discovery and invocation allowlists. Pass the `search_tools` result’s ID and revision with arguments to `invoke_tool`. [Configuration](examples/gateway_config.json) · [Gateway guide](docs/GATEWAY.md) · [Release preview](docs/RELEASE_PREVIEW.md)
