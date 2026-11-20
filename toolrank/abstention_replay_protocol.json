@@ -1,0 +1,40 @@
+{
+  "objective": "Test whether lexical support improves calibrated abstention without training a second model.",
+  "checkpoint": "christianengel/mcp-toolrank-33m@a24a121266154006e2bd2e32a41576437c3455c2",
+  "checkpoint_sha256": "ba0e544669eac502cac535d3ed53b9cf5b530b5fd929d4a7bddd787abe08ea33",
+  "catalogs": {
+    "nws": "Pinned 69-operation OpenAPI catalog with its original calibration and holdout splits.",
+    "library": "Eight-tool authored library catalog with its original calibration and evaluation splits.",
+    "api": "Independent 24-tool API holdout, transfer only."
+  },
+  "ranking": {
+    "tfidf": 0.4,
+    "bm25": 0.15,
+    "top_k": 5,
+    "threads": 4
+  },
+  "signals": [
+    "hybrid_unfiltered",
+    "bm25_overlap",
+    "cosine",
+    "hybrid_max",
+    "cosine_margin",
+    "cosine_z",
+    "hybrid_query_coverage",
+    "bm25_query_coverage",
+    "cosine_plus_coverage"
+  ],
+  "calibration": {
+    "max_false_accept": 0.1,
+    "confidence": 0.95,
+    "negative_quantiles_for_diagnostic_curve": [0, 0.25, 0.5, 0.75, 0.9, 1],
+    "coverage_boost": 0.15
+  },
+  "gate": {
+    "max_false_accept": 0.1,
+    "min_supported_coverage": 0.85,
+    "min_supported_hit_at_5": 0.8,
+    "apply_to_each_local_holdout": true
+  },
+  "holdout_policy": "Replay existing fixed holdouts once. Fit cutoffs only on each catalog's calibration labels. Transfer unchanged to the other catalogs. This diagnostic can justify a fresh validation study before any default change."
+}
