@@ -1,6 +1,6 @@
 [project]
 name = "toolrank"
-version = "0.1.0"
+version = "0.2.0"
 description = "Local embedding retrieval and evaluation for MCP tool catalogs"
 readme = "README.md"
 license = "Apache-2.0"
