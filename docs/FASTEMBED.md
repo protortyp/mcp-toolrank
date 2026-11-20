@@ -1,6 +1,6 @@
 # ToolRank with FastEmbed
 
-Run the INT8 graph through FastEmbed 0.9.1 without installing PyTorch. The graph already pools and normalizes its 384-dimensional output.
+Run INT8 on CPU without PyTorch.
 
 ```sh
 uvx --from huggingface-hub==0.36.2 hf download christianengel/mcp-toolrank-33m \
@@ -31,11 +31,11 @@ TextEmbedding.add_custom_model(
 )
 model = TextEmbedding(repo, specific_model_path=str(checkpoint.resolve()), threads=4, local_files_only=True)
 prefix = json.loads((checkpoint / "config_sentence_transformers.json").read_text())["prompts"]["query"]
-tools = ["get_event: Find a scheduled calendar meeting.", "get_weather: Get the weather forecast."]
-vectors = np.asarray(list(model.embed([prefix + "Find my appointment this afternoon", *tools])))
+tools = ["get_event: Find calendar meetings.", "get_weather: Forecast weather."]
+vectors = np.asarray(list(model.embed([prefix + "Find my appointment today", *tools])))
 scores = vectors[1:] @ vectors[0]
 print(tools[int(np.argmax(scores))])
 PY
 ```
 
-Prefix the request only. For a persistent index, embed the catalog once and use the same graph and preprocessing for queries. Rebuild the index when changing graph or tokenizer. [INT8 evaluation](ONNX_INT8.md)
+Prefix queries only. Reuse catalog embeddings until the graph or tokenizer changes. [INT8 evaluation](ONNX_INT8.md)
