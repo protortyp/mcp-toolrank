@@ -1,0 +1,28 @@
+{
+  "source_only": "train",
+  "train_sha256": "e3d9a8cd07089b3f2214bd7b9138c07532d4085822dfa8370b0669ba4c98be64",
+  "sample_queries": 12,
+  "sample_unique_pairs": 12,
+  "sampling": "first 12 unique sibling pairs by frequency, then maximum cosine gap",
+  "reviewers": 1,
+  "results": {
+    "plausible": 3,
+    "negative": 3,
+    "ambiguous": 6
+  },
+  "negative_grounding": [
+    {
+      "check": "url_vs_base64",
+      "source": "https://raw.githubusercontent.com/falahgs/flux-imagegen-mcp-server/d07b3e644afb43a0502d57d1e6b01d6d190c2b55/src/services/imageSchema.js"
+    },
+    {
+      "check": "absolute_vs_relative_time",
+      "source": "https://raw.githubusercontent.com/yokingma/time-mcp/5bc003e14465812becb9c96159841af5d6430c0e/src/tools.ts"
+    },
+    {
+      "check": "list_models_vs_generate",
+      "source": "https://raw.githubusercontent.com/falahgs/flux-imagegen-mcp-server/d07b3e644afb43a0502d57d1e6b01d6d190c2b55/src/services/imageSchema.js"
+    }
+  ],
+  "used_for_training": false
+}

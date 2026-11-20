@@ -556,6 +556,172 @@
       },
       "passes": true,
       "wall_seconds": 248.88075057510287
+    },
+    "toolret": {
+      "tools": 44453,
+      "answerable": 7961,
+      "unsupported": 0,
+      "unavailable_judgments": 0,
+      "index_seconds": {
+        "micro": 821.3358823440503,
+        "toolrank": 2997.763607870089
+      },
+      "metrics": {
+        "micro": {
+          "dense": {
+            "recall@1": 0.15632906849462558,
+            "recall@5": 0.28366082270114423,
+            "recall@10": 0.3415103989089669,
+            "ndcg@10": 0.2649232166167531,
+            "complete@10": 0.27044341163170454,
+            "hit@1": 0.20437131013691748,
+            "complete@1": 0.12310011305112423,
+            "hit@5": 0.35673910312774776,
+            "complete@5": 0.22597663610099233,
+            "hit@10": 0.43047355859816605
+          },
+          "hybrid": {
+            "recall@1": 0.20365083352773344,
+            "recall@5": 0.37630965839419556,
+            "recall@10": 0.44302342969595826,
+            "ndcg@10": 0.3505624339525977,
+            "complete@10": 0.3499560356739103,
+            "hit@1": 0.27659841728426077,
+            "complete@1": 0.1541263660344178,
+            "hit@5": 0.48511493530963445,
+            "complete@5": 0.2921743499560357,
+            "hit@10": 0.5560859188544153
+          }
+        },
+        "toolrank": {
+          "dense": {
+            "recall@1": 0.15409271986649198,
+            "recall@5": 0.30288848613179725,
+            "recall@10": 0.3624166322728061,
+            "ndcg@10": 0.27641889826449517,
+            "complete@10": 0.2874010802662982,
+            "hit@1": 0.20788845622409244,
+            "complete@1": 0.11732194447933676,
+            "hit@5": 0.38914709207386006,
+            "complete@5": 0.23690491144328601,
+            "hit@10": 0.45697776661223466
+          },
+          "hybrid": {
+            "recall@1": 0.21226679467164328,
+            "recall@5": 0.3932743553394225,
+            "recall@10": 0.47031735065587593,
+            "ndcg@10": 0.3699919976369807,
+            "complete@10": 0.37583218188669765,
+            "hit@1": 0.2924255746765482,
+            "complete@1": 0.15764351212159278,
+            "hit@5": 0.5077251601557593,
+            "complete@5": 0.30335385001884185,
+            "hit@10": 0.5851023740736089
+          }
+        }
+      },
+      "micro_minus_toolrank": {
+        "dense": {
+          "ndcg@10": {
+            "delta": -0.01149568164774202,
+            "ci95": [
+              -0.04209938539451146,
+              0.01463237277034567
+            ],
+            "clusters": 35
+          },
+          "hit@5": {
+            "delta": -0.0324079889461123,
+            "ci95": [
+              -0.08175098282492191,
+              0.0111262249671496
+            ],
+            "clusters": 35
+          },
+          "complete@10": {
+            "delta": -0.016957668634593644,
+            "ci95": [
+              -0.04197578655499097,
+              0.0038277460795856193
+            ],
+            "clusters": 35
+          }
+        },
+        "hybrid": {
+          "ndcg@10": {
+            "delta": -0.019429563684383026,
+            "ci95": [
+              -0.034081219617809515,
+              -0.005800400059708716
+            ],
+            "clusters": 35
+          },
+          "hit@5": {
+            "delta": -0.02261022484612486,
+            "ci95": [
+              -0.043035930341245685,
+              -0.003720474740636642
+            ],
+            "clusters": 35
+          },
+          "complete@10": {
+            "delta": -0.02587614621278734,
+            "ci95": [
+              -0.045073233154466305,
+              -0.009932409585631751
+            ],
+            "clusters": 35
+          }
+        }
+      },
+      "fingerprint": {
+        "versions": {
+          "datasets/mangopy/ToolRet-Queries": "b8c76ad3349ff17497b6bdb28bb5b8f61a0f6445",
+          "datasets/mangopy/ToolRet-Tools": "e06c38c75612b6536bd959e08cdd345894aba6a7"
+        },
+        "sha256": {
+          ".work/toolret/apibank/queries-00000-of-00001.parquet": "1e91b9c4f7e0b38946bf5c3272e15af73f0b446e4d546c52e09179b3a9709d3b",
+          ".work/toolret/apigen/queries-00000-of-00001.parquet": "7f6d6ee477ba98380816c418f51c445c937771ee557d73c0a575d0d30fd01a14",
+          ".work/toolret/appbench/queries-00000-of-00001.parquet": "e7efff5e12a7676df46ded343abfdd44cc3c4fbeacee3d6b89edec8a9022b5d7",
+          ".work/toolret/autotools-food/queries-00000-of-00001.parquet": "a780caf11c358db91552c6c75a7c8fe6312c73dcead3413543b9ccb1ffef6419",
+          ".work/toolret/autotools-music/queries-00000-of-00001.parquet": "aff4630b7e8828b262df047b2db1172cf24b57c15e454261359f6e64e028487d",
+          ".work/toolret/autotools-weather/queries-00000-of-00001.parquet": "80203c8ee6070ca102b08eb90b134f9602e4d085ba2f4da4f89288e1edd5f68f",
+          ".work/toolret/code/tools-00000-of-00001.parquet": "a5b1a8111a40128b1429fe53a490e627fd2832ebe2e641db5eeb695ecb4f0d9a",
+          ".work/toolret/craft-math-algebra/queries-00000-of-00001.parquet": "70993dcb4bc2b55f42994bed7f08b785d6af6baad941ee6973db26e2700b5df6",
+          ".work/toolret/craft-tabmwp/queries-00000-of-00001.parquet": "c86458e41e26ac631aea4223fb9e24803d1b8117e31c28265824c10d221cfdf5",
+          ".work/toolret/craft-vqa/queries-00000-of-00001.parquet": "014a4d68f6f55f74820139ea6008cbce91c609d8e0965aac94ac1599683d8d9b",
+          ".work/toolret/customized/tools-00000-of-00001.parquet": "e3d0cf64f5d5321751401677c820c5e8c7df79bfd67a85c01e275fe573cbde41",
+          ".work/toolret/gorilla-huggingface/queries-00000-of-00001.parquet": "ed64800b722bc8e2b8520feb3e5defc3988b0cc858929396ffc930625e71f703",
+          ".work/toolret/gorilla-pytorch/queries-00000-of-00001.parquet": "b6423e142bab08ac0d7f9cdc1851a8e85a915970936139c795f697188b137ae0",
+          ".work/toolret/gorilla-tensor/queries-00000-of-00001.parquet": "5b037823ac75e503df7abb08c51dcf7843f86ffb8ff45a625a09f1589b8f1fc7",
+          ".work/toolret/gpt4tools/queries-00000-of-00001.parquet": "7171ba30b7930b76e3562d38c0cf74c2c778fbc429e2087234f8bef577ed7576",
+          ".work/toolret/gta/queries-00000-of-00001.parquet": "757560b5e587993e8fb05c9d3ad146016cdefa21b938bd50b78ad6045067bb08",
+          ".work/toolret/metatool/queries-00000-of-00001.parquet": "f4839301cd345a6b5eef1ebfd1710dfb209e5c9b6812a31ed8d7152979393ca0",
+          ".work/toolret/mnms/queries-00000-of-00001.parquet": "d591f2cf3974abe21c6c0462a935b53b807246b95ed4d7439d5d05e0e97973ca",
+          ".work/toolret/restgpt-spotify/queries-00000-of-00001.parquet": "a2dcd32971d6e807c437f09f3c09f84a2bc53a805468b98307ea41116c35e0a4",
+          ".work/toolret/restgpt-tmdb/queries-00000-of-00001.parquet": "aa8a256d7100b005f6258f60229b5c0350967be3b8b8d6e6b58dfa79a8059193",
+          ".work/toolret/reversechain/queries-00000-of-00001.parquet": "d4da51689cfc10f045e37bce6ffeb665e43a67faa9d71834abc84106603ad854",
+          ".work/toolret/rotbench/queries-00000-of-00001.parquet": "2f75a1caf9c105560b5da02bd17e733e7d4d7e57ed6e0696728ffc36dae00159",
+          ".work/toolret/t-eval-dialog/queries-00000-of-00001.parquet": "da566b97d930ce44b89bca85c2e7fa6acac6809110f76bb2e354a77a978ed97e",
+          ".work/toolret/t-eval-step/queries-00000-of-00001.parquet": "eddd81571593a320e09b96d3807350d81f5c2778087489844d73551fca14c899",
+          ".work/toolret/taskbench-daily/queries-00000-of-00001.parquet": "7357298960afafd3afcff91559cc14e95486e729798ef1b39af044e494cb8d15",
+          ".work/toolret/taskbench-huggingface/queries-00000-of-00001.parquet": "c94f6ca056dd0906fb0f0d2cd9abe4f98a077c368fc52af9dee14325ee60d58a",
+          ".work/toolret/taskbench-multimedia/queries-00000-of-00001.parquet": "0cebfcd50a061c48c043785f80db4ec48fbaa82f764db29f20b83f82b7e6d7e4",
+          ".work/toolret/tool-be-honest/queries-00000-of-00001.parquet": "e936b9dde7b3e7256662464a118b952c3873ea0b6086d0a328a568b7b35678cb",
+          ".work/toolret/toolace/queries-00000-of-00001.parquet": "49f7c861cec1799430680cea1df6cb98a10b33227f6cb183ac32375f396fcd5a",
+          ".work/toolret/toolalpaca/queries-00000-of-00001.parquet": "627659a13d1b30a76e94d91ea27b14b4bc3be30e3fd6cd727f58ca1665bb1fe2",
+          ".work/toolret/toolbench/queries-00000-of-00001.parquet": "2bb32ea009d6ece37b1b785330247aacac037a20dd4522632cb3359809c8837d",
+          ".work/toolret/toolbench-sam/queries-00000-of-00001.parquet": "36075db0985db103afac9ad959f7974e79eb267c7d47fd31a6de4813e3a3802f",
+          ".work/toolret/toolemu/queries-00000-of-00001.parquet": "f11491359b61bfb4a6f4d9bed2c45baab547938986e749e9eee555c667887020",
+          ".work/toolret/tooleyes/queries-00000-of-00001.parquet": "c28280ed0a3cb119cc22f3f6678610bd2b7d4f9acbe7b800f0452b9a8d8a5d09",
+          ".work/toolret/toolink/queries-00000-of-00001.parquet": "6ff2d524e1e79b8af96518e9d880ddf00cb8371e1bf58475011551b74d9d4a91",
+          ".work/toolret/toollens/queries-00000-of-00001.parquet": "344e08a552508c77cb58e87dc93f7090f5c4eedba771095e5cdf6c1b12243a79",
+          ".work/toolret/ultratool/queries-00000-of-00001.parquet": "5fc5fd59cab9e9a6852817ccb4645f81d47bf4394da232404d798c1be33d36b8",
+          ".work/toolret/web/tools-00000-of-00001.parquet": "57faceebd778b2cb74571dca0e71e8bc8078c11ba05dce0efc562e818d3950e6"
+        }
+      },
+      "passes": false,
+      "wall_seconds": 3900.034231161
     }
   },
   "external_compute_usd": 0,
@@ -572,5 +738,12 @@
       "config_sentence_transformers.json": "7453db62f635567117454bf0599899107d43569c95d5353b5993d809c39379cf",
       "onnx/embedding-int8.onnx": "ba0e544669eac502cac535d3ed53b9cf5b530b5fd929d4a7bddd787abe08ea33"
     }
-  }
+  },
+  "p95_ratios": {
+    "short": 0.271938179599402,
+    "long": 0.364099329589836
+  },
+  "graph_mib": 16.67408275604248,
+  "passes": false,
+  "wall_seconds": 4416.762145430781
 }

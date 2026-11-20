@@ -29,3 +29,5 @@
 - CLI search shares gateway ranking and returns partial JSON on upstream failure. The installed wheel ranked reference time and Cloudflare docs first with an empty model cache. [Results](../results/gateway_cli_search_release.json)
 - Replayed seven signals and two baselines on NWS, library, and API. Coverage plus cosine cut NWS false accepts 3→1. The coverage gate failed. Keep cutoffs opt-in. [Replay](ABSTENTION_REPLAY.md)
 - Installed wheel passed model-free demos and ONNX ranking on Linux x86-64 with Python 3.11–3.14. Prepared the PyPI Trusted Publishing workflow. [Results](../results/gateway_python_release.json)
+- Audited 242 shared 17M/33M top-one development misses. Of 12 same-repository training pairs, three were clear negatives, three plausible alternatives, and six ambiguous. Review labels before unmasking. [Audit](MICRO_TRAINING_AUDIT.md)
+- Matched four-thread CPU INT8 ToolRet (44,453 tools) indexed in 13.7 vs 50.0 minutes. Hybrid nDCG@10 fell 1.94 points, missing the frozen lower-bound gate. Keep 33M. [Full holdout](../results/micro_holdout.json)
