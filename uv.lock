@@ -751,6 +751,38 @@ wheels = [
 ]
 
 [[package]]
+name = "optimum"
+version = "2.1.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "huggingface-hub" },
+    { name = "numpy" },
+    { name = "packaging" },
+    { name = "torch", version = "2.8.0", source = { registry = "https://pypi.org/simple" }, marker = "(platform_machine != 'x86_64' and extra != 'extra-8-toolrank-cpu') or sys_platform == 'darwin' or (sys_platform != 'linux' and extra != 'extra-8-toolrank-cpu') or (extra == 'extra-8-toolrank-cpu' and extra == 'extra-8-toolrank-cu128') or (extra != 'extra-8-toolrank-cpu' and extra != 'extra-8-toolrank-cu128')" },
+    { name = "torch", version = "2.8.0+cpu", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(sys_platform != 'darwin' and extra == 'extra-8-toolrank-cpu') or (extra == 'extra-8-toolrank-cpu' and extra == 'extra-8-toolrank-cu128')" },
+    { name = "torch", version = "2.8.0+cu128", source = { registry = "https://download.pytorch.org/whl/cu128" }, marker = "(platform_machine == 'x86_64' and sys_platform == 'linux' and extra == 'extra-8-toolrank-cu128') or (platform_machine != 'x86_64' and extra == 'extra-8-toolrank-cpu' and extra == 'extra-8-toolrank-cu128') or (sys_platform != 'linux' and extra == 'extra-8-toolrank-cpu' and extra == 'extra-8-toolrank-cu128')" },
+    { name = "transformers" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/f0/69/e1e9fe4d54f6b1b90cc278d6da74dd90eb4d9fd9228882886d7c275712e2/optimum-2.1.0.tar.gz", hash = "sha256:0a2a13f91500e41d34863ffdb08fcb886b3ce68a84a386e59653e3064a45dd4b", size = 125896, upload-time = "2025-12-19T10:47:18.571Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/4a/98/c409ed937331839fdadc03cef6ebd19982bf3834711134db8898eeb31585/optimum-2.1.0-py3-none-any.whl", hash = "sha256:bc3af32e1236a9b2c2ca1d27ed9d3ab1b6591e24c6bcd47f9671a8198a30ea88", size = 161231, upload-time = "2025-12-19T10:47:17.054Z" },
+]
+
+[[package]]
+name = "optimum-onnx"
+version = "0.1.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "onnx" },
+    { name = "optimum" },
+    { name = "transformers" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/08/da/3a0073af8f436d72c1e4d9c655c00628b857bd1d9ccc101d35301d5bb2df/optimum_onnx-0.1.0.tar.gz", hash = "sha256:182c54b25eddaded1618af7b58516da34749393a987ec7111f74677f249676f9", size = 165531, upload-time = "2025-12-23T14:20:18.97Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/41/89/4be9d226bc74fd0eb405d1efea62e86d6f0f31841dae9c5898ee12eb482f/optimum_onnx-0.1.0-py3-none-any.whl", hash = "sha256:0301ec7a6ec5c77a57581e9970d380a6dc104bdb8f15b282e05af40d829c2eda", size = 194155, upload-time = "2025-12-23T14:20:17.741Z" },
+]
+
+[[package]]
 name = "orjson"
 version = "3.13.0"
 source = { registry = "https://pypi.org/simple" }
@@ -1161,6 +1193,12 @@ onnx = [
     { name = "onnx" },
     { name = "onnxruntime" },
 ]
+onnx-backend = [
+    { name = "onnx" },
+    { name = "onnxruntime" },
+    { name = "optimum" },
+    { name = "optimum-onnx" },
+]
 research = [
     { name = "pyarrow" },
 ]
@@ -1186,6 +1224,12 @@ examples = [
 onnx = [
     { name = "onnx", specifier = "==1.20.1" },
     { name = "onnxruntime", specifier = "==1.24.1" },
+]
+onnx-backend = [
+    { name = "onnx", specifier = "==1.20.1" },
+    { name = "onnxruntime", specifier = "==1.24.1" },
+    { name = "optimum", specifier = "==2.1.0" },
+    { name = "optimum-onnx", specifier = "==0.1.0" },
 ]
 research = [{ name = "pyarrow", specifier = "==26.0.1" }]
 

@@ -1,0 +1,44 @@
+{
+  "environment": {
+    "onnxruntime": "1.24.1",
+    "sentence_transformers": "5.2.3",
+    "optimum": "2.1.0",
+    "optimum_onnx": "0.1.0",
+    "threads": 4
+  },
+  "embedding_parity": {
+    "model.onnx": {
+      "max_abs_error": 8.940696716308594e-08,
+      "size_bytes": 133221931,
+      "sha256": "ed7443ab28d8758e31e0f2cd43487283e0e705041a9cf636cbbb3102ca53f251",
+      "cases": 6
+    },
+    "model_quantized.onnx": {
+      "max_abs_error": 1.1920928955078125e-07,
+      "size_bytes": 34137453,
+      "sha256": "14302fa8e6fb277c11c59834bb5c1e375fe1dc0a6ff648c20137b55f398f9228",
+      "cases": 6
+    }
+  },
+  "catalog_rank_parity": {
+    "model.onnx": {
+      "queries": 96,
+      "same_all_rankings": true,
+      "maximum_score_delta": 3.5762786865234375e-07
+    },
+    "model_quantized.onnx": {
+      "queries": 96,
+      "same_all_rankings": true,
+      "maximum_score_delta": 3.5762786865234375e-07
+    }
+  },
+  "transformers_js": {
+    "version": "4.3.2",
+    "dtype": "q8",
+    "shape": [
+      1,
+      384
+    ],
+    "matching_tool_rank": 1
+  }
+}
