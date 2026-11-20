@@ -563,9 +563,10 @@ def build_server(gateway):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("config", type=Path)
+    parser.add_argument("config", type=Path, nargs="?")
     parser.add_argument("--checkpoint", type=Path, help="use a local ONNX checkpoint folder")
     modes = parser.add_mutually_exclusive_group()
+    modes.add_argument("--demo", action="store_true", help="run a bundled read-only demo without model files")
     modes.add_argument("--calibrate", type=Path, metavar="LABELS", help="fit a cutoff on the live catalog")
     modes.add_argument("--evaluate", type=Path, metavar="LABELS", help="measure the configured gateway on held-out labels")
     parser.add_argument("--invocable-only", action="store_true", help="score the invocation allowlist for labeled runs")
@@ -573,8 +574,22 @@ def main():
     parser.add_argument("--confidence", type=float, default=.95)
     parser.add_argument("--limit", type=int, default=5, help="shortlist size for labeled evaluation")
     args = parser.parse_args()
+    if args.demo and (args.config is not None or args.checkpoint is not None):
+        parser.error("--demo uses its own configuration")
+    if not args.demo and args.config is None:
+        parser.error("provide a gateway configuration or --demo")
     if args.invocable_only and not (args.calibrate or args.evaluate):
         parser.error("--invocable-only requires --calibrate or --evaluate")
+    # The SDK can log malformed protocol payloads. Keep upstream data off stdio logs.
+    for name in ("mcp", "httpx", "httpcore"):
+        logger = logging.getLogger(name)
+        logger.handlers = [logging.NullHandler()]
+        logger.propagate = False
+    if args.demo:
+        from .gateway_demo import run_demo
+
+        print(json.dumps(asyncio.run(run_demo()), indent=2))
+        return
     try:
         config = GatewayConfig.model_validate_json(args.config.read_text(encoding="utf-8"))
         if config.calibration_report is not None:
@@ -582,11 +597,6 @@ def main():
         gateway = Gateway.from_config(config, args.checkpoint)
     except (OSError, ValueError):
         parser.exit(2, "Could not load ToolRank gateway configuration, checkpoint, or calibration report.\n")
-    # The SDK can log malformed protocol payloads. Keep upstream data off stdio logs.
-    for name in ("mcp", "httpx", "httpcore"):
-        logger = logging.getLogger(name)
-        logger.handlers = [logging.NullHandler()]
-        logger.propagate = False
     if args.calibrate or args.evaluate:
         from .gateway_calibration import run_labeled
 

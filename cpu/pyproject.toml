@@ -28,9 +28,7 @@ build-backend = "hatchling.build"
 [tool.hatch.build.targets.wheel]
 packages = ["toolrank_cpu"]
 
-[tool.hatch.build.targets.wheel.force-include]
-"../LICENSE" = "toolrank_cpu/LICENSE"
-"../examples/rank_onnx.py" = "toolrank_cpu/rank_onnx.py"
-"../examples/catalog_lexical.py" = "toolrank_cpu/catalog_lexical.py"
-"../examples/catalog_int8.onnx" = "toolrank_cpu/catalog_int8.onnx"
-"../bundle/model.json" = "toolrank_cpu/model.json"
+[tool.hatch.build.targets.sdist]
+include = ["/hatch_build.py", "/pyproject.toml", "/toolrank_cpu", "/uv.lock"]
+
+[tool.hatch.build.hooks.custom]
