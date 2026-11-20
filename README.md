@@ -23,4 +23,4 @@ ToolRank’s gain over BGE Small varies by ETOM schema under identical TF-IDF an
 
 Uncalibrated rankings leave applicability unverified. Invoke only tools permitted by the client and gateway. [Calibration](docs/ONNX_CALIBRATION.md) · [Model, provenance, and license](docs/MODERN_MODEL_CARD.md)
 
-[LangChain](examples/langchain_agent.py) · [Pydantic AI](examples/pydantic_agent.py) · [Browser demo](demo/) · [Research history](docs/RESEARCH.md) · [Apache-2.0](LICENSE)
+[LangChain and Pydantic AI examples](docs/FRAMEWORK_INTEGRATIONS.md) · [Browser demo](demo/) · [Research history](docs/RESEARCH.md) · [Apache-2.0](LICENSE)

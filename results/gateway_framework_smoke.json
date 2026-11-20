@@ -1,0 +1,91 @@
+{
+  "revision": "1386e216c0d849fe5bae2636647f1300c844465b",
+  "scope": "Four executions of one read-only workflow through the installed gateway, with live loopback HTTP and stdio tool providers and a local language model. Receipts and raw model answers are unlogged.",
+  "config": "examples/gateway_agent_config.json",
+  "source_sha256": {
+    "examples/gateway_agent.py": "22cf3274f583641fbae090beb5d2f217b3181aee4033f2d889ecbc359139435d",
+    "examples/gateway_agent_config.json": "d6cc7ebd1aae4da893cf8e34b3884430a239c2e9d3a09748bab2856ad6167645",
+    "examples/gateway_http_clock.py": "53c55509473437a2581f5015aaaa8395f9079077a778f80fc7be0ebb92a6e2be",
+    "examples/gateway_time_math.py": "54e717a2d71fc7debb10adf4fd58e8f36f6d75ac9e82e3a3778c249e909a1b07",
+    "examples/langchain_agent.py": "1dcf8b368cf633564a98dd85b7f87b496247ebced7fdc0d502ebb727e61b9ed6",
+    "examples/pydantic_agent.py": "4039e7a7e77f7fd1b7ac8a7a9c5b20b9c95d01a45baafffafa4293236ca7ece6",
+    "tests/gateway/framework_smoke.py": "0f72c9b3582cd42b7a9f4f1e10fdf8d9b21e557ebcf701cc0f2530d347383bb0"
+  },
+  "versions": {
+    "langchain": "1.2.12",
+    "langchain-openai": "1.8.5",
+    "pydantic-ai-slim": "1.68.0",
+    "openai": "3.57.0",
+    "mcp": "1.30.0"
+  },
+  "checkpoint": "Qwen/Qwen2.5-7B-Instruct-GGUF at bb5d59e06d9551d752d08b292a50eb208b07ab1f",
+  "gguf_sha256": {
+    "qwen2.5-7b-instruct-q4_k_m-00001-of-00002.gguf": "dfce12e3862a5283ccfb88221b48480e58745165de856439950d0f22590580db",
+    "qwen2.5-7b-instruct-q4_k_m-00002-of-00002.gguf": "539cf93f78e887edea1c04e2d7d8cdaca9d01dae9c9025bcb8accbe29df3d72a"
+  },
+  "server": {
+    "revision": "7e960f40f",
+    "hardware": "RTX 3090",
+    "ctx_size": 8192,
+    "threads": 6,
+    "gpu_layers": 99,
+    "parallel": 1,
+    "temperature": 0,
+    "seed": null,
+    "jinja": true,
+    "cache_prompt": false,
+    "cache_ram": 0
+  },
+  "gateway_wheel_sha256": "fefe1a24cac7229a84e52402f466528817935565dd48f0bd9ef401c0a1a4a930",
+  "external_compute_usd": 0,
+  "trials": [
+    {
+      "framework": "LangChain",
+      "trial": 1,
+      "tool_order": [
+        "clock/get_current_time",
+        "time_math/minutes_since_midnight"
+      ],
+      "timestamp_matches_receipt": true,
+      "calculation_correct": true,
+      "answer_matches_receipts": true,
+      "withheld_proposals": 0
+    },
+    {
+      "framework": "LangChain",
+      "trial": 2,
+      "tool_order": [
+        "clock/get_current_time",
+        "time_math/minutes_since_midnight"
+      ],
+      "timestamp_matches_receipt": true,
+      "calculation_correct": true,
+      "answer_matches_receipts": true,
+      "withheld_proposals": 0
+    },
+    {
+      "framework": "Pydantic AI",
+      "trial": 1,
+      "tool_order": [
+        "clock/get_current_time",
+        "time_math/minutes_since_midnight"
+      ],
+      "timestamp_matches_receipt": true,
+      "calculation_correct": true,
+      "answer_matches_receipts": true,
+      "withheld_proposals": 0
+    },
+    {
+      "framework": "Pydantic AI",
+      "trial": 2,
+      "tool_order": [
+        "clock/get_current_time",
+        "time_math/minutes_since_midnight"
+      ],
+      "timestamp_matches_receipt": true,
+      "calculation_correct": true,
+      "answer_matches_receipts": true,
+      "withheld_proposals": 0
+    }
+  ]
+}
