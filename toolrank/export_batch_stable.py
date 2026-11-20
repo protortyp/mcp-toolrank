@@ -76,9 +76,11 @@ def static_export(source, target, root, protocol):
 
 
 def weight_export(source, target, settings):
+    import onnx
     from onnxruntime.quantization.matmul_nbits_quantizer import MatMulNBitsQuantizer
 
-    converter = MatMulNBitsQuantizer(str(source), bits=settings["bits"], block_size=settings["block_size"],
+    model = onnx.version_converter.convert_version(onnx.load(source), 21)
+    converter = MatMulNBitsQuantizer(model, bits=settings["bits"], block_size=settings["block_size"],
                                     is_symmetric=settings["symmetric"], accuracy_level=settings["accuracy_level"],
                                     op_types_to_quantize=tuple(settings["ops"]))
     converter.process()
