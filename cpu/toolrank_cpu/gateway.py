@@ -588,6 +588,8 @@ def main():
     modes.add_argument("--demo", action="store_true", help="run a bundled read-only demo without model files")
     modes.add_argument("--list-upstream-tools", action="store_true",
                        help="list tool names from configured upstreams for allowlist setup")
+    modes.add_argument("--import-client-config", type=Path, metavar="OUTPUT",
+                       help="write a gateway config from a server-only MCP client JSON file")
     modes.add_argument("--calibrate", type=Path, metavar="LABELS", help="fit a cutoff on the live catalog")
     modes.add_argument("--evaluate", type=Path, metavar="LABELS", help="measure the configured gateway on held-out labels")
     parser.add_argument("--invocable-only", action="store_true", help="score the invocation allowlist for labeled runs")
@@ -601,6 +603,8 @@ def main():
         parser.error("provide a gateway configuration or --demo")
     if args.list_upstream_tools and args.checkpoint is not None:
         parser.error("--list-upstream-tools works without a checkpoint")
+    if args.import_client_config and args.checkpoint is not None:
+        parser.error("--import-client-config works without a checkpoint")
     if args.invocable_only and not (args.calibrate or args.evaluate):
         parser.error("--invocable-only requires --calibrate or --evaluate")
     # The SDK can log malformed protocol payloads. Keep upstream data off stdio logs.
@@ -612,6 +616,20 @@ def main():
         from .gateway_demo import run_demo
 
         print(json.dumps(asyncio.run(run_demo()), indent=2))
+        return
+    if args.import_client_config:
+        from .gateway_import import ImportConfigError, convert_client_config, write_new_config
+
+        try:
+            converted = convert_client_config(args.config)
+            GatewayConfig.model_validate(converted)
+            write_new_config(args.import_client_config, converted)
+        except ImportConfigError as error:
+            parser.exit(2, f"{error}\n")
+        except FileExistsError:
+            parser.exit(2, "Gateway config output already exists.\n")
+        except (OSError, ValueError):
+            parser.exit(2, "Could not validate or write the imported gateway config.\n")
         return
     try:
         config = GatewayConfig.model_validate_json(args.config.read_text(encoding="utf-8"))

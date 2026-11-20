@@ -69,9 +69,17 @@ async def desktop_bundle(bundle, directory, input_file):
 
 def inventory(args, directory):
     command = ["uvx", "--isolated", "--offline", "--python", "3.12",
-               "--from", f"{args.wheel}[gateway]", "toolrank-gateway",
-               str(args.inventory_config), "--list-upstream-tools"]
-    result = json.loads(run(command, directory))["upstreams"]
+               "--from", f"{args.wheel}[gateway]", "toolrank-gateway"]
+    config = args.inventory_config
+    if args.client_config:
+        config = directory / "client import gateway.json"
+        run([*command, str(args.client_config), "--import-client-config", str(config)], directory)
+        imported = json.loads(config.read_text())
+        if imported["ranking"] != "bm25" or any(
+            row["discover"] or row["invoke"] for row in imported["servers"]
+        ):
+            raise ValueError("Imported config grants unexpected permissions")
+    result = json.loads(run([*command, str(config), "--list-upstream-tools"], directory))["upstreams"]
     if (result["clock"]["status"] != "ready" or result["docs"]["status"] != "ready"
             or result["clock"]["tools"] != ["convert_time", "get_current_time", "get_time_ago"]
             or "search_cloudflare_documentation" not in result["docs"]["tools"]
@@ -105,7 +113,7 @@ async def check(args):
                 raise ValueError("The model-free demo touched the checkpoint cache")
             records.append({"python": python, "elapsed_seconds": elapsed, "ordered_calls": demo["invoked_tools"],
                             "minutes_match_clock_receipt": True, "empty_model_cache": True})
-        upstreams = inventory(args, directory) if args.inventory_config else None
+        upstreams = inventory(args, directory) if args.inventory_config or args.client_config else None
         catalog = directory / "catalog.json"
         catalog.write_text(json.dumps(CATALOG))
         ranked = json.loads(run(["uvx", "--isolated", "--offline", "--python", "3.12", "--from", str(args.wheel),
@@ -120,7 +128,7 @@ async def check(args):
             "artifacts": {path.name: digest(path) for path in release}, "wheel_rebuild_identical": True,
             "offline_with_cached_dependencies": True, "fresh_install_demos": records,
             "installed_onnx_cli_match": ranked[0]["tool"]["name"], "desktop_bundle": desktop,
-            "installed_live_inventory": upstreams,
+            "installed_live_inventory": upstreams, "client_config_imported": bool(args.client_config),
             "external_compute_usd": 0}
 
 
@@ -128,7 +136,10 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     for name in ("wheel", "sdist", "bundle", "checkpoint", "output"):
         parser.add_argument(f"--{name}", type=lambda value: Path(value).resolve(), required=True)
-    parser.add_argument("--inventory-config", type=lambda value: Path(value).resolve(),
-                        help="also inventory the reference time server and live Cloudflare docs endpoint")
+    inventory_mode = parser.add_mutually_exclusive_group()
+    inventory_mode.add_argument("--inventory-config", type=lambda value: Path(value).resolve(),
+                                help="also inventory the reference time and Cloudflare docs servers")
+    inventory_mode.add_argument("--client-config", type=lambda value: Path(value).resolve(),
+                                help="import a client config for the reference time and Cloudflare docs servers")
     args = parser.parse_args()
     args.output.write_text(json.dumps(asyncio.run(check(args)), indent=2) + "\n")

@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "clock": {
+      "command": "uvx",
+      "args": ["--python", "3.12", "mcp-server-time==2026.11.18"]
+    },
+    "docs": {
+      "type": "http",
+      "url": "https://docs.mcp.cloudflare.com/mcp"
+    }
+  }
+}

@@ -1,6 +1,6 @@
 [project]
 name = "toolrank-cpu"
-version = "0.3.0"
+version = "0.4.0"
 description = "Local ToolRank CPU retrieval for MCP and OpenAPI catalogs"
 requires-python = ">=3.12,<3.14"
 license = "Apache-2.0"
