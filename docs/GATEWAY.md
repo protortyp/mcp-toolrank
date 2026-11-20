@@ -21,6 +21,16 @@ Use one gateway and cache per trusted local principal. Upstream credentials are 
 
 Python clients can use `Gateway.from_config` and `async with gateway.running()`.
 
+## List upstream tools for setup
+
+Use trusted local configs. Stdio launches configured commands. Set `"discover": []` before names are known. This example connects time and Cloudflare docs servers.
+
+```sh
+toolrank-gateway examples/gateway_inventory_config.json --list-upstream-tools
+```
+
+Inventory sorts names per upstream and flags missing discovery names. Unavailable upstreams yield exit 1 with partial JSON. Add names to `discover` and grant `invoke` separately. Model-free inventory issues discovery requests only. [Example](../examples/gateway_inventory_config.json) · [Installed check](../results/gateway_inventory_release.json)
+
 ## Model-free ranking
 
 Set `"ranking": "bm25"` for lexical search without a checkpoint or ONNX session. Hybrid is the default and supports `min_cosine`. BM25 matches have `cosine: null`. `no_lexical_overlap` means eligible tools share no indexed query terms. Overlap leaves relevance unverified. [Measured trade-off](GATEWAY_RANKING.md)

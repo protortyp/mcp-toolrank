@@ -1,5 +1,9 @@
 # Changelog
 
+## CPU package 0.3.0 preview
+
+- Inventory stdio and Streamable HTTP tool names. Flag missing discovery names and retain partial results.
+
 ## CPU package 0.2.0 preview
 
 - Discover stdio and Streamable HTTP tools with stable IDs, refresh, and separate discovery and invocation allowlists.

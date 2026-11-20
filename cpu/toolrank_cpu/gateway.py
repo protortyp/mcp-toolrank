@@ -317,6 +317,25 @@ class Upstream:
             return result
 
 
+async def list_upstream_tools(config):
+    """Inventory configured upstreams for the local operator."""
+    async def inspect(server):
+        upstream = Upstream(server, config.timeout_seconds, config.refresh_seconds)
+        try:
+            async with upstream.connect() as (read, write):
+                async with ClientSession(read, write) as session:
+                    async with asyncio.timeout(upstream.timeout):
+                        initialized = await session.initialize()
+                        tools = await list_all_tools(session) if initialized.capabilities.tools is not None else {}
+        except Exception:
+            return {"status": "unavailable", "tools": []}
+        return {"status": "ready", "tools": sorted(tools),
+                "missing_discover": sorted(server.discover - tools.keys())}
+
+    inventories = await asyncio.gather(*(inspect(server) for server in config.servers))
+    return dict(zip((server.id for server in config.servers), inventories, strict=True))
+
+
 class SearchIndex:
     def __init__(self, encoder=None, *, namespace=None, cache_dir=None):
         self.encoder = encoder
@@ -567,6 +586,8 @@ def main():
     parser.add_argument("--checkpoint", type=Path, help="use a local ONNX checkpoint folder")
     modes = parser.add_mutually_exclusive_group()
     modes.add_argument("--demo", action="store_true", help="run a bundled read-only demo without model files")
+    modes.add_argument("--list-upstream-tools", action="store_true",
+                       help="list tool names from configured upstreams for allowlist setup")
     modes.add_argument("--calibrate", type=Path, metavar="LABELS", help="fit a cutoff on the live catalog")
     modes.add_argument("--evaluate", type=Path, metavar="LABELS", help="measure the configured gateway on held-out labels")
     parser.add_argument("--invocable-only", action="store_true", help="score the invocation allowlist for labeled runs")
@@ -578,6 +599,8 @@ def main():
         parser.error("--demo uses its own configuration")
     if not args.demo and args.config is None:
         parser.error("provide a gateway configuration or --demo")
+    if args.list_upstream_tools and args.checkpoint is not None:
+        parser.error("--list-upstream-tools works without a checkpoint")
     if args.invocable_only and not (args.calibrate or args.evaluate):
         parser.error("--invocable-only requires --calibrate or --evaluate")
     # The SDK can log malformed protocol payloads. Keep upstream data off stdio logs.
@@ -592,6 +615,15 @@ def main():
         return
     try:
         config = GatewayConfig.model_validate_json(args.config.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        parser.exit(2, "Could not load ToolRank gateway configuration.\n")
+    if args.list_upstream_tools:
+        inventory = asyncio.run(list_upstream_tools(config))
+        print(json.dumps({"upstreams": inventory}, indent=2))
+        if any(result["status"] == "unavailable" for result in inventory.values()):
+            raise SystemExit(1)
+        return
+    try:
         if config.calibration_report is not None:
             config = config.model_copy(update={"calibration_report": args.config.parent / config.calibration_report})
         gateway = Gateway.from_config(config, args.checkpoint)
