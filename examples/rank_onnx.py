@@ -14,8 +14,54 @@ import onnxruntime as ort
 from tokenizers import Tokenizer
 
 
+def quantize_rows(matrix, bound):
+    peaks = np.abs(matrix).max(axis=1, keepdims=True)
+    scales = np.where(peaks > 0, peaks / bound, np.float32(1))
+    return np.rint(matrix / scales).astype(np.int8), scales[:, 0]
+
+
+def top_indices(scores, limit):
+    if limit >= len(scores):
+        return np.argsort(-scores, kind="stable")
+    cutoff = np.partition(scores, len(scores) - limit)[-limit]
+    higher = np.flatnonzero(scores > cutoff)
+    ties = np.flatnonzero(scores == cutoff)[:limit - len(higher)]
+    return np.concatenate((higher[np.argsort(-scores[higher], kind="stable")], ties))
+
+
+class CompactCatalog:
+    def __init__(self, batches, size, threads):
+        self.scales = np.empty(size, dtype=np.float32)
+        offset = 0
+        for batch in batches:
+            if offset == 0:
+                self.vectors = np.empty((batch.shape[1], size), dtype=np.int8)
+            # With a U8 query, two products at these limits fit in a signed 16-bit lane.
+            encoded, scales = quantize_rows(batch, 63)
+            end = offset + len(batch)
+            self.vectors[:, offset:end] = encoded.T
+            self.scales[offset:end] = scales
+            offset = end
+        options = ort.SessionOptions()
+        options.intra_op_num_threads = threads
+        options.enable_cpu_mem_arena = False
+        self.session = ort.InferenceSession(
+            str(Path(__file__).with_name("catalog_int8.onnx")), sess_options=options,
+            providers=["CPUExecutionProvider"],
+        )
+
+    def scores(self, queries):
+        encoded, scales = quantize_rows(queries, 127)
+        unsigned = (encoded.astype(np.int16) + 128).astype(np.uint8)
+        dots = self.session.run(["scores"], {"query": unsigned, "catalog": self.vectors})[0]
+        return dots.astype(np.float32) * self.scales * scales[:, None]
+
+
 class OnnxToolRank:
-    def __init__(self, checkpoint, tools, *, threads=4, model_file="embedding-int8.onnx"):
+    def __init__(self, checkpoint, tools, *, threads=4, model_file="embedding-int8.onnx",
+                 catalog_precision="float32"):
+        if catalog_precision not in ("float32", "int8"):
+            raise ValueError("catalog_precision must be float32 or int8")
         self.tools = sorted(tools, key=lambda item: item["name"])
         if len({item["name"] for item in self.tools}) != len(self.tools):
             raise ValueError("catalog tool names must be unique")
@@ -34,9 +80,13 @@ class OnnxToolRank:
         )
         self.inputs = [item.name for item in self.session.get_inputs()]
         descriptions = [f"{item['name']}: {item.get('description') or ''}" for item in self.tools]
-        self.docs = (np.concatenate([self.encode(descriptions[i:i + 32])
-                                     for i in range(0, len(descriptions), 32)])
-                     if descriptions else np.empty((0, 384), dtype=np.float32))
+        batches = (self.encode(descriptions[i:i + 32]) for i in range(0, len(descriptions), 32))
+        if catalog_precision == "int8" and descriptions:
+            self.catalog = CompactCatalog(batches, len(descriptions), threads)
+            self.docs = None
+        else:
+            self.catalog = None
+            self.docs = np.concatenate(list(batches)) if descriptions else np.empty((0, 384), dtype=np.float32)
 
     def encode(self, texts):
         rows = self.tokenizer.encode_batch(texts)
@@ -53,9 +103,10 @@ class OnnxToolRank:
             raise ValueError("limit must be nonnegative")
         if not request.strip() or not self.tools or not limit:
             return []
-        scores = self.docs @ self.encode([self.prefix + request])[0]
+        query = self.encode([self.prefix + request])
+        scores = self.catalog.scores(query)[0] if self.catalog else self.docs @ query[0]
         return [{"tool": self.tools[index], "score": float(scores[index])}
-                for index in np.argsort(-scores, kind="stable")[:limit]
+                for index in top_indices(scores, limit)
                 if min_score is None or scores[index] >= min_score]
 
 
@@ -136,6 +187,7 @@ def main():
     parser.add_argument("--evaluate", type=Path, metavar="LABELS", help="measure on labeled requests")
     parser.add_argument("--model-file", default="embedding-int8.onnx")
     parser.add_argument("--compare-model-file", help="evaluate a second ONNX graph over the same requests")
+    parser.add_argument("--catalog-precision", choices=["float32", "int8"], default="float32")
     parser.add_argument("--limit", type=int, default=5)
     parser.add_argument("--min-score", type=float)
     parser.add_argument("--threads", type=int, default=4)
@@ -156,7 +208,8 @@ def main():
         parser.error(str(error))
 
     def load(model_file):
-        return OnnxToolRank(args.checkpoint, tools, threads=args.threads, model_file=model_file)
+        return OnnxToolRank(args.checkpoint, tools, threads=args.threads, model_file=model_file,
+                            catalog_precision=args.catalog_precision)
 
     if args.evaluate:
         models = [args.model_file]
