@@ -1,0 +1,36 @@
+name: Publish MCP Registry listing
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  publish:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+      - name: Check the published desktop bundle
+        run: |
+          url=$(jq -er '.packages[0].identifier' server.json)
+          checksum=$(jq -er '.packages[0].fileSha256' server.json)
+          version=$(jq -er '.version' server.json)
+          curl -fsSL --retry 3 "$url" -o toolrank.mcpb
+          printf '%s  toolrank.mcpb\n' "$checksum" | sha256sum -c -
+          unzip -p toolrank.mcpb manifest.json | jq -e --arg version "$version" '.version == $version'
+      - name: Verify MCP Registry publisher
+        working-directory: ${{ runner.temp }}
+        run: |
+          curl -fsSL --retry 3 \
+            https://github.com/modelcontextprotocol/registry/releases/download/v1.8.10/mcp-publisher_linux_amd64.tar.gz \
+            -o publisher.tar.gz
+          printf '%s  publisher.tar.gz\n' 32d287ed6fb7dc04eddd2621097784c06a355b2348b35ccc630a1643aa75ff4a | sha256sum -c -
+          tar -xzf publisher.tar.gz mcp-publisher
+      - name: Publish the listing
+        run: |
+          "$RUNNER_TEMP/mcp-publisher" login github-oidc
+          "$RUNNER_TEMP/mcp-publisher" publish server.json
