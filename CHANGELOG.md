@@ -1,5 +1,9 @@
 # Changelog
 
+## CPU package 0.4.0 preview
+
+- Import portable MCP server definitions into a private BM25 config. Review upstreams, inventory, then grant discovery and invocation separately.
+
 ## Gateway desktop bundle 0.3.0
 
 - Bundle the CPU wheel with locked uv and a model-free two-server BM25 example.
