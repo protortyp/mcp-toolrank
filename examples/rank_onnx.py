@@ -5,7 +5,9 @@
 """Rank an MCP catalog with CPU ONNX Runtime."""
 import argparse
 import json
+import math
 from pathlib import Path
+import time
 
 import numpy as np
 import onnxruntime as ort
@@ -57,16 +59,119 @@ class OnnxToolRank:
                 if min_score is None or scores[index] >= min_score]
 
 
-if __name__ == "__main__":
+def read_catalog(data):
+    if isinstance(data, dict) and "result" in data:
+        data = data["result"]
+    tools = data.get("tools") if isinstance(data, dict) else data
+    if not isinstance(tools, list) or any(
+        not isinstance(tool, dict) or not isinstance(tool.get("name"), str) or not tool["name"].strip()
+        for tool in tools
+    ):
+        raise ValueError("catalog must contain a list of tool definitions with nonempty names")
+    return tools
+
+
+def read_cases(data, names):
+    if not isinstance(data, list) or not data:
+        raise ValueError("evaluation labels must be a nonempty JSON array")
+    cases = []
+    for index, entry in enumerate(data, start=1):
+        if not isinstance(entry, dict):
+            raise ValueError(f"case {index} must be an object")
+        request, expected = entry.get("query"), entry.get("relevant")
+        if not isinstance(request, str) or not request.strip():
+            raise ValueError(f"case {index} needs a nonempty query")
+        if not isinstance(expected, list) or any(not isinstance(name, str) for name in expected):
+            raise ValueError(f"case {index} needs a relevant array of tool names")
+        if unknown := set(expected) - names:
+            raise ValueError(f"case {index} names tools outside the catalog: {', '.join(sorted(unknown))}")
+        cases.append((request, set(expected)))
+    return cases
+
+
+def evaluate(retriever, cases, *, limit, min_score):
+    discounts = [1 / math.log2(rank + 2) for rank in range(limit)]
+    totals = dict.fromkeys(("hit", "recall", "ndcg"), 0.0)
+    supported = unsupported = accepted_supported = accepted_unsupported = 0
+    durations = []
+    retriever.rank(cases[0][0], limit=limit)
+    for request, expected in cases:
+        start = time.perf_counter()
+        matches = retriever.rank(request, limit=limit)
+        durations.append((time.perf_counter() - start) * 1_000)
+        accepted = bool(matches) and (min_score is None or matches[0]["score"] >= min_score)
+        if not expected:
+            unsupported += 1
+            accepted_unsupported += accepted
+            continue
+        supported += 1
+        accepted_supported += accepted
+        hits = [match["tool"]["name"] in expected for match in matches]
+        totals["hit"] += any(hits)
+        totals["recall"] += sum(hits) / len(expected)
+        totals["ndcg"] += sum(hit * weight for hit, weight in zip(hits, discounts)) / sum(
+            discounts[:len(expected)]
+        )
+    return {
+        "k": limit,
+        "min_score": min_score,
+        "supported": supported,
+        "unsupported": unsupported,
+        "metrics": {f"{name}@{limit}": value / supported if supported else None
+                    for name, value in totals.items()},
+        "accepted_supported": accepted_supported,
+        "accepted_unsupported": accepted_unsupported,
+        "supported_coverage": accepted_supported / supported if supported else None,
+        "unsupported_false_accept_rate": accepted_unsupported / unsupported if unsupported else None,
+        "query_p50_ms": float(np.median(durations)),
+        "query_p95_ms": float(np.quantile(durations, 0.95)),
+    }
+
+
+def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("checkpoint", type=Path)
     parser.add_argument("catalog", type=Path, help="an MCP tools/list result or an array of tool definitions")
-    parser.add_argument("request")
+    parser.add_argument("request", nargs="?")
+    parser.add_argument("--evaluate", type=Path, metavar="LABELS", help="measure on labeled requests")
     parser.add_argument("--model-file", default="embedding-int8.onnx")
+    parser.add_argument("--compare-model-file", help="evaluate a second ONNX graph over the same requests")
     parser.add_argument("--limit", type=int, default=5)
     parser.add_argument("--min-score", type=float)
+    parser.add_argument("--threads", type=int, default=4)
     args = parser.parse_args()
-    data = json.loads(args.catalog.read_text())
-    tools = data["tools"] if isinstance(data, dict) else data
-    retriever = OnnxToolRank(args.checkpoint, tools, model_file=args.model_file)
-    print(json.dumps(retriever.rank(args.request, limit=args.limit, min_score=args.min_score), indent=2))
+    if (args.request is None) == (args.evaluate is None):
+        parser.error("provide either a request or --evaluate LABELS")
+    if args.threads < 1 or args.limit < 0 or (args.evaluate and args.limit == 0):
+        parser.error("--threads must be positive and --limit must be positive for evaluation")
+    if args.min_score is not None and not math.isfinite(args.min_score):
+        parser.error("--min-score must be finite")
+    if args.compare_model_file and (not args.evaluate or args.compare_model_file == args.model_file):
+        parser.error("--compare-model-file requires evaluation and a different ONNX graph")
+    try:
+        tools = read_catalog(json.loads(args.catalog.read_text()))
+        if args.evaluate:
+            cases = read_cases(json.loads(args.evaluate.read_text()), {tool["name"] for tool in tools})
+    except (OSError, ValueError) as error:
+        parser.error(str(error))
+
+    def load(model_file):
+        return OnnxToolRank(args.checkpoint, tools, threads=args.threads, model_file=model_file)
+
+    if args.evaluate:
+        models = [args.model_file]
+        if args.compare_model_file:
+            models.append(args.compare_model_file)
+        result = {
+            "catalog_size": len(tools),
+            "threads": args.threads,
+            "models": {name: evaluate(load(name), cases, limit=args.limit, min_score=args.min_score)
+                       for name in models},
+        }
+    else:
+        result = load(args.model_file).rank(args.request, limit=args.limit, min_score=args.min_score)
+    print(json.dumps(result, indent=2))
+
+
+if __name__ == "__main__":
+    main()
