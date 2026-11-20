@@ -1,6 +1,6 @@
 [project]
 name = "toolrank"
-version = "0.6.0"
+version = "0.7.0"
 description = "Local embedding retrieval and evaluation for MCP tool catalogs"
 readme = "README.md"
 license = "Apache-2.0"
@@ -38,6 +38,8 @@ packages = ["toolrank"]
 [tool.hatch.build.targets.sdist]
 only-include = [
     "data", "docs", "examples", "results", "tests", "toolrank",
+    "bundle/build.py", "bundle/manifest.json", "bundle/pyproject.toml", "bundle/uv.lock",
+    "server.json",
     "LICENSE", "README.md", "pyproject.toml", "requirements-cu128.txt",
     "requirements-examples.txt", "uv.lock",
 ]

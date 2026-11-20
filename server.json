@@ -7,14 +7,16 @@
     "url": "https://github.com/protortyp/mcp-toolrank",
     "source": "github"
   },
-  "version": "0.6.0",
+  "version": "0.7.0",
   "websiteUrl": "https://huggingface.co/christianengel/mcp-toolrank-33m",
   "packages": [
     {
       "registryType": "mcpb",
-      "identifier": "https://github.com/protortyp/mcp-toolrank/releases/download/v0.6.0/mcp-toolrank-0.6.0.mcpb",
-      "fileSha256": "4a16b856e2c63f90fe4fc48260876df9f5e8672e5580eedab68f39513fe62fb6",
-      "transport": {"type": "stdio"}
+      "identifier": "https://github.com/protortyp/mcp-toolrank/releases/download/v0.7.0/mcp-toolrank-0.7.0.mcpb",
+      "fileSha256": "7a9d36044fd15855d1b1de0a8c0e666372582dd241d250d099e172a00543c987",
+      "transport": {
+        "type": "stdio"
+      }
     }
   ]
 }
