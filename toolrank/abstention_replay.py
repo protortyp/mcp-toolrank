@@ -92,7 +92,9 @@ def score_queries(ranker, coverage, cases, protocol):
     k = ranking["top_k"]
     samples = []
     for query, expected in cases:
-        cosine = ranker.cosine_scores(query)
+        # Match the gateway's single-query dot product and cutoff rounding.
+        vector = ranker.encode([ranker.prefix + query])[0]
+        cosine = np.einsum("ij,j->i", ranker.docs, vector)
         tfidf, bm25 = ranker.lexical_index.scores(query)
         hybrid = cosine + ranking["tfidf"] * tfidf + ranking["bm25"] * bm25
         best = top_indices(hybrid, k)
@@ -180,6 +182,7 @@ def replay(checkpoint, protocol):
         raise ValueError("Use the INT8 graph pinned in the protocol")
 
     # Complete all fits before scoring any holdout.
+    prepared = {}
     for name, catalog in catalog_data.items():
         started = perf_counter()
         ranker = OnnxToolRank(checkpoint, catalog.tools, hybrid=True, threads=ranking["threads"])
@@ -187,7 +190,7 @@ def replay(checkpoint, protocol):
         validate_catalog(name, catalog, names)
         support = QueryCoverage([f"{tool['name']}: {tool.get('description') or ''}" for tool in ranker.tools])
         records[name] = {"tools": len(names), "startup_and_index_ms": (perf_counter() - started) * 1000}
-        catalog_data[name] = (catalog, ranker, names, support)
+        prepared[name] = (ranker, names, support)
         if not catalog.calibration:
             continue
         scored = score_queries(ranker, support, catalog.calibration, protocol)
@@ -203,9 +206,9 @@ def replay(checkpoint, protocol):
             points = np.quantile(negative, calibration["negative_quantiles_for_diagnostic_curve"]).astype(np.float32)
             calibrated[name][signal] = (fit, sorted({float(value) for value in points}))
 
-    for name, (catalog, ranker, names, support) in catalog_data.items():
+    for name, (ranker, names, support) in prepared.items():
         started = perf_counter()
-        samples = score_queries(ranker, support, catalog.holdout, protocol)
+        samples = score_queries(ranker, support, catalog_data[name].holdout, protocol)
         record = records[name]
         record["holdout_scoring_seconds"] = perf_counter() - started
         record["unfiltered"] = {method: scope_metrics(samples, names, method, k)
