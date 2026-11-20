@@ -356,7 +356,9 @@ class SearchIndex:
                 scores = self.lexical.bm25_scores(query)
                 valid = np.flatnonzero(scores > 0)
             else:
-                cosine = self.documents @ self.encoder.encode([self.encoder.prefix + query])[0]
+                query_vector = self.encoder.encode([self.encoder.prefix + query])[0]
+                # Avoid dispatching a single-query dot product to a threaded BLAS pool.
+                cosine = np.einsum("ij,j->i", self.documents, query_vector)
                 scores = self.lexical.blend(query, cosine)
                 valid = np.arange(len(entries)) if min_cosine is None else np.flatnonzero(cosine >= min_cosine)
         if invocable_only:
