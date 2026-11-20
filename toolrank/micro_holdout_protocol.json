@@ -1,0 +1,21 @@
+{
+  "candidate": "labels-11",
+  "candidate_int8_sha256": "58305402dd632c32a81f305a26d8b39b0609f2795872cca43d942f95cd215e39",
+  "baseline": "ToolRank 33M published dynamic INT8",
+  "baseline_int8_sha256": "ba0e544669eac502cac535d3ed53b9cf5b530b5fd929d4a7bddd787abe08ea33",
+  "training_selection": "Use seed 11 of the label-only arm. Development showed consistent improvement over untuned micro and no meaningful cumulative benefit from the additional distillation objective.",
+  "datasets": {
+    "api": {"ndcg_lower_bound": -0.02},
+    "etom-plain": {"ndcg_lower_bound": -0.01},
+    "etom-mcp": {"ndcg_lower_bound": -0.01},
+    "etom-openai": {"ndcg_lower_bound": -0.01},
+    "toolret": {"ndcg_lower_bound": -0.015}
+  },
+  "max_hit5_point_loss": 0.01,
+  "threads": 4,
+  "doc_batch": 32,
+  "query_batch": 1,
+  "max_graph_mib": 20,
+  "max_p95_ratio": 0.67,
+  "evaluation": "Matched production hybrid score and stable tool IDs. Use query-weighted paired bootstrap by provider/source. Report dense results, compare supported requests, and record unsupported counts without calibrating on holdout. Evaluate one fixed checkpoint once. Repeat qualifying comparisons and verify release packaging before publishing."
+}
