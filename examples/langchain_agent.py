@@ -1,3 +1,5 @@
+import json
+
 from langchain.agents import create_agent
 
 from examples.local_tools import find_accessible_entry, list_exhibits
@@ -10,22 +12,36 @@ def build_agent(chat_model, selector, query):
 
 
 async def run_gateway(args):
-    from langchain_core.tools import StructuredTool
+    from langchain_core.messages import AIMessage, HumanMessage, SystemMessage, ToolMessage
     from langchain_openai import ChatOpenAI
+    from langsmith import tracing_context
 
-    from examples.gateway_clock import clock_tool
+    from examples.gateway_agent import Proposal, SYSTEM, Turn, gateway_session, run_workflow
 
     model = ChatOpenAI(model=args.model, base_url=args.url, api_key="local", temperature=0)
-    async with clock_tool(args) as clock:
-        tool = StructuredTool.from_function(coroutine=clock)
-        agent = create_agent(model, tools=[tool], system_prompt="Call the clock tool to answer time queries.")
-        response = await agent.ainvoke({"messages": [{"role": "user", "content": args.query}]})
-        print(response["messages"][-1].content)
+
+    async def advance(query, observations, menu):
+        messages = [SystemMessage(content=SYSTEM), HumanMessage(content=query)]
+        for entry in observations:
+            call = entry.proposal
+            messages.extend((AIMessage(content="", tool_calls=[{"name": call.name, "args": call.args, "id": call.id}]),
+                             ToolMessage(content=json.dumps(entry.content), tool_call_id=call.id)))
+        model_with_tools = model.bind_tools([{"type": "function", "function": tool} for tool in menu],
+                                            parallel_tool_calls=False) if menu else model
+        response = await model_with_tools.ainvoke(messages)
+        if response.invalid_tool_calls:
+            raise RuntimeError("Model proposed malformed tool calls")
+        return Turn(response.text, tuple(Proposal(call["name"], call["args"], call["id"])
+                                         for call in response.tool_calls))
+
+    with tracing_context(enabled=False):
+        async with gateway_session(args) as client:
+            return await run_workflow(client, args.query, advance)
 
 
 if __name__ == "__main__":
     import asyncio
 
-    from examples.gateway_clock import arguments
+    from examples.gateway_agent import arguments
 
-    asyncio.run(run_gateway(arguments()))
+    print(asyncio.run(run_gateway(arguments())).answer)

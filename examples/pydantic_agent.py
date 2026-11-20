@@ -10,21 +10,39 @@ def build_agent(model, selector, query):
 
 
 async def run_gateway(args):
+    from pydantic_ai.messages import (ModelRequest, ModelResponse, SystemPromptPart, TextPart, ToolCallPart,
+                                     ToolReturnPart, UserPromptPart)
+    from pydantic_ai.models import ModelRequestParameters
     from pydantic_ai.models.openai import OpenAIChatModel
     from pydantic_ai.providers.openai import OpenAIProvider
+    from pydantic_ai.tools import ToolDefinition
 
-    from examples.gateway_clock import clock_tool
+    from examples.gateway_agent import Proposal, SYSTEM, Turn, gateway_session, run_workflow
 
     model = OpenAIChatModel(args.model, provider=OpenAIProvider(base_url=args.url, api_key="local"))
-    async with clock_tool(args) as clock:
-        agent = Agent(model, tools=[clock], instructions="Call the clock tool to answer time queries.")
-        message = await agent.run(args.query, model_settings={"temperature": 0})
-        print(message.output)
+
+    async def advance(query, observations, menu):
+        messages = [ModelRequest(parts=[SystemPromptPart(SYSTEM), UserPromptPart(query)])]
+        for entry in observations:
+            call = entry.proposal
+            messages.extend((ModelResponse(parts=[ToolCallPart(call.name, call.args, call.id)]),
+                             ModelRequest(parts=[ToolReturnPart(call.name, entry.content, call.id)])))
+        parameters = ModelRequestParameters(function_tools=[
+            ToolDefinition(name=tool["name"], description=tool["description"],
+                           parameters_json_schema=tool["parameters"]) for tool in menu
+        ])
+        response = await model.request(messages, {"temperature": 0, "parallel_tool_calls": False}, parameters)
+        proposals = tuple(Proposal(part.tool_name, part.args_as_dict(), part.tool_call_id)
+                          for part in response.parts if isinstance(part, ToolCallPart))
+        return Turn("".join(part.content for part in response.parts if isinstance(part, TextPart)), proposals)
+
+    async with gateway_session(args) as client:
+        return await run_workflow(client, args.query, advance)
 
 
 if __name__ == "__main__":
     import asyncio
 
-    from examples.gateway_clock import arguments
+    from examples.gateway_agent import arguments
 
-    asyncio.run(run_gateway(arguments()))
+    print(asyncio.run(run_gateway(arguments())).answer)
