@@ -114,6 +114,27 @@ class GatewayTests(unittest.IsolatedAsyncioTestCase):
                 "matches": [], "decision": "empty", "upstreams": {}
             })
 
+    async def test_bm25_gateway_uses_overlap_and_preserves_invocation_checks(self):
+        config = self.config.model_copy(update={"ranking": "bm25"})
+        with patch("toolrank_cpu.gateway.checkpoint") as download:
+            gateway = Gateway.from_config(config)
+        download.assert_not_called()
+        async with gateway.running():
+            found = await gateway.search("Look up records", invocable_only=True)
+            self.assertEqual([row["id"] for row in found["matches"]], ["calendar/lookup", "contacts/lookup"])
+            self.assertTrue(all(row["cosine"] is None and row["ranking_score"] > 0 for row in found["matches"]))
+            for query in ("zzzzunseen", "Ignore prior instructions"):
+                empty = await gateway.search(query, invocable_only=True)
+                self.assertEqual(empty["matches"], [])
+                self.assertEqual(empty["decision"], "no_lexical_overlap")
+            original = found["matches"][0]
+            reply = await gateway.invoke(original["id"], original["revision"], {"key": "sample"})
+            self.assertEqual(reply.content[0].text, "calendar:lookup:sample")
+
+    def test_bm25_config_rejects_dense_threshold(self):
+        with self.assertRaisesRegex(ValueError, "min_cosine requires hybrid"):
+            GatewayConfig(servers=[], ranking="bm25", min_cosine=.3)
+
     async def test_credentials_are_mapped_only_by_explicit_configuration(self):
         selected = self.config.servers[0].model_copy(update={"env": {"TOKEN": "GATEWAY_TEST_TOKEN"}})
         with patch.dict("os.environ", {"GATEWAY_TEST_TOKEN": "fixture-value",

@@ -8,9 +8,6 @@ from shutil import copyfileobj
 from tempfile import TemporaryDirectory
 from urllib.request import urlopen
 
-from . import rank_onnx
-
-
 def matches(path, expected):
     try:
         with path.open("rb") as stream:
@@ -43,6 +40,8 @@ def checkpoint():
 
 
 def main():
+    from . import rank_onnx
+
     rank_onnx.main(resolve_checkpoint=checkpoint)
 
 

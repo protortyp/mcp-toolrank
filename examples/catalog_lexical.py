@@ -1,4 +1,4 @@
-"""NumPy lexical scores for the standalone ONNX CLI and MCP server."""
+"""NumPy lexical scoring and stable catalog ordering."""
 from collections import Counter
 from itertools import pairwise
 import json
@@ -33,6 +33,15 @@ def weighted_tokens(document, tokens):
     return [*(words(name) * 2), *tokens] if isinstance(name, str) else tokens
 
 
+def top_indices(scores, limit):
+    if limit >= len(scores):
+        return np.argsort(-scores, kind="stable")
+    cutoff = np.partition(scores, len(scores) - limit)[-limit]
+    higher = np.flatnonzero(scores > cutoff)
+    ties = np.flatnonzero(scores == cutoff)[:limit - len(higher)]
+    return np.concatenate((higher[np.argsort(-scores[higher], kind="stable")], ties))
+
+
 class Postings:
     """Store an inverted index in contiguous arrays."""
 
@@ -61,10 +70,10 @@ class Postings:
 
 
 class CatalogLexicalIndex:
-    def __init__(self, documents):
+    def __init__(self, documents, *, bm25_only=False):
         self.size = len(documents)
         tokens = [words(text) for text in documents]
-        self.tfidf = self._tfidf(tokens)
+        self.tfidf = None if bm25_only else self._tfidf(tokens)
         self.bm25 = self._bm25(documents, tokens)
 
     def _tfidf(self, tokens):
@@ -100,14 +109,19 @@ class CatalogLexicalIndex:
                 tfidf[rows] += values * weighted_query
         if norm_squared:
             tfidf /= np.sqrt(norm_squared)
+        return tfidf, self._bm25_scores(tokens)
 
+    def bm25_scores(self, request):
+        return self._bm25_scores(words(request))
+
+    def _bm25_scores(self, tokens):
         bm25 = np.zeros(self.size, dtype=np.float32)
         for token in dict.fromkeys(tokens):
             if (index := self.bm25.terms.get(token)) is not None:
                 rows, values = self.bm25.entries(index)
                 bm25[rows] += values
         bm25 /= max(bm25.max(initial=0), 1e-9)
-        return tfidf, bm25
+        return bm25
 
     def blend(self, request, cosine):
         tfidf, bm25 = self.scores(request)

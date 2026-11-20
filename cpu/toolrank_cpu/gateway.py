@@ -26,8 +26,7 @@ from mcp.shared.exceptions import McpError
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 from referencing import Registry
 
-from . import rank_onnx
-from .catalog_lexical import CatalogLexicalIndex
+from .catalog_lexical import CatalogLexicalIndex, top_indices
 from .cli import checkpoint
 
 
@@ -85,6 +84,7 @@ class GatewayConfig(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
     servers: list[UpstreamConfig]
+    ranking: Literal["hybrid", "bm25"] = "hybrid"
     timeout_seconds: float = Field(default=10, gt=0, le=300)
     refresh_seconds: float = Field(default=30, gt=0, le=3600)
     min_cosine: float | None = Field(default=None, ge=-1, le=1)
@@ -94,6 +94,8 @@ class GatewayConfig(BaseModel):
     def unique_servers(self):
         if len({server.id for server in self.servers}) != len(self.servers):
             raise ValueError("server IDs must be unique")
+        if self.ranking == "bm25" and self.min_cosine is not None:
+            raise ValueError("min_cosine requires hybrid ranking")
         return self
 
 
@@ -294,7 +296,7 @@ class Upstream:
 
 
 class SearchIndex:
-    def __init__(self, encoder, *, namespace=None, cache_dir=None):
+    def __init__(self, encoder=None, *, namespace=None, cache_dir=None):
         self.encoder = encoder
         self.namespace = namespace
         self.cache_dir = cache_dir
@@ -312,6 +314,15 @@ class SearchIndex:
         texts = [entry.text for entry in entries]
         if texts == self.key:
             return
+        if self.encoder is not None:
+            self._update_embeddings(texts)
+        self.lexical = CatalogLexicalIndex(texts, bm25_only=self.encoder is None)
+        self.key = texts
+
+    def _update_embeddings(self, texts):
+        if self.cache_dir is not None:
+            from . import rank_onnx
+
         wanted = dict.fromkeys(texts)
         missing = []
         for text in wanted:
@@ -333,22 +344,26 @@ class SearchIndex:
                     except OSError:
                         pass
         self.vectors = wanted
-        self.key = texts
         self.documents = np.stack([wanted[text] for text in texts])
-        self.lexical = CatalogLexicalIndex(texts)
 
     def search(self, entries, query, limit, min_cosine, *, invocable_only=False):
         if not entries or not query.strip():
             return []
         with self.lock:
             self._update(entries)
-            cosine = self.documents @ self.encoder.encode([self.encoder.prefix + query])[0]
-            scores = self.lexical.blend(query, cosine)
-        valid = np.arange(len(entries)) if min_cosine is None else np.flatnonzero(cosine >= min_cosine)
+            cosine = None
+            if self.encoder is None:
+                scores = self.lexical.bm25_scores(query)
+                valid = np.flatnonzero(scores > 0)
+            else:
+                cosine = self.documents @ self.encoder.encode([self.encoder.prefix + query])[0]
+                scores = self.lexical.blend(query, cosine)
+                valid = np.arange(len(entries)) if min_cosine is None else np.flatnonzero(cosine >= min_cosine)
         if invocable_only:
             valid = np.fromiter((index for index in valid if entries[index].invocable), dtype=np.intp)
-        order = valid[rank_onnx.top_indices(scores[valid], limit)]
-        return [entries[i].public() | {"cosine": float(cosine[i]), "ranking_score": float(scores[i])} for i in order]
+        order = valid[top_indices(scores[valid], limit)]
+        return [entries[i].public() | {"cosine": None if cosine is None else float(cosine[i]),
+                                       "ranking_score": float(scores[i])} for i in order]
 
 
 def limit_tool_bytes(matches, budget):
@@ -372,6 +387,10 @@ class Gateway:
 
     @classmethod
     def from_config(cls, config: GatewayConfig, checkpoint_dir: Path | None = None):
+        if config.ranking == "bm25":
+            return cls(config, SearchIndex())
+        from . import rank_onnx
+
         model = checkpoint_dir or checkpoint()
         if config.cache_dir is not None:
             config.cache_dir.mkdir(parents=True, mode=0o700, exist_ok=True)
@@ -418,7 +437,12 @@ class Gateway:
                                                   invocable_only=invocable_only)
             current = [match for match in matches if self._current(match)]
             if not current:
-                decision = "no_match_above_threshold" if searchable and self.config.min_cosine is not None else "empty"
+                decision = "empty"
+                if searchable and not matches:
+                    if self.config.ranking == "bm25":
+                        decision = "no_lexical_overlap"
+                    elif self.config.min_cosine is not None:
+                        decision = "no_match_above_threshold"
             else:
                 decision = "ranked_unverified" if self.config.min_cosine is None else "above_threshold"
                 if max_tool_bytes is not None:
