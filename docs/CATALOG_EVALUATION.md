@@ -4,7 +4,7 @@ Compare INT8 and FP32 CPU rankings on the same requests using local files.
 
 ## Prepare the inputs
 
-Save `tools/list` as `catalog.json`. Use the full JSON-RPC response, its result object, or the tools array. Give each tool a unique name. In `labels.json`, list representative requests and all acceptable tool names in `relevant`. Use `[]` for unsupported requests.
+Save `tools/list` as `catalog.json`. Use the full JSON-RPC response, its result object, or the tools array. Give each tool a unique, nonempty name. In `labels.json`, list representative requests with a nonempty `query` and all acceptable catalog tool names in `relevant`. Use `[]` for unsupported requests.
 
 ```json
 [
@@ -24,4 +24,4 @@ uv run --locked examples/rank_onnx.py artifacts/toolrank-int8 catalog.json \
 
 The JSON report gives Hit@k, Recall@k, and binary nDCG@k for answerable requests, independent of the score threshold. Median and p95 CPU query latency after warm-up cover tokenization and ranking. Graph loading and catalog embedding occur before timing.
 
-Pass `--min-score` to measure candidate return rates for answerable and unsupported requests. By default, both graphs return candidates for every request when the catalog is nonempty. Choose thresholds per graph and catalog on a separate development set, then measure results on untouched test requests.
+Pass `--min-score` to measure coverage on answerable requests and false acceptance on unsupported requests. By default, both graphs return candidates for every request when the catalog is nonempty. Choose thresholds per graph and catalog on a separate development set, then measure results on untouched test requests.

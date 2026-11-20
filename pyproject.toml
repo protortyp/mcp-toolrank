@@ -29,6 +29,13 @@ build-backend = "hatchling.build"
 [tool.hatch.build.targets.wheel]
 packages = ["toolrank"]
 
+[tool.hatch.build.targets.sdist]
+only-include = [
+    "data", "docs", "examples", "results", "tests", "toolrank",
+    "LICENSE", "README.md", "pyproject.toml", "requirements-cu128.txt",
+    "requirements-examples.txt", "uv.lock",
+]
+
 [tool.uv]
 conflicts = [[{ extra = "cpu" }, { extra = "cu128" }]]
 
