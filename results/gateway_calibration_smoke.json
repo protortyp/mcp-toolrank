@@ -1,0 +1,72 @@
+{
+  "scope": "Fixed NWS OpenAPI catalog served over stdio. Calibration and holdout stay separate. No tool calls.",
+  "spec_sha256": "ae478b69cdac6449e3b834dca636300f830dde552ac6abc180b1d5e82e2f1d35",
+  "requests_sha256": "0b6abde1b1a5fb0dcda1a1c58356a3cc8c0e34fbfb8fe0cbb1e5dcd08e87a278",
+  "source_sha256": "26843748cc8bb4b1badb486a8090636a54554fe01d366cd0e090531e34d63c29",
+  "revision": "95b4048dbdc49b843165c2dbc14ee9ac0ff3f5ad",
+  "checkpoint_sha256": {
+    "tokenizer.json": "91f1def9b9391fdabe028cd3f3fcc4efd34e5d1f08c3bf2de513ebb5911a1854",
+    "sentence_bert_config.json": "65c2293c310f5476a8d1cbada277722c3e7ae5b5ddbaa2d2fe5d075f410d6d02",
+    "config_sentence_transformers.json": "7453db62f635567117454bf0599899107d43569c95d5353b5993d809c39379cf",
+    "onnx/embedding-int8.onnx": "ba0e544669eac502cac535d3ed53b9cf5b530b5fd929d4a7bddd787abe08ea33"
+  },
+  "fit": {
+    "schema_version": 1,
+    "eligible_tools": 69,
+    "scope": {
+      "catalog_sha256": "a531d0f0d92b4b78364866608f167f1a593ef0d36b5ae4db539bf866751af194",
+      "scorer_sha256": "c80aed083ccd7bcdc50d421dd74c655a2448e959009cb0e471a574c1a8d448af",
+      "invocable_only": false
+    },
+    "status": "calibrated",
+    "max_false_accept": 0.1,
+    "confidence": 0.95,
+    "no_match_cases": 32,
+    "answerable_cases": 24,
+    "min_score": 0.6485009789466858,
+    "order_statistic_rank": 32,
+    "accepted_no_match_on_calibration": 0,
+    "accepted_answerable_on_calibration": 11
+  },
+  "holdout_without_cutoff": {
+    "schema_version": 1,
+    "eligible_tools": 69,
+    "scope": {
+      "catalog_sha256": "a531d0f0d92b4b78364866608f167f1a593ef0d36b5ae4db539bf866751af194",
+      "scorer_sha256": "c80aed083ccd7bcdc50d421dd74c655a2448e959009cb0e471a574c1a8d448af",
+      "invocable_only": false
+    },
+    "limit": 5,
+    "supported": 24,
+    "unsupported": 24,
+    "accepted_supported": 24,
+    "accepted_unsupported": 24,
+    "supported_hit_count": 21,
+    "supported_complete_count": 21,
+    "supported_coverage": 1.0,
+    "unsupported_false_accept_rate": 1.0,
+    "selective_hit_rate": 0.4375
+  },
+  "holdout_with_cutoff": {
+    "schema_version": 1,
+    "eligible_tools": 69,
+    "scope": {
+      "catalog_sha256": "a531d0f0d92b4b78364866608f167f1a593ef0d36b5ae4db539bf866751af194",
+      "scorer_sha256": "c80aed083ccd7bcdc50d421dd74c655a2448e959009cb0e471a574c1a8d448af",
+      "invocable_only": false
+    },
+    "limit": 5,
+    "supported": 24,
+    "unsupported": 24,
+    "accepted_supported": 14,
+    "accepted_unsupported": 3,
+    "supported_hit_count": 14,
+    "supported_complete_count": 14,
+    "supported_coverage": 0.5833333333333334,
+    "unsupported_false_accept_rate": 0.125,
+    "selective_hit_rate": 0.8235294117647058
+  },
+  "stale_report_rejected_after_tool_removal": true,
+  "different_scorer_report_rejected": true,
+  "external_compute_usd": 0
+}

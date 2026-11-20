@@ -13,7 +13,7 @@ Configure your MCP client to run `toolrank-gateway /absolute/path/to/gateway_con
 
 Call `search_tools` with a query and limit. `max_tool_bytes` caps the compact UTF-8 `matches` array to a ranked prefix. An oversized first match returns `max_tool_bytes_exceeded`. Set `invocable_only` to true to apply the invocation allowlist before shortlisting. Search never executes tools. For explicit invocation, pass the match's ID, revision, and arguments to `invoke_tool`. The gateway checks the current definition, invocation allowlist, and schema. A timed-out call may already have run. Calls are never replayed.
 
-The CPU package verifies the pinned ONNX checkpoint. Use `TOOLRANK_OFFLINE=1` with a populated cache or `--checkpoint` with a trusted snapshot. Optional `cache_dir` stores vectors keyed by model and description. Treat cosine and ranking scores as retrieval signals. Calibrate `min_cosine` with labeled requests from your catalog.
+The CPU package verifies the pinned ONNX checkpoint. Use `TOOLRANK_OFFLINE=1` with a populated cache or `--checkpoint` with a trusted snapshot. Optional `cache_dir` stores vectors keyed by model and description. Treat cosine and ranking scores as retrieval signals. Fit a scoped cutoff with labeled requests against the live gateway. [Calibration](GATEWAY_CALIBRATION.md)
 
 Use one gateway and cache per trusted local principal. Upstream credentials are configured per server. Arguments and responses stay out of gateway logs. Treat descriptions as untrusted data and confirm sensitive calls in the client. Clients must support the two-step interface. Local stdio trusts the client process for identity and provides no shared deployment or OAuth.
 

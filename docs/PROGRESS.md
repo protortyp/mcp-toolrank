@@ -16,3 +16,4 @@
 - Streamable HTTP supports per-server bearer tokens and allowlists. The wheel found public Cloudflare docs and called a loopback clock. Tests verified refresh, session expiry, token isolation, and no replay on timeout or redirect. [Gateway](GATEWAY.md#streamable-http-upstreams)
 - BM25 started offline with an empty model cache. On ETOM, first search took 0.32 s versus 9.42 s with cold hybrid embeddings. Hybrid led nDCG@10, 92.70 versus 88.68. [Gateway ranking](GATEWAY_RANKING.md)
 - LangChain and Pydantic AI discover tools each turn and discard extra proposals. Each passed two live trials verifying exact HTTP-to-stdio timestamp handoff and final answers. [Framework integrations](FRAMEWORK_INTEGRATIONS.md)
+- Live calibration cut unsupported NWS suggestions from 24/24 to 3/24 with 14/24 supported coverage, missing both targets. Catalog changes invalidated the cutoff. [Gateway calibration](GATEWAY_CALIBRATION.md)
