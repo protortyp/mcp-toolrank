@@ -1,0 +1,212 @@
+{
+  "decision": "GO for opt-in Python ranking",
+  "checkpoint": {
+    "id": "christianengel/mcp-toolrank-33m",
+    "revision": "08b109f86e88c43304732fcb45432dc67c294cdb"
+  },
+  "weights": {
+    "lexical_weight": 0.4,
+    "bm25_weight": 0.15
+  },
+  "measurement": {
+    "embedding_device": "NVIDIA GeForce RTX 3090",
+    "additional_bm25_cpu": "AMD Ryzen 9 5950X",
+    "bm25_timing_scope": "warm per-query BM25 only; excludes encoding, TF-IDF and top-k"
+  },
+  "development": {
+    "provider_disjoint_queries": 872,
+    "catalog_sizes": [
+      34,
+      297
+    ],
+    "ndcg10_deltas": [
+      0.0010407103253632366,
+      0.021914246098372336
+    ]
+  },
+  "primary": {
+    "etom-plain": {
+      "catalog": 2375,
+      "answerable": 1549,
+      "queries_without_available_positive": 91,
+      "extra_name_field_count": 2374,
+      "metrics": {
+        "existing-hybrid": {
+          "recall@1": 0.8310968674106182,
+          "recall@5": 0.9438547142549725,
+          "recall@10": 0.9634449260659719,
+          "ndcg@10": 0.9201902793149002,
+          "complete@10": 0.9451258876694641
+        },
+        "candidate": {
+          "recall@1": 0.8441098711918595,
+          "recall@5": 0.9491330812505764,
+          "recall@10": 0.9656291309293246,
+          "ndcg@10": 0.9269323860623785,
+          "complete@10": 0.9464170432537121
+        }
+      }
+    },
+    "etom-mcp": {
+      "catalog": 2375,
+      "answerable": 1549,
+      "queries_without_available_positive": 91,
+      "extra_name_field_count": 2375,
+      "metrics": {
+        "existing-hybrid": {
+          "recall@1": 0.8159357803805835,
+          "recall@5": 0.9397276276553229,
+          "recall@10": 0.9586515109594516,
+          "ndcg@10": 0.9102414012396209,
+          "complete@10": 0.9380245319561007
+        },
+        "candidate": {
+          "recall@1": 0.8328883457837621,
+          "recall@5": 0.9486857880660334,
+          "recall@10": 0.9632504841833441,
+          "ndcg@10": 0.9217627146793014,
+          "complete@10": 0.9418979987088444
+        }
+      }
+    },
+    "api": {
+      "catalog": 24,
+      "answerable": 72,
+      "queries_without_available_positive": 24,
+      "extra_name_field_count": 24,
+      "metrics": {
+        "existing-hybrid": {
+          "recall@1": 0.7916666666666666,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "ndcg@10": 0.9139108389643447,
+          "complete@10": 1.0
+        },
+        "candidate": {
+          "recall@1": 0.8055555555555556,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "ndcg@10": 0.9208552834087892,
+          "complete@10": 1.0
+        }
+      }
+    },
+    "toolret": {
+      "catalog": 44453,
+      "answerable": 7961,
+      "queries_without_available_positive": 0,
+      "extra_name_field_count": 44453,
+      "metrics": {
+        "existing-hybrid": {
+          "recall@1": 0.19508466871235366,
+          "recall@5": 0.36875616846411974,
+          "recall@10": 0.4362218194651306,
+          "ndcg@10": 0.3400260609952756,
+          "complete@10": 0.35083532219570407
+        },
+        "candidate": {
+          "recall@1": 0.21226649559459507,
+          "recall@5": 0.3984062184099868,
+          "recall@10": 0.473110281670764,
+          "ndcg@10": 0.3719208627758508,
+          "complete@10": 0.37909810325336013
+        }
+      }
+    }
+  },
+  "public_replay": {
+    "etom-plain": {
+      "additional_bm25_cpu_p50_ms": 0.12103188782930374,
+      "catalog": 2375,
+      "answerable": 1549,
+      "queries_without_available_positive": 91,
+      "extra_name_field_count": 2374,
+      "metrics": {
+        "existing-hybrid": {
+          "recall@1": 0.8310968674106182,
+          "recall@5": 0.9438547142549725,
+          "recall@10": 0.9634449260659719,
+          "ndcg@10": 0.9201902793149002,
+          "complete@10": 0.9451258876694641
+        },
+        "candidate": {
+          "recall@1": 0.8441098711918595,
+          "recall@5": 0.9491330812505764,
+          "recall@10": 0.9656291309293246,
+          "ndcg@10": 0.9269323860623785,
+          "complete@10": 0.9464170432537121
+        }
+      }
+    },
+    "etom-mcp": {
+      "additional_bm25_cpu_p50_ms": 0.12904300820082426,
+      "catalog": 2375,
+      "answerable": 1549,
+      "queries_without_available_positive": 91,
+      "extra_name_field_count": 2375,
+      "metrics": {
+        "existing-hybrid": {
+          "recall@1": 0.8159357803805835,
+          "recall@5": 0.9397276276553229,
+          "recall@10": 0.9586515109594516,
+          "ndcg@10": 0.9102414012396209,
+          "complete@10": 0.9380245319561007
+        },
+        "candidate": {
+          "recall@1": 0.8328883457837621,
+          "recall@5": 0.9486857880660334,
+          "recall@10": 0.9632504841833441,
+          "ndcg@10": 0.9217627146793014,
+          "complete@10": 0.9418979987088444
+        }
+      }
+    },
+    "api": {
+      "additional_bm25_cpu_p50_ms": 0.0867270864546299,
+      "catalog": 24,
+      "answerable": 72,
+      "queries_without_available_positive": 24,
+      "extra_name_field_count": 24,
+      "metrics": {
+        "existing-hybrid": {
+          "recall@1": 0.7916666666666666,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "ndcg@10": 0.9139108389643447,
+          "complete@10": 1.0
+        },
+        "candidate": {
+          "recall@1": 0.8055555555555556,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "ndcg@10": 0.9208552834087892,
+          "complete@10": 1.0
+        }
+      }
+    },
+    "toolret": {
+      "additional_bm25_cpu_p50_ms": 0.5919530522078276,
+      "catalog": 44453,
+      "answerable": 7961,
+      "queries_without_available_positive": 0,
+      "extra_name_field_count": 44453,
+      "metrics": {
+        "existing-hybrid": {
+          "recall@1": 0.19508466871235366,
+          "recall@5": 0.36875616846411974,
+          "recall@10": 0.4362218194651306,
+          "ndcg@10": 0.3400260609952756,
+          "complete@10": 0.35083532219570407
+        },
+        "candidate": {
+          "recall@1": 0.21226649559459507,
+          "recall@5": 0.3984062184099868,
+          "recall@10": 0.473110281670764,
+          "ndcg@10": 0.3719208627758508,
+          "complete@10": 0.37909810325336013
+        }
+      }
+    }
+  },
+  "all_ranking_metrics_reproduced": true
+}
