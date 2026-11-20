@@ -1,0 +1,52 @@
+{
+  "development_only": true,
+  "data_sha256": "0d177d7648c4ab8b73a67179b7aeec0638e9480163c8bb23b1290edf451698e5",
+  "protocol_sha256": "6041b61a0f7c6c753abc985262b5b6b48cb3e9d0ce6196653f6b7a0fcad778b1",
+  "max_absolute_hybrid_macro_difference": 2.6384441614624166e-05,
+  "runs": {
+    "labels-11": {
+      "first_ndcg": 0.9442436439231775,
+      "replayed_ndcg": 0.9442460829244932,
+      "difference": 2.4390013156905255e-06,
+      "same_weights_sha256": false,
+      "replayed_weights_sha256": "26bbadbc6394c9d52acaed1265b14baa581cb395befc0705c249fb33abeaa2c2"
+    },
+    "distilled-11": {
+      "first_ndcg": 0.9444971103161355,
+      "replayed_ndcg": 0.9445228998732548,
+      "difference": 2.5789557119293427e-05,
+      "same_weights_sha256": false,
+      "replayed_weights_sha256": "06f9a8b05bb101d071d0ff91107dd2a71be29d4baf4f3f52d4fc26d72da7fea4"
+    },
+    "labels-23": {
+      "first_ndcg": 0.9450750962311361,
+      "replayed_ndcg": 0.9450950690361218,
+      "difference": 1.997280498577947e-05,
+      "same_weights_sha256": false,
+      "replayed_weights_sha256": "772c31ba35768ec7ed7510a4d8f5e10b9e56235435fc6e1a3ed2ffa04b683535"
+    },
+    "distilled-23": {
+      "first_ndcg": 0.9446415622427913,
+      "replayed_ndcg": 0.9446342960900278,
+      "difference": -7.2661527634743095e-06,
+      "same_weights_sha256": false,
+      "replayed_weights_sha256": "0e5f6146fcac2cbc3bca2e6bbdc0f69361d18b4800a37a35ef5023a0fc49ef45"
+    },
+    "labels-37": {
+      "first_ndcg": 0.9445769012116071,
+      "replayed_ndcg": 0.9445505167699925,
+      "difference": -2.6384441614624166e-05,
+      "same_weights_sha256": false,
+      "replayed_weights_sha256": "ad3c2ac40a354fa988a706174f4288f7b6374dfe40a1a2e634b1242f5c77d483"
+    },
+    "distilled-37": {
+      "first_ndcg": 0.9446299405098587,
+      "replayed_ndcg": 0.9446299405098587,
+      "difference": 0.0,
+      "same_weights_sha256": false,
+      "replayed_weights_sha256": "0ed108178b60b0b1b614bbf6969061a5094f017f5ce9c30b6492b6d5f7a9e301"
+    }
+  },
+  "passes_development_screen": false,
+  "external_compute_usd": 0
+}

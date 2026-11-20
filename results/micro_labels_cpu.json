@@ -1,0 +1,82 @@
+{
+  "development_probe": true,
+  "student": "labels-11",
+  "threads": 4,
+  "workload_sha256": "4cea711de476a89ae012222f9de9d400d16e2f976ecb905e06da667a9dbe4d54",
+  "revision": "09f292162dc366978f75e48bce1b6db049e01972",
+  "source_sha256": "6ab36167dd1c1537357c660e542cd29cf4daaeef977d2e9b962a14bb32482cc6",
+  "platform": "Linux-7.0.0-42-generic-x86_64-with-glibc2.39",
+  "cpu": "AMD Ryzen 9 5950X 16-Core Processor",
+  "graphs": {
+    "toolrank": {
+      "bytes": 34094480,
+      "sha256": {
+        "tokenizer.json": "91f1def9b9391fdabe028cd3f3fcc4efd34e5d1f08c3bf2de513ebb5911a1854",
+        "sentence_bert_config.json": "65c2293c310f5476a8d1cbada277722c3e7ae5b5ddbaa2d2fe5d075f410d6d02",
+        "config_sentence_transformers.json": "7453db62f635567117454bf0599899107d43569c95d5353b5993d809c39379cf",
+        "onnx/embedding-int8.onnx": "ba0e544669eac502cac535d3ed53b9cf5b530b5fd929d4a7bddd787abe08ea33"
+      }
+    },
+    "labels-11": {
+      "bytes": 17484043,
+      "sha256": {
+        "tokenizer.json": "91f1def9b9391fdabe028cd3f3fcc4efd34e5d1f08c3bf2de513ebb5911a1854",
+        "sentence_bert_config.json": "948201d8329907aae938fa62f9ceeed53f5694dacc2b87b9f3b78b37ee986529",
+        "config_sentence_transformers.json": "6b36664f54b02eca75474bd6abdbcc9c54e1cba43b59dfe192035f8429f44b23",
+        "onnx/embedding-int8.onnx": "58305402dd632c32a81f305a26d8b39b0609f2795872cca43d942f95cd215e39"
+      }
+    }
+  },
+  "student_fp32_parity": {
+    "bytes": 69050807,
+    "sha256": "ea26d3747c7d78b6d8174546c4d0e2cfffbab4b9021f8603235621a493cf448d",
+    "opset": 17,
+    "onnxruntime": "1.24.1",
+    "max_abs_error": 1.4901161193847656e-07,
+    "cases": 6
+  },
+  "profile": {
+    "short": {
+      "toolrank": {
+        "p50_ms": 3.1701765256002545,
+        "p95_ms": 4.2119159596040845,
+        "samples": 64
+      },
+      "labels-11": {
+        "p50_ms": 0.8480559336021543,
+        "p95_ms": 1.145380758680403,
+        "samples": 64
+      }
+    },
+    "long": {
+      "toolrank": {
+        "p50_ms": 57.70023900549859,
+        "p95_ms": 66.14396031945944,
+        "samples": 64
+      },
+      "labels-11": {
+        "p50_ms": 18.960561603307724,
+        "p95_ms": 24.082971608731896,
+        "samples": 64
+      }
+    }
+  },
+  "development_sha256": "0d177d7648c4ab8b73a67179b7aeec0638e9480163c8bb23b1290edf451698e5",
+  "quality": {
+    "toolrank": {
+      "queries": 872,
+      "tools": 34,
+      "macro_hybrid_ndcg_at_10": 0.9464720975327761,
+      "query_weighted_hybrid_ndcg_at_10": 0.8572737367082215,
+      "same_top10_after_rebatching": 0.26605504587155965
+    },
+    "labels-11": {
+      "queries": 872,
+      "tools": 34,
+      "macro_hybrid_ndcg_at_10": 0.9443232747955287,
+      "query_weighted_hybrid_ndcg_at_10": 0.8513988814207641,
+      "same_top10_after_rebatching": 0.4954128440366973
+    }
+  },
+  "external_compute_usd": 0
+}

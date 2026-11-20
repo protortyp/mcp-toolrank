@@ -1,0 +1,141 @@
+{
+  "protocol": {
+    "student": {
+      "id": "TaylorAI/bge-micro-v2",
+      "revision": "3edf6d7de0faa426b09780416fe61009f26ae589",
+      "weights_sha256": "792472b64c3ca1c725e55f6a9d2a58143d4ce6b3ffde05bf55bc8427cb3733c8"
+    },
+    "teacher": {
+      "id": "christianengel/mcp-toolrank-33m",
+      "revision": "a24a121266154006e2bd2e32a41576437c3455c2",
+      "weights_sha256": "16c609a9331a9c2786500722f96afdb19e901965cf1419e3e966010051b9655b"
+    },
+    "train_sha256": "e3d9a8cd07089b3f2214bd7b9138c07532d4085822dfa8370b0669ba4c98be64",
+    "dev_sha256": "0d177d7648c4ab8b73a67179b7aeec0638e9480163c8bb23b1290edf451698e5",
+    "seeds": [
+      11,
+      23,
+      37
+    ],
+    "training": {
+      "epochs": 1,
+      "batch_size": 48,
+      "learning_rate": 2e-05,
+      "label_temperature": 0.05,
+      "teacher_temperature": 0.07,
+      "distillation_weights": {
+        "labels": 0.0,
+        "distilled": 0.5
+      },
+      "negatives": "One teacher-nearest eligible training tool per query plus tools positive for other batch rows. Mask same-repository and normalized same-name ambiguous tools in both losses.",
+      "training_serialization": "name: description",
+      "max_sequence_length": 512
+    },
+    "development": {
+      "method": "Family-macro and query-weighted metrics on the audited dev catalog. Same lexical weights for every dense scorer. Record provider-paired uncertainty and each seed.",
+      "hybrid_weights": [
+        0.4,
+        0.15
+      ],
+      "minimum_mean_macro_gain_over_labels": 0.0075,
+      "minimum_seed_macro_gain_over_untuned_micro": 0.01
+    },
+    "final_evaluation": "Development only. A candidate needs a separately frozen holdout and a measured same-runtime CPU trade-off before release."
+  },
+  "protocol_sha256": "6041b61a0f7c6c753abc985262b5b6b48cb3e9d0ce6196653f6b7a0fcad778b1",
+  "source_sha256": "a353ea0be43cb82f07964143bc8e77c5ff2815657b72f302763b0c39013b80c0",
+  "revision": "ddf7a03da13c4f8e948e8baac57dc6e15794e4d4",
+  "examples": 5098,
+  "tools": 263,
+  "torch": "2.8.0+cu128",
+  "gpu": "NVIDIA GeForce RTX 3090",
+  "teacher_and_mining_seconds": 7.139419053914025,
+  "hard_negative_catalog_coverage": 217,
+  "models": {
+    "labels-11": {
+      "weights_sha256": "ea65d195802ee1740479833a01bf98888b72206e590e5a87957e89561baf1fac",
+      "losses": [
+        {
+          "loss": 1.4147361466444066,
+          "labels": 1.4147361466444066,
+          "distillation": 0.0
+        }
+      ],
+      "wall_seconds": 12.3636368799489,
+      "trainable_parameters": 17389824,
+      "autocast": "bfloat16",
+      "gpu_peak_mib": 3316.97265625
+    },
+    "distilled-11": {
+      "weights_sha256": "0ee1cdb4b207e589ed23bd633008262df065c52ec66d1813c070b5319d4e3fce",
+      "losses": [
+        {
+          "loss": 0.8489674083762844,
+          "labels": 1.4090276494967138,
+          "distillation": 0.2889071688985488
+        }
+      ],
+      "wall_seconds": 11.698746383888647,
+      "trainable_parameters": 17389824,
+      "autocast": "bfloat16",
+      "gpu_peak_mib": 3451.97265625
+    },
+    "labels-23": {
+      "weights_sha256": "ccec537243856a38451ab6eeab4dc37c5b4f57a632ebf8e4e9c8a6d13f2fac74",
+      "losses": [
+        {
+          "loss": 1.4032224692658566,
+          "labels": 1.4032224692658566,
+          "distillation": 0.0
+        }
+      ],
+      "wall_seconds": 13.19536537094973,
+      "trainable_parameters": 17389824,
+      "autocast": "bfloat16",
+      "gpu_peak_mib": 3586.82666015625
+    },
+    "distilled-23": {
+      "weights_sha256": "24d4d328418379c6c7f0f370eaeb94061a23085d9c64c753e3cd5b1a52500f9d",
+      "losses": [
+        {
+          "loss": 0.8401246693097829,
+          "labels": 1.397589227495216,
+          "distillation": 0.2826601197601838
+        }
+      ],
+      "wall_seconds": 12.26920076389797,
+      "trainable_parameters": 17389824,
+      "autocast": "bfloat16",
+      "gpu_peak_mib": 3722.095703125
+    },
+    "labels-37": {
+      "weights_sha256": "4542a536bdbb0b441dbaa88020b4923e113abf393d3a85e36541881a0cccd420",
+      "losses": [
+        {
+          "loss": 1.401902894872738,
+          "labels": 1.401902894872738,
+          "distillation": 0.0
+        }
+      ],
+      "wall_seconds": 12.658866920042783,
+      "trainable_parameters": 17389824,
+      "autocast": "bfloat16",
+      "gpu_peak_mib": 3308.85205078125
+    },
+    "distilled-37": {
+      "weights_sha256": "d881c4a243a34fa0b8e4572624f5a9bd80a443697f6204cd2e4a06ac3e5db3fb",
+      "losses": [
+        {
+          "loss": 0.8378833388056929,
+          "labels": 1.3962277374860586,
+          "distillation": 0.2795389294916623
+        }
+      ],
+      "wall_seconds": 11.746181402821094,
+      "trainable_parameters": 17389824,
+      "autocast": "bfloat16",
+      "gpu_peak_mib": 3443.59033203125
+    }
+  },
+  "external_compute_usd": 0
+}
