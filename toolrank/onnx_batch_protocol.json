@@ -1,0 +1,26 @@
+{
+  "source_sha256": "f2dcd00b68efc228ec20902441c8e258b40a81c9a464293010793914ad13298e",
+  "dynamic_int8_sha256": "ba0e544669eac502cac535d3ed53b9cf5b530b5fd929d4a7bddd787abe08ea33",
+  "revision": "a24a121266154006e2bd2e32a41576437c3455c2",
+  "calibration": "data/train.json",
+  "batch": 32,
+  "threads": 4,
+  "bootstrap_seed": 20261120,
+  "candidates": {
+    "static-int8": {"format": "QDQ", "activation": "QInt8", "weights": "QInt8", "calibration": "MinMax", "per_channel": true, "ops": ["MatMul", "Gemm", "Gather"]},
+    "weight-int4": {"format": "QOperator", "bits": 4, "block_size": 32, "accuracy_level": 1, "symmetric": true, "ops": ["MatMul", "Gather"]}
+  },
+  "evaluation": {
+    "datasets": ["api", "etom-plain"],
+    "rankers": ["dense", "hybrid"],
+    "lexical_weights": {"tfidf": 0.4, "bm25": 0.15},
+    "protocol": "Compare pinned graphs. Embed documents in stable ID order and then in character-length order, same 32-row cap. Embed each judged query independently. Use fixed hybrid scores, tool-ID ties and family-paired intervals. Benchmark on CPU in independent process per graph. Development-only batch-sensitivity and prompt-latency probes."
+  },
+  "acceptance": {
+    "max_dev_embedding_delta": 0.0001,
+    "min_hybrid_paired_ndcg_10_lower_bound": -0.01,
+    "max_short_query_p95_multiple": 1.15,
+    "max_size_mib_or_required_indexing_speedup": [24, 1.25],
+    "model_selection": "Fixed candidates and gates. No holdout tuning. A positive screen needs a second CPU and larger independent evaluation before release."
+  }
+}
