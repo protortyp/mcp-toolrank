@@ -1,4 +1,5 @@
 import asyncio
+import json
 from pathlib import Path
 import sys
 from tempfile import TemporaryDirectory
@@ -92,6 +93,19 @@ class GatewayTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(self.encoder.embedded, [self.encoder.prefix + query])
         self.assertFalse((self.root / "contacts.jsonl").exists())
         self.assertFalse((self.root / "calendar.jsonl").exists())
+
+    async def test_tool_byte_budget_keeps_an_exact_ranked_prefix(self):
+        await self.wait_until(lambda matches: len(matches) == 4)
+        query = "Look up contacts"
+        unrestricted = await self.gateway.search(query, limit=4, invocable_only=True)
+        first = unrestricted["matches"][:1]
+        self.assertEqual(len(unrestricted["matches"]), 2)
+        size = len(json.dumps(first, separators=(",", ":"), ensure_ascii=False).encode("utf-8"))
+        fitted = await self.gateway.search(query, limit=4, invocable_only=True, max_tool_bytes=size)
+        self.assertEqual(fitted["matches"], first)
+        insufficient = await self.gateway.search(query, limit=4, invocable_only=True, max_tool_bytes=size - 1)
+        self.assertEqual(insufficient["decision"], "max_tool_bytes_exceeded")
+        self.assertEqual(insufficient["matches"], [])
 
     async def test_empty_catalog_returns_no_candidates(self):
         gateway = Gateway(GatewayConfig(servers=[]), self.index)

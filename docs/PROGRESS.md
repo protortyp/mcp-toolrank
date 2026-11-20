@@ -7,3 +7,6 @@
 - Ran 132 local Qwen trials. The best methods completed 16/22 each versus 12/22 with all tools. ToolRank hybrid cut schema tokens by 85%.
 - Measured rejection across catalogs. Use local cutoffs. Chromium verified unverified-match labels, schema size, runtime and BM25.
 - Verified OpenAPI ranking, both agent frameworks through a compatible local endpoint, offline checksums, and wheels on Python 3.12 and 3.13. External spend was $0.
+- Live NWS calls succeeded. Routing and rejection missed holdout targets. Qwen missed coverage and CPU latency targets. [NWS pilot](NWS_PILOT.md) · [Verifier](NWS_CAPABILITY.md)
+- BM25, BGE and ToolRank kept all required tools at five on mostly small native BFCL menus. ToolRank saved 7.5% of JSON. [BFCL](BFCL_SHORTLIST.md)
+- Explicit NWS and Crossref reads verified invocation filtering and optional byte caps. ToolRank top ten cut JSON 90.4% with 17/20 complete shortlists across 93 tools. [Mixed](MIXED_CATALOG.md)

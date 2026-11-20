@@ -1,0 +1,7 @@
+{
+  "fixtures": "69 operations from the pinned NWS OpenAPI snapshot and 24 tool definitions from the existing independent API fixture. Author 20 two-tool requests and eight unsupported requests. Names and text are frozen before ranking.",
+  "methods": "Compare BM25, BGE Small INT8, and ToolRank INT8. For both encoders use fixed hybrid weights. Rank whole requests at five and ten. Separately rank two supplied clauses and interleave their unique candidates at five. Supplied clauses are additional information, and no automatic decomposition is measured.",
+  "payload": "Compute compact UTF-8 bytes for gateway-shaped match arrays. Also try a fixed 4096-byte cap on top-ten prefixes. NWS schemas project public path and query parameters. The fixture grants discovery and invocation on paper, while evaluation performs no calls.",
+  "gate": "A useful shortlist retains both tools for at least 17 of 20 supported cases and saves at least 80 percent of tool JSON bytes. This is an authored pilot, not a production estimate.",
+  "external_compute_usd": 0
+}

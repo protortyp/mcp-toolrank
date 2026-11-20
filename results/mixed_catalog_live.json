@@ -1,0 +1,24 @@
+{
+  "catalog_tools": 93,
+  "catalog_providers": 7,
+  "max_tool_bytes": 4096,
+  "empty_budget_decision": "max_tool_bytes_exceeded",
+  "probes": [
+    {
+      "tool": "nws/weather__obs_station",
+      "matches_bytes": 891,
+      "shortlist": 2,
+      "invocation_error": false,
+      "http_status": 200,
+      "requested_field_present": true
+    },
+    {
+      "tool": "crossref/crossref_work_by_doi",
+      "matches_bytes": 893,
+      "shortlist": 2,
+      "invocation_error": false,
+      "http_status": 200,
+      "requested_field_present": true
+    }
+  ]
+}

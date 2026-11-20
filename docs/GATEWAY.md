@@ -11,7 +11,7 @@ uv run --project cpu --no-sync python examples/gateway_demo.py
 
 Configure your MCP client to run `toolrank-gateway /absolute/path/to/gateway_config.json`. Set an absolute Git repository path if the client uses a different working directory. The gateway follows paginated listings, refreshes on notifications and polling, and hides disconnected tools until reconnection.
 
-Call `search_tools` with a query and limit. Set `invocable_only` to true to apply the invocation allowlist before shortlisting. Search never executes tools. For explicit invocation, pass the match's ID, revision, and arguments to `invoke_tool`. The gateway checks the current definition, invocation allowlist, and schema. A timed-out call may already have run. Calls are never replayed.
+Call `search_tools` with a query and limit. `max_tool_bytes` caps the compact UTF-8 `matches` array to a ranked prefix. An oversized first match returns `max_tool_bytes_exceeded`. Set `invocable_only` to true to apply the invocation allowlist before shortlisting. Search never executes tools. For explicit invocation, pass the match's ID, revision, and arguments to `invoke_tool`. The gateway checks the current definition, invocation allowlist, and schema. A timed-out call may already have run. Calls are never replayed.
 
 The CPU package verifies the pinned ONNX checkpoint. Use `TOOLRANK_OFFLINE=1` with a populated cache or `--checkpoint` with a trusted snapshot. Optional `cache_dir` stores vectors keyed by model and description. Treat cosine and ranking scores as retrieval signals. Calibrate `min_cosine` with labeled requests from your catalog.
 

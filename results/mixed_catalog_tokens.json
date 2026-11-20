@@ -1,0 +1,26 @@
+{
+  "tokenizer": "Qwen/Qwen2.5-1.5B-Instruct-GGUF",
+  "revision": "91cad51170dc346986eccefdc2dd33a9da36ead9",
+  "runtime": "llama.cpp ff52ee964",
+  "gguf_sha256": "6a1a2eb6d15622bf3c96857206351ba97e1af16c30d7a74ee38970e434e9407e",
+  "case_sha256": "fcb69e41f96b55a8d61748dd67bbb197091bb990128f746c2ed1c40d59694584",
+  "source_sha256": "6b13c7f1a20bfbb53cce0c7d7dfd4c3f140c0b50afae551beda0db2068a88c08",
+  "scope": "Only projected tool schemas. No system prompt, query, generation or invocation.",
+  "counts": {
+    "all": {
+      "sample_count": 1,
+      "median_tokens": 13804.0,
+      "max_tokens": 13804
+    },
+    "joint_top10": {
+      "sample_count": 28,
+      "median_tokens": 903.5,
+      "max_tokens": 3046
+    },
+    "joint_top10_4096_bytes": {
+      "sample_count": 28,
+      "median_tokens": 535.0,
+      "max_tokens": 1536
+    }
+  }
+}
