@@ -1137,6 +1137,7 @@ version = "0.1.0"
 source = { editable = "." }
 dependencies = [
     { name = "numpy" },
+    { name = "scikit-learn" },
     { name = "sentence-transformers" },
     { name = "transformers" },
 ]
@@ -1162,12 +1163,12 @@ onnx = [
 ]
 research = [
     { name = "pyarrow" },
-    { name = "scikit-learn" },
 ]
 
 [package.metadata]
 requires-dist = [
     { name = "numpy", specifier = "==2.5.5" },
+    { name = "scikit-learn", specifier = "==1.9.1" },
     { name = "sentence-transformers", specifier = "==5.2.3" },
     { name = "torch", marker = "sys_platform == 'darwin' and extra == 'cpu'", specifier = "==2.8.0" },
     { name = "torch", marker = "sys_platform != 'darwin' and extra == 'cpu'", specifier = "==2.8.0", index = "https://download.pytorch.org/whl/cpu", conflict = { package = "toolrank", extra = "cpu" } },
@@ -1186,10 +1187,7 @@ onnx = [
     { name = "onnx", specifier = "==1.20.1" },
     { name = "onnxruntime", specifier = "==1.24.1" },
 ]
-research = [
-    { name = "pyarrow", specifier = "==26.0.1" },
-    { name = "scikit-learn", specifier = "==1.9.1" },
-]
+research = [{ name = "pyarrow", specifier = "==26.0.1" }]
 
 [[package]]
 name = "torch"
