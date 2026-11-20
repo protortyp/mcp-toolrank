@@ -45,12 +45,12 @@ class Lexical:
         return tfidf, self.bm25.scores(queries)
 
 
-def rankings(dense, tfidf, bm25):
+def rankings(dense, tfidf, bm25, hybrids=("bge", "toolrank")):
     yield "bm25", bm25
     yield "tfidf", tfidf
     for name, similarity in dense.items():
         yield f"{name}-dense", similarity
-        if name in {"bge", "toolrank"}:
+        if name in hybrids:
             hybrid = similarity + WEIGHTS["tfidf"] * tfidf
             yield f"{name}-tfidf", hybrid
             yield f"{name}-hybrid", hybrid + WEIGHTS["bm25"] * bm25
@@ -94,7 +94,7 @@ def synchronize(device):
         torch.cuda.synchronize()
 
 
-def compare(dataset, models, device, batch_size):
+def compare(dataset, models, device, batch_size, paired_models=("bge", "toolrank")):
     started = perf_counter()
     docs, queries = corpus(dataset, ETOM_ROOT)
     keys = np.asarray(sorted(docs))
@@ -130,7 +130,7 @@ def compare(dataset, models, device, batch_size):
         tfidf, bm25 = lexical.score(questions[subset])
         dense = {name: (query[subset] @ document.T).cpu().numpy()
                  for name, (document, query) in vectors.items()}
-        for name, scores in rankings(dense, tfidf, bm25):
+        for name, scores in rankings(dense, tfidf, bm25, paired_models):
             # Stable ties use the same sorted tool IDs across systems.
             indices = np.argsort(-scores, axis=1, kind="stable")[:, :10]
             per_row[name].extend(measure(order, gold)
@@ -138,16 +138,17 @@ def compare(dataset, models, device, batch_size):
     results = {name: {metric: float(np.mean([row[metric] for row in rows]))
                       for metric in rows[0]} for name, rows in per_row.items()}
     paired = {}
-    if {"bge", "toolrank"} <= models.keys():
+    baseline, candidate = paired_models
+    if {baseline, candidate} <= models.keys():
         for method in ("dense", "tfidf", "hybrid"):
             paired[method] = {
-                metric: paired_interval([row[metric] for row in per_row[f"toolrank-{method}"]],
-                                        [row[metric] for row in per_row[f"bge-{method}"]], groups)
+                metric: paired_interval([row[metric] for row in per_row[f"{candidate}-{method}"]],
+                                        [row[metric] for row in per_row[f"{baseline}-{method}"]], groups)
                 for metric in ("ndcg@10", "hit@1", "recall@5", "complete@5")
             }
     return {"tools": len(docs), "queries": len(queries), "answerable_scored": len(judged),
             "unavailable_judgments": missing, "no_match": len(queries) - len(judged) - missing,
-            "metrics": results, "toolrank_minus_bge": paired, "embedding_index": indexing,
+            "metrics": results, f"{candidate}_minus_{baseline}": paired, "embedding_index": indexing,
             "lexical_index_seconds": lexical_seconds, "wall_seconds": perf_counter() - started,
             "dataset": fingerprint(dataset)}
 
