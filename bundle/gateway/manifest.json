@@ -1,0 +1,37 @@
+{
+  "manifest_version": "0.4",
+  "name": "mcp-toolrank-gateway",
+  "display_name": "ToolRank Gateway",
+  "version": "0.3.0",
+  "description": "Search configured MCP upstreams and route explicit, allowlisted tool calls.",
+  "author": {"name": "Christian Engel"},
+  "repository": {"type": "git", "url": "https://github.com/protortyp/mcp-toolrank"},
+  "license": "Apache-2.0",
+  "server": {
+    "type": "uv",
+    "entry_point": "server.py",
+    "mcp_config": {
+      "command": "uv",
+      "args": [
+        "run", "--locked", "--project", "${__dirname}", "python",
+        "${__dirname}/server.py", "${user_config.gateway_config}"
+      ]
+    }
+  },
+  "tools": [
+    {"name": "search_tools", "description": "Find allowlisted tools across configured servers."},
+    {"name": "invoke_tool", "description": "Call a tool using its ID, revision, and arguments."}
+  ],
+  "user_config": {
+    "gateway_config": {
+      "type": "file",
+      "title": "Gateway configuration",
+      "description": "Trusted JSON file containing upstream commands and allowlists.",
+      "required": true
+    }
+  },
+  "compatibility": {
+    "platforms": ["linux"],
+    "runtimes": {"python": ">=3.12,<3.14"}
+  }
+}

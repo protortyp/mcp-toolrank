@@ -2,6 +2,12 @@ name: Publish MCP Registry listing
 
 on:
   workflow_dispatch:
+    inputs:
+      bundle:
+        description: Registry listing
+        type: choice
+        options: [catalog, gateway]
+        default: catalog
 
 permissions:
   contents: read
@@ -12,16 +18,19 @@ jobs:
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     timeout-minutes: 5
+    env:
+      REGISTRY_MANIFEST: ${{ inputs.bundle == 'gateway' && 'bundle/gateway/server.json' || 'server.json' }}
     steps:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
-      - name: Check the published desktop bundle
+      - name: Check the published bundle
         run: |
-          url=$(jq -er '.packages[0].identifier' server.json)
-          checksum=$(jq -er '.packages[0].fileSha256' server.json)
-          version=$(jq -er '.version' server.json)
+          url=$(jq -er '.packages[0].identifier' "$REGISTRY_MANIFEST")
+          checksum=$(jq -er '.packages[0].fileSha256' "$REGISTRY_MANIFEST")
+          version=$(jq -er '.version' "$REGISTRY_MANIFEST")
+          name=$(jq -er '.name | split("/")[-1]' "$REGISTRY_MANIFEST")
           curl -fsSL --retry 3 "$url" -o toolrank.mcpb
           printf '%s  toolrank.mcpb\n' "$checksum" | sha256sum -c -
-          unzip -p toolrank.mcpb manifest.json | jq -e --arg version "$version" '.version == $version'
+          unzip -p toolrank.mcpb manifest.json | jq -e --arg version "$version" --arg name "$name" '.version == $version and .name == $name'
       - name: Verify MCP Registry publisher
         working-directory: ${{ runner.temp }}
         run: |
@@ -33,4 +42,4 @@ jobs:
       - name: Publish the listing
         run: |
           "$RUNNER_TEMP/mcp-publisher" login github-oidc
-          "$RUNNER_TEMP/mcp-publisher" publish server.json
+          "$RUNNER_TEMP/mcp-publisher" publish "$REGISTRY_MANIFEST"

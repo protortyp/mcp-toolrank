@@ -1,0 +1,19 @@
+{
+  "ranking": "bm25",
+  "servers": [
+    {
+      "id": "clock",
+      "command": "python",
+      "args": ["-m", "toolrank_cpu.gateway_demo", "clock"],
+      "discover": ["current_utc_time"],
+      "invoke": ["current_utc_time"]
+    },
+    {
+      "id": "time_math",
+      "command": "python",
+      "args": ["-m", "toolrank_cpu.gateway_demo", "time_math"],
+      "discover": ["minutes_since_midnight"],
+      "invoke": ["minutes_since_midnight"]
+    }
+  ]
+}

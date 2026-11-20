@@ -12,7 +12,7 @@ The demo passes a clock reading between two local servers. It runs without a mod
 uvx --python 3.12 --from 'toolrank-cpu[gateway] @ https://github.com/protortyp/mcp-toolrank/releases/download/cpu-v0.3.0/toolrank_cpu-0.3.0-py3-none-any.whl' toolrank-gateway --demo
 ```
 
-Inventory with `--list-upstream-tools`. Set separate discovery and invocation allowlists. Pass arguments plus `search_tools` ID and revision to `invoke_tool`. [Configuration](examples/gateway_config.json) · [Gateway guide](docs/GATEWAY.md) · [CPU release](https://github.com/protortyp/mcp-toolrank/releases/tag/cpu-v0.3.0)
+Inventory with `--list-upstream-tools`. Set separate discovery/invocation allowlists. `invoke_tool` takes arguments, `search_tools` ID/revision. [Configuration](examples/gateway_config.json) · [Gateway guide](docs/GATEWAY.md) · [CPU release](https://github.com/protortyp/mcp-toolrank/releases/tag/cpu-v0.3.0) · [Desktop bundle](docs/GATEWAY_BUNDLE.md)
 
 Use `toolrank-cpu` for static catalogs on Python 3.12 or 3.13. [CLI and offline setup](docs/UVX_CPU.md) · [OpenAPI import](docs/OPENAPI_CATALOG.md)
 

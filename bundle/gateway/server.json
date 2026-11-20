@@ -1,0 +1,22 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.protortyp/mcp-toolrank-gateway",
+  "title": "ToolRank Gateway",
+  "description": "Search configured MCP upstreams and route explicit, allowlisted tool calls.",
+  "repository": {
+    "url": "https://github.com/protortyp/mcp-toolrank",
+    "source": "github"
+  },
+  "version": "0.3.0",
+  "websiteUrl": "https://github.com/protortyp/mcp-toolrank/blob/main/docs/GATEWAY_BUNDLE.md",
+  "packages": [
+    {
+      "registryType": "mcpb",
+      "identifier": "https://github.com/protortyp/mcp-toolrank/releases/download/gateway-mcpb-v0.3.0/mcp-toolrank-gateway-0.3.0.mcpb",
+      "fileSha256": "a6f279028bb384bedd070224b226d71ae935d1e0c772f03feba0ee2fea97c744",
+      "transport": {
+        "type": "stdio"
+      }
+    }
+  ]
+}

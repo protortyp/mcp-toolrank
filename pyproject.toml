@@ -42,7 +42,8 @@ packages = ["toolrank"]
 [tool.hatch.build.targets.sdist]
 only-include = [
     "data", "docs", "examples", "results", "tests", "toolrank",
-    "bundle/build.py", "bundle/manifest.json", "bundle/model.json", "bundle/pyproject.toml", "bundle/uv.lock",
+    "bundle/build.py", "bundle/manifest.json", "bundle/model.json", "bundle/notices.json",
+    "bundle/pyproject.toml", "bundle/uv.lock", "bundle/gateway",
     "cpu/pyproject.toml", "cpu/uv.lock", "cpu/toolrank_cpu",
     "server.json",
     "LICENSE", "README.md", "pyproject.toml", "requirements-cu128.txt",
