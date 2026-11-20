@@ -21,6 +21,8 @@ Across 1,549 answerable ETOM requests, ToolRank had 35 more top-ranked hits than
 
 [34 MB CPU ONNX and PyTorch-free runner](docs/ONNX_INT8.md)
 
+[Disk cache for ONNX catalog vectors](docs/ONNX_DISK_CACHE.md) reuses embeddings across CPU ranker and MCP stdio launches when catalog text matches.
+
 [Local CPU HTTP serving](docs/TEI.md) covers ToolRank with Hugging Face TEI, prompted queries, and unprompted documents.
 
 [OpenAPI catalog importer](docs/OPENAPI_CATALOG.md) builds one searchable operation catalog from local OpenAPI 3.0/3.1 JSON or YAML specs.
