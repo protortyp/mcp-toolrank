@@ -25,3 +25,4 @@
 - Gateway MCPB (44 KiB) uses the verified wheel. Manifest passed on Python 3.12/3.13, including with an empty 3.12 dependency cache. Static bundle rebuilt byte-for-byte. [Setup and checks](GATEWAY_BUNDLE.md)
 - INT4 shrank the graph 37.4% with identical ETOM top tens across rebatching. API-only replay matched metrics exactly. Both execution settings missed the p95 gate. Keep dynamic INT8. [Batch stability](ONNX_BATCH_STABILITY.md)
 - Three 17M seeds shared teacher-mined negatives. Distillation added no clear development gain. Faster, smaller label-only INT8 missed the frozen compact ETOM gate. Keep 33M. Scripts reproduce both arms. [Micro pilot](MICRO_DISTILLATION.md)
+- Tested model-free import with zero connections, launches, or grants. The installed wheel inventoried reference time (stdio) and public Cloudflare docs (Streamable HTTP). [Results](../results/gateway_client_import_release.json)

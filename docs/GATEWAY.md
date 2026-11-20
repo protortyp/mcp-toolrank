@@ -21,6 +21,17 @@ Use one gateway and cache per trusted local principal. Upstream credentials are 
 
 Python clients can use `Gateway.from_config` and `async with gateway.running()`.
 
+## Import an MCP client config
+
+Use trusted server-only JSON with one `mcpServers` or `servers` map. Supports stdio and Streamable HTTP (`"type": "http"`). Forwarded `env` values and `Authorization` bearer tokens require whole `${NAME}` or `${env:NAME}` references. Validation rejects other headers, SSE, client-specific policies, and URL queries.
+
+```sh
+toolrank-gateway mcp_client_config.json --import-client-config gateway.json
+toolrank-gateway gateway.json --list-upstream-tools
+```
+
+Import only writes new private BM25 JSON with literal arguments and empty `discover` and `invoke` lists. Review commands and endpoints before inventory starts stdio or connects via HTTP. Grant discovery and invocation separately. [Example config](../examples/mcp_client_config.json) · [Installed checks](../results/gateway_client_import_release.json)
+
 ## List upstream tools for setup
 
 Use trusted local configs. Stdio launches configured commands. Set `"discover": []` before names are known. This example connects time and Cloudflare docs servers.
