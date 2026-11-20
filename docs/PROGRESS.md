@@ -23,3 +23,4 @@
 - Lexical shortlisting sped up ETOM’s first search and missed the later p95 gate. Length bucketing missed both gates. [Cold search pilot](SHORTLIST_HYBRID_PILOT.md)
 - Verified installed inventory against reference time and Cloudflare docs servers with an empty model cache. Tests cover pagination, authentication, partial results, and zero calls. [Setup](GATEWAY.md#list-upstream-tools-for-setup)
 - Gateway MCPB (44 KiB) uses the verified wheel. Manifest passed on Python 3.12/3.13, including with an empty 3.12 dependency cache. Static bundle rebuilt byte-for-byte. [Setup and checks](GATEWAY_BUNDLE.md)
+- INT4 shrank the graph 37.4% with identical ETOM top tens across rebatching. API-only replay matched metrics exactly. Both execution settings missed the p95 gate. Keep dynamic INT8. [Batch stability](ONNX_BATCH_STABILITY.md)
