@@ -1,5 +1,10 @@
 # Changelog
 
+## CPU package 0.6.0 preview
+
+- Support Python 3.11–3.14 and pin NumPy for 3.11. Installed checks covered all four.
+- Add wheel metadata and a PyPI Trusted Publishing workflow.
+
 ## CPU package 0.5.0 preview
 
 - Search live upstreams once with discovery and invocation restrictions, schema budgets, and per-server status.
