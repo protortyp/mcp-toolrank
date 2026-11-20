@@ -76,12 +76,12 @@ def paired_interval(candidate, baseline, groups, seed=SEED, samples=3000):
             "ci95": np.quantile(bootstrap, [.025, .975]).tolist(), "clusters": len(counts)}
 
 
-def fingerprint(dataset):
+def fingerprint(dataset, etom_root=ETOM_ROOT):
     if dataset == "toolret":
         files = sorted(Path(".work/toolret").glob("*/*.parquet"))
         versions = {key: value for key, value in REVISIONS.items() if key.startswith("datasets/")}
     elif dataset.startswith("etom-"):
-        files = [ETOM_ROOT / name for name in FILES]
+        files = [etom_root / name for name in FILES]
         versions = {"etom": REVISION}
     else:
         files = [HOLDOUT]

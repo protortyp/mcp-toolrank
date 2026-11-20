@@ -97,7 +97,7 @@ def run(args):
             paired = comparators["micro_minus_toolrank"]["hybrid"]
             passed = paired["ndcg@10"]["ci95"][0] >= gate["ndcg_lower_bound"] and (
                 paired["hit@5"]["delta"] >= -protocol["max_hit5_point_loss"])
-            output["datasets"][name] = comparators | {"fingerprint": fingerprint(name), "passes": passed,
+            output["datasets"][name] = comparators | {"fingerprint": fingerprint(name, args.etom), "passes": passed,
                                                         "wall_seconds": perf_counter() - started}
             write_json(args.output, output)
             print(name, "hybrid nDCG delta", paired["ndcg@10"], "gate", passed, flush=True)
