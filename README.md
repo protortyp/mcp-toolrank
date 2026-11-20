@@ -21,6 +21,8 @@ Across 1,549 answerable ETOM requests, ToolRank had 35 more top-ranked hits than
 
 [34 MB CPU ONNX and PyTorch-free runner](docs/ONNX_INT8.md)
 
+[Run ToolRank with uvx](docs/UVX_CPU.md) locally. The CPU wheel downloads, verifies, and caches the existing pinned INT8 encoder.
+
 [Run the Q8_0 GGUF with llama.cpp](docs/GGUF.md) for local CPU serving and reproducible retrieval comparison against released SentenceTransformer weights.
 
 [Disk cache for ONNX catalog vectors](docs/ONNX_DISK_CACHE.md) reuses embeddings across CPU ranker and MCP stdio launches when catalog text matches.

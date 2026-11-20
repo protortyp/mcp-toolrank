@@ -1,0 +1,28 @@
+[project]
+name = "toolrank-cpu"
+version = "0.1.0"
+description = "Local ToolRank CPU retrieval for MCP and OpenAPI catalogs"
+requires-python = ">=3.12,<3.13"
+license = "Apache-2.0"
+dependencies = [
+    "numpy==2.5.5",
+    "onnxruntime==1.24.1",
+    "tokenizers==0.22.2",
+]
+
+[project.scripts]
+toolrank-cpu = "toolrank_cpu.cli:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["toolrank_cpu"]
+
+[tool.hatch.build.targets.wheel.force-include]
+"../LICENSE" = "toolrank_cpu/LICENSE"
+"../examples/rank_onnx.py" = "toolrank_cpu/rank_onnx.py"
+"../examples/catalog_lexical.py" = "toolrank_cpu/catalog_lexical.py"
+"../examples/catalog_int8.onnx" = "toolrank_cpu/catalog_int8.onnx"
+"../bundle/model.json" = "toolrank_cpu/model.json"
