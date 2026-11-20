@@ -33,7 +33,14 @@ class ClientImportTests(unittest.IsolatedAsyncioTestCase):
 
         url = await self.enterAsyncContext(serve(observed))
         child = Path(__file__).with_name("mock_server.py").resolve()
-        program = f"from pathlib import Path; Path({str(started)!r}).touch(); import runpy, sys; sys.argv = sys.argv[1:]; runpy.run_path(sys.argv[0], run_name='__main__')"
+        program = f"""import runpy
+import sys
+from pathlib import Path
+
+Path({str(started)!r}).touch()
+sys.argv = sys.argv[1:]
+runpy.run_path(sys.argv[0], run_name="__main__")
+"""
         source.write_text(json.dumps({"mcpServers": {
             "local": {"command": sys.executable, "args": ["-c", program, str(child), "local",
                       str(directory / "state"), str(calls)], "cwd": str(directory),
@@ -81,7 +88,10 @@ class ClientImportTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(endpoint.denied, 0)
         self.assertFalse((directory / "empty-cache").exists())
 
-    async def test_strict_servers_format_and_no_overwrite(self):
+
+
+class ClientConfigValidationTests(unittest.TestCase):
+    def test_strict_servers_format_and_no_overwrite(self):
         directory = Path(self.enterContext(TemporaryDirectory()))
         source = directory / "client.json"
         destination = directory / "gateway.json"
@@ -96,7 +106,7 @@ class ClientImportTests(unittest.IsolatedAsyncioTestCase):
         self.assertIn(b"already exists", second.stderr)
         self.assertEqual(destination.read_bytes(), expected)
 
-    async def test_rejects_unsafe_or_unsupported_settings_without_echoing_values(self):
+    def test_rejects_unsafe_or_unsupported_settings_without_echoing_values(self):
         inputs = [
             '{"servers":{"one":{"command":"python","env":{"TOKEN":"private-marker"}}}}',
             '{"servers":{"one":{"type":"http","url":"https://example.com/mcp?token=private-marker"}}}',
