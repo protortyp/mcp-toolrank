@@ -20,3 +20,14 @@ Use one gateway and cache per trusted local principal. Upstream credentials are 
 [Example configuration](../examples/gateway_config.json) · [MCP tools specification](https://modelcontextprotocol.io/specification/2025-11-25/server/tools)
 
 Python clients can use `Gateway.from_config` and `async with gateway.running()`.
+
+## MCP Inspector
+
+Run from the checkout with an installed CPU wheel and local INT8 checkpoint. The test pins Inspector 2.16.0 and Node 24.22.1. It checks both gateway methods over stdio, discovers five tools across the reference time and Git servers, invokes the allowlisted clock after invocation-only search, and verifies `not_available` for the discovery-only Git tool.
+
+```sh
+python3 tests/gateway/inspector_smoke.py \
+  --gateway /path/to/toolrank-gateway --checkpoint /path/to/toolrank-int8
+```
+
+[Inspector CLI](https://github.com/modelcontextprotocol/inspector/blob/main/clients/cli/README.md) · [Smoke results](../results/gateway_inspector.json)
