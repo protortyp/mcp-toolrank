@@ -15,6 +15,8 @@ On 1,549 answerable ETOM requests, ToolRank ranked a valid tool first 35 more ti
 
 ## Run locally
 
+For a 34 MB CPU graph and a PyTorch-free runner, see [INT8 ONNX](docs/ONNX_INT8.md).
+
 [Download the checkpoint and model card](https://huggingface.co/christianengel/mcp-toolrank-33m).
 
 ```sh

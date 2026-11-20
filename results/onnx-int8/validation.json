@@ -1,0 +1,102 @@
+{
+  "calibration": "authored v1 development split",
+  "fresh_freeze": {
+    "sha256": "ec11f47f29f6560bf0039f29674ac4765b85c35a9ac724f8406507e929387d8c",
+    "documents": 24,
+    "queries": 96,
+    "unanswerable": 24,
+    "families": {
+      "crossref": 16,
+      "gbif": 16,
+      "fdc": 16,
+      "usgs_quakes": 16,
+      "openalex": 16,
+      "worldbank": 16
+    },
+    "provenance": "Authored static requests from public API documentation. No API execution. This suite is held out from training and treatment selection."
+  },
+  "etom_audit": {
+    "revision": "790f28727f567b88918420d163c524d46644a694",
+    "sha256": {
+      "mcp_registry.json": "3c362877ec5733cf0fa1d3451b2f353fb97674e66075da0d7a6f41c0f98cc608",
+      "level_1.json": "9b6fdab8926cb5e21abddf0178f018de27d5b9636bd549b45798898b92eee028",
+      "level_2.json": "67abbf2574eda7c48a455b8d537ec218219e774ac7814b48f138d5eb662f10e2",
+      "level_5.json": "3fbbc6445c69176e84d7b514b9558433d28ed8592d95c14e1e4d28eba39129ae"
+    },
+    "documents": 2375,
+    "queries_by_level": {
+      "etom-l1": 781,
+      "etom-l2": 768,
+      "etom-l5": 91
+    },
+    "skipped_queries_with_incomplete_qrels": {
+      "l2": 5
+    }
+  },
+  "results": {
+    "fp32": {
+      "fresh": {
+        "metrics": {
+          "recall@1": 0.8194444444444444,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "ndcg@10": 0.9214886782371333,
+          "complete@10": 1.0,
+          "hit@1": 0.8194444444444444
+        },
+        "threshold": 0.5036309361457825,
+        "coverage": 1.0,
+        "false_accept_rate": 0.7083333333333334,
+        "answerable": 72,
+        "unanswerable": 24
+      },
+      "etom": {
+        "metrics": {
+          "recall@1": 0.8031909988010698,
+          "recall@5": 0.9350318177626118,
+          "recall@10": 0.9556864643856251,
+          "ndcg@10": 0.9012978698314056,
+          "complete@10": 0.9354422207876049,
+          "hit@1": 0.8450613298902517
+        },
+        "threshold": 0.5036309361457825,
+        "coverage": 0.9987088444157521,
+        "false_accept_rate": 0.32967032967032966,
+        "answerable": 1549,
+        "unanswerable": 91
+      }
+    },
+    "int8": {
+      "fresh": {
+        "metrics": {
+          "recall@1": 0.7777777777777778,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "ndcg@10": 0.9042922825030071,
+          "complete@10": 1.0,
+          "hit@1": 0.7777777777777778
+        },
+        "threshold": 0.6530872583389282,
+        "coverage": 0.8611111111111112,
+        "false_accept_rate": 0.20833333333333334,
+        "answerable": 72,
+        "unanswerable": 24
+      },
+      "etom": {
+        "metrics": {
+          "recall@1": 0.7990485413016077,
+          "recall@5": 0.9271880475883059,
+          "recall@10": 0.9534430815579943,
+          "ndcg@10": 0.8983181616743215,
+          "complete@10": 0.934151065203357,
+          "hit@1": 0.8398967075532602
+        },
+        "threshold": 0.6530872583389282,
+        "coverage": 0.9386701097482246,
+        "false_accept_rate": 0.0,
+        "answerable": 1549,
+        "unanswerable": 91
+      }
+    }
+  }
+}

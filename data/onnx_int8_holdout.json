@@ -1,0 +1,1064 @@
+{
+  "tools": {
+    "crossref/work_by_doi": {
+      "name": "crossref_work_by_doi",
+      "description": "Retrieve one Crossref work record by DOI, including deposited publication metadata.",
+      "repository": "crossref",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "doi": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "crossref/find_works": {
+      "name": "crossref_find_works",
+      "description": "Search Crossref publication metadata by title, author or bibliographic text.",
+      "repository": "crossref",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "crossref/journal_by_issn": {
+      "name": "crossref_journal_by_issn",
+      "description": "Get the Crossref journal record for a supplied ISSN.",
+      "repository": "crossref",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "issn": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "crossref/list_journal_works": {
+      "name": "crossref_list_journal_works",
+      "description": "List works deposited with Crossref under a specific journal ISSN.",
+      "repository": "crossref",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "issn": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "gbif/get_occurrence": {
+      "name": "gbif_get_occurrence",
+      "description": "Fetch one indexed GBIF species observation record by its numeric GBIF ID.",
+      "repository": "gbif",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "gbifId": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "gbif/search_occurrences": {
+      "name": "gbif_search_occurrences",
+      "description": "Search GBIF occurrence records by taxon, location or observation date.",
+      "repository": "gbif",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "taxonKey": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string"
+          },
+          "year": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "gbif/search_species": {
+      "name": "gbif_search_species",
+      "description": "Find GBIF checklist taxa by a text search for a scientific or common name.",
+      "repository": "gbif",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "q": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "gbif/get_dataset": {
+      "name": "gbif_get_dataset",
+      "description": "Fetch metadata, title, and publisher for a GBIF dataset key.",
+      "repository": "gbif",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "datasetKey": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "fdc/get_food": {
+      "name": "fdc_get_food",
+      "description": "Fetch a single USDA FoodData Central record and nutrients by FDC ID.",
+      "repository": "fdc",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "fdcId": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "fdc/get_foods": {
+      "name": "fdc_get_foods",
+      "description": "Fetch full details for multiple foods in one request using their FDC IDs.",
+      "repository": "fdc",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "fdcIds": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            }
+          }
+        }
+      }
+    },
+    "fdc/search_foods": {
+      "name": "fdc_search_foods",
+      "description": "Find USDA FoodData Central products and ingredients matching search keywords.",
+      "repository": "fdc",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "fdc/list_foods": {
+      "name": "fdc_list_foods",
+      "description": "Browse FoodData Central records page by page in an abridged view without a keyword query.",
+      "repository": "fdc",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "pageNumber": {
+            "type": "string"
+          },
+          "pageSize": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "usgs_quakes/query_earthquakes": {
+      "name": "usgs_quakes_query_earthquakes",
+      "description": "Retrieve matching earthquake event records from the USGS catalog by time, region, or magnitude.",
+      "repository": "usgs_quakes",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "starttime": {
+            "type": "string"
+          },
+          "endtime": {
+            "type": "string"
+          },
+          "minmagnitude": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "usgs_quakes/count_earthquakes": {
+      "name": "usgs_quakes_count_earthquakes",
+      "description": "Count events that match USGS earthquake catalog filters without retrieving the event list.",
+      "repository": "usgs_quakes",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "starttime": {
+            "type": "string"
+          },
+          "endtime": {
+            "type": "string"
+          },
+          "minmagnitude": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "usgs_quakes/list_catalogs": {
+      "name": "usgs_quakes_list_catalogs",
+      "description": "List the earthquake catalog codes available in the USGS event service.",
+      "repository": "usgs_quakes",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    "usgs_quakes/list_contributors": {
+      "name": "usgs_quakes_list_contributors",
+      "description": "List contributors that provide event information to the USGS earthquake service.",
+      "repository": "usgs_quakes",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    "openalex/get_work": {
+      "name": "openalex_get_work",
+      "description": "Get one OpenAlex bibliographic work by its OpenAlex work identifier.",
+      "repository": "openalex",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "workId": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "openalex/search_works": {
+      "name": "openalex_search_works",
+      "description": "Search OpenAlex publications by text, title or topic.",
+      "repository": "openalex",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "search": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "openalex/search_authors": {
+      "name": "openalex_search_authors",
+      "description": "Find researcher profiles in OpenAlex by name.",
+      "repository": "openalex",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "search": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "openalex/search_institutions": {
+      "name": "openalex_search_institutions",
+      "description": "Search the OpenAlex directory of research institutions by organization name.",
+      "repository": "openalex",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "search": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "worldbank/indicator_series": {
+      "name": "worldbank_indicator_series",
+      "description": "Retrieve values for a World Bank indicator over time for specified countries.",
+      "repository": "worldbank",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "country": {
+            "type": "string"
+          },
+          "indicator": {
+            "type": "string"
+          },
+          "date": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "worldbank/indicator_metadata": {
+      "name": "worldbank_indicator_metadata",
+      "description": "Get the World Bank definition and source details for a specific indicator code.",
+      "repository": "worldbank",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "indicator": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "worldbank/country_metadata": {
+      "name": "worldbank_country_metadata",
+      "description": "Look up World Bank country profile metadata including region and income classification.",
+      "repository": "worldbank",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "country": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "worldbank/list_sources": {
+      "name": "worldbank_list_sources",
+      "description": "List datasets and source databases available in the World Bank Indicators API.",
+      "repository": "worldbank",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    }
+  },
+  "queries": [
+    {
+      "id": "crossref/001",
+      "query": "I have 10.5555/12345678 and need its Crossref publication date.",
+      "family": "crossref",
+      "positives": [
+        "crossref/work_by_doi"
+      ]
+    },
+    {
+      "id": "crossref/002",
+      "query": "What metadata has the publisher deposited for this DOI in Crossref?",
+      "family": "crossref",
+      "positives": [
+        "crossref/work_by_doi"
+      ]
+    },
+    {
+      "id": "crossref/003",
+      "query": "The DOI is already settled. Pull its title and publication details from Crossref.",
+      "family": "crossref",
+      "positives": [
+        "crossref/work_by_doi"
+      ]
+    },
+    {
+      "id": "crossref/004",
+      "query": "Can you find the DOI in Crossref from the title and author on this citation?",
+      "family": "crossref",
+      "positives": [
+        "crossref/find_works"
+      ]
+    },
+    {
+      "id": "crossref/005",
+      "query": "I only have an approximate paper title. Find likely Crossref records.",
+      "family": "crossref",
+      "positives": [
+        "crossref/find_works"
+      ]
+    },
+    {
+      "id": "crossref/006",
+      "query": "Which Crossref publications match these bibliographic details?",
+      "family": "crossref",
+      "positives": [
+        "crossref/find_works"
+      ]
+    },
+    {
+      "id": "crossref/007",
+      "query": "Can you check what journal Crossref has for ISSN 2049-3630?",
+      "family": "crossref",
+      "positives": [
+        "crossref/journal_by_issn"
+      ]
+    },
+    {
+      "id": "crossref/008",
+      "query": "I need journal-level metadata for an ISSN, without listing the articles.",
+      "family": "crossref",
+      "positives": [
+        "crossref/journal_by_issn"
+      ]
+    },
+    {
+      "id": "crossref/009",
+      "query": "Does this serial identifier resolve to the journal I think it does in Crossref?",
+      "family": "crossref",
+      "positives": [
+        "crossref/journal_by_issn"
+      ]
+    },
+    {
+      "id": "crossref/010",
+      "query": "Pull the Crossref articles associated with this journal's ISSN.",
+      "family": "crossref",
+      "positives": [
+        "crossref/list_journal_works"
+      ]
+    },
+    {
+      "id": "crossref/011",
+      "query": "What papers have been registered under this serial in Crossref?",
+      "family": "crossref",
+      "positives": [
+        "crossref/list_journal_works"
+      ]
+    },
+    {
+      "id": "crossref/012",
+      "query": "I have the journal identifier and need the work records belonging to it.",
+      "family": "crossref",
+      "positives": [
+        "crossref/list_journal_works"
+      ]
+    },
+    {
+      "id": "crossref/013",
+      "query": "Change the author spelling on the publisher's deposited Crossref record.",
+      "family": "crossref",
+      "positives": []
+    },
+    {
+      "id": "crossref/014",
+      "query": "Set up an alert that emails me whenever this Crossref journal deposits a new article.",
+      "family": "crossref",
+      "positives": []
+    },
+    {
+      "id": "crossref/015",
+      "query": "Pay Crossref membership dues on my behalf.",
+      "family": "crossref",
+      "positives": []
+    },
+    {
+      "id": "crossref/016",
+      "query": "Download the publisher's full PDF from Crossref's own storage.",
+      "family": "crossref",
+      "positives": []
+    },
+    {
+      "id": "gbif/017",
+      "query": "Find the coordinates and collector for GBIF record 1802629224.",
+      "family": "gbif",
+      "positives": [
+        "gbif/get_occurrence"
+      ]
+    },
+    {
+      "id": "gbif/018",
+      "query": "I have the exact GBIF observation number. Open the corresponding record.",
+      "family": "gbif",
+      "positives": [
+        "gbif/get_occurrence"
+      ]
+    },
+    {
+      "id": "gbif/019",
+      "query": "For this occurrence ID from GBIF, retrieve the complete occurrence metadata.",
+      "family": "gbif",
+      "positives": [
+        "gbif/get_occurrence"
+      ]
+    },
+    {
+      "id": "gbif/020",
+      "query": "Pull GBIF records of wild otters observed in Sweden in 2021.",
+      "family": "gbif",
+      "positives": [
+        "gbif/search_occurrences"
+      ]
+    },
+    {
+      "id": "gbif/021",
+      "query": "Find actual observations of this species in Ireland, using GBIF.",
+      "family": "gbif",
+      "positives": [
+        "gbif/search_occurrences"
+      ]
+    },
+    {
+      "id": "gbif/022",
+      "query": "Show the indexed GBIF sightings in Japan from this collection period.",
+      "family": "gbif",
+      "positives": [
+        "gbif/search_occurrences"
+      ]
+    },
+    {
+      "id": "gbif/023",
+      "query": "Find plausible GBIF checklist taxa for the name I was given.",
+      "family": "gbif",
+      "positives": [
+        "gbif/search_species"
+      ]
+    },
+    {
+      "id": "gbif/024",
+      "query": "I know the animal's name. Search GBIF's taxonomy rather than its sighting records.",
+      "family": "gbif",
+      "positives": [
+        "gbif/search_species"
+      ]
+    },
+    {
+      "id": "gbif/025",
+      "query": "Which scientific taxa in the GBIF checklist match this name fragment?",
+      "family": "gbif",
+      "positives": [
+        "gbif/search_species"
+      ]
+    },
+    {
+      "id": "gbif/026",
+      "query": "This GBIF collection has a dataset UUID. Who published the dataset?",
+      "family": "gbif",
+      "positives": [
+        "gbif/get_dataset"
+      ]
+    },
+    {
+      "id": "gbif/027",
+      "query": "Get the title and provenance of the GBIF dataset with this key.",
+      "family": "gbif",
+      "positives": [
+        "gbif/get_dataset"
+      ]
+    },
+    {
+      "id": "gbif/028",
+      "query": "I need the dataset-level record for the UUID, regardless of which individual sightings it contains.",
+      "family": "gbif",
+      "positives": [
+        "gbif/get_dataset"
+      ]
+    },
+    {
+      "id": "gbif/029",
+      "query": "Correct the coordinate on the original GBIF sighting record.",
+      "family": "gbif",
+      "positives": []
+    },
+    {
+      "id": "gbif/030",
+      "query": "Train an identifier from this photo to tell me which bird it is.",
+      "family": "gbif",
+      "positives": []
+    },
+    {
+      "id": "gbif/031",
+      "query": "Email the GBIF publisher about the photograph I found.",
+      "family": "gbif",
+      "positives": []
+    },
+    {
+      "id": "gbif/032",
+      "query": "Buy a collecting permit in the country where the GBIF specimen was found.",
+      "family": "gbif",
+      "positives": []
+    },
+    {
+      "id": "fdc/033",
+      "query": "I already have the FDC ID for this item. Get its nutrient breakdown.",
+      "family": "fdc",
+      "positives": [
+        "fdc/get_food"
+      ]
+    },
+    {
+      "id": "fdc/034",
+      "query": "Pull full USDA details for this numeric food record.",
+      "family": "fdc",
+      "positives": [
+        "fdc/get_food"
+      ]
+    },
+    {
+      "id": "fdc/035",
+      "query": "Look up the food identified by this FoodData Central number.",
+      "family": "fdc",
+      "positives": [
+        "fdc/get_food"
+      ]
+    },
+    {
+      "id": "fdc/036",
+      "query": "Get the USDA nutrient records for these five FDC identifiers in one call.",
+      "family": "fdc",
+      "positives": [
+        "fdc/get_foods"
+      ]
+    },
+    {
+      "id": "fdc/037",
+      "query": "I have a list of FoodData Central numbers and want details for all of them together.",
+      "family": "fdc",
+      "positives": [
+        "fdc/get_foods"
+      ]
+    },
+    {
+      "id": "fdc/038",
+      "query": "Resolve these several FDC IDs as a batch.",
+      "family": "fdc",
+      "positives": [
+        "fdc/get_foods"
+      ]
+    },
+    {
+      "id": "fdc/039",
+      "query": "Find entries for plain Greek yogurt in the USDA database.",
+      "family": "fdc",
+      "positives": [
+        "fdc/search_foods"
+      ]
+    },
+    {
+      "id": "fdc/040",
+      "query": "I only know the supermarket product name. Look it up in FoodData Central.",
+      "family": "fdc",
+      "positives": [
+        "fdc/search_foods"
+      ]
+    },
+    {
+      "id": "fdc/041",
+      "query": "Search FDC for foods called dried apricots.",
+      "family": "fdc",
+      "positives": [
+        "fdc/search_foods"
+      ]
+    },
+    {
+      "id": "fdc/042",
+      "query": "Fetch the first 25 foods for a paged FDC browse view.",
+      "family": "fdc",
+      "positives": [
+        "fdc/list_foods"
+      ]
+    },
+    {
+      "id": "fdc/043",
+      "query": "I need the next page of the abridged USDA list, with no search terms.",
+      "family": "fdc",
+      "positives": [
+        "fdc/list_foods"
+      ]
+    },
+    {
+      "id": "fdc/044",
+      "query": "Show page four of the FoodData Central food listing.",
+      "family": "fdc",
+      "positives": [
+        "fdc/list_foods"
+      ]
+    },
+    {
+      "id": "fdc/045",
+      "query": "Change the sodium amount on the FoodData Central entry for my product.",
+      "family": "fdc",
+      "positives": []
+    },
+    {
+      "id": "fdc/046",
+      "query": "Add these ingredients to an online shopping cart.",
+      "family": "fdc",
+      "positives": []
+    },
+    {
+      "id": "fdc/047",
+      "query": "Calculate the safe insulin dose for this meal.",
+      "family": "fdc",
+      "positives": []
+    },
+    {
+      "id": "fdc/048",
+      "query": "Schedule a USDA nutrient report to send to my inbox every Friday.",
+      "family": "fdc",
+      "positives": []
+    },
+    {
+      "id": "usgs_quakes/049",
+      "query": "List the magnitude-five or stronger quakes from the USGS catalog last month.",
+      "family": "usgs_quakes",
+      "positives": [
+        "usgs_quakes/query_earthquakes"
+      ]
+    },
+    {
+      "id": "usgs_quakes/050",
+      "query": "Find matching Alaska earthquakes and return their locations, not just the number.",
+      "family": "usgs_quakes",
+      "positives": [
+        "usgs_quakes/query_earthquakes"
+      ]
+    },
+    {
+      "id": "usgs_quakes/051",
+      "query": "Which individual events in the USGS catalog met these time and magnitude limits?",
+      "family": "usgs_quakes",
+      "positives": [
+        "usgs_quakes/query_earthquakes"
+      ]
+    },
+    {
+      "id": "usgs_quakes/052",
+      "query": "How many magnitude-four quakes does the USGS catalog show for last week?",
+      "family": "usgs_quakes",
+      "positives": [
+        "usgs_quakes/count_earthquakes"
+      ]
+    },
+    {
+      "id": "usgs_quakes/053",
+      "query": "I only want the count of earthquakes in this date range.",
+      "family": "usgs_quakes",
+      "positives": [
+        "usgs_quakes/count_earthquakes"
+      ]
+    },
+    {
+      "id": "usgs_quakes/054",
+      "query": "How many results would the USGS query return with the magnitude cutoff?",
+      "family": "usgs_quakes",
+      "positives": [
+        "usgs_quakes/count_earthquakes"
+      ]
+    },
+    {
+      "id": "usgs_quakes/055",
+      "query": "What catalog values can I use when filtering USGS tremors?",
+      "family": "usgs_quakes",
+      "positives": [
+        "usgs_quakes/list_catalogs"
+      ]
+    },
+    {
+      "id": "usgs_quakes/056",
+      "query": "Which catalogs are recognized by the USGS earthquake service?",
+      "family": "usgs_quakes",
+      "positives": [
+        "usgs_quakes/list_catalogs"
+      ]
+    },
+    {
+      "id": "usgs_quakes/057",
+      "query": "Show me the source catalog codes available for the event query.",
+      "family": "usgs_quakes",
+      "positives": [
+        "usgs_quakes/list_catalogs"
+      ]
+    },
+    {
+      "id": "usgs_quakes/058",
+      "query": "What agency names are valid for the USGS earthquake contributor filter?",
+      "family": "usgs_quakes",
+      "positives": [
+        "usgs_quakes/list_contributors"
+      ]
+    },
+    {
+      "id": "usgs_quakes/059",
+      "query": "List the organizations contributing event records to this USGS service.",
+      "family": "usgs_quakes",
+      "positives": [
+        "usgs_quakes/list_contributors"
+      ]
+    },
+    {
+      "id": "usgs_quakes/060",
+      "query": "Which reporting contributors does the earthquake API recognize?",
+      "family": "usgs_quakes",
+      "positives": [
+        "usgs_quakes/list_contributors"
+      ]
+    },
+    {
+      "id": "usgs_quakes/061",
+      "query": "Predict when the next substantial California earthquake will occur.",
+      "family": "usgs_quakes",
+      "positives": []
+    },
+    {
+      "id": "usgs_quakes/062",
+      "query": "Sign me up for SMS alerts from the USGS.",
+      "family": "usgs_quakes",
+      "positives": []
+    },
+    {
+      "id": "usgs_quakes/063",
+      "query": "Send a ground-motion waveform file from a physical station.",
+      "family": "usgs_quakes",
+      "positives": []
+    },
+    {
+      "id": "usgs_quakes/064",
+      "query": "Submit my felt earthquake report to the USGS.",
+      "family": "usgs_quakes",
+      "positives": []
+    },
+    {
+      "id": "openalex/065",
+      "query": "Open the OpenAlex record W2741809807 and show its citation metadata.",
+      "family": "openalex",
+      "positives": [
+        "openalex/get_work"
+      ]
+    },
+    {
+      "id": "openalex/066",
+      "query": "I already have a single W identifier. Fetch the OpenAlex work itself.",
+      "family": "openalex",
+      "positives": [
+        "openalex/get_work"
+      ]
+    },
+    {
+      "id": "openalex/067",
+      "query": "Get the work record belonging to this OpenAlex W number.",
+      "family": "openalex",
+      "positives": [
+        "openalex/get_work"
+      ]
+    },
+    {
+      "id": "openalex/068",
+      "query": "Find OpenAlex papers about battery recycling that mention solvent recovery.",
+      "family": "openalex",
+      "positives": [
+        "openalex/search_works"
+      ]
+    },
+    {
+      "id": "openalex/069",
+      "query": "Get publications matching these title words on OpenAlex.",
+      "family": "openalex",
+      "positives": [
+        "openalex/search_works"
+      ]
+    },
+    {
+      "id": "openalex/070",
+      "query": "Search the OpenAlex literature for research about urban heat islands.",
+      "family": "openalex",
+      "positives": [
+        "openalex/search_works"
+      ]
+    },
+    {
+      "id": "openalex/071",
+      "query": "Find OpenAlex scholar profiles named Isabel Garcia.",
+      "family": "openalex",
+      "positives": [
+        "openalex/search_authors"
+      ]
+    },
+    {
+      "id": "openalex/072",
+      "query": "I\u2019m looking for a researcher\u2019s A identifier, based on their name.",
+      "family": "openalex",
+      "positives": [
+        "openalex/search_authors"
+      ]
+    },
+    {
+      "id": "openalex/073",
+      "query": "Search OpenAlex people called Alex Morgan and show possible author profiles.",
+      "family": "openalex",
+      "positives": [
+        "openalex/search_authors"
+      ]
+    },
+    {
+      "id": "openalex/074",
+      "query": "Find the OpenAlex entry for the University of Glasgow.",
+      "family": "openalex",
+      "positives": [
+        "openalex/search_institutions"
+      ]
+    },
+    {
+      "id": "openalex/075",
+      "query": "Which OpenAlex institution profiles have this organization name?",
+      "family": "openalex",
+      "positives": [
+        "openalex/search_institutions"
+      ]
+    },
+    {
+      "id": "openalex/076",
+      "query": "Find the I identifier of this research institute in OpenAlex.",
+      "family": "openalex",
+      "positives": [
+        "openalex/search_institutions"
+      ]
+    },
+    {
+      "id": "openalex/077",
+      "query": "Merge my two OpenAlex author profiles into a single record.",
+      "family": "openalex",
+      "positives": []
+    },
+    {
+      "id": "openalex/078",
+      "query": "Set up an OpenAlex email alert when a publication cites my work.",
+      "family": "openalex",
+      "positives": []
+    },
+    {
+      "id": "openalex/079",
+      "query": "Submit a new manuscript to the journal I found through OpenAlex.",
+      "family": "openalex",
+      "positives": []
+    },
+    {
+      "id": "openalex/080",
+      "query": "Pay an article publication charge using my OpenAlex account.",
+      "family": "openalex",
+      "positives": []
+    },
+    {
+      "id": "worldbank/081",
+      "query": "Show the World Bank population series for Kenya from 2015 to 2022.",
+      "family": "worldbank",
+      "positives": [
+        "worldbank/indicator_series"
+      ]
+    },
+    {
+      "id": "worldbank/082",
+      "query": "Get World Bank GDP growth numbers for Japan by year.",
+      "family": "worldbank",
+      "positives": [
+        "worldbank/indicator_series"
+      ]
+    },
+    {
+      "id": "worldbank/083",
+      "query": "Pull the annual World Bank values for the selected indicator and countries.",
+      "family": "worldbank",
+      "positives": [
+        "worldbank/indicator_series"
+      ]
+    },
+    {
+      "id": "worldbank/084",
+      "query": "What does World Bank indicator SP.POP.TOTL mean?",
+      "family": "worldbank",
+      "positives": [
+        "worldbank/indicator_metadata"
+      ]
+    },
+    {
+      "id": "worldbank/085",
+      "query": "Find the definition and source for this World Bank series code.",
+      "family": "worldbank",
+      "positives": [
+        "worldbank/indicator_metadata"
+      ]
+    },
+    {
+      "id": "worldbank/086",
+      "query": "I need the methodology field for this indicator, without requesting country values.",
+      "family": "worldbank",
+      "positives": [
+        "worldbank/indicator_metadata"
+      ]
+    },
+    {
+      "id": "worldbank/087",
+      "query": "Which income group and region does the World Bank assign to Botswana?",
+      "family": "worldbank",
+      "positives": [
+        "worldbank/country_metadata"
+      ]
+    },
+    {
+      "id": "worldbank/088",
+      "query": "Give the World Bank country profile classification for this ISO code.",
+      "family": "worldbank",
+      "positives": [
+        "worldbank/country_metadata"
+      ]
+    },
+    {
+      "id": "worldbank/089",
+      "query": "What capital and regional grouping are in this country's World Bank metadata?",
+      "family": "worldbank",
+      "positives": [
+        "worldbank/country_metadata"
+      ]
+    },
+    {
+      "id": "worldbank/090",
+      "query": "Which databases can I query through the World Bank indicator service?",
+      "family": "worldbank",
+      "positives": [
+        "worldbank/list_sources"
+      ]
+    },
+    {
+      "id": "worldbank/091",
+      "query": "List the World Bank data sources so I can pick the right database ID.",
+      "family": "worldbank",
+      "positives": [
+        "worldbank/list_sources"
+      ]
+    },
+    {
+      "id": "worldbank/092",
+      "query": "Show the available source databases with no individual indicator or country filter.",
+      "family": "worldbank",
+      "positives": [
+        "worldbank/list_sources"
+      ]
+    },
+    {
+      "id": "worldbank/093",
+      "query": "Approve my government's application for a World Bank loan.",
+      "family": "worldbank",
+      "positives": []
+    },
+    {
+      "id": "worldbank/094",
+      "query": "Update the income group listed for my country in the World Bank system.",
+      "family": "worldbank",
+      "positives": []
+    },
+    {
+      "id": "worldbank/095",
+      "query": "Send our organization a World Bank grant application form by email.",
+      "family": "worldbank",
+      "positives": []
+    },
+    {
+      "id": "worldbank/096",
+      "query": "Upload a new national GDP series to the World Bank database.",
+      "family": "worldbank",
+      "positives": []
+    }
+  ],
+  "sources": {
+    "crossref": "https://api.crossref.org/",
+    "gbif": "https://techdocs.gbif.org/en/openapi/",
+    "fdc": "https://fdc.nal.usda.gov/api-guide/",
+    "usgs_quakes": "https://earthquake.usgs.gov/fdsnws/event/1/",
+    "openalex": "https://help.openalex.org/api/",
+    "worldbank": "https://datahelpdesk.worldbank.org/knowledgebase/articles/889392-about-the-indicators-api-documentation"
+  }
+}
