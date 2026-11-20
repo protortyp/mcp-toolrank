@@ -1,0 +1,60 @@
+{
+  "runtime_checks": [
+    {
+      "platform": "Linux-7.0.0-42-generic-x86_64-with-glibc2.39",
+      "revision": "718ba8a2f74cbe89005c65eaafa3d211796581c9",
+      "sha256": "a6f279028bb384bedd070224b226d71ae935d1e0c772f03feba0ee2fea97c744",
+      "bundle_bytes": 45017,
+      "offline_with_cached_dependencies": true,
+      "checks": [
+        {
+          "python": "3.12",
+          "methods": [
+            "invoke_tool",
+            "search_tools"
+          ],
+          "receipt_round_trip": true,
+          "unregistered": "not_available",
+          "empty_model_cache": true,
+          "wall_seconds": 1.3977661929093301
+        },
+        {
+          "python": "3.13",
+          "methods": [
+            "invoke_tool",
+            "search_tools"
+          ],
+          "receipt_round_trip": true,
+          "unregistered": "not_available",
+          "empty_model_cache": true,
+          "wall_seconds": 1.288584063993767
+        }
+      ],
+      "external_compute_usd": 0
+    },
+    {
+      "platform": "Linux-7.0.0-42-generic-x86_64-with-glibc2.39",
+      "revision": "718ba8a2f74cbe89005c65eaafa3d211796581c9",
+      "sha256": "a6f279028bb384bedd070224b226d71ae935d1e0c772f03feba0ee2fea97c744",
+      "bundle_bytes": 45017,
+      "offline_with_cached_dependencies": false,
+      "checks": [
+        {
+          "python": "3.12",
+          "methods": [
+            "invoke_tool",
+            "search_tools"
+          ],
+          "receipt_round_trip": true,
+          "unregistered": "not_available",
+          "empty_model_cache": true,
+          "wall_seconds": 2.101625883951783
+        }
+      ],
+      "external_compute_usd": 0
+    }
+  ],
+  "source_archive_rebuild_identical": true,
+  "static_bundle_rebuild_identical": true,
+  "mcpb_validation_tool": "@anthropic-ai/mcpb@2.1.2"
+}

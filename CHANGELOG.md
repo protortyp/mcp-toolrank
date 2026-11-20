@@ -1,5 +1,9 @@
 # Changelog
 
+## Gateway desktop bundle 0.3.0
+
+- Bundle the CPU wheel with locked uv and a model-free two-server BM25 example.
+
 ## CPU package 0.3.0 preview
 
 - Inventory stdio and Streamable HTTP tool names. Flag missing discovery names and retain partial results.
