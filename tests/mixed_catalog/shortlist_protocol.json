@@ -1,0 +1,21 @@
+{
+  "candidate_width": 64,
+  "return_limit": 10,
+  "candidate_generation": "Top lexical score (.4 TF-IDF + .15 BM25), positive scores only, stable tool IDs. Use full hybrid when fewer than 10 eligible tools share terms.",
+  "bucket_order": "Sort document texts by character count before batches of up to 32. Preserve the original order for lexical and dense scoring.",
+  "checkpoints": ["a24a121266154006e2bd2e32a41576437c3455c2"],
+  "datasets": ["etom-plain", "api"],
+  "measurement": "Three independent cold processes, same first query across strategies per seed. Then one shuffled pass; p95 includes remaining lazy index work. No disk embedding cache.",
+  "seeds": [11, 23, 37],
+  "lexical_gate": {
+    "required_etom_cold_speedup": 3.0,
+    "minimum_paired_ndcg_delta_lower_95": -0.01,
+    "maximum_unsupported_accept_delta": 0,
+    "maximum_etom_warm_p95_multiplier": 1.25
+  },
+  "bucket_gate": {
+    "required_etom_cold_speedup": 1.5,
+    "required_exact_top10_fraction": 1.0,
+    "maximum_etom_warm_p95_multiplier": 1.25
+  }
+}
