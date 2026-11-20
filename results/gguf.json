@@ -1,0 +1,135 @@
+{
+  "gguf": "mcp-toolrank-33m-Q8_0.gguf",
+  "gguf_bytes": 36688544,
+  "gguf_sha256": "8edd9ef28aac1a8545a1593145d597b1761516848fcd4f6eb077f7a7b6ee44ef",
+  "source_sha256": "16c609a9331a9c2786500722f96afdb19e901965cf1419e3e966010051b9655b",
+  "llama_cpp_commit": "ff52ee964d9051e07da0e89a66567f0b893129c6",
+  "gguf_quantization_rebuilt_byte_identical": true,
+  "independent_rerun_metrics_identical": true,
+  "cpu": "AMD Ryzen 9 5950X",
+  "threads": 4,
+  "pooling": "CLS",
+  "query_input": "released BGE prompt prepended to text",
+  "conversion": {
+    "script": "convert_hf_to_gguf.py",
+    "args": [
+      "--outtype",
+      "f16",
+      "--model-name",
+      "mcp-toolrank-33m"
+    ],
+    "quantization": "llama-quantize toolrank-f16.gguf mcp-toolrank-33m-Q8_0.gguf Q8_0 4"
+  },
+  "run1": {
+    "api": {
+      "queries": 96,
+      "catalog": 24,
+      "sentence_transformers": {
+        "recall@1": 0.8194444444444444,
+        "recall@5": 1.0,
+        "recall@10": 1.0,
+        "ndcg@10": 0.9214886782371333,
+        "complete@10": 1.0,
+        "answerability_auroc": 0.920138888888889
+      },
+      "llama_cpp": {
+        "recall@1": 0.8194444444444444,
+        "recall@5": 1.0,
+        "recall@10": 1.0,
+        "ndcg@10": 0.9196702094375298,
+        "complete@10": 1.0,
+        "answerability_auroc": 0.9184027777777778
+      },
+      "identical_top10_order": 62,
+      "mean_query_cosine_vs_reference": 0.9997744560241699,
+      "min_query_cosine_vs_reference": 0.9996849894523621
+    },
+    "etom-plain": {
+      "queries": 1640,
+      "catalog": 2375,
+      "sentence_transformers": {
+        "recall@1": 0.8031909988010698,
+        "recall@5": 0.9350318177626118,
+        "recall@10": 0.9556864643856251,
+        "ndcg@10": 0.9012978698314056,
+        "complete@10": 0.9354422207876049,
+        "answerability_auroc": 0.9977936846884555
+      },
+      "llama_cpp": {
+        "recall@1": 0.7999415905807126,
+        "recall@5": 0.9339020566263949,
+        "recall@10": 0.9548579728857327,
+        "ndcg@10": 0.8997860314846692,
+        "complete@10": 0.9347966429954809,
+        "answerability_auroc": 0.9977511191197441
+      },
+      "identical_top10_order": 697,
+      "mean_query_cosine_vs_reference": 0.9997854828834534,
+      "min_query_cosine_vs_reference": 0.9995525479316711
+    },
+    "http_query_latency": {
+      "p50_ms": 6.007119663991034,
+      "p95_ms": 10.030766960699111,
+      "queries": 32,
+      "includes_http_and_tokenization": true
+    }
+  },
+  "run2": {
+    "api": {
+      "queries": 96,
+      "catalog": 24,
+      "sentence_transformers": {
+        "recall@1": 0.8194444444444444,
+        "recall@5": 1.0,
+        "recall@10": 1.0,
+        "ndcg@10": 0.9214886782371333,
+        "complete@10": 1.0,
+        "answerability_auroc": 0.920138888888889
+      },
+      "llama_cpp": {
+        "recall@1": 0.8194444444444444,
+        "recall@5": 1.0,
+        "recall@10": 1.0,
+        "ndcg@10": 0.9196702094375298,
+        "complete@10": 1.0,
+        "answerability_auroc": 0.9184027777777778
+      },
+      "identical_top10_order": 62,
+      "mean_query_cosine_vs_reference": 0.9997744560241699,
+      "min_query_cosine_vs_reference": 0.9996849894523621
+    },
+    "etom-plain": {
+      "queries": 1640,
+      "catalog": 2375,
+      "sentence_transformers": {
+        "recall@1": 0.8031909988010698,
+        "recall@5": 0.9350318177626118,
+        "recall@10": 0.9556864643856251,
+        "ndcg@10": 0.9012978698314056,
+        "complete@10": 0.9354422207876049,
+        "answerability_auroc": 0.9977936846884555
+      },
+      "llama_cpp": {
+        "recall@1": 0.7999415905807126,
+        "recall@5": 0.9339020566263949,
+        "recall@10": 0.9548579728857327,
+        "ndcg@10": 0.8997860314846692,
+        "complete@10": 0.9347966429954809,
+        "answerability_auroc": 0.9977511191197441
+      },
+      "identical_top10_order": 697,
+      "mean_query_cosine_vs_reference": 0.9997854828834534,
+      "min_query_cosine_vs_reference": 0.9995525479316711
+    },
+    "http_query_latency": {
+      "p50_ms": 4.9315294018015265,
+      "p95_ms": 6.1846147873438895,
+      "queries": 32,
+      "includes_http_and_tokenization": true
+    }
+  },
+  "server_peak_rss_kib": [
+    98504,
+    98484
+  ]
+}
