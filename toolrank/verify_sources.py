@@ -119,7 +119,10 @@ def run(shards, report, output_rows, provenance):
                 if record.get("spdx") != "MIT" or "observed_default_head" not in record:
                     continue
                 counts["eligible_target_mentions"] += 1
-                description = specs[target]["description"]
+                description = specs[target].get("description")
+                if not isinstance(description, str):
+                    counts["target_mentions_without_text_descriptions"] += 1
+                    continue
                 identity = (repo, name, sha256(compact(description).encode()).hexdigest())
                 evidence = verify(repo, record["observed_default_head"], record["path"], record["blob"], name, description)
                 if evidence:
