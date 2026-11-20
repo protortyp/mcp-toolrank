@@ -42,6 +42,18 @@ toolrank-gateway examples/gateway_inventory_config.json --list-upstream-tools
 
 Inventory sorts names per upstream and flags missing discovery names. Unavailable upstreams yield exit 1 with partial JSON. Add names to `discover` and grant `invoke` separately. Model-free inventory issues discovery requests only. [Example](../examples/gateway_inventory_config.json) · [Installed check](../results/gateway_inventory_release.json)
 
+## Search from the shell
+
+This model-free BM25 example searches the reference time and public Cloudflare docs servers with discovery-only grants.
+
+```sh
+curl -fsSLO https://raw.githubusercontent.com/protortyp/mcp-toolrank/cpu-v0.5.0/examples/gateway_search_config.json
+uvx --python 3.12 --from 'toolrank-cpu[gateway] @ https://github.com/protortyp/mcp-toolrank/releases/download/cpu-v0.5.0/toolrank_cpu-0.5.0-py3-none-any.whl' \
+  toolrank-gateway gateway_search_config.json --search "Search Cloudflare documentation" --limit 1
+```
+
+JSON includes the `search_tools` matches, decision, and upstream status. `--invocable-only` filters by invocation grants. `--max-tool-bytes` caps the matches array. Exit 1 preserves JSON on upstream failure or a calibration scope mismatch. Empty results exit 0 when upstreams are ready and calibration matches. [Wheel setup](../README.md#try-it) · [Installed check](../results/gateway_cli_search_release.json)
+
 ## Model-free ranking
 
 Set `"ranking": "bm25"` for lexical search without a checkpoint or ONNX session. Hybrid is the default and supports `min_cosine`. BM25 matches have `cosine: null`. `no_lexical_overlap` means eligible tools share no indexed query terms. Overlap leaves relevance unverified. [Measured trade-off](GATEWAY_RANKING.md)

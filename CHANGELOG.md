@@ -1,5 +1,9 @@
 # Changelog
 
+## CPU package 0.5.0 preview
+
+- Search live upstreams once with discovery and invocation restrictions, schema budgets, and per-server status.
+
 ## CPU package 0.4.0 preview
 
 - Import portable MCP server definitions into a private BM25 config. Review upstreams, inventory, then grant discovery and invocation separately.
