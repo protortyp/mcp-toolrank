@@ -73,7 +73,7 @@ def inventory(args, directory):
                str(args.inventory_config), "--list-upstream-tools"]
     result = json.loads(run(command, directory))["upstreams"]
     if (result["clock"]["status"] != "ready" or result["docs"]["status"] != "ready"
-            or result["clock"]["tools"] != ["convert_time", "get_current_time"]
+            or result["clock"]["tools"] != ["convert_time", "get_current_time", "get_time_ago"]
             or "search_cloudflare_documentation" not in result["docs"]["tools"]
             or (directory / "cache/toolrank").exists()):
         raise ValueError("Installed inventory could not list the reference time and docs tools")
