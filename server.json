@@ -1,0 +1,20 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.protortyp/mcp-toolrank",
+  "title": "MCP ToolRank",
+  "description": "Search local JSON catalogs of MCP tools or imported OpenAPI operations on CPU.",
+  "repository": {
+    "url": "https://github.com/protortyp/mcp-toolrank",
+    "source": "github"
+  },
+  "version": "0.6.0",
+  "websiteUrl": "https://huggingface.co/christianengel/mcp-toolrank-33m",
+  "packages": [
+    {
+      "registryType": "mcpb",
+      "identifier": "https://github.com/protortyp/mcp-toolrank/releases/download/v0.6.0/mcp-toolrank-0.6.0.mcpb",
+      "fileSha256": "4a16b856e2c63f90fe4fc48260876df9f5e8672e5580eedab68f39513fe62fb6",
+      "transport": {"type": "stdio"}
+    }
+  ]
+}
