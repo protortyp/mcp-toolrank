@@ -1,0 +1,103 @@
+{
+  "revision": "8eb60a2cc1f3a71fd0e182707f7369c1e1c776f5",
+  "source_sha256": "4e719e91933a2bcdb23e7b987b9333aea14269b4403a8c0948e62ab21c37ac09",
+  "platform": "Linux-7.0.0-42-generic-x86_64-with-glibc2.39",
+  "uv_version": "uv 0.11.14 (x86_64-unknown-linux-gnu)",
+  "artifacts": {
+    "toolrank_cpu-0.6.0-py3-none-any.whl": "291f3f76fb9ccf35f7626020bd054947071144777648cca91811bec6f6145f37",
+    "toolrank_cpu-0.6.0.tar.gz": "d87b19426b0143962e0ba90a49239567ab30d86138d813bc29937d66402b3a87",
+    "mcp-toolrank-0.7.1.mcpb": "890fbdb2d525dbccebd4fa4b63996564d2e5446145b115028b4240896e512b61"
+  },
+  "wheel_rebuild_identical": true,
+  "offline_with_cached_dependencies": true,
+  "fresh_install_demos": [
+    {
+      "python": "3.11",
+      "elapsed_seconds": 2.5344395369756967,
+      "ordered_calls": [
+        "clock/current_utc_time",
+        "time_math/minutes_since_midnight"
+      ],
+      "minutes_match_clock_receipt": true,
+      "empty_model_cache": true,
+      "onnx_cli_match": "get_current_time"
+    },
+    {
+      "python": "3.12",
+      "elapsed_seconds": 2.592783526983112,
+      "ordered_calls": [
+        "clock/current_utc_time",
+        "time_math/minutes_since_midnight"
+      ],
+      "minutes_match_clock_receipt": true,
+      "empty_model_cache": true,
+      "onnx_cli_match": "get_current_time"
+    },
+    {
+      "python": "3.13",
+      "elapsed_seconds": 2.5646481160074472,
+      "ordered_calls": [
+        "clock/current_utc_time",
+        "time_math/minutes_since_midnight"
+      ],
+      "minutes_match_clock_receipt": true,
+      "empty_model_cache": true,
+      "onnx_cli_match": "get_current_time"
+    },
+    {
+      "python": "3.14",
+      "elapsed_seconds": 3.6146066267974675,
+      "ordered_calls": [
+        "clock/current_utc_time",
+        "time_math/minutes_since_midnight"
+      ],
+      "minutes_match_clock_receipt": true,
+      "empty_model_cache": true,
+      "onnx_cli_match": "get_current_time"
+    }
+  ],
+  "installed_onnx_cli_match": "get_current_time",
+  "desktop_bundle": {
+    "version": "0.7.1",
+    "search_match": "get_current_time",
+    "model_notices_verified": 43
+  },
+  "installed_live_inventory": {
+    "clock": {
+      "status": "ready",
+      "tools": [
+        "convert_time",
+        "get_current_time",
+        "get_time_ago"
+      ],
+      "missing_discover": []
+    },
+    "docs": {
+      "status": "ready",
+      "tools": [
+        "migrate_pages_to_workers_guide",
+        "search_cloudflare_documentation"
+      ],
+      "missing_discover": []
+    }
+  },
+  "client_config_imported": true,
+  "installed_live_search": {
+    "queries": {
+      "Get current time": {
+        "match": "clock/get_current_time",
+        "elapsed_seconds": 1.9500696130562574
+      },
+      "Search Cloudflare documentation": {
+        "match": "docs/search_cloudflare_documentation",
+        "elapsed_seconds": 1.9490937029477209
+      }
+    },
+    "upstreams": {
+      "clock": "ready",
+      "docs": "ready"
+    },
+    "empty_model_cache": true
+  },
+  "external_compute_usd": 0
+}

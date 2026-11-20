@@ -9,12 +9,12 @@ On 11 simulated workflows, the ToolRank hybrid cut schema tokens by 85% compared
 The demo passes a clock reading between two local servers. It runs without a model download.
 
 ```sh
-uvx --python 3.12 --from 'toolrank-cpu[gateway] @ https://github.com/protortyp/mcp-toolrank/releases/download/cpu-v0.5.0/toolrank_cpu-0.5.0-py3-none-any.whl' toolrank-gateway --demo
+uvx --python 3.12 --from 'toolrank-cpu[gateway] @ https://github.com/protortyp/mcp-toolrank/releases/download/cpu-v0.6.0/toolrank_cpu-0.6.0-py3-none-any.whl' toolrank-gateway --demo
 ```
 
-Import servers, inventory tools, and grant discovery and invocation separately. Search live from the shell. Pass the `search_tools` ID and revision to `invoke_tool`. [CLI search](docs/GATEWAY.md#search-from-the-shell) · [Import and inventory](docs/GATEWAY.md#import-an-mcp-client-config) · [Configuration](examples/gateway_config.json) · [Gateway guide](docs/GATEWAY.md) · [CPU release](https://github.com/protortyp/mcp-toolrank/releases/tag/cpu-v0.5.0) · [Desktop bundle](docs/GATEWAY_BUNDLE.md)
+Import servers, inventory tools, and grant discovery and invocation separately. Search live from the shell. Pass the `search_tools` ID and revision to `invoke_tool`. [CLI search](docs/GATEWAY.md#search-from-the-shell) · [Import and inventory](docs/GATEWAY.md#import-an-mcp-client-config) · [Configuration](examples/gateway_config.json) · [Gateway guide](docs/GATEWAY.md) · [CPU release](https://github.com/protortyp/mcp-toolrank/releases/tag/cpu-v0.6.0) · [Desktop bundle](docs/GATEWAY_BUNDLE.md)
 
-Use `toolrank-cpu` for static catalogs on Python 3.12 or 3.13. [CLI and offline setup](docs/UVX_CPU.md) · [OpenAPI import](docs/OPENAPI_CATALOG.md)
+The CPU wheel ranks static tool catalogs with `toolrank-cpu` on Python 3.11–3.14. [CLI and offline setup](docs/UVX_CPU.md) · [OpenAPI import](docs/OPENAPI_CATALOG.md)
 
 ## Results and limits
 

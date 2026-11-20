@@ -47,8 +47,8 @@ Inventory sorts names per upstream and flags missing discovery names. Unavailabl
 This model-free BM25 example searches the reference time and public Cloudflare docs servers with discovery-only grants.
 
 ```sh
-curl -fsSLO https://raw.githubusercontent.com/protortyp/mcp-toolrank/cpu-v0.5.0/examples/gateway_search_config.json
-uvx --python 3.12 --from 'toolrank-cpu[gateway] @ https://github.com/protortyp/mcp-toolrank/releases/download/cpu-v0.5.0/toolrank_cpu-0.5.0-py3-none-any.whl' \
+curl -fsSLO https://raw.githubusercontent.com/protortyp/mcp-toolrank/cpu-v0.6.0/examples/gateway_search_config.json
+uvx --python 3.12 --from 'toolrank-cpu[gateway] @ https://github.com/protortyp/mcp-toolrank/releases/download/cpu-v0.6.0/toolrank_cpu-0.6.0-py3-none-any.whl' \
   toolrank-gateway gateway_search_config.json --search "Search Cloudflare documentation" --limit 1
 ```
 
