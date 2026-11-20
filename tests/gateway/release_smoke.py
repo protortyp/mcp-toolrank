@@ -2,7 +2,7 @@
 import argparse
 import asyncio
 from datetime import datetime
-from hashlib import file_digest
+from hashlib import file_digest, sha256
 import json
 import os
 from pathlib import Path
@@ -40,6 +40,14 @@ def run(command, directory):
 async def desktop_bundle(bundle, directory, input_file):
     extracted = directory / "desktop"
     with ZipFile(bundle) as archive:
+        notices = json.loads(archive.read("model/NOTICES.sha256.json"))
+        source_manifest = Path(__file__).resolve().parents[2] / "bundle/notices.json"
+        if notices != json.loads(source_manifest.read_text()):
+            raise ValueError("Desktop bundle does not include the pinned model notice manifest")
+        if any(sha256(archive.read(f"model/{path}")).hexdigest() != expected for path, expected in notices.items()):
+            raise ValueError("Desktop bundle includes altered model notices")
+        if "LICENSE" not in notices or "THIRD_PARTY/BAAI-FlagEmbedding.txt" not in notices:
+            raise ValueError("Desktop bundle is missing the model or base-model license")
         archive.extractall(extracted)
     manifest = json.loads((extracted / "manifest.json").read_text())
     config = manifest["server"]["mcp_config"]
@@ -56,7 +64,7 @@ async def desktop_bundle(bundle, directory, input_file):
             matches = (result.structuredContent or {}).get("matches", [])
             if result.isError or not matches or matches[0]["tool"]["name"] != "get_current_time":
                 raise ValueError("Desktop bundle returned an unexpected match")
-    return {"version": manifest["version"], "search_match": "get_current_time"}
+    return {"version": manifest["version"], "search_match": "get_current_time", "model_notices_verified": len(notices)}
 
 
 async def check(args):

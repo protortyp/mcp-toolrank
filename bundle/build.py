@@ -11,6 +11,7 @@ from zipfile import ZIP_DEFLATED, ZipFile, ZipInfo
 BUNDLE = Path(__file__).resolve().parent
 ROOT = BUNDLE.parent
 MODEL = json.loads((BUNDLE / "model.json").read_text())
+NOTICE_MANIFEST = BUNDLE / "notices.json"
 SERVER_FILES = ("search_mcp.py", "rank_onnx.py", "catalog_lexical.py", "catalog_int8.onnx")
 
 
@@ -29,7 +30,9 @@ def build(output: Path, checkpoint: Path | None = None) -> None:
             add("LICENSE", (ROOT / "LICENSE").read_bytes())
             for name in SERVER_FILES:
                 add(f"src/{name}", (ROOT / "examples" / name).read_bytes())
-            for name, expected_hash in MODEL["files"].items():
+            notices = json.loads(NOTICE_MANIFEST.read_text())
+            add("model/NOTICES.sha256.json", NOTICE_MANIFEST.read_bytes())
+            for name, expected_hash in (MODEL["files"] | notices).items():
                 if checkpoint is not None:
                     contents = (checkpoint / name).read_bytes()
                 else:
@@ -45,6 +48,6 @@ def build(output: Path, checkpoint: Path | None = None) -> None:
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("output", type=Path)
-    parser.add_argument("--checkpoint", type=Path, help="package an existing verified checkpoint without downloads")
+    parser.add_argument("--checkpoint", type=Path, help="use a local pinned snapshot with weights and model notices")
     args = parser.parse_args()
     build(args.output, args.checkpoint)
