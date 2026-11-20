@@ -33,7 +33,9 @@ async def check(archive, python, fresh_dependencies=False):
             check_output(["uv", "cache", "dir"], text=True).strip())
         if not fresh_dependencies:
             args.insert(1, "--offline")
-        env = {"TOOLRANK_OFFLINE": "1", "XDG_CACHE_HOME": str(directory / "empty-cache"), "UV_PYTHON": python,
+        interpreter = check_output(["uv", "python", "find", "--offline", "--no-project", python],
+                                   text=True).strip()
+        env = {"TOOLRANK_OFFLINE": "1", "XDG_CACHE_HOME": str(directory / "empty-cache"), "UV_PYTHON": interpreter,
                "UV_CACHE_DIR": str(cache)}
         params = StdioServerParameters(command=config["command"], args=args, cwd=str(directory), env=env)
         started = perf_counter()
