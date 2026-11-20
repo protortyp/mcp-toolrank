@@ -1,0 +1,10 @@
+{
+  "spec_url": "https://api.weather.gov/openapi.json",
+  "spec_sha256": "ae478b69cdac6449e3b834dca636300f830dde552ac6abc180b1d5e82e2f1d35",
+  "intent": "Select a read operation in a real NWS catalog. Requests are authored locally. Their contents and aggregate outcomes are not training data.",
+  "ranking": "Use deployed lexical hybrid with INT8 ToolRank as the primary arm, compare dense and BM25. Rank five with stable name ties, plus top one for routing.",
+  "calibration": "Use only labeled calibration negatives in the exact-binomial cutoff. Predeclare cosine as the deployed confidence signal, with hybrid maximum, cosine margin and standardized cosine diagnostic. The 10 percent risk and 95 percent order-statistic confidence assume exchangeable future negatives. Evaluate all thresholds once on holdout.",
+  "pilot_gate": "At least 90 percent unfiltered top-five operation recall, at least 80 percent tool JSON byte reduction, and at most 10 percent false acceptance with at least 85 percent supported coverage. Treat results as descriptive since all requests are authored.",
+  "invocation_scope": ["GET /stations/KSEA", "GET /alerts/types", "GET /glossary"],
+  "external_compute_usd": 0
+}
