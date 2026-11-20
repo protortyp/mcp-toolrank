@@ -11,3 +11,5 @@
 - BM25, BGE and ToolRank kept all required tools at five on mostly small native BFCL menus. ToolRank saved 7.5% of JSON. [BFCL](BFCL_SHORTLIST.md)
 - Explicit NWS and Crossref reads verified invocation filtering and optional byte caps. ToolRank top ten cut JSON 90.4% with 17/20 complete shortlists across 93 tools. [Mixed](MIXED_CATALOG.md)
 - 93-tool shortlists saved context. Batch results repeated (24/24), including the dependent workflow failure. [Agent pilot](MIXED_AGENT_EVAL.md)
+- MCP Inspector found five tools across two reference servers from a clean CPU wheel. The clock worked and discovery-only Git returned `not_available`. [Gateway](GATEWAY.md#mcp-inspector)
+- First-proposal dispatch raised full-catalog completion from 3/7 to 6/7. Compaction saved 22.2% of first-turn schema tokens and lost one completion, failing the gate. Keep full schemas. [Workflows](DEPENDENT_WORKFLOWS.md)

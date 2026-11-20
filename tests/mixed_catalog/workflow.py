@@ -111,7 +111,7 @@ async def evaluate(agent, engine, gateway, cached, all_matches, method, case, se
 
 
 async def run(args):
-    protocol, cases = (json.loads(path.read_text()) for path in (PROTOCOL, CASES))
+    protocol, cases = (json.loads(path.read_text()) for path in (args.protocol, CASES))
     entries = agent_catalog()
     engine = Retriever(entries, {"toolrank": args.checkpoint})
     all_matches = engine.payload([(i, None, None) for i in range(len(entries))])
@@ -121,7 +121,7 @@ async def run(args):
         "model_revision": protocol["model_revision"], "llama_cpp_revision": protocol["llama_cpp_revision"],
         "external_compute_usd": 0, "hardware": "NVIDIA RTX 3090, ONNX retrieval on CPU",
         "catalog_tools": len(entries), "source_sha256": digest(Path(__file__)),
-        "cases_sha256": digest(CASES), "protocol_sha256": digest(PROTOCOL),
+        "cases_sha256": digest(CASES), "protocol_sha256": digest(args.protocol),
         "base_sources": {name: digest(HERE / name) for name in ("agent.py", "native_agent.py", "run.py")},
         "catalog_sources": {path.name: digest(path) for path in (NWS, INDEPENDENT)},
         "checkpoint_checksums": checkpoint_checksums(args.checkpoint, "embedding-int8.onnx"),
@@ -152,5 +152,6 @@ if __name__ == "__main__":
     parser.add_argument("--checkpoint", type=Path, required=True)
     parser.add_argument("--gguf", type=Path, required=True)
     parser.add_argument("--port", type=int, default=18751)
+    parser.add_argument("--protocol", type=Path, default=PROTOCOL)
     parser.add_argument("--output", type=Path, required=True)
     asyncio.run(run(parser.parse_args()))
