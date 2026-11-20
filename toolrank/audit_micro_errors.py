@@ -100,6 +100,38 @@ def audit_mask(training, teacher_scores):
     }, queue
 
 
+class DevelopmentCatalog:
+    def __init__(self, dataset, weights):
+        self.docs, self.questions, self.relevant, self.repos = representations(dataset)
+        self.families = ["+".join(row["families"]) for row in dataset["queries"]]
+        lexical = CatalogLexicalIndex(self.docs)
+        tfidf, bm25 = np.stack([lexical.scores(query) for query in self.questions]).transpose(1, 0, 2)
+        self.blend = weights[0] * tfidf + weights[1] * bm25
+        self.results = {}
+        self.outcomes = {}
+
+    def score(self, name, model, length):
+        cosine = encode_scores(model, self.docs, self.questions, length=length)
+        for ranker, matrix in (("dense", cosine), ("hybrid", cosine + self.blend)):
+            label = f"{name}/{ranker}"
+            categories, hit5 = judgment_outcomes(matrix, self.relevant, self.repos)
+            self.outcomes[label] = ([category == "judged_positive" for category in categories], hit5)
+            self.results[label] = {"top_one_judgments": dict(Counter(categories)), "hit_at_5": sum(hit5)}
+
+    def report(self):
+        comparisons = {}
+        for comparison in ("toolrank/hybrid", "bge-small/hybrid", "micro/hybrid", "labels-11/dense"):
+            comparisons[comparison] = {}
+            for index, metric in enumerate(("hit_at_1", "hit_at_5")):
+                student = self.outcomes["labels-11/hybrid"][index]
+                other = self.outcomes[comparison][index]
+                comparisons[comparison][metric] = paired_misses(student, other) | {
+                    "student_minus_comparator": paired_interval(student, other, self.families),
+                }
+        return {"tools": len(self.docs), "queries": len(self.questions), "families": len(set(self.families)),
+                "results": self.results, "paired_vs_student_hybrid": comparisons}
+
+
 def run(args):
     previous = read_json(PROTOCOL)
     for split, path in (("train", args.train), ("dev", args.dev)):
@@ -118,12 +150,13 @@ def run(args):
     if args.device == "cuda":
         torch.cuda.set_per_process_memory_fraction(.25)
     started = perf_counter()
-    docs, questions, relevant, repos = representations(development)
-    lexical = CatalogLexicalIndex(docs)
-    tfidf, bm25 = np.stack([lexical.scores(query) for query in questions]).transpose(1, 0, 2)
-    tfidf_weight, bm25_weight = previous["development"]["hybrid_weights"]
-    blend = tfidf_weight * tfidf + bm25_weight * bm25
-    outcomes, development_report, checksums = {}, {}, {}
+    if training["tools"].keys() & development["tools"].keys():
+        raise ValueError("Training and development tool IDs must be disjoint")
+    weights = previous["development"]["hybrid_weights"]
+    compact = DevelopmentCatalog(development, weights)
+    expanded = DevelopmentCatalog({"tools": development["tools"] | training["tools"],
+                                   "queries": development["queries"]}, weights)
+    checksums = {}
     train_docs, train_queries, _, _ = representations(training)
     train_report = queue = None
     for name, path in models.items():
@@ -134,26 +167,12 @@ def run(args):
         if name == "bge-small":
             tool_model.prompts["query"] = PREFIX
         length = previous["training"]["max_sequence_length"]
-        cosine = encode_scores(tool_model, docs, questions, length=length)
-        for ranker, matrix in (("dense", cosine), ("hybrid", cosine + blend)):
-            label = f"{name}/{ranker}"
-            categories, hit5 = judgment_outcomes(matrix, relevant, repos)
-            outcomes[label] = ([category == "judged_positive" for category in categories], hit5)
-            development_report[label] = {"top_one_judgments": dict(Counter(categories)), "hit_at_5": sum(hit5)}
+        compact.score(name, tool_model, length)
+        expanded.score(name, tool_model, length)
         if name == "toolrank":
             train_matrix = encode_scores(tool_model, train_docs, train_queries, length=length)
             train_report, queue = audit_mask(training, train_matrix)
         del tool_model
-    comparisons = {}
-    families = ["+".join(row["families"]) for row in development["queries"]]
-    for comparison in ("toolrank/hybrid", "bge-small/hybrid", "micro/hybrid", "labels-11/dense"):
-        comparisons[comparison] = {}
-        for index, metric in enumerate(("hit_at_1", "hit_at_5")):
-            student = outcomes["labels-11/hybrid"][index]
-            other = outcomes[comparison][index]
-            comparisons[comparison][metric] = paired_misses(student, other) | {
-                "student_minus_comparator": paired_interval(student, other, families),
-            }
     if args.review_queue is not None:
         # Local review aid. Identifiers refer to the audited training input only.
         args.review_queue.parent.mkdir(parents=True, exist_ok=True)
@@ -165,8 +184,7 @@ def run(args):
         "source_sha256": digest(__file__), "protocol_sha256": digest(PROTOCOL), "train_sha256": digest(args.train),
         "development_sha256": digest(args.dev), "checkpoints": checksums, "torch": torch.__version__,
         "device": torch.cuda.get_device_name() if args.device == "cuda" else "cpu",
-        "development": {"tools": len(docs), "queries": len(questions), "families": len(set(families)),
-                        "results": development_report, "paired_vs_student_hybrid": comparisons},
+        "development": compact.report(), "development_with_training_distractors": expanded.report(),
         "training_mask": train_report, "external_compute_usd": 0, "wall_seconds": perf_counter() - started,
     }
 
