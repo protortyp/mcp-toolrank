@@ -8,6 +8,7 @@ license-files = ["LICENSE"]
 requires-python = ">=3.12,<3.13"
 dependencies = [
     "numpy==2.5.5",
+    "scikit-learn==1.9.1",
     "sentence-transformers==5.2.3",
     "transformers==4.57.6",
 ]
@@ -17,7 +18,7 @@ cpu = ["torch==2.8.0"]
 cu128 = ["torch==2.8.0"]
 
 [dependency-groups]
-research = ["pyarrow==26.0.1", "scikit-learn==1.9.1"]
+research = ["pyarrow==26.0.1"]
 onnx = ["onnx==1.20.1", "onnxruntime==1.24.1"]
 examples = ["langchain==1.2.12", "pydantic-ai-slim==1.68.0"]
 
