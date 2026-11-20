@@ -33,7 +33,7 @@ const rankingMode = document.querySelector("#ranking-mode");
 const benchmarkButton = document.querySelector("#benchmark");
 const benchmarkTable = document.querySelector("#benchmark-results");
 let worker;
-let ranked;
+let lastRequest;
 let exampleCatalog;
 
 function showStatus(message, failed = false) {
@@ -42,7 +42,9 @@ function showStatus(message, failed = false) {
 }
 
 function busy(active) {
-  for (const control of [button, reset, example, benchmarkButton, importButton, fileInput]) control.disabled = active;
+  for (const control of [button, reset, example, benchmarkButton, importButton, fileInput, rankingMode, query, catalog]) {
+    control.disabled = active;
+  }
 }
 
 function render(rows) {
@@ -72,8 +74,9 @@ function render(rows) {
     return li;
   });
   listing.replaceChildren(...items);
-  placeholder.hidden = true;
-  scoreHint.hidden = false;
+  placeholder.hidden = rows.length > 0;
+  if (!rows.length) placeholder.textContent = "No indexed terms overlap with the request.";
+  scoreHint.hidden = rows.length === 0;
 }
 
 function initWorker() {
@@ -93,8 +96,7 @@ function initWorker() {
       showStatus(`Benchmarked ${data.answerable} of ${data.total} requests locally.`);
       return;
     }
-    ranked = data;
-    renderRanked();
+    renderRanked(data);
     showStatus(`Ranked ${data.count} tools in ${data.queryMs.toFixed(1)} ms (setup ${data.setupMs.toFixed(1)} ms).`);
   };
   instance.onerror = () => {
@@ -107,35 +109,30 @@ function initWorker() {
 }
 
 function clearRanking() {
-  ranked = undefined;
+  lastRequest = undefined;
   listing.replaceChildren();
   placeholder.hidden = false;
+  placeholder.textContent = "Run a request to see the closest matches.";
   scoreHint.hidden = true;
   judgment.hidden = true;
   contextSize.hidden = true;
-  rankingMode.hidden = true;
 }
 
-function renderRanked() {
-  if (!ranked) return;
-  const mode = rankingMode.querySelector("input:checked").value;
-  const rows = ranked.results[mode];
+function renderRanked(ranked) {
+  const { rows, mode } = ranked;
   render(rows);
   const shortlistBytes = new TextEncoder().encode(JSON.stringify(rows.map(({ tool }) => tool))).length;
   contextSize.textContent = `${rows.length} of ${ranked.count} tools · ${shortlistBytes.toLocaleString()} of ${ranked.catalogBytes.toLocaleString()} bytes of tool JSON`;
   contextSize.hidden = false;
-  rankingMode.hidden = false;
   scoreHint.textContent = mode === "hybrid"
     ? "Numbers show embedding cosine. Hybrid orders tools using cosine, TF-IDF and BM25."
     : mode === "bm25" ? "Numbers show normalized BM25 scores." : "Numbers show embedding cosine.";
   judgment.hidden = false;
-  if (!judgment.hidden) {
-    judgment.textContent = ranked.relevant === null
-      ? "Applicability for this request is unverified."
-      : ranked.relevant.length
-      ? `Labelled match: ${ranked.relevant.join(", ")}`
-      : "The benchmark labels this request as having no matching tool.";
-  }
+  judgment.textContent = ranked.relevant === null
+    ? "Applicability for this request is unverified."
+    : ranked.relevant.length
+    ? `Labelled match: ${ranked.relevant.join(", ")}`
+    : "The benchmark labels this request as having no matching tool.";
 }
 
 function renderBenchmark(result) {
@@ -193,9 +190,21 @@ fileInput.addEventListener("change", async () => {
 
 example.addEventListener("change", loadExample);
 for (const field of [query, catalog]) {
-  field.addEventListener("input", () => { example.value = "custom"; });
+  field.addEventListener("input", () => {
+    example.value = "custom";
+    clearRanking();
+  });
 }
-rankingMode.addEventListener("change", renderRanked);
+function rank(request) {
+  const mode = rankingMode.querySelector("input:checked").value;
+  worker ??= initWorker();
+  busy(true);
+  worker.postMessage({ ...request, mode });
+  showStatus("Preparing ToolRank…");
+}
+rankingMode.addEventListener("change", () => {
+  if (lastRequest) rank(lastRequest);
+});
 resetExample();
 
 benchmarkButton.addEventListener("click", () => {
@@ -215,10 +224,8 @@ document.querySelector("#rank-form").addEventListener("submit", (event) => {
     const tools = parseCatalog(catalog.value);
     const apiCase = apiCases[example.value];
     const relevant = apiCase?.query === text && catalog.value === exampleCatalog ? apiCase.relevant : null;
-    worker ??= initWorker();
-    busy(true);
-    worker.postMessage({ tools, text, relevant });
-    showStatus("Preparing ToolRank…");
+    lastRequest = { tools, text, relevant };
+    rank(lastRequest);
   } catch (error) {
     busy(false);
     showStatus(error.message, true);

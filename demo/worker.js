@@ -72,33 +72,40 @@ function dot(a, b) {
   return score;
 }
 
-async function prepare(tools) {
+async function prepare(tools, useModel) {
+  const key = JSON.stringify(tools);
+  const documents = tools.map(({ name, description }) => `${name}: ${description}`);
+  if (catalogKey !== key) {
+    lexicalScore = lexicalIndex(tools, documents);
+    catalogVectors = undefined;
+    catalogKey = key;
+  }
+  if (!useModel) return;
   if (!model) {
     status("Downloading the model and starting the browser runtime…");
     model = await load();
   }
-  const key = JSON.stringify(tools);
-  if (catalogKey === key) return;
+  if (catalogVectors) return;
   status(`Embedding ${tools.length} tools…`);
-  const documents = tools.map(({ name, description }) => `${name}: ${description}`);
   const vectors = [];
   for (let i = 0; i < documents.length; i += batchSize) {
     vectors.push(...await encode(model, documents.slice(i, i + batchSize)));
   }
-  lexicalScore = lexicalIndex(tools, documents);
   catalogVectors = vectors;
-  catalogKey = key;
 }
 
 function rankings(tools, text, vector, limit) {
-  const cosine = catalogVectors.map((document) => dot(vector, document));
+  const cosine = vector ? catalogVectors.map((document) => dot(vector, document)) : new Float64Array(tools.length);
   const { hybrid, bm25 } = lexicalScore(text, cosine);
-  function ordered(scores, displayed = cosine) {
+  function ordered(scores, displayed = cosine, positiveOnly = false) {
     return tools.map((tool, i) => ({ tool, score: displayed[i], relevance: scores[i] }))
+      .filter(({ relevance }) => !positiveOnly || relevance > 0)
       .sort((left, right) => right.relevance - left.relevance)
       .slice(0, limit).map(({ tool, score }) => ({ tool, score }));
   }
-  return { dense: ordered(cosine), hybrid: ordered(hybrid), bm25: ordered(bm25, bm25) };
+  const lexical = ordered(bm25, bm25, true);
+  if (!vector) return { bm25: lexical };
+  return { dense: ordered(cosine), hybrid: ordered(hybrid), bm25: lexical };
 }
 
 async function benchmark(tools, cases) {
@@ -120,19 +127,20 @@ async function benchmark(tools, cases) {
   self.postMessage({ kind: "benchmark", result, answerable: answerable.length, total: cases.length });
 }
 
-self.onmessage = async ({ data: { tools, text, cases, relevant } }) => {
+self.onmessage = async ({ data: { tools, text, cases, relevant, mode = "hybrid" } }) => {
   try {
     const start = performance.now();
-    await prepare(tools);
+    const useModel = Boolean(cases) || mode !== "bm25";
+    await prepare(tools, useModel);
     const ready = performance.now();
     if (cases) {
       status("Evaluating the API holdout…");
       await benchmark(tools, cases);
     } else {
-      const [request] = await encode(model, [model.prefix + text]);
-      const results = rankings(tools, text, request, 5);
+      const request = useModel ? (await encode(model, [model.prefix + text]))[0] : null;
+      const rows = rankings(tools, text, request, 5)[mode];
       self.postMessage({
-        kind: "results", results, count: tools.length, relevant,
+        kind: "results", rows, mode, count: tools.length, relevant,
         setupMs: ready - start, queryMs: performance.now() - ready,
         catalogBytes: new TextEncoder().encode(JSON.stringify(tools)).length,
       });

@@ -45,20 +45,20 @@
           </div>
           <textarea id="catalog" rows="12" spellcheck="false" maxlength="1000000"></textarea>
         </details>
-        <p class="hint">Up to 128 tools. First run downloads the 34 MB model and its browser runtime.</p>
+        <fieldset id="ranking-mode">
+          <legend>Ranking</legend>
+          <label><input type="radio" name="ranking" value="bm25" checked> BM25</label>
+          <label><input type="radio" name="ranking" value="hybrid"> Hybrid</label>
+          <label><input type="radio" name="ranking" value="dense"> Dense</label>
+        </fieldset>
+        <p class="hint">Up to 128 tools. Dense, hybrid, and the benchmark download the 34 MB model and browser runtime.</p>
         <button id="submit" type="submit">Rank tools</button>
         <p id="status" role="status"></p>
       </form>
       <section id="results" aria-labelledby="results-title">
         <h2 id="results-title">Ranked tools</h2>
-        <fieldset id="ranking-mode" hidden>
-          <legend>Ranking</legend>
-          <label><input type="radio" name="ranking" value="hybrid" checked> Hybrid</label>
-          <label><input type="radio" name="ranking" value="dense"> Dense</label>
-          <label><input type="radio" name="ranking" value="bm25"> BM25</label>
-        </fieldset>
         <p id="judgment" class="hint" hidden></p>
-        <p id="placeholder">Run a request to compare the five closest matches.</p>
+        <p id="placeholder">Run a request to see the closest matches.</p>
         <ol id="ranking"></ol>
         <p id="score-hint" class="hint" hidden></p>
         <p id="context-size" class="hint" hidden></p>
