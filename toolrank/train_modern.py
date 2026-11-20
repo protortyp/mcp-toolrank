@@ -11,11 +11,14 @@ from toolrank.source_probe import normalized_name
 from toolrank.train import forward
 
 
-def multi_positive_loss(logits, positive, allowed):
+def multi_positive_loss(logits, positive, allowed, row_weights=None):
     masked = logits.masked_fill(~allowed, float("-inf"))
     log_denominator = masked.logsumexp(dim=1)
     positive_mean = logits.masked_fill(~positive, 0).sum(dim=1) / positive.sum(dim=1)
-    return (log_denominator - positive_mean).mean()
+    losses = log_denominator - positive_mean
+    if row_weights is not None:
+        losses = losses * row_weights
+    return losses.mean()
 
 
 def run(args):

@@ -31,3 +31,4 @@
 - Installed wheel passed model-free demos and ONNX ranking on Linux x86-64 with Python 3.11–3.14. Prepared the PyPI Trusted Publishing workflow. [Results](../results/gateway_python_release.json)
 - Audited 242 shared 17M/33M top-one development misses. Of 12 same-repository training pairs, three were clear negatives, three plausible alternatives, and six ambiguous. Review labels before unmasking. [Audit](MICRO_TRAINING_AUDIT.md)
 - Matched four-thread CPU INT8 ToolRet (44,453 tools) indexed in 13.7 vs 50.0 minutes. Hybrid nDCG@10 fell 1.94 points, missing the frozen lower-bound gate. Keep 33M. [Full holdout](../results/micro_holdout.json)
+- Weighted 17M gained 0.043 Hit@5 and 0.096 nDCG@10 points on 297 development tools (three matched seeds). Gains missed gates. Holdouts stayed sealed. [Study](MICRO_TRAINING_AUDIT.md#family-weighted-training)

@@ -33,3 +33,27 @@ HF_HUB_OFFLINE=1 uv run --no-sync python -m toolrank.audit_micro_errors \
 ```
 
 [Counts, hashes, and paired results](../results/micro_training_audit.json) · [Data provenance](MODERN_MCP.md) · [17M pilot](MICRO_DISTILLATION.md)
+
+## Family-weighted training
+
+**No-go.** On 297 development tools, weighting raised mean family-macro Hit@5 by 0.043 points (gate +1.00) and nDCG@10 by 0.096 (gate +0.50). Compact nDCG@10 fell 0.057 points, within the 0.50-point limit.
+
+| Seed | 297-tool Hit@5 change, points | 297-tool nDCG@10 change, points |
+| --- | ---: | ---: |
+| 11 | +0.035 | +0.068 |
+| 23 | +0.087 | +0.181 |
+| 37 | +0.006 | +0.039 |
+
+Both arms shared 17M initialization per seed, 5,098 requests across 36 families, row and batch order, masks, hard negatives, optimizer, serialization, and one epoch. Inverse-square-root family frequency weighted query loss, capped at 3× the preliminary mean before renormalizing. Both catalogs shared 872 disjoint development queries and lexical weights. Expansion added 263 training tools with unjudged relevance.
+
+Six RTX 3090 retrains reproduced the mean expanded Hit@5 difference exactly. Repeat nDCG@10 gain was 0.094 points. Both runs missed the same gates. Family-macro averages nine families equally. The largest supplies 382 queries, so query averages can change rankings. Holdouts stayed sealed. External spend was $0.
+
+```sh
+uv sync --locked --extra cu128 --group research
+HF_HUB_OFFLINE=1 uv run --no-sync python -m toolrank.family_weighting \
+  --student /path/to/bge-micro --teacher /path/to/toolrank-fp32 \
+  --train /path/to/train.json --dev /path/to/dev.json \
+  --output /tmp/toolrank-family-models --record /tmp/toolrank-family-weighting.json
+```
+
+[Protocol](../toolrank/family_weighting_protocol.json) · [Results](../results/family_weighting.json) · [Repeat](../results/family_weighting_replay.json)

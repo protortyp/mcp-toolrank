@@ -61,7 +61,7 @@ def teacher_scores(root, questions, documents, device, length):
         return (queries.float() @ tools.float().T).cpu()
 
 
-def train_variant(args, config, seed, mode, inputs):
+def train_variant(args, config, seed, mode, inputs, *, row_weights=None):
     questions, documents, positive, allowed, scores, hard = inputs
     torch.manual_seed(seed)
     model = load_model(str(args.student.resolve()), args.device)
@@ -90,7 +90,8 @@ def train_variant(args, config, seed, mode, inputs):
                 query_vectors = forward(model, [query_prefix + questions[i] for i in rows.tolist()])
                 tool_vectors = forward(model, [documents[i] for i in indices.tolist()])
             similarity = query_vectors @ tool_vectors.T
-            labels = multi_positive_loss(similarity / config["label_temperature"], actual, eligible)
+            weights = row_weights[rows].to(model.device) if row_weights is not None else None
+            labels = multi_positive_loss(similarity / config["label_temperature"], actual, eligible, weights)
             distillation = softened_kl(similarity, scores[rows][:, indices].to(model.device), eligible,
                                        config["teacher_temperature"]) if alpha else labels.new_zeros(())
             loss = (1 - alpha) * labels + alpha * distillation

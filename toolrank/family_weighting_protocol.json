@@ -1,0 +1,23 @@
+{
+  "hypothesis": "Increasing loss weight for less frequent training families improves family-macro top-five retrieval in a larger catalog without reducing compact-catalog ranking quality.",
+  "train_sha256": "e3d9a8cd07089b3f2214bd7b9138c07532d4085822dfa8370b0669ba4c98be64",
+  "dev_sha256": "0d177d7648c4ab8b73a67179b7aeec0638e9480163c8bb23b1290edf451698e5",
+  "parent_protocol_sha256": "6041b61a0f7c6c753abc985262b5b6b48cb3e9d0ce6196653f6b7a0fcad778b1",
+  "seeds": [11, 23, 37],
+  "weighting": {
+    "inverse_frequency_exponent": 0.5,
+    "pre_normalization_cap_to_mean": 3.0
+  },
+  "arms": {
+    "control": "Label-only recipe with uniform row loss.",
+    "weighted": "Same rows, initialization, order, batch, optimizer, serialization, and masked hard negatives. Multiply losses by normalized inverse-square-root family frequency."
+  },
+  "development_gate": {
+    "min_mean_expanded_macro_hit5_gain": 0.01,
+    "min_mean_expanded_macro_ndcg10_gain": 0.005,
+    "max_mean_compact_macro_ndcg10_loss": 0.005,
+    "min_expanded_macro_hit5_gain_per_seed": 0.0
+  },
+  "evaluation": "Same 872 development requests across the original 34 tools and all 297 development plus training tools. Training-only distractor relevance is unjudged. Compare within seed using fixed lexical weights. No release holdout scoring.",
+  "external_compute_usd": 0
+}
