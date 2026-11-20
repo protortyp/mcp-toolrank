@@ -67,6 +67,7 @@ async def worker(args, protocol):
                 self.lexical = CatalogLexicalIndex(texts)
                 self.key = texts
                 self.vectors = {}
+                self.full = SearchIndex(self.encoder)
             tfidf, bm25 = self.lexical.scores(query)
             lexical = 0.4 * tfidf + 0.15 * bm25
             positive = np.flatnonzero(lexical > 0)
@@ -157,7 +158,7 @@ def scores(ranks, cases):
 
 def run(args, protocol):
     from toolrank.baseline_comparison import paired_interval
-    from toolrank_cpu.rank_onnx import checkpoint_checksums
+    from examples.rank_onnx import checkpoint_checksums
 
     metadata = {"revision": subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip(),
                 "checkpoint": checkpoint_checksums(args.checkpoint, "embedding-int8.onnx"),
@@ -175,13 +176,13 @@ def run(args, protocol):
             else:
                 payload, source = etom_payload(args.etom)
                 for case in payload["cases"]:
-                    case["family"] = min(tool.partition("/")[0] for tool in case["expected"])
+                    case["family"] = min((tool.partition("/")[0] for tool in case["expected"]), default="")
             fixture.write_text(json.dumps(payload))
             observations = {}
             for strategy in STRATEGIES:
                 workers = []
                 for seed in protocol["seeds"]:
-                    command = [sys.executable, __file__, "--fixture", str(fixture), "--worker", strategy,
+                    command = [str(args.worker_python.resolve()), __file__, "--fixture", str(fixture), "--worker", strategy,
                                "--checkpoint", str(args.checkpoint), "--seed", str(seed)]
                     workers.append(json.loads(subprocess.check_output(command, timeout=240)))
                 observations[strategy] = workers
@@ -209,6 +210,7 @@ if __name__ == "__main__":
     parser.add_argument("--checkpoint", type=Path, required=True)
     parser.add_argument("--etom", type=Path, default=Path(".work/next/etom"))
     parser.add_argument("--output", type=Path)
+    parser.add_argument("--worker-python", type=Path, default=Path("cpu/.venv/bin/python"))
     parser.add_argument("--datasets", nargs="+", choices=("api", "etom-plain"), default=("api", "etom-plain"))
     parser.add_argument("--worker", choices=STRATEGIES, help=argparse.SUPPRESS)
     parser.add_argument("--fixture", type=Path, help=argparse.SUPPRESS)
