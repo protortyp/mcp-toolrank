@@ -1,0 +1,29 @@
+{
+  "model": {
+    "id": "christianengel/mcp-toolrank-33m",
+    "revision": "a24a121266154006e2bd2e32a41576437c3455c2",
+    "artifact": "onnx/embedding-int8.onnx"
+  },
+  "device": "Chromium, ONNX Runtime Web 1.24.1 WASM, one thread",
+  "catalog_size": 24,
+  "dataset": {
+    "id": "christianengel/toolrank-api-holdout",
+    "source_sha256": "ec11f47f29f6560bf0039f29674ac4765b85c35a9ac724f8406507e929387d8c"
+  },
+  "ranked_requests": 72,
+  "unanswerable_excluded": 24,
+  "metrics": {
+    "dense": {
+      "hitAt1": 0.7638888888888888,
+      "ndcgAt10": 0.9000219500754558
+    },
+    "hybrid": {
+      "hitAt1": 0.7916666666666666,
+      "ndcgAt10": 0.9157293077639483
+    }
+  },
+  "lexical_parity": {
+    "query_tool_pairs": 2304,
+    "max_absolute_difference_vs_onnx_cli": 2.255401035378135e-08
+  }
+}

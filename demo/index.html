@@ -12,6 +12,7 @@
     <a class="brand" href="./">ToolRank</a>
     <nav aria-label="Project">
       <a href="https://huggingface.co/christianengel/mcp-toolrank-33m" target="_blank" rel="noopener">Model</a>
+      <a href="https://huggingface.co/datasets/christianengel/toolrank-api-holdout" target="_blank" rel="noopener">Dataset</a>
       <a href="https://github.com/protortyp/mcp-toolrank" target="_blank" rel="noopener">Code</a>
     </nav>
   </header>
@@ -22,22 +23,48 @@
     </div>
     <div class="workspace">
       <form id="rank-form">
+        <label for="example">Example</label>
+        <select id="example">
+          <option value="crossref/005">Find a paper by title</option>
+          <option value="openalex/070">Search OpenAlex literature</option>
+          <option value="crossref/013">Edit a record (no match)</option>
+          <option value="calendar">Find a calendar event</option>
+          <option value="custom">Custom request</option>
+        </select>
         <label for="query">Request</label>
-        <textarea id="query" rows="2" maxlength="4000" required>Find tomorrow’s meetings</textarea>
-        <div class="catalog-heading">
-          <label for="catalog">Tool catalog</label>
-          <button id="sample" type="button" class="secondary">Reset sample</button>
-        </div>
-        <textarea id="catalog" rows="12" spellcheck="false" maxlength="1000000" required></textarea>
+        <textarea id="query" rows="2" maxlength="4000" required></textarea>
+        <details id="catalog-editor">
+          <summary>Tool catalog</summary>
+          <div class="catalog-heading">
+            <label for="catalog">Catalog JSON</label>
+            <button id="sample" type="button" class="secondary">Reset sample</button>
+          </div>
+          <textarea id="catalog" rows="12" spellcheck="false" maxlength="1000000"></textarea>
+        </details>
         <p class="hint">Up to 128 tools. First run downloads the 34 MB model and its browser runtime.</p>
         <button id="submit" type="submit">Rank tools</button>
         <p id="status" role="status"></p>
       </form>
       <section id="results" aria-labelledby="results-title">
         <h2 id="results-title">Ranked tools</h2>
-        <p id="placeholder">Run a request to see the five closest matches.</p>
+        <fieldset id="ranking-mode" hidden>
+          <legend>Ranking</legend>
+          <label><input type="radio" name="ranking" value="hybrid" checked> Hybrid</label>
+          <label><input type="radio" name="ranking" value="dense"> Dense</label>
+        </fieldset>
+        <p id="judgment" class="hint" hidden></p>
+        <p id="placeholder">Run a request to compare the five closest matches.</p>
         <ol id="ranking"></ol>
-        <p id="score-hint" class="hint" hidden>Scores are cosine similarities. The catalog may have no applicable tool.</p>
+        <p id="score-hint" class="hint" hidden></p>
+        <details>
+          <summary>Evaluate the API holdout</summary>
+          <p class="hint">Rank 72 answerable requests against 24 tools. The 24 requests without a match are excluded from these ranking metrics.</p>
+          <button id="benchmark" class="secondary" type="button">Run benchmark</button>
+          <table id="benchmark-results" hidden>
+            <thead><tr><th scope="col">Mode</th><th scope="col">Hit@1</th><th scope="col">nDCG@10</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </details>
       </section>
     </div>
   </main>
