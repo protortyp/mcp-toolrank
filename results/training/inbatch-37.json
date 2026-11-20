@@ -1,0 +1,30 @@
+{
+  "base": "BAAI/bge-small-en-v1.5",
+  "base_revision": "5c38ec7c405ec4b44b94cc5a9bb96e735b38267a",
+  "training_sha256": "6e04f2328f8be9c74c6eba1e0ff9cb3f19dcc87a6bbbb73bc5c1a4b6409b0cf1",
+  "torch": "2.8.0+cu128",
+  "gpu": "NVIDIA GeForce RTX 3090",
+  "optimizer": "AdamW",
+  "max_seq_length": 128,
+  "config": {
+    "output": "artifacts/inbatch-37",
+    "record": "results/training/inbatch-37.json",
+    "device": "cuda",
+    "seed": 37,
+    "batch": 16,
+    "epochs": 4,
+    "lr": 2e-05,
+    "temperature": 0.05,
+    "negatives": "inbatch",
+    "hard_count": 3
+  },
+  "examples": 88,
+  "tools": 44,
+  "epoch_loss": [
+    0.7862814610654657,
+    0.5799657241864637,
+    0.378383994102478,
+    0.28229437362064014
+  ],
+  "weights_sha256": "04900905ba890dbfb43a0a06d416b898608004af7b94dc01ee24f6bb88dde127"
+}

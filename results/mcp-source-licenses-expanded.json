@@ -1,0 +1,624 @@
+{
+  "gongrzhe/office-word-mcp-server": {
+    "blob": "31323d1d01ace328e62e08538c68b4a2c163f077",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "a3bbbb6d6167e68cf855d73ef7dc6cd8cfbfedba"
+  },
+  "yokingma/time-mcp": {
+    "blob": "2a31ea75f98dbdd5e7afb15319d5269e68103638",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "5bc003e14465812becb9c96159841af5d6430c0e"
+  },
+  "aakarsh-sasi/memory-bank-mcp": {
+    "blob": "6309bc5dfcec095dec61927cd4417dee07064117",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "0813435550c7d9c3c81208d3c9f57946e16ae7e6"
+  },
+  "waldzellai/waldzell-mcp": {
+    "blob": "ad75c9e774b8073e78474d009a7da582410a7d03",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "fc8a8f3d691734d9768c57e10770a72d4be294fa"
+  },
+  "falahgs/flux-imagegen-mcp-server": {
+    "blob": "cd9044734996e24485cf9dd3032e0c166febd967",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "d07b3e644afb43a0502d57d1e6b01d6d190c2b55"
+  },
+  "quazaai/unitymcpintegration": {
+    "blob": "f63d24ddba0099cfc02a918d11400e4a01dc70b1",
+    "path": "LICENSE",
+    "spdx": "NOASSERTION",
+    "observed_default_head": "d1515b326e2fc14b39de5a08534159ba29963c7d"
+  },
+  "pinkpixel-dev/mcpollinations": {
+    "blob": "a1b0050a2c003534d2a28512408fb0b09e9330cf",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "9fd9bc113a4aae78a50eb4fe06689ee6ed0d476c"
+  },
+  "iamwavecut/mcp-think": {
+    "blob": "23993b149b67fca95d629a54275cfbe08c5963e6",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "35dbb4ea1e9dec2df7297b0a499139ec13a0f183"
+  },
+  "terryso/mcp-pinterest": {
+    "blob": "08ea4aa26c73249e7e2087f99fda74760772b3a0",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "f9a0b71c9140f716e814682b883a921452f0f4b1"
+  },
+  "alxspiker/windows-command-line-mcp-server": {
+    "blob": "443bf639981d90dd877268245576e6267a5d6da1",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "22042fb0071133c8681b796d36cf7cac4d892de5"
+  },
+  "gongrzhe/terminal-controller-mcp": {
+    "blob": "31c022e6df15fb923ac7b756e04db3b2e85a8753",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "a224da101ccd6a97c0f3d35ebedcbfbd9b3d3159"
+  },
+  "cfdude/super-shell-mcp": {
+    "blob": "3ccc99937a84f532024fc6efdac2a133eb9a5429",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "88a6cd56fe0366908d06beb3f1d309c221276421"
+  },
+  "jonafly/rednote-mcp": {
+    "blob": "c0455da65505f0dbbab815f9fbe1f6ddb9b25a78",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "1e0f480805a79b7f4e7a863a3bc336cef14807de"
+  },
+  "knowitall-wiki/mcpollinations": {
+    "blob": "60f488982616028c294ccf8e407098bebc9ec372",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "2e1ab1be50aff966ee1ff8ba6377eafeb022e0e9"
+  },
+  "ymadd/shadcn-ui-mcp-server": {
+    "blob": "0d88dde79109786b28e53ad3cca3ac775bd20dc9",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "c7848cc550f9a0a73fcd34814f1abaffb4ec2601"
+  },
+  "mikechao/metmuseum-mcp": {
+    "blob": "bbab4dc4ea9485b5b8ea14a15ec9497478c429e2",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "576b5441daa04cae33d4583c23c35074390c9e2f"
+  },
+  "hydavinci/formula-1-schedule": {
+    "blob": "f8bcf4f77634a68abb9068ab0eb5103282c63980",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "b2364ca42eb2b0dfa2ec7c2d850b06a10e769fff"
+  },
+  "chuanmingliu/servers": {
+    "blob": "3d48435454b105021b4f777c11b6b07d8d2ffea3",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "ddffd2325d56ef8cf70d951f8f96f8dd1732b07e"
+  },
+  "audienseco/mcp-audiense-di-linkedin": {
+    "unavailable": true
+  },
+  "dakkshin/after-effects-mcp": {
+    "blob": "55cf7739f5faa2a492b95d0faa3d7714c7d673b9",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "88d5fbf08b7ae9f015ee98e5f8c4904095cf8202"
+  },
+  "dazeb/markdown-downloader": {
+    "blob": "ef1bcf795a375ed86e2a607762d03880f04387eb",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "3d4394b34b6c99d81af817623af55e3384df5a6a"
+  },
+  "pinkpixel-dev/mindbridge-mcp": {
+    "blob": "fc20af0a691454b8f2f90e03e8c40ea4e3993742",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "48b1cb51e882361f6e9ec42e024048c55ee66a87"
+  },
+  "ergodiclabs/twotruthsandatwist": {
+    "blob": "09f748862f1a88c231c8e7440284110e020d259d",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "24d2d3871d7ba2199c87b22506fe9f47dbb484c2"
+  },
+  "glassbead-tc/python-to-typescript-assistant": {
+    "blob": "28a6a5fedc83fe6c198f54d24d066f2f581c2dca",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "52f0bd673c810cad09748e169a3442d3523cfcf2"
+  },
+  "keygray/reference-servers": {
+    "unavailable": true
+  },
+  "ddkang1/mcp-think-tool": {
+    "blob": "b77bf2ab726c6e7cb5a81a9d3b7dc38266ebfd3d",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "759860460840e40d8627d110fb9aaa3cbdee7eba"
+  },
+  "devlimelabs/firestore-mcp": {
+    "blob": "73f30b2d86429fed7477d796f5a33d195c719029",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "c93edbab5d089a9485bc67c5eb397d01746e0ff5"
+  },
+  "cartographai/atlas-docs-mcp": {
+    "blob": "7eeb679404c0d0e1ec7b10bfade7acccb973cb61",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "ce4c4fe8ef23d0a9db4f04370b533ac4b9b172f8"
+  },
+  "dynamicendpoints/autogen_mcp": {
+    "unavailable": true
+  },
+  "anirbanbasu/frankfurtermcp": {
+    "blob": "8f1b42021be7b3bb72c96432622cb41cd7aa535d",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "9041905cf56ec5f46b03647e09067a62c9537ebe"
+  },
+  "mcpdotdirect/starknet-mcp-server": {
+    "blob": "c12f642c33d2a0f41f6bdff3e3dab27b012db41b",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "8fdd1be36efb7fd0c899086e68d3b9603cf7ade4"
+  },
+  "marioluciofjr/mapas_mentais_mcp": {
+    "blob": "770a137d6c86eb846bce41ea6302e6f2c2716fba",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "3b03f31aa3c11892ea68ba24d9078e7291929a26"
+  },
+  "anirbanbasu/pymcp": {
+    "blob": "a93f146b68550a8769c68eb537e5e23f7d90df31",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "139094b41ff85eac328193a501bfd4627ac694ae"
+  },
+  "dynamicendpoints/powershell-exec-mcp-server": {
+    "unavailable": true
+  },
+  "yywz1999/gdb-mcp-server": {
+    "blob": "cc65a2406893ab0a86ad64eaed015cad5b6f2f9a",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "39e96ac8392c35ae5b2c502df284bcc9fe7f4cb3"
+  },
+  "xxxnewbie/servers": {
+    "blob": "3d48435454b105021b4f777c11b6b07d8d2ffea3",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "cf64b23db27c8239e602e7fa097df7d7f2544e1b"
+  },
+  "zeyynepkaraduman/memory-palace-mcp": {
+    "blob": "8f9e7aac2d7fed7890190fa6eea4f8278391fef8",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "dd2ab0e4bcf95f7689cd2b447b6933ddce089c70"
+  },
+  "geobio/wikipedia-mcp": {
+    "blob": "f2fbeee769ae5ab7db700e05a834755f0cadccc2",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "7d2cc5a66e640bb626e41083759adb067def46ab"
+  },
+  "kivilaid/n8n-mcp": {
+    "unavailable": true
+  },
+  "geobio/pubmed-mcp-server": {
+    "blob": "f7cb5b8d0412457ab34df24bbb0490f6e05dfe7e",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "e452cfc7d23cd4c0248c177d7814df3d9e82ea3b"
+  },
+  "martin-songzy/coin-mcp-server": {
+    "unavailable": true
+  },
+  "hetaobackend/mcp-github-trending": {
+    "blob": "c92437e8f00fe643ab5d6ef93168c61320736bf0",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "9f2c577b3496657807244cfacc2c651aeb6291ed"
+  },
+  "blockscout/mcp-server": {
+    "blob": "bf1f47d6131db8cf07f17b9b4c71281ce2d70ae1",
+    "path": "LICENSE",
+    "spdx": "NOASSERTION",
+    "observed_default_head": "095ef2c03f1aa3325da0baa41c8bf29aa1bbb6e6"
+  },
+  "linxule/lotus-wisdom-mcp": {
+    "blob": "415bd7f100bd12275fc44e34de07aea230ac52ba",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "a044cc4dadebe4f00c525133cf07ae35b8ddb5e2"
+  },
+  "jacksmith3888/wuwa-mcp-server": {
+    "blob": "2d2c62a5d641f30e397151391c7cd277f72b4f11",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "c8070d319bb334c202ea718657d98f53f8880296"
+  },
+  "kkjdaniel/bgg-mcp": {
+    "blob": "3982ca191559f30fb9070121d9858d1f58cb82c6",
+    "path": "LICENSE.md",
+    "spdx": "MIT",
+    "observed_default_head": "0d215468bf1689823f3e57dd20a7ffe9a1a8d5a0"
+  },
+  "sheshiyer/framer-plugin-mcp": {
+    "blob": "f0156a7361cfc19a3b4926153a337acfd8cbd1be",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "5e17486196e1fe334c79c45f52ff63a68c3da681"
+  },
+  "jinzcdev/leetcode-mcp-server": {
+    "blob": "09e367c4c0d6fc0b5da21bcb1d2393298da3c216",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "2eb3c79d3aad09991757e573a25c9890c8de9ca2"
+  },
+  "flight505/mcp-think-tank": {
+    "blob": "a37a3169b89ae132f3c2afc9e1d1af797d1df49f",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "87a5f3906a36d9df8c41492cf5827c627103e3f2"
+  },
+  "forceconstant/lyrical_mcp": {
+    "blob": "1910a979328b19f5dfe5499466c5e4e2644ba1b8",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "d03c9bb5efc175471a91ed51e5ec880a705001e0"
+  },
+  "aim-intelligence/aim-mcp": {
+    "blob": "4313fd29ec42350cccec19a713fef26be672a68c",
+    "path": "LICENSE",
+    "spdx": "ISC",
+    "observed_default_head": "13b5835eb8192f9a22faa03c0724e8acaa3da271"
+  },
+  "erickwendel/erickwendel-contributions-mcp": {
+    "blob": "455f754bd8e57057445df2f933e6e9f94d9b17b1",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "3716a45de655dfc8a034e71dc4c4104ea14d4824"
+  },
+  "adalovu/mcp-playwright": {
+    "unavailable": true
+  },
+  "jkingsman/qanon-mcp-server": {
+    "blob": "c57c42efdea409b694dc08d81c2c361d1e51c317",
+    "path": "LICENSE.md",
+    "spdx": "MIT",
+    "observed_default_head": "4cd5909fb7dcd870fa75446f546fb90479d6071e"
+  },
+  "vaebe/mcp": {
+    "blob": "f49a4e16e68b128803cc2dcea614603632b04eac",
+    "path": "LICENSE",
+    "spdx": "Apache-2.0",
+    "observed_default_head": "13f947b38be5dc2809021165bb6d55ed6c50522a"
+  },
+  "isdaniel/mcp_weather_server": {
+    "blob": "261eeb9e9f8b2b4b0d119366dda99c6fd7d35c64",
+    "path": "LICENSE",
+    "spdx": "Apache-2.0",
+    "observed_default_head": "a26ad586d3b1015a1419c503bb8097663ab6b4c1"
+  },
+  "bitrefill/bitrefill-mcp-server": {
+    "blob": "dad9112a5c8db16b017920ba0527eb8e392d94a8",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "ce6affe414a5997a07331d4d4d720b623fcc2a21"
+  },
+  "brianirish/laravel-mcp-companion": {
+    "blob": "b889b1b5861ddbdec1f6ebe9a331a40ce76ca8f8",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "8f631879166e1b9b272426a232d7076b2db5847e"
+  },
+  "gradusnikov/pubmed-search-mcp-server": {
+    "blob": "b8774bb8feac02fb48745afe52cadfde0de12580",
+    "path": "LICENSE",
+    "spdx": "BSD-3-Clause",
+    "observed_default_head": "9083ae5d0acabe6c7c4de84f3ee89ed29ea745a2"
+  },
+  "guilhermelirio/brasil-api-mcp": {
+    "blob": "455f754bd8e57057445df2f933e6e9f94d9b17b1",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "451cc5297fd06c866aec758da8b30869415ddbe2"
+  },
+  "mfukushim/map-traveler-mcp": {
+    "blob": "7d5d8f12fec21e2321ba7bbe3775b036847c1c71",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "45d79e4f9280fd399556b1c33ffc9f0ad2f1952a"
+  },
+  "reculi/weather-mcp-server": {
+    "unavailable": true
+  },
+  "akekaratp/mcp-server-airbnb": {
+    "blob": "55e5a486a82db00db5287bec6eccba8d15fb7e65",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "9f21b3741b7aaffbefb434dfb0ab0ee425e64fde"
+  },
+  "ardyfeb/package-registry-mcp": {
+    "blob": "b26f48beaedda47b819cc27d6f49e51c1c010531",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "cbe8a7b0d4251e1a2ae38181518b8fc2e7d2747c"
+  },
+  "wdm0006/mutmut-mcp": {
+    "blob": "b8ecbe44d2feacbd11b34ae8c78bd3b12e7ce771",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "7aeef920d3bcc05ce99a829ed8de9dcfb283faf3"
+  },
+  "1595901624/crypto-mcp": {
+    "blob": "433aec74f2e90ad2328935c18f5a83ef3a46b2ff",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "a8b8171ee2708bd2fcdb477365a333c168aed1e9"
+  },
+  "ruradium/mcp-reddit": {
+    "blob": "db2903e73564f195415195056dc6efbcb93aba50",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "24aef4ca923d39a167db58e0b3e9335cc67fb57a"
+  },
+  "mongodb-js/mongodb-mcp-server": {
+    "blob": "7a4a3ea2424c09fbe48d455aed1eaa94d9124835",
+    "path": "LICENSE",
+    "spdx": "Apache-2.0",
+    "observed_default_head": "4e6b5be8b89a8e7da2cb8cac15d422d3f51bb50a"
+  },
+  "zwldarren/akshare-one-mcp": {
+    "blob": "b3ce5e8c40a419fd96365e0fc7e3b4384d33a455",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "793124dbe4299f8dd76d194a4e94e0fade3b752d"
+  },
+  "hugeicons/mcp-server": {
+    "unavailable": true,
+    "observed_default_head": "e48329b76cf0f6b055fd0dca59746fdec95dfcec"
+  },
+  "jzinno/biomart-mcp": {
+    "blob": "8563d2f8836936062c0b78a3d1f686a06fe2bec9",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "6d495a3849e60c89b192a6b66894ed935fa49cdd"
+  },
+  "exa-labs/exa-mcp-server": {
+    "blob": "e74ab00dbf7800b8faa56300898275fd09e6d008",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "f23db31f02fe69b65bf2adf4df4f60c265445cb8"
+  },
+  "nekzus/npm-sentinel-mcp": {
+    "blob": "12d19929cc4b57699c66e76f239ead84460c0285",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "d62bf614defe8516398258a0ea46815dfb4b4406"
+  },
+  "b-open-io/bsv-mcp": {
+    "blob": "73887705f0f8b6a3006527af0e87b30b7c61a748",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "2ce430658e75ac2101f1749fcdfe0632a3df8bed"
+  },
+  "tywenk/mcp-sol": {
+    "blob": "602a059c6606bd68b1cf6ef76946fd62dd20b774",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "99e52cf3d9cb541f0459ffad052dca8815441ffc"
+  },
+  "mistizz/mcp-japanesetextanalyzer": {
+    "blob": "a29c3099cab2cb2519b93c9f674a1a8ed61d4331",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "83c3c2c74f85b37eca4c6b50cd88105388ca4d93"
+  },
+  "geobio/mcp-server-airbnb": {
+    "blob": "55e5a486a82db00db5287bec6eccba8d15fb7e65",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "9f21b3741b7aaffbefb434dfb0ab0ee425e64fde"
+  },
+  "szowesgad/mcp-server-semgrep": {
+    "blob": "0094640128acb4931d77c5a31d11ab0db5f8d2a3",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "48e060b46f19ff2d672ab6bbb4721bbe85c8e784"
+  },
+  "m2rads/e2e-mcp": {
+    "blob": "df112373eb2e23e459bf93ec412be1764dc5a38b",
+    "path": "LICENSE",
+    "spdx": "Apache-2.0",
+    "observed_default_head": "dc1646c22cf0f06ce0b8e373a57e7fd87d242758"
+  },
+  "doggybee/mcp-server-ccxt": {
+    "blob": "2ac42182c17ad4fd2682e0f953066c382ae2ace8",
+    "path": "LICENSE.txt",
+    "spdx": "MIT",
+    "observed_default_head": "b0b532334a3f37f47d40c439aee505d8853ae3e8"
+  },
+  "openbnb-org/mcp-server-airbnb": {
+    "blob": "55e5a486a82db00db5287bec6eccba8d15fb7e65",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "d5a8f18f5978b0a33dea4b3ec130c389bad845cc"
+  },
+  "nic0xflamel/coingecko-mcp-server": {
+    "blob": "876cb96584af9e5c90ffcd43d736b3cf97bcf2c9",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "9b7a7b971830b73286a4f7525516791a33fd7c30"
+  },
+  "the0807/geeknews-mcp-server": {
+    "blob": "850b0845bc2ca01b1706e5724e34b31b078470a2",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "7766c3910021e3180cfdc7514ffc7f264be75d73"
+  },
+  "inventer-dev/mcp-internet-speed-test": {
+    "blob": "e5176c9316fe14495fc4bac3d17723f31217afcb",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "b35ca224c428dc5d8763bd8b4cbbe27e97c33f52"
+  },
+  "magic-sauce/quickchart-mcp-server": {
+    "blob": "31c022e6df15fb923ac7b756e04db3b2e85a8753",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "8261f0a7339793c0b22c67dfe48e9fb66f17f9fa"
+  },
+  "aniruddha-adhikary/gahmen-mcp": {
+    "blob": "ca72da809bdacb3b017880ba09ea65b2badb8e03",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "ee5d6cc8bcfe7a01757041612ae6ccfaf09fdf86"
+  },
+  "openags/paper-search-mcp": {
+    "blob": "020f74d1e06a31b1a648aaf559aa8664e4aae01d",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "cab1b5cc276a0cd004a0044003926a6440088049"
+  },
+  "jayarrowz/mcp-osrs": {
+    "blob": "3e23d0704d69447289d2ff8c44c41578ebc55839",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "b5abc03f777c3736fb464f5fd2d8f8f041cb635c"
+  },
+  "kentstudy0922/weather-mcp": {
+    "blob": "04b6cd5eae40029345b2f9ed4e769ae2754a8bde",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "1a4d59a77c199fa6a7431faf8d1b8e4f7966e677"
+  },
+  "quegenx/wapulse-whatsapp-mcp": {
+    "unavailable": true
+  },
+  "chenmingkong/bilibili-mcp-server": {
+    "blob": "cf42f48ef92ffa5d47ef27420a859266cf49a47c",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "7e210d87477f531640c32971299a0c5e003a8530"
+  },
+  "janwilmake/openapi-mcp-server": {
+    "blob": "34b475e190d7cbaa136468b007037d17546d8a56",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "7350f0c9c1892c4633e1846cdbb8de198975fec0"
+  },
+  "wildfly-extras/wildfly-mcp": {
+    "blob": "261eeb9e9f8b2b4b0d119366dda99c6fd7d35c64",
+    "path": "LICENSE",
+    "spdx": "Apache-2.0",
+    "observed_default_head": "895e2aced360d621babf02795b073ec94b08f97a"
+  },
+  "blake365/macrostrat-mcp": {
+    "blob": "943fc5da6237b6fa28315075fcb4ac1ddf434b60",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "aefcff0d0ea2c733db5db4aec887e18e0f70f362"
+  },
+  "tkoba1974/mcp-kroki": {
+    "blob": "3c686f6bb2f9b9d3b1917d1c8adcfd2761f2961e",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "cd7003dcea86b9f12d604fa579c18f71ed1e67e1"
+  },
+  "ndchikin/reference-mcp": {
+    "blob": "e98d720e8fa6ca87186970b9f0f4cb5c8a3ee3d8",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "466a8b8e663d18c8969c7c5dc4e113c60f4747ae"
+  },
+  "ilil1/excel-mcp-server": {
+    "blob": "1f121f23ab992dab5d1d689f03acfd2a1471acf8",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "6fca3036eeb65c0339ad3b39b1e32d564666985f"
+  },
+  "samihalawa/visual-ui-debug-agent-mcp": {
+    "blob": "e6843da78435e299b4fad1c7e5b4b5f539e8b4c7",
+    "path": "LICENSE",
+    "spdx": "ISC",
+    "observed_default_head": "33af9e8a58a0a3a13cadff70df88192134e4b8f3"
+  },
+  "zcaceres/fetch-mcp": {
+    "blob": "ab2aa2b96ed57e5eaec148942d0b07433a73e44e",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "1ddb1a59cb09a2d38e759f2d7a97829680cbe514"
+  },
+  "hwangwoohyun-nav/yahoo-finance-mcp": {
+    "blob": "8453d112aa3fac6ac3523a7a447f04f734db0f4d",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "dcf417939096a29931b58198eabd083485b00a5a"
+  },
+  "junmer/mcp-server-lottiefiles": {
+    "blob": "1bf24b6501e4c6dee28304ebe7ccb0571dd6bb70",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "343e7b27775ed2c2860f75c487e4dc00ad7d4ef7"
+  },
+  "devlimelabs/lulu-print-mcp": {
+    "blob": "e40faf1eefd96d2af8615f1c94e05c3cb06c8b93",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "0f27588e7d80d5cba46c2115203175764ec04506"
+  },
+  "cloudflare/playwright-mcp": {
+    "blob": "df112373eb2e23e459bf93ec412be1764dc5a38b",
+    "path": "LICENSE",
+    "spdx": "Apache-2.0",
+    "observed_default_head": "ee81e278966626f9ad72d94bdb16f949d06744e5"
+  },
+  "magicuidesign/mcp": {
+    "blob": "30efc351ba9c469535dc012930ba6ee30c23f957",
+    "path": "LICENSE.md",
+    "spdx": "MIT",
+    "observed_default_head": "edd8ae61f6c1536fac8c88eb7ede1c710630414c"
+  },
+  "kkoppenhaver/minecraft-mcp-server": {
+    "blob": "e9d95b7035777a121df9e92f8bd9e2bb072e6981",
+    "path": "LICENSE",
+    "spdx": "Apache-2.0",
+    "observed_default_head": "731267db625a29032d863d641fe97836a6e5dcc2"
+  },
+  "brightdata/brightdata-mcp": {
+    "blob": "f67927abf9b866b3bccdcc7c4ad9889deb53c687",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "e3e2054dde029de28988bbe8d5e18a913b41a950"
+  },
+  "williamvd4/playwright-plus-python-mcp": {
+    "unavailable": true
+  },
+  "linyimin0812/project-ingest-mcp": {
+    "blob": "201315981b8a2ec7f6f1f61ecd1314c0c09754ce",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "24950e034e8196655bc9b8d35a94843b7e5defa6"
+  },
+  "nickclyde/duckduckgo-mcp-server": {
+    "blob": "da71d5740a59354fae35c912538b666a92260f9e",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "8182af3f2295017ca90527a924f48147fbf18d5b"
+  }
+}

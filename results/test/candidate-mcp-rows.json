@@ -1,0 +1,590 @@
+[
+  {
+    "id": "conservation/record_condition/0",
+    "family": "conservation",
+    "top1": "conservation/record_condition",
+    "score": 0.5570403337478638,
+    "answerable": true,
+    "metrics": {
+      "recall@1": 1.0,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "ndcg@10": 1.0,
+      "complete@10": 1.0
+    }
+  },
+  {
+    "id": "conservation/record_condition/1",
+    "family": "conservation",
+    "top1": "conservation/record_condition",
+    "score": 0.632603645324707,
+    "answerable": true,
+    "metrics": {
+      "recall@1": 1.0,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "ndcg@10": 1.0,
+      "complete@10": 1.0
+    }
+  },
+  {
+    "id": "conservation/record_condition/2",
+    "family": "conservation",
+    "top1": "conservation/record_condition",
+    "score": 0.640363335609436,
+    "answerable": true,
+    "metrics": {
+      "recall@1": 1.0,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "ndcg@10": 1.0,
+      "complete@10": 1.0
+    }
+  },
+  {
+    "id": "conservation/request_treatment/0",
+    "family": "conservation",
+    "top1": "conservation/request_treatment",
+    "score": 0.6104356050491333,
+    "answerable": true,
+    "metrics": {
+      "recall@1": 1.0,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "ndcg@10": 1.0,
+      "complete@10": 1.0
+    }
+  },
+  {
+    "id": "conservation/request_treatment/1",
+    "family": "conservation",
+    "top1": "conservation/request_treatment",
+    "score": 0.5542279481887817,
+    "answerable": true,
+    "metrics": {
+      "recall@1": 1.0,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "ndcg@10": 1.0,
+      "complete@10": 1.0
+    }
+  },
+  {
+    "id": "conservation/request_treatment/2",
+    "family": "conservation",
+    "top1": "conservation/request_treatment",
+    "score": 0.5878602266311646,
+    "answerable": true,
+    "metrics": {
+      "recall@1": 1.0,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "ndcg@10": 1.0,
+      "complete@10": 1.0
+    }
+  },
+  {
+    "id": "conservation/log_treatment/0",
+    "family": "conservation",
+    "top1": "conservation/log_treatment",
+    "score": 0.5247024297714233,
+    "answerable": true,
+    "metrics": {
+      "recall@1": 1.0,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "ndcg@10": 1.0,
+      "complete@10": 1.0
+    }
+  },
+  {
+    "id": "conservation/log_treatment/1",
+    "family": "conservation",
+    "top1": "conservation/record_condition",
+    "score": 0.5603809356689453,
+    "answerable": true,
+    "metrics": {
+      "recall@1": 0.0,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "ndcg@10": 0.6309297535714575,
+      "complete@10": 1.0
+    }
+  },
+  {
+    "id": "conservation/log_treatment/2",
+    "family": "conservation",
+    "top1": "conservation/log_treatment",
+    "score": 0.5667228698730469,
+    "answerable": true,
+    "metrics": {
+      "recall@1": 1.0,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "ndcg@10": 1.0,
+      "complete@10": 1.0
+    }
+  },
+  {
+    "id": "conservation/none/0",
+    "family": "conservation",
+    "top1": "conservation/record_condition",
+    "score": 0.5187593102455139,
+    "answerable": false
+  },
+  {
+    "id": "conservation/none/1",
+    "family": "conservation",
+    "top1": "conservation/record_condition",
+    "score": 0.4540066719055176,
+    "answerable": false
+  },
+  {
+    "id": "conservation/none/2",
+    "family": "conservation",
+    "top1": "conservation/record_condition",
+    "score": 0.41878336668014526,
+    "answerable": false
+  },
+  {
+    "id": "school_zones/set_pickup_delegate/0",
+    "family": "school_zones",
+    "top1": "school_zones/set_pickup_delegate",
+    "score": 0.468885600566864,
+    "answerable": true,
+    "metrics": {
+      "recall@1": 1.0,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "ndcg@10": 1.0,
+      "complete@10": 1.0
+    }
+  },
+  {
+    "id": "school_zones/set_pickup_delegate/1",
+    "family": "school_zones",
+    "top1": "school_zones/set_pickup_delegate",
+    "score": 0.5156859755516052,
+    "answerable": true,
+    "metrics": {
+      "recall@1": 1.0,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "ndcg@10": 1.0,
+      "complete@10": 1.0
+    }
+  },
+  {
+    "id": "school_zones/set_pickup_delegate/2",
+    "family": "school_zones",
+    "top1": "school_zones/set_pickup_delegate",
+    "score": 0.5748690962791443,
+    "answerable": true,
+    "metrics": {
+      "recall@1": 1.0,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "ndcg@10": 1.0,
+      "complete@10": 1.0
+    }
+  },
+  {
+    "id": "school_zones/log_pickup/0",
+    "family": "school_zones",
+    "top1": "beekeeping/replace_queen",
+    "score": 0.4788692593574524,
+    "answerable": true,
+    "metrics": {
+      "recall@1": 0.0,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "ndcg@10": 0.5,
+      "complete@10": 1.0
+    }
+  },
+  {
+    "id": "school_zones/log_pickup/1",
+    "family": "school_zones",
+    "top1": "school_zones/log_pickup",
+    "score": 0.45353129506111145,
+    "answerable": true,
+    "metrics": {
+      "recall@1": 1.0,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "ndcg@10": 1.0,
+      "complete@10": 1.0
+    }
+  },
+  {
+    "id": "school_zones/log_pickup/2",
+    "family": "school_zones",
+    "top1": "school_zones/set_pickup_delegate",
+    "score": 0.45953917503356934,
+    "answerable": true,
+    "metrics": {
+      "recall@1": 0.0,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "ndcg@10": 0.6309297535714575,
+      "complete@10": 1.0
+    }
+  },
+  {
+    "id": "school_zones/change_bus_stop/0",
+    "family": "school_zones",
+    "top1": "school_zones/change_bus_stop",
+    "score": 0.4204055070877075,
+    "answerable": true,
+    "metrics": {
+      "recall@1": 1.0,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "ndcg@10": 1.0,
+      "complete@10": 1.0
+    }
+  },
+  {
+    "id": "school_zones/change_bus_stop/1",
+    "family": "school_zones",
+    "top1": "school_zones/change_bus_stop",
+    "score": 0.5923895835876465,
+    "answerable": true,
+    "metrics": {
+      "recall@1": 1.0,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "ndcg@10": 1.0,
+      "complete@10": 1.0
+    }
+  },
+  {
+    "id": "school_zones/change_bus_stop/2",
+    "family": "school_zones",
+    "top1": "school_zones/change_bus_stop",
+    "score": 0.6809277534484863,
+    "answerable": true,
+    "metrics": {
+      "recall@1": 1.0,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "ndcg@10": 1.0,
+      "complete@10": 1.0
+    }
+  },
+  {
+    "id": "school_zones/none/0",
+    "family": "school_zones",
+    "top1": "school_zones/log_pickup",
+    "score": 0.5331728458404541,
+    "answerable": false
+  },
+  {
+    "id": "school_zones/none/1",
+    "family": "school_zones",
+    "top1": "school_zones/change_bus_stop",
+    "score": 0.45133304595947266,
+    "answerable": false
+  },
+  {
+    "id": "school_zones/none/2",
+    "family": "school_zones",
+    "top1": "school_zones/change_bus_stop",
+    "score": 0.32251405715942383,
+    "answerable": false
+  },
+  {
+    "id": "beekeeping/check_colony_weight/0",
+    "family": "beekeeping",
+    "top1": "beekeeping/check_colony_weight",
+    "score": 0.6485940217971802,
+    "answerable": true,
+    "metrics": {
+      "recall@1": 1.0,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "ndcg@10": 1.0,
+      "complete@10": 1.0
+    }
+  },
+  {
+    "id": "beekeeping/check_colony_weight/1",
+    "family": "beekeeping",
+    "top1": "beekeeping/check_colony_weight",
+    "score": 0.3831849694252014,
+    "answerable": true,
+    "metrics": {
+      "recall@1": 1.0,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "ndcg@10": 1.0,
+      "complete@10": 1.0
+    }
+  },
+  {
+    "id": "beekeeping/check_colony_weight/2",
+    "family": "beekeeping",
+    "top1": "beekeeping/check_colony_weight",
+    "score": 0.7405308485031128,
+    "answerable": true,
+    "metrics": {
+      "recall@1": 1.0,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "ndcg@10": 1.0,
+      "complete@10": 1.0
+    }
+  },
+  {
+    "id": "beekeeping/log_swarm/0",
+    "family": "beekeeping",
+    "top1": "beekeeping/log_swarm",
+    "score": 0.6017653942108154,
+    "answerable": true,
+    "metrics": {
+      "recall@1": 1.0,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "ndcg@10": 1.0,
+      "complete@10": 1.0
+    }
+  },
+  {
+    "id": "beekeeping/log_swarm/1",
+    "family": "beekeeping",
+    "top1": "beekeeping/log_swarm",
+    "score": 0.5940002799034119,
+    "answerable": true,
+    "metrics": {
+      "recall@1": 1.0,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "ndcg@10": 1.0,
+      "complete@10": 1.0
+    }
+  },
+  {
+    "id": "beekeeping/log_swarm/2",
+    "family": "beekeeping",
+    "top1": "beekeeping/log_swarm",
+    "score": 0.7633160352706909,
+    "answerable": true,
+    "metrics": {
+      "recall@1": 1.0,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "ndcg@10": 1.0,
+      "complete@10": 1.0
+    }
+  },
+  {
+    "id": "beekeeping/replace_queen/0",
+    "family": "beekeeping",
+    "top1": "beekeeping/replace_queen",
+    "score": 0.6009901762008667,
+    "answerable": true,
+    "metrics": {
+      "recall@1": 1.0,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "ndcg@10": 1.0,
+      "complete@10": 1.0
+    }
+  },
+  {
+    "id": "beekeeping/replace_queen/1",
+    "family": "beekeeping",
+    "top1": "beekeeping/replace_queen",
+    "score": 0.5894967317581177,
+    "answerable": true,
+    "metrics": {
+      "recall@1": 1.0,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "ndcg@10": 1.0,
+      "complete@10": 1.0
+    }
+  },
+  {
+    "id": "beekeeping/replace_queen/2",
+    "family": "beekeeping",
+    "top1": "beekeeping/replace_queen",
+    "score": 0.6951743364334106,
+    "answerable": true,
+    "metrics": {
+      "recall@1": 1.0,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "ndcg@10": 1.0,
+      "complete@10": 1.0
+    }
+  },
+  {
+    "id": "beekeeping/none/0",
+    "family": "beekeeping",
+    "top1": "beekeeping/check_colony_weight",
+    "score": 0.46869611740112305,
+    "answerable": false
+  },
+  {
+    "id": "beekeeping/none/1",
+    "family": "beekeeping",
+    "top1": "beekeeping/log_swarm",
+    "score": 0.48866504430770874,
+    "answerable": false
+  },
+  {
+    "id": "beekeeping/none/2",
+    "family": "beekeeping",
+    "top1": "beekeeping/log_swarm",
+    "score": 0.5565475225448608,
+    "answerable": false
+  },
+  {
+    "id": "textiles/wind_bobbin/0",
+    "family": "textiles",
+    "top1": "textiles/wind_bobbin",
+    "score": 0.6137096285820007,
+    "answerable": true,
+    "metrics": {
+      "recall@1": 1.0,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "ndcg@10": 1.0,
+      "complete@10": 1.0
+    }
+  },
+  {
+    "id": "textiles/wind_bobbin/1",
+    "family": "textiles",
+    "top1": "textiles/wind_bobbin",
+    "score": 0.6409695148468018,
+    "answerable": true,
+    "metrics": {
+      "recall@1": 1.0,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "ndcg@10": 1.0,
+      "complete@10": 1.0
+    }
+  },
+  {
+    "id": "textiles/wind_bobbin/2",
+    "family": "textiles",
+    "top1": "textiles/wind_bobbin",
+    "score": 0.623189389705658,
+    "answerable": true,
+    "metrics": {
+      "recall@1": 1.0,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "ndcg@10": 1.0,
+      "complete@10": 1.0
+    }
+  },
+  {
+    "id": "textiles/adjust_tension/0",
+    "family": "textiles",
+    "top1": "textiles/adjust_tension",
+    "score": 0.6779924631118774,
+    "answerable": true,
+    "metrics": {
+      "recall@1": 1.0,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "ndcg@10": 1.0,
+      "complete@10": 1.0
+    }
+  },
+  {
+    "id": "textiles/adjust_tension/1",
+    "family": "textiles",
+    "top1": "textiles/adjust_tension",
+    "score": 0.6324865818023682,
+    "answerable": true,
+    "metrics": {
+      "recall@1": 1.0,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "ndcg@10": 1.0,
+      "complete@10": 1.0
+    }
+  },
+  {
+    "id": "textiles/adjust_tension/2",
+    "family": "textiles",
+    "top1": "textiles/adjust_tension",
+    "score": 0.6609001755714417,
+    "answerable": true,
+    "metrics": {
+      "recall@1": 1.0,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "ndcg@10": 1.0,
+      "complete@10": 1.0
+    }
+  },
+  {
+    "id": "textiles/change_needle/0",
+    "family": "textiles",
+    "top1": "conservation/record_condition",
+    "score": 0.4672980308532715,
+    "answerable": true,
+    "metrics": {
+      "recall@1": 0.0,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "ndcg@10": 0.38685280723454163,
+      "complete@10": 1.0
+    }
+  },
+  {
+    "id": "textiles/change_needle/1",
+    "family": "textiles",
+    "top1": "textiles/change_needle",
+    "score": 0.6320845484733582,
+    "answerable": true,
+    "metrics": {
+      "recall@1": 1.0,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "ndcg@10": 1.0,
+      "complete@10": 1.0
+    }
+  },
+  {
+    "id": "textiles/change_needle/2",
+    "family": "textiles",
+    "top1": "textiles/change_needle",
+    "score": 0.6285942792892456,
+    "answerable": true,
+    "metrics": {
+      "recall@1": 1.0,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "ndcg@10": 1.0,
+      "complete@10": 1.0
+    }
+  },
+  {
+    "id": "textiles/none/0",
+    "family": "textiles",
+    "top1": "textiles/change_needle",
+    "score": 0.5531383156776428,
+    "answerable": false
+  },
+  {
+    "id": "textiles/none/1",
+    "family": "textiles",
+    "top1": "conservation/record_condition",
+    "score": 0.3702440857887268,
+    "answerable": false
+  },
+  {
+    "id": "textiles/none/2",
+    "family": "textiles",
+    "top1": "textiles/change_needle",
+    "score": 0.4181337058544159,
+    "answerable": false
+  }
+]

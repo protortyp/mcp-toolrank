@@ -1,0 +1,31 @@
+{
+  "model": "artifacts/modern-conservative-23",
+  "device": "cuda",
+  "schema": "plain",
+  "dataset_audit": {
+    "revision": "790f28727f567b88918420d163c524d46644a694",
+    "sha256": {
+      "mcp_registry.json": "3c362877ec5733cf0fa1d3451b2f353fb97674e66075da0d7a6f41c0f98cc608",
+      "level_1.json": "9b6fdab8926cb5e21abddf0178f018de27d5b9636bd549b45798898b92eee028",
+      "level_2.json": "67abbf2574eda7c48a455b8d537ec218219e774ac7814b48f138d5eb662f10e2",
+      "level_5.json": "3fbbc6445c69176e84d7b514b9558433d28ed8592d95c14e1e4d28eba39129ae"
+    },
+    "documents": 2375,
+    "queries_by_level": {
+      "etom-l1": 781,
+      "etom-l2": 768,
+      "etom-l5": 91
+    },
+    "skipped_queries_with_incomplete_qrels": {
+      "l2": 5
+    }
+  },
+  "metrics": {
+    "recall@1": 0.8072581388914507,
+    "recall@5": 0.9325401949030095,
+    "recall@10": 0.9544168280611147,
+    "ndcg@10": 0.9024458952918819,
+    "complete@10": 0.934151065203357,
+    "hit@1": 0.8489347966429954
+  }
+}

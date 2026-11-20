@@ -1,0 +1,22 @@
+{
+  "model": "Lux1997/Tool-Embed-0.6B",
+  "parameters": 595776512,
+  "precision": "torch.float32",
+  "split": "toolret",
+  "schema": "plain",
+  "max_seq_length": 512,
+  "retrieval_batch": 32,
+  "performance": {
+    "device": "cuda",
+    "gpu": "NVIDIA GeForce RTX 3090",
+    "cpu_threads": 4,
+    "torch": "2.8.0+cu128",
+    "platform": "Linux-7.0.0-42-generic-x86_64-with-glibc2.39",
+    "cpu_model": "AMD Ryzen 9 5950X 16-Core Processor",
+    "query_p50_ms": 25.26120445691049,
+    "query_p95_ms": 28.680632496252656,
+    "queries_per_second_batch16": 305.5751477930881,
+    "peak_rss_after_profiling_mib": 4175.109375,
+    "cuda_peak_allocated_mib": 2318.0712890625
+  }
+}

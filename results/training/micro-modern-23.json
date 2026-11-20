@@ -1,0 +1,27 @@
+{
+  "base": "TaylorAI/bge-micro-v2",
+  "base_revision": "3edf6d7de0faa426b09780416fe61009f26ae589",
+  "training_sha256": "e3d9a8cd07089b3f2214bd7b9138c07532d4085822dfa8370b0669ba4c98be64",
+  "config": {
+    "training": ".work/next/modern-expanded/train.json",
+    "base": "TaylorAI/bge-micro-v2",
+    "output": "artifacts/micro-modern-23",
+    "record": "results/training/micro-modern-23.json",
+    "device": "cuda",
+    "seed": 23,
+    "batch": 32,
+    "epochs": 1,
+    "lr": 5e-06,
+    "temperature": 0.05
+  },
+  "training_autocast": "bfloat16",
+  "epoch_losses": [
+    1.455455344604389
+  ],
+  "weights_sha256": "4aeeda40868b4372c9365cf1da38d81b4e263ff7dfd30a906177832f47c32693",
+  "queries": 5098,
+  "tools": 263,
+  "max_seq_length": 512,
+  "torch": "2.8.0+cu128",
+  "gpu": "NVIDIA GeForce RTX 3090"
+}

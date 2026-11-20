@@ -1,0 +1,301 @@
+{
+  "checked": 49,
+  "unavailable": 0,
+  "matches": [],
+  "repositories": {
+    "akekaratp/mcp-server-airbnb": {
+      "fork": true,
+      "parent": "openbnb-org/mcp-server-airbnb",
+      "repository": "AkekaratP/mcp-server-airbnb",
+      "root": "openbnb-org/mcp-server-airbnb"
+    },
+    "alxspiker/windows-command-line-mcp-server": {
+      "fork": false,
+      "parent": null,
+      "repository": "alxspiker/Windows-Command-Line-MCP-Server",
+      "root": null
+    },
+    "anirbanbasu/frankfurtermcp": {
+      "fork": false,
+      "parent": null,
+      "repository": "anirbanbasu/frankfurtermcp",
+      "root": null
+    },
+    "aniruddha-adhikary/gahmen-mcp": {
+      "fork": false,
+      "parent": null,
+      "repository": "aniruddha-adhikary/gahmen-mcp",
+      "root": null
+    },
+    "ardyfeb/package-registry-mcp": {
+      "fork": true,
+      "parent": "Artmann/package-registry-mcp",
+      "repository": "ardyfeb/package-registry-mcp",
+      "root": "Artmann/package-registry-mcp"
+    },
+    "blake365/macrostrat-mcp": {
+      "fork": false,
+      "parent": null,
+      "repository": "blake365/macrostrat-mcp",
+      "root": null
+    },
+    "cartographai/atlas-docs-mcp": {
+      "fork": false,
+      "parent": null,
+      "repository": "CartographAI/atlas-docs-mcp",
+      "root": null
+    },
+    "cfdude/super-shell-mcp": {
+      "fork": false,
+      "parent": null,
+      "repository": "cfdude/super-shell-mcp",
+      "root": null
+    },
+    "chenmingkong/bilibili-mcp-server": {
+      "fork": true,
+      "parent": "huccihuang/bilibili-mcp-server",
+      "repository": "chenmingkong/bilibili-mcp-server",
+      "root": "huccihuang/bilibili-mcp-server"
+    },
+    "chuanmingliu/servers": {
+      "fork": true,
+      "parent": "modelcontextprotocol/servers",
+      "repository": "chuanmingliu/servers",
+      "root": "modelcontextprotocol/servers"
+    },
+    "dakkshin/after-effects-mcp": {
+      "fork": false,
+      "parent": null,
+      "repository": "Dakkshin/after-effects-mcp",
+      "root": null
+    },
+    "ddkang1/mcp-think-tool": {
+      "fork": true,
+      "parent": "DannyMac180/mcp-think-tool",
+      "repository": "ddkang1/mcp-think-tool",
+      "root": "DannyMac180/mcp-think-tool"
+    },
+    "devlimelabs/firestore-mcp": {
+      "fork": false,
+      "parent": null,
+      "repository": "devlimelabs/firestore-mcp",
+      "root": null
+    },
+    "devlimelabs/lulu-print-mcp": {
+      "fork": false,
+      "parent": null,
+      "repository": "devlimelabs/lulu-print-mcp",
+      "root": null
+    },
+    "ergodiclabs/twotruthsandatwist": {
+      "fork": false,
+      "parent": null,
+      "repository": "ErgodicLabs/TwoTruthsAndATwist",
+      "root": null
+    },
+    "erickwendel/erickwendel-contributions-mcp": {
+      "fork": false,
+      "parent": null,
+      "repository": "ErickWendel/erickwendel-contributions-mcp",
+      "root": null
+    },
+    "falahgs/flux-imagegen-mcp-server": {
+      "fork": false,
+      "parent": null,
+      "repository": "falahgs/flux-imagegen-mcp-server",
+      "root": null
+    },
+    "flight505/mcp-think-tank": {
+      "fork": false,
+      "parent": null,
+      "repository": "flight505/mcp-think-tank",
+      "root": null
+    },
+    "forceconstant/lyrical_mcp": {
+      "fork": false,
+      "parent": null,
+      "repository": "ForceConstant/lyrical_mcp",
+      "root": null
+    },
+    "geobio/mcp-server-airbnb": {
+      "fork": true,
+      "parent": "openbnb-org/mcp-server-airbnb",
+      "repository": "geobio/mcp-server-airbnb",
+      "root": "openbnb-org/mcp-server-airbnb"
+    },
+    "glassbead-tc/python-to-typescript-assistant": {
+      "fork": false,
+      "parent": null,
+      "repository": "glassBead-tc/python-to-typescript-assistant",
+      "root": null
+    },
+    "gongrzhe/office-word-mcp-server": {
+      "fork": false,
+      "parent": null,
+      "repository": "GongRzhe/Office-Word-MCP-Server",
+      "root": null
+    },
+    "guilhermelirio/brasil-api-mcp": {
+      "fork": false,
+      "parent": null,
+      "repository": "guilhermelirio/brasil-api-mcp",
+      "root": null
+    },
+    "hydavinci/formula-1-schedule": {
+      "fork": false,
+      "parent": null,
+      "repository": "hydavinci/formula-1-schedule",
+      "root": null
+    },
+    "iamwavecut/mcp-think": {
+      "fork": false,
+      "parent": null,
+      "repository": "iamwavecut/MCP-Think",
+      "root": null
+    },
+    "jacksmith3888/wuwa-mcp-server": {
+      "fork": false,
+      "parent": null,
+      "repository": "jacksmith3888/wuwa-mcp-server",
+      "root": null
+    },
+    "junmer/mcp-server-lottiefiles": {
+      "fork": false,
+      "parent": null,
+      "repository": "junmer/mcp-server-lottiefiles",
+      "root": null
+    },
+    "jzinno/biomart-mcp": {
+      "fork": false,
+      "parent": null,
+      "repository": "jzinno/biomart-mcp",
+      "root": null
+    },
+    "kkjdaniel/bgg-mcp": {
+      "fork": false,
+      "parent": null,
+      "repository": "kkjdaniel/bgg-mcp",
+      "root": null
+    },
+    "linyimin0812/project-ingest-mcp": {
+      "fork": false,
+      "parent": null,
+      "repository": "linyimin0812/project-ingest-mcp",
+      "root": null
+    },
+    "magic-sauce/quickchart-mcp-server": {
+      "fork": true,
+      "parent": "GongRzhe/Quickchart-MCP-Server",
+      "repository": "Magic-Sauce/Quickchart-MCP-Server",
+      "root": "GongRzhe/Quickchart-MCP-Server"
+    },
+    "marioluciofjr/mapas_mentais_mcp": {
+      "fork": false,
+      "parent": null,
+      "repository": "marioluciofjr/mapas_mentais_mcp",
+      "root": null
+    },
+    "mcpdotdirect/starknet-mcp-server": {
+      "fork": false,
+      "parent": null,
+      "repository": "mcpdotdirect/starknet-mcp-server",
+      "root": null
+    },
+    "mfukushim/map-traveler-mcp": {
+      "fork": false,
+      "parent": null,
+      "repository": "mfukushim/map-traveler-mcp",
+      "root": null
+    },
+    "mistizz/mcp-japanesetextanalyzer": {
+      "fork": false,
+      "parent": null,
+      "repository": "Mistizz/mcp-JapaneseTextAnalyzer",
+      "root": null
+    },
+    "ndchikin/reference-mcp": {
+      "fork": false,
+      "parent": null,
+      "repository": "ndchikin/reference-mcp",
+      "root": null
+    },
+    "openags/paper-search-mcp": {
+      "fork": false,
+      "parent": null,
+      "repository": "openags/paper-search-mcp",
+      "root": null
+    },
+    "openbnb-org/mcp-server-airbnb": {
+      "fork": false,
+      "parent": null,
+      "repository": "openbnb-org/mcp-server-airbnb",
+      "root": null
+    },
+    "pinkpixel-dev/mindbridge-mcp": {
+      "fork": false,
+      "parent": null,
+      "repository": "pinkpixel-dev/mindbridge-mcp",
+      "root": null
+    },
+    "sheshiyer/framer-plugin-mcp": {
+      "fork": false,
+      "parent": null,
+      "repository": "Sheshiyer/framer-plugin-mcp",
+      "root": null
+    },
+    "terryso/mcp-pinterest": {
+      "fork": false,
+      "parent": null,
+      "repository": "terryso/mcp-pinterest",
+      "root": null
+    },
+    "the0807/geeknews-mcp-server": {
+      "fork": false,
+      "parent": null,
+      "repository": "the0807/GeekNews-MCP-Server",
+      "root": null
+    },
+    "tkoba1974/mcp-kroki": {
+      "fork": false,
+      "parent": null,
+      "repository": "tkoba1974/mcp-kroki",
+      "root": null
+    },
+    "tywenk/mcp-sol": {
+      "fork": false,
+      "parent": null,
+      "repository": "tywenk/mcp-sol",
+      "root": null
+    },
+    "waldzellai/waldzell-mcp": {
+      "fork": false,
+      "parent": null,
+      "repository": "waldzellai/waldzell-mcp",
+      "root": null
+    },
+    "xxxnewbie/servers": {
+      "fork": true,
+      "parent": "modelcontextprotocol/servers",
+      "repository": "xXxnewbie/servers",
+      "root": "modelcontextprotocol/servers"
+    },
+    "yokingma/time-mcp": {
+      "fork": false,
+      "parent": null,
+      "repository": "yokingma/time-mcp",
+      "root": null
+    },
+    "zeyynepkaraduman/memory-palace-mcp": {
+      "fork": false,
+      "parent": null,
+      "repository": "zeyynepkaraduman/Memory-Palace-MCP",
+      "root": null
+    },
+    "zwldarren/akshare-one-mcp": {
+      "fork": false,
+      "parent": null,
+      "repository": "zwldarren/akshare-one-mcp",
+      "root": null
+    }
+  }
+}

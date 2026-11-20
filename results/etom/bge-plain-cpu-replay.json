@@ -1,0 +1,66 @@
+{
+  "model": "BAAI/bge-small-en-v1.5",
+  "parameters": 33360000,
+  "precision": "torch.float32",
+  "split": "etom",
+  "schema": "plain",
+  "max_seq_length": 512,
+  "retrieval_batch": 24,
+  "performance": null,
+  "dataset_audit": {
+    "revision": "790f28727f567b88918420d163c524d46644a694",
+    "sha256": {
+      "mcp_registry.json": "3c362877ec5733cf0fa1d3451b2f353fb97674e66075da0d7a6f41c0f98cc608",
+      "level_1.json": "9b6fdab8926cb5e21abddf0178f018de27d5b9636bd549b45798898b92eee028",
+      "level_2.json": "67abbf2574eda7c48a455b8d537ec218219e774ac7814b48f138d5eb662f10e2",
+      "level_5.json": "3fbbc6445c69176e84d7b514b9558433d28ed8592d95c14e1e4d28eba39129ae"
+    },
+    "documents": 2375,
+    "queries_by_level": {
+      "etom-l1": 781,
+      "etom-l2": 768,
+      "etom-l5": 91
+    },
+    "skipped_queries_with_incomplete_qrels": {
+      "l2": 5
+    }
+  },
+  "documents_per_second": 123.39994910167732,
+  "documents": 2375,
+  "queries": 1640,
+  "missing_judged_tool_ids": 0,
+  "metrics": {
+    "recall@1": 0.7795413323495957,
+    "recall@5": 0.9227812106120693,
+    "recall@10": 0.9518606474223001,
+    "ndcg@10": 0.8895031644434441,
+    "complete@10": 0.934151065203357,
+    "hit@1": 0.8224661071659135,
+    "hit@5": 0.9464170432537121,
+    "hit@10": 0.9677211103938025
+  },
+  "per_family": {
+    "etom-l1": {
+      "recall@1": 0.8975672215108835,
+      "recall@5": 0.9897567221510883,
+      "recall@10": 0.9935979513444302,
+      "ndcg@10": 0.9525203881048062,
+      "complete@10": 0.9935979513444302,
+      "hit@1": 0.8975672215108835,
+      "hit@5": 0.9897567221510883,
+      "hit@10": 0.9935979513444302
+    },
+    "etom-l2": {
+      "recall@1": 0.6595176091269841,
+      "recall@5": 0.8546719990079366,
+      "recall@10": 0.9094168526785714,
+      "ndcg@10": 0.8254192429857312,
+      "complete@10": 0.8736979166666666,
+      "hit@1": 0.74609375,
+      "hit@5": 0.90234375,
+      "hit@10": 0.94140625
+    }
+  },
+  "benchmark_peak_rss_mib": 807.921875,
+  "benchmark_cuda_peak_mib": null
+}

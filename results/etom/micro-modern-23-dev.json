@@ -1,0 +1,89 @@
+{
+  "model": "artifacts/micro-modern-23",
+  "parameters": 17389824,
+  "precision": "torch.float32",
+  "split": "modern-dev",
+  "schema": "plain",
+  "max_seq_length": 512,
+  "retrieval_batch": 32,
+  "performance": null,
+  "corpus_sha256": "0d177d7648c4ab8b73a67179b7aeec0638e9480163c8bb23b1290edf451698e5",
+  "documents_per_second": 100.88215122706917,
+  "documents": 34,
+  "queries": 872,
+  "missing_judged_tool_ids": 0,
+  "metrics": {
+    "recall@1": 0.31938073394495414,
+    "recall@5": 0.8696483180428135,
+    "recall@10": 0.9751529051987766,
+    "ndcg@10": 0.836421253746048,
+    "complete@10": 0.9506880733944955
+  },
+  "per_family": {
+    "ergodiclabs/twotruthsandatwist": {
+      "recall@1": 0.4020833333333334,
+      "recall@5": 0.9625,
+      "recall@10": 0.9927083333333334,
+      "ndcg@10": 0.9291855899461415,
+      "complete@10": 0.98125
+    },
+    "magic-sauce/quickchart-mcp-server": {
+      "recall@1": 0.5441176470588235,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "ndcg@10": 0.9981943428726183,
+      "complete@10": 1.0
+    },
+    "ddkang1/mcp-think-tool": {
+      "recall@1": 0.17975567190226877,
+      "recall@5": 0.7456369982547995,
+      "recall@10": 0.9515706806282722,
+      "ndcg@10": 0.6957378042819529,
+      "complete@10": 0.9083769633507853
+    },
+    "linyimin0812/project-ingest-mcp": {
+      "recall@1": 0.49999999999999994,
+      "recall@5": 0.9404761904761905,
+      "recall@10": 0.9642857142857143,
+      "ndcg@10": 0.9222497670571642,
+      "complete@10": 0.9285714285714286
+    },
+    "junmer/mcp-server-lottiefiles": {
+      "recall@1": 0.42063492063492064,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "ndcg@10": 0.9913986559801629,
+      "complete@10": 1.0
+    },
+    "zeyynepkaraduman/memory-palace-mcp": {
+      "recall@1": 0.36253041362530414,
+      "recall@5": 0.9294403892944039,
+      "recall@10": 0.9890510948905109,
+      "ndcg@10": 0.9046122459404746,
+      "complete@10": 0.9708029197080292
+    },
+    "ndchikin/reference-mcp": {
+      "recall@1": 0.59375,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "ndcg@10": 1.0,
+      "complete@10": 1.0
+    },
+    "kkjdaniel/bgg-mcp": {
+      "recall@1": 0.5,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "ndcg@10": 0.9899650986435234,
+      "complete@10": 1.0
+    },
+    "openags/paper-search-mcp": {
+      "recall@1": 1.0,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "ndcg@10": 1.0,
+      "complete@10": 1.0
+    }
+  },
+  "benchmark_peak_rss_mib": 1436.0078125,
+  "benchmark_cuda_peak_mib": 160.26171875
+}

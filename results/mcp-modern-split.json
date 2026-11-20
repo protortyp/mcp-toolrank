@@ -1,0 +1,77 @@
+{
+  "near_duplicate_dev_queries_removed": 0,
+  "repository_groups": 45,
+  "development_groups": [
+    "ddkang1/mcp-think-tool",
+    "ergodiclabs/twotruthsandatwist",
+    "junmer/mcp-server-lottiefiles",
+    "kkjdaniel/bgg-mcp",
+    "linyimin0812/project-ingest-mcp",
+    "magic-sauce/quickchart-mcp-server",
+    "ndchikin/reference-mcp",
+    "openags/paper-search-mcp",
+    "zeyynepkaraduman/memory-palace-mcp"
+  ],
+  "cross_split_queries_dropped": 0,
+  "splits": {
+    "train": {
+      "queries": 5098,
+      "tools": 263,
+      "sha256": "e3d9a8cd07089b3f2214bd7b9138c07532d4085822dfa8370b0669ba4c98be64",
+      "query_counts_by_family": {
+        "flight505/mcp-think-tank": 80,
+        "cfdude/super-shell-mcp": 209,
+        "yokingma/time-mcp": 311,
+        "falahgs/flux-imagegen-mcp-server": 1058,
+        "the0807/geeknews-mcp-server": 79,
+        "aniruddha-adhikary/gahmen-mcp": 67,
+        "hydavinci/formula-1-schedule": 110,
+        "pinkpixel-dev/mindbridge-mcp": 160,
+        "mcpdotdirect/starknet-mcp-server": 108,
+        "tywenk/mcp-sol": 24,
+        "dakkshin/after-effects-mcp": 171,
+        "gongrzhe/office-word-mcp-server": 135,
+        "sheshiyer/framer-plugin-mcp": 85,
+        "anirbanbasu/frankfurtermcp": 131,
+        "chenmingkong/bilibili-mcp-server": 34,
+        "devlimelabs/firestore-mcp": 139,
+        "chuanmingliu/servers": 146,
+        "erickwendel/erickwendel-contributions-mcp": 105,
+        "marioluciofjr/mapas_mentais_mcp": 144,
+        "glassbead-tc/python-to-typescript-assistant": 123,
+        "terryso/mcp-pinterest": 199,
+        "akekaratp/mcp-server-airbnb": 240,
+        "mfukushim/map-traveler-mcp": 84,
+        "guilhermelirio/brasil-api-mcp": 87,
+        "alxspiker/windows-command-line-mcp-server": 207,
+        "waldzellai/waldzell-mcp": 293,
+        "forceconstant/lyrical_mcp": 80,
+        "cartographai/atlas-docs-mcp": 159,
+        "jacksmith3888/wuwa-mcp-server": 82,
+        "zwldarren/akshare-one-mcp": 41,
+        "devlimelabs/lulu-print-mcp": 40,
+        "tkoba1974/mcp-kroki": 42,
+        "ardyfeb/package-registry-mcp": 72,
+        "jzinno/biomart-mcp": 42,
+        "mistizz/mcp-japanesetextanalyzer": 7,
+        "blake365/macrostrat-mcp": 4
+      }
+    },
+    "dev": {
+      "queries": 872,
+      "tools": 34,
+      "sha256": "0d177d7648c4ab8b73a67179b7aeec0638e9480163c8bb23b1290edf451698e5",
+      "query_counts_by_family": {
+        "ergodiclabs/twotruthsandatwist": 160,
+        "magic-sauce/quickchart-mcp-server": 68,
+        "ddkang1/mcp-think-tool": 382,
+        "linyimin0812/project-ingest-mcp": 14,
+        "junmer/mcp-server-lottiefiles": 84,
+        "zeyynepkaraduman/memory-palace-mcp": 137,
+        "ndchikin/reference-mcp": 16,
+        "kkjdaniel/bgg-mcp": 8,
+        "openags/paper-search-mcp": 3
+      }
+    }
+  }
+}

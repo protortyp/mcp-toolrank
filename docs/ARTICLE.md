@@ -1,0 +1,15 @@
+# What a small tool retriever learns from 88 examples
+
+A tool selector sees an intent and a catalog. The model has to tell related actions apart, such as placing a warehouse hold and releasing one, and it has to recognize when the catalog contains no suitable operation. This pilot tested how much a 33.36M-parameter encoder could learn from 88 original requests with no external spending.
+
+We compared BGE small with ToolScout, a tool-retrieval checkpoint of the same size, and Tool-Embed-0.6B, a larger specialist trained through Tool-REX. We trained three supervised recipes over three seeds. In-batch InfoNCE had the highest mean development Recall@1, 87.04%, compared with 83.33% for mined negatives and 77.78% for same-family negatives. These recipes jointly vary several settings, so the comparison does not isolate the effect of negative sampling.
+
+The evaluation has two scales. On the full downloadable ToolRet catalog, every request ranks all 44,453 tools. A separate test pairs 36 answerable requests and 12 unanswerable requests with a catalog of 12 fictional tools from four unseen families. It tests plain descriptions, MCP-shaped JSON, and OpenAI-shaped JSON. The catalog and queries were frozen before training. A development-only rule determines each model's similarity cutoffs.
+
+The [benchmark report](BENCHMARK.md) gives the exact scores and decision, and the repository links each table to the run outputs and code. The CPU inference examples use a saved SentenceTransformer and an ONNX graph whose outputs agree numerically in six cases. Neither compact synthetic evaluations nor CPU embedding microbenchmarks establish a production routing improvement. The test does not measure tool execution, schema argument selection, or end-to-end agent success.
+
+To verify the experiment, use the [pinned download and run commands](PILOT_REPRODUCTION.md), inspect the [split audit](../results/audit.json), and regenerate the tables with `python -m toolrank.report`. See the [ACL ToolRet paper](https://aclanthology.org/2025.findings-acl.1258/) and [ICLR Tool-REX paper](https://proceedings.iclr.cc/paper_files/paper/2026/hash/e54a9889f1048526365ed8fb56c8c8cd-Abstract-Conference.html) for their original evaluation protocols.
+
+The point estimate favored the candidate on the 12-tool catalog. It placed the right tool first for 32 of 36 answerable requests versus ToolScout's 30. The paired interval includes zero with only four test families. One failure confused authorizing a school pickup with logging one that already happened. The development-calibrated threshold also accepted three of 12 unanswerable requests, even though no eligible tool could fulfill them. These outcomes support keeping the checkpoint local as a research artifact.
+
+The larger catalog reversed the result. The candidate scored 26.62% nDCG@10 across 7,961 ToolRet queries, compared with 28.66% for ToolScout and 39.43% for Tool-Embed-0.6B. CPU median query encoding took 12.75 ms for the candidate and 12.71 ms for ToolScout. This pilot did not meet the quality or CPU efficiency release gate.

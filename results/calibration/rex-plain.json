@@ -1,0 +1,46 @@
+{
+  "model": "Lux1997/Tool-Embed-0.6B",
+  "parameters": 595776512,
+  "precision": "torch.float32",
+  "split": "dev",
+  "schema": "plain",
+  "max_seq_length": 8192,
+  "retrieval_batch": 32,
+  "performance": null,
+  "documents_per_second": 19.66531426627126,
+  "documents": 9,
+  "queries": 24,
+  "missing_judged_tool_ids": 0,
+  "metrics": {
+    "recall@1": 0.8888888888888888,
+    "recall@5": 1.0,
+    "recall@10": 1.0,
+    "ndcg@10": 0.9589921948412731,
+    "complete@10": 1.0
+  },
+  "per_family": {
+    "coffee": {
+      "recall@1": 1.0,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "ndcg@10": 1.0,
+      "complete@10": 1.0
+    },
+    "printing": {
+      "recall@1": 0.6666666666666666,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "ndcg@10": 0.8769765845238192,
+      "complete@10": 1.0
+    },
+    "trails": {
+      "recall@1": 1.0,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "ndcg@10": 1.0,
+      "complete@10": 1.0
+    }
+  },
+  "benchmark_peak_rss_mib": 4266.8671875,
+  "benchmark_cuda_peak_mib": null
+}

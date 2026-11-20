@@ -1,0 +1,59 @@
+{
+  "model": "Lux1997/Tool-Embed-0.6B",
+  "parameters": 595776512,
+  "precision": "torch.float32",
+  "split": "test",
+  "schema": "mcp",
+  "max_seq_length": 8192,
+  "retrieval_batch": 32,
+  "performance": null,
+  "documents_per_second": 7.427482167726813,
+  "documents": 12,
+  "queries": 48,
+  "missing_judged_tool_ids": 0,
+  "metrics": {
+    "recall@1": 0.8333333333333334,
+    "recall@5": 1.0,
+    "recall@10": 1.0,
+    "ndcg@10": 0.9384882922619097,
+    "complete@10": 1.0
+  },
+  "per_family": {
+    "conservation": {
+      "recall@1": 0.7777777777777778,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "ndcg@10": 0.9179843896825461,
+      "complete@10": 1.0
+    },
+    "school_zones": {
+      "recall@1": 0.7777777777777778,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "ndcg@10": 0.9179843896825461,
+      "complete@10": 1.0
+    },
+    "beekeeping": {
+      "recall@1": 0.8888888888888888,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "ndcg@10": 0.9589921948412731,
+      "complete@10": 1.0
+    },
+    "textiles": {
+      "recall@1": 0.8888888888888888,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "ndcg@10": 0.9589921948412731,
+      "complete@10": 1.0
+    }
+  },
+  "benchmark_peak_rss_mib": 4267.48828125,
+  "benchmark_cuda_peak_mib": null,
+  "abstention": {
+    "threshold": 0.6125534772872925,
+    "answerable_coverage": 0.9166666666666666,
+    "none_false_accept_rate": 0.16666666666666666,
+    "answerable_correct_at_1_with_threshold": 0.7777777777777778
+  }
+}

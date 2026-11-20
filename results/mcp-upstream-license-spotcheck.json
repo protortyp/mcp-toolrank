@@ -1,0 +1,92 @@
+{
+  "gongrzhe/office-word-mcp-server": {
+    "blob": "31323d1d01ace328e62e08538c68b4a2c163f077",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "a3bbbb6d6167e68cf855d73ef7dc6cd8cfbfedba"
+  },
+  "yokingma/time-mcp": {
+    "blob": "2a31ea75f98dbdd5e7afb15319d5269e68103638",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "5bc003e14465812becb9c96159841af5d6430c0e"
+  },
+  "aakarsh-sasi/memory-bank-mcp": {
+    "blob": "6309bc5dfcec095dec61927cd4417dee07064117",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "0813435550c7d9c3c81208d3c9f57946e16ae7e6"
+  },
+  "waldzellai/waldzell-mcp": {
+    "blob": "ad75c9e774b8073e78474d009a7da582410a7d03",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "fc8a8f3d691734d9768c57e10770a72d4be294fa"
+  },
+  "falahgs/flux-imagegen-mcp-server": {
+    "blob": "cd9044734996e24485cf9dd3032e0c166febd967",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "d07b3e644afb43a0502d57d1e6b01d6d190c2b55"
+  },
+  "quazaai/unitymcpintegration": {
+    "blob": "f63d24ddba0099cfc02a918d11400e4a01dc70b1",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "d1515b326e2fc14b39de5a08534159ba29963c7d"
+  },
+  "pinkpixel-dev/mcpollinations": {
+    "blob": "a1b0050a2c003534d2a28512408fb0b09e9330cf",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "9fd9bc113a4aae78a50eb4fe06689ee6ed0d476c"
+  },
+  "iamwavecut/mcp-think": {
+    "blob": "23993b149b67fca95d629a54275cfbe08c5963e6",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "35dbb4ea1e9dec2df7297b0a499139ec13a0f183"
+  },
+  "terryso/mcp-pinterest": {
+    "blob": "08ea4aa26c73249e7e2087f99fda74760772b3a0",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "f9a0b71c9140f716e814682b883a921452f0f4b1"
+  },
+  "alxspiker/windows-command-line-mcp-server": {
+    "blob": "443bf639981d90dd877268245576e6267a5d6da1",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "22042fb0071133c8681b796d36cf7cac4d892de5"
+  },
+  "gongrzhe/terminal-controller-mcp": {
+    "blob": "31c022e6df15fb923ac7b756e04db3b2e85a8753",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "a224da101ccd6a97c0f3d35ebedcbfbd9b3d3159"
+  },
+  "cfdude/super-shell-mcp": {
+    "blob": "3ccc99937a84f532024fc6efdac2a133eb9a5429",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "88a6cd56fe0366908d06beb3f1d309c221276421"
+  },
+  "jonafly/rednote-mcp": {
+    "blob": "c0455da65505f0dbbab815f9fbe1f6ddb9b25a78",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "1e0f480805a79b7f4e7a863a3bc336cef14807de"
+  },
+  "knowitall-wiki/mcpollinations": {
+    "blob": "60f488982616028c294ccf8e407098bebc9ec372",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "2e1ab1be50aff966ee1ff8ba6377eafeb022e0e9"
+  },
+  "ymadd/shadcn-ui-mcp-server": {
+    "blob": "0d88dde79109786b28e53ad3cca3ac775bd20dc9",
+    "path": "LICENSE",
+    "spdx": "MIT",
+    "observed_default_head": "c7848cc550f9a0a73fcd34814f1abaffb4ec2601"
+  }
+}

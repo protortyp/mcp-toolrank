@@ -1,0 +1,9 @@
+{
+  "path": "artifacts/modern-conservative-11/onnx/embedding.onnx",
+  "bytes": 133122587,
+  "sha256": "f2dcd00b68efc228ec20902441c8e258b40a81c9a464293010793914ad13298e",
+  "opset": 17,
+  "onnxruntime": "1.24.1",
+  "max_abs_error": 1.4901161193847656e-07,
+  "cases": 6
+}

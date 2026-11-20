@@ -1,0 +1,59 @@
+{
+  "model": "BAAI/bge-small-en-v1.5",
+  "parameters": 33360000,
+  "precision": "torch.float32",
+  "split": "test",
+  "schema": "openai",
+  "max_seq_length": 512,
+  "retrieval_batch": 32,
+  "performance": null,
+  "documents_per_second": 78.0719039348718,
+  "documents": 12,
+  "queries": 48,
+  "missing_judged_tool_ids": 0,
+  "metrics": {
+    "recall@1": 0.8333333333333334,
+    "recall@5": 0.9722222222222222,
+    "recall@10": 1.0,
+    "ndcg@10": 0.9272201722609404,
+    "complete@10": 1.0
+  },
+  "per_family": {
+    "conservation": {
+      "recall@1": 0.7777777777777778,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "ndcg@10": 0.9179843896825461,
+      "complete@10": 1.0
+    },
+    "school_zones": {
+      "recall@1": 0.7777777777777778,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "ndcg@10": 0.9034366392857175,
+      "complete@10": 1.0
+    },
+    "beekeeping": {
+      "recall@1": 0.8888888888888888,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "ndcg@10": 0.9589921948412731,
+      "complete@10": 1.0
+    },
+    "textiles": {
+      "recall@1": 0.8888888888888888,
+      "recall@5": 0.8888888888888888,
+      "recall@10": 1.0,
+      "ndcg@10": 0.9284674652342247,
+      "complete@10": 1.0
+    }
+  },
+  "benchmark_peak_rss_mib": 1003.14453125,
+  "benchmark_cuda_peak_mib": null,
+  "abstention": {
+    "threshold": 0.5642684698104858,
+    "answerable_coverage": 0.8611111111111112,
+    "none_false_accept_rate": 0.5,
+    "answerable_correct_at_1_with_threshold": 0.8055555555555556
+  }
+}
