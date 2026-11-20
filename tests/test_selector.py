@@ -31,6 +31,19 @@ class HybridSelectorTests(unittest.TestCase):
         self.assertAlmostEqual(match.cosine, 0.7)
         self.assertEqual(hybrid.rank(query, k=1, min_score=0.75)[0].tool["name"], "mail")
 
+    def test_bm25_tool_name_changes_order_without_altering_cosine_cutoff(self):
+        tools = [{"name": "mail", "description": "Retrieve new mail"},
+                 {"name": "calendar", "description": "Get upcoming events"}]
+        selector = ToolSelector(FixedEncoder(), tools, bm25_weight=0.15)
+        first = selector.rank("calendar", k=1)[0]
+        self.assertEqual(first.tool["name"], "calendar")
+        self.assertAlmostEqual(first.cosine, 0.7)
+        self.assertEqual(selector.rank("calendar", k=1, min_score=0.75)[0].tool["name"], "mail")
+
+    def test_bm25_empty_lexical_catalog_falls_back_to_dense(self):
+        selector = ToolSelector(FixedEncoder(), [{"name": "_"}], bm25_weight=0.15)
+        self.assertEqual(selector.rank("calendar", k=1)[0].tool["name"], "_")
+
     def test_catalog_without_lexical_terms_can_still_use_dense_vectors(self):
         selector = ToolSelector(FixedEncoder(), [{"name": "_"}], lexical_weight=0.4)
         self.assertEqual(selector.rank("a request")[0].tool["name"], "_")
