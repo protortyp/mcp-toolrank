@@ -1,0 +1,51 @@
+{
+  "tool_count": 263,
+  "threads": 4,
+  "mode": "INT8 graph and dense catalog vectors, plus hybrid lexical ranking",
+  "fresh_process_each_run": true,
+  "runs": [
+    {
+      "build": 6.155103018973023,
+      "reuse": 0.31988166412338614,
+      "no_cache": 6.029493514914066,
+      "cache_bytes": 103098,
+      "ranked_content_sha256": "ca2a9e3c3004906c2257610f62a04e5b257091f2dc782ee95fab894f16a89ef6"
+    },
+    {
+      "build": 5.758383478969336,
+      "reuse": 0.33545391098596156,
+      "no_cache": 6.1374274550471455,
+      "cache_bytes": 103098,
+      "ranked_content_sha256": "ca2a9e3c3004906c2257610f62a04e5b257091f2dc782ee95fab894f16a89ef6"
+    },
+    {
+      "build": 6.144230869133025,
+      "reuse": 0.33311654394492507,
+      "no_cache": 5.99192368099466,
+      "cache_bytes": 103098,
+      "ranked_content_sha256": "ca2a9e3c3004906c2257610f62a04e5b257091f2dc782ee95fab894f16a89ef6"
+    }
+  ],
+  "median_seconds": {
+    "build": 6.144230869133025,
+    "reuse": 0.33311654394492507,
+    "no_cache": 6.029493514914066
+  },
+  "cpu": "AMD Ryzen 9 5950X",
+  "cpu_affinity": [
+    8,
+    9,
+    10,
+    11
+  ],
+  "includes": [
+    "process startup",
+    "load encoder",
+    "build lexical index",
+    "rank one query",
+    "encode documents on miss"
+  ],
+  "catalog": "263 source-audited MCP tool descriptions from the fixed training catalog",
+  "catalog_sha256": "09d3e4562b11655a2503899c65bb63d976236c2d84515f61631e5c6286519a9f",
+  "checkpoint_sha256": "ba0e544669eac502cac535d3ed53b9cf5b530b5fd929d4a7bddd787abe08ea33"
+}

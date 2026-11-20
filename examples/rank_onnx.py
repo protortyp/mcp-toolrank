@@ -8,11 +8,13 @@ from hashlib import file_digest, sha256
 import json
 import math
 from pathlib import Path
+from tempfile import NamedTemporaryFile
 import time
+from zipfile import BadZipFile
 
 import numpy as np
 import onnxruntime as ort
-from tokenizers import Tokenizer
+from tokenizers import Tokenizer, __version__ as tokenizers_version
 
 
 def quantize_rows(matrix, bound):
@@ -30,19 +32,25 @@ def top_indices(scores, limit):
     return np.concatenate((higher[np.argsort(-scores[higher], kind="stable")], ties))
 
 
+def encode_compact_catalog(batches, size):
+    scales = np.empty(size, dtype=np.float32)
+    vectors = np.empty((0, 0), dtype=np.int8)
+    offset = 0
+    for batch in batches:
+        if offset == 0:
+            vectors = np.empty((batch.shape[1], size), dtype=np.int8)
+        # With a U8 query, two products at these limits fit in a signed 16-bit lane.
+        encoded, batch_scales = quantize_rows(batch, 63)
+        end = offset + len(batch)
+        vectors[:, offset:end] = encoded.T
+        scales[offset:end] = batch_scales
+        offset = end
+    return vectors, scales
+
+
 class CompactCatalog:
-    def __init__(self, batches, size, threads):
-        self.scales = np.empty(size, dtype=np.float32)
-        offset = 0
-        for batch in batches:
-            if offset == 0:
-                self.vectors = np.empty((batch.shape[1], size), dtype=np.int8)
-            # With a U8 query, two products at these limits fit in a signed 16-bit lane.
-            encoded, scales = quantize_rows(batch, 63)
-            end = offset + len(batch)
-            self.vectors[:, offset:end] = encoded.T
-            self.scales[offset:end] = scales
-            offset = end
+    def __init__(self, batches, size, threads, *, cached=None):
+        self.vectors, self.scales = cached if cached is not None else encode_compact_catalog(batches, size)
         options = ort.SessionOptions()
         options.intra_op_num_threads = threads
         options.enable_cpu_mem_arena = False
@@ -58,9 +66,58 @@ class CompactCatalog:
         return dots.astype(np.float32) * self.scales * scales[:, None]
 
 
+def catalog_cache_path(directory, checkpoint, descriptions, model_file, precision, threads):
+    scope = {
+        "checkpoint": checkpoint_checksums(checkpoint, model_file),
+        "descriptions": descriptions,
+        "catalog_precision": precision,
+        "threads": threads,
+        "onnxruntime": ort.__version__,
+        "tokenizers": tokenizers_version,
+    }
+    key = sha256(json.dumps(scope, sort_keys=True).encode()).hexdigest()
+    return directory / f"toolrank-v1-{key}.npz"
+
+
+def read_cached_vectors(path, size, dimension, precision):
+    try:
+        with path.open("rb") as source, np.load(source, allow_pickle=False) as archive:
+            if str(archive["key"]) != path.stem:
+                return None
+            vectors = archive["vectors"]
+            if precision == "int8":
+                scales = archive["scales"]
+                if (vectors.shape == (dimension, size) and vectors.dtype == np.int8
+                        and scales.shape == (size,) and scales.dtype == np.float32
+                        and np.isfinite(scales).all() and (scales > 0).all()):
+                    return vectors, scales
+            elif (vectors.shape == (size, dimension) and vectors.dtype == np.float32
+                  and np.isfinite(vectors).all()):
+                return vectors, None
+    except (FileNotFoundError, ValueError, TypeError, KeyError, EOFError, BadZipFile):
+        pass
+    return None
+
+
+def write_cached_vectors(path, arrays):
+    vectors, scales = arrays
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with NamedTemporaryFile(dir=path.parent, delete=False) as stream:
+        temporary = Path(stream.name)
+        try:
+            fields = {"key": np.array(path.stem), "vectors": vectors}
+            if scales is not None:
+                fields["scales"] = scales
+            np.savez(stream, **fields)
+            stream.close()
+            temporary.replace(path)
+        finally:
+            temporary.unlink(missing_ok=True)
+
+
 class OnnxToolRank:
     def __init__(self, checkpoint, tools, *, threads=4, model_file="embedding-int8.onnx",
-                 catalog_precision="float32", hybrid=False):
+                 catalog_precision="float32", hybrid=False, cache_dir=None):
         if catalog_precision not in ("float32", "int8"):
             raise ValueError("catalog_precision must be float32 or int8")
         self.tools = sorted(tools, key=lambda item: item["name"])
@@ -89,12 +146,26 @@ class OnnxToolRank:
                 from catalog_lexical import CatalogLexicalIndex
             self.lexical_index = CatalogLexicalIndex(descriptions)
         batches = (self.encode(descriptions[i:i + 32]) for i in range(0, len(descriptions), 32))
-        if catalog_precision == "int8" and descriptions:
-            self.catalog = CompactCatalog(batches, len(descriptions), threads)
+        self.catalog = None
+        self.docs = np.empty((0, 384), dtype=np.float32)
+        if not descriptions:
+            return
+        size = len(descriptions)
+        cached = cache_path = None
+        if cache_dir is not None:
+            cache_path = catalog_cache_path(cache_dir, checkpoint, descriptions, model_file,
+                                            catalog_precision, threads)
+            dimension = next(output.shape[-1] for output in self.session.get_outputs() if output.name == "embedding")
+            cached = read_cached_vectors(cache_path, size, dimension, catalog_precision)
+        if catalog_precision == "int8":
+            self.catalog = CompactCatalog(batches, size, threads, cached=cached)
             self.docs = None
+            built = self.catalog.vectors, self.catalog.scales
         else:
-            self.catalog = None
-            self.docs = np.concatenate(list(batches)) if descriptions else np.empty((0, 384), dtype=np.float32)
+            self.docs = cached[0] if cached is not None else np.concatenate(list(batches))
+            built = self.docs, None
+        if cache_path is not None and cached is None:
+            write_cached_vectors(cache_path, built)
 
     def encode(self, texts):
         rows = self.tokenizer.encode_batch(texts)
@@ -248,17 +319,21 @@ def calibrate(cases, *, score_requests, max_false_accept, confidence):
     return report
 
 
-def calibration_scope(checkpoint, tool_catalog, model_file, catalog_precision, threads):
+def checkpoint_checksums(checkpoint, model_file):
     files = ["tokenizer.json", "sentence_bert_config.json", "config_sentence_transformers.json",
              f"onnx/{model_file}"]
     checksums = {}
     for file in files:
         with (checkpoint / file).open("rb") as stream:
             checksums[file] = file_digest(stream, "sha256").hexdigest()
+    return checksums
+
+
+def calibration_scope(checkpoint, tool_catalog, model_file, catalog_precision, threads):
     canonical = json.dumps(sorted(tool_catalog, key=lambda tool: tool["name"]), sort_keys=True)
     return {
         "catalog_sha256": sha256(canonical.encode()).hexdigest(),
-        "checkpoint_sha256": checksums,
+        "checkpoint_sha256": checkpoint_checksums(checkpoint, model_file),
         "catalog_precision": catalog_precision,
         "threads": threads, "onnxruntime": ort.__version__,
         "score": "maximum embedding cosine",
@@ -277,6 +352,7 @@ def main():
     parser.add_argument("--model-file", default="embedding-int8.onnx")
     parser.add_argument("--compare-model-file", help="evaluate a second ONNX graph over the same requests")
     parser.add_argument("--hybrid", action="store_true", help="add fixed TF-IDF and name-weighted BM25 scores")
+    parser.add_argument("--catalog-cache", type=Path, metavar="DIR", help="reuse encoded catalog vectors from disk")
     parser.add_argument("--catalog-precision", choices=["float32", "int8"], default="float32")
     parser.add_argument("--limit", type=int, default=5)
     parser.add_argument("--min-score", type=float)
@@ -304,7 +380,8 @@ def main():
 
     def load(model_file):
         return OnnxToolRank(args.checkpoint, tools, threads=args.threads, model_file=model_file,
-                            catalog_precision=args.catalog_precision, hybrid=args.hybrid and args.calibrate is None)
+                            catalog_precision=args.catalog_precision, hybrid=args.hybrid and args.calibrate is None,
+                            cache_dir=args.catalog_cache)
 
     if args.calibrate:
         if not tools:
