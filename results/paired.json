@@ -1,0 +1,278 @@
+{
+  "plain": {
+    "bge": {
+      "family_macro_delta": 0.08333333333333333,
+      "paired_cluster_bootstrap_95": [
+        0.0,
+        0.16666666666666669
+      ],
+      "families": 4,
+      "candidate_misses": [
+        {
+          "query_id": "conservation/record_condition/0",
+          "top1": "conservation/log_treatment",
+          "reference_top1": "textiles/change_needle"
+        },
+        {
+          "query_id": "school_zones/log_pickup/0",
+          "top1": "beekeeping/replace_queen",
+          "reference_top1": "beekeeping/replace_queen"
+        },
+        {
+          "query_id": "school_zones/log_pickup/2",
+          "top1": "school_zones/set_pickup_delegate",
+          "reference_top1": "school_zones/set_pickup_delegate"
+        },
+        {
+          "query_id": "textiles/change_needle/0",
+          "top1": "conservation/log_treatment",
+          "reference_top1": "conservation/log_treatment"
+        }
+      ]
+    },
+    "scout": {
+      "family_macro_delta": 0.05555555555555555,
+      "paired_cluster_bootstrap_95": [
+        0.0,
+        0.16666666666666666
+      ],
+      "families": 4,
+      "candidate_misses": [
+        {
+          "query_id": "conservation/record_condition/0",
+          "top1": "conservation/log_treatment",
+          "reference_top1": "textiles/change_needle"
+        },
+        {
+          "query_id": "school_zones/log_pickup/0",
+          "top1": "beekeeping/replace_queen",
+          "reference_top1": "beekeeping/replace_queen"
+        },
+        {
+          "query_id": "school_zones/log_pickup/2",
+          "top1": "school_zones/set_pickup_delegate",
+          "reference_top1": "school_zones/set_pickup_delegate"
+        },
+        {
+          "query_id": "textiles/change_needle/0",
+          "top1": "conservation/log_treatment",
+          "reference_top1": "conservation/request_treatment"
+        }
+      ]
+    },
+    "rex": {
+      "family_macro_delta": 0.1388888888888889,
+      "paired_cluster_bootstrap_95": [
+        0.0,
+        0.2777777777777778
+      ],
+      "families": 4,
+      "candidate_misses": [
+        {
+          "query_id": "conservation/record_condition/0",
+          "top1": "conservation/log_treatment",
+          "reference_top1": "conservation/log_treatment"
+        },
+        {
+          "query_id": "school_zones/log_pickup/0",
+          "top1": "beekeeping/replace_queen",
+          "reference_top1": "beekeeping/replace_queen"
+        },
+        {
+          "query_id": "school_zones/log_pickup/2",
+          "top1": "school_zones/set_pickup_delegate",
+          "reference_top1": "school_zones/set_pickup_delegate"
+        },
+        {
+          "query_id": "textiles/change_needle/0",
+          "top1": "conservation/log_treatment",
+          "reference_top1": "textiles/adjust_tension"
+        }
+      ]
+    }
+  },
+  "mcp": {
+    "bge": {
+      "family_macro_delta": 0.05555555555555555,
+      "paired_cluster_bootstrap_95": [
+        0.0,
+        0.1111111111111111
+      ],
+      "families": 4,
+      "candidate_misses": [
+        {
+          "query_id": "conservation/log_treatment/1",
+          "top1": "conservation/record_condition",
+          "reference_top1": "conservation/log_treatment"
+        },
+        {
+          "query_id": "school_zones/log_pickup/0",
+          "top1": "beekeeping/replace_queen",
+          "reference_top1": "beekeeping/replace_queen"
+        },
+        {
+          "query_id": "school_zones/log_pickup/2",
+          "top1": "school_zones/set_pickup_delegate",
+          "reference_top1": "school_zones/set_pickup_delegate"
+        },
+        {
+          "query_id": "textiles/change_needle/0",
+          "top1": "conservation/record_condition",
+          "reference_top1": "conservation/request_treatment"
+        }
+      ]
+    },
+    "scout": {
+      "family_macro_delta": 0.05555555555555555,
+      "paired_cluster_bootstrap_95": [
+        0.0,
+        0.16666666666666666
+      ],
+      "families": 4,
+      "candidate_misses": [
+        {
+          "query_id": "conservation/log_treatment/1",
+          "top1": "conservation/record_condition",
+          "reference_top1": "conservation/record_condition"
+        },
+        {
+          "query_id": "school_zones/log_pickup/0",
+          "top1": "beekeeping/replace_queen",
+          "reference_top1": "beekeeping/replace_queen"
+        },
+        {
+          "query_id": "school_zones/log_pickup/2",
+          "top1": "school_zones/set_pickup_delegate",
+          "reference_top1": "school_zones/set_pickup_delegate"
+        },
+        {
+          "query_id": "textiles/change_needle/0",
+          "top1": "conservation/record_condition",
+          "reference_top1": "conservation/request_treatment"
+        }
+      ]
+    },
+    "rex": {
+      "family_macro_delta": 0.05555555555555555,
+      "paired_cluster_bootstrap_95": [
+        0.0,
+        0.1111111111111111
+      ],
+      "families": 4,
+      "candidate_misses": [
+        {
+          "query_id": "conservation/log_treatment/1",
+          "top1": "conservation/record_condition",
+          "reference_top1": "conservation/log_treatment"
+        },
+        {
+          "query_id": "school_zones/log_pickup/0",
+          "top1": "beekeeping/replace_queen",
+          "reference_top1": "school_zones/set_pickup_delegate"
+        },
+        {
+          "query_id": "school_zones/log_pickup/2",
+          "top1": "school_zones/set_pickup_delegate",
+          "reference_top1": "school_zones/set_pickup_delegate"
+        },
+        {
+          "query_id": "textiles/change_needle/0",
+          "top1": "conservation/record_condition",
+          "reference_top1": "textiles/change_needle"
+        }
+      ]
+    }
+  },
+  "openai": {
+    "bge": {
+      "family_macro_delta": 0.05555555555555555,
+      "paired_cluster_bootstrap_95": [
+        0.0,
+        0.1111111111111111
+      ],
+      "families": 4,
+      "candidate_misses": [
+        {
+          "query_id": "conservation/request_treatment/1",
+          "top1": "conservation/log_treatment",
+          "reference_top1": "conservation/request_treatment"
+        },
+        {
+          "query_id": "school_zones/log_pickup/0",
+          "top1": "beekeeping/replace_queen",
+          "reference_top1": "beekeeping/replace_queen"
+        },
+        {
+          "query_id": "school_zones/log_pickup/2",
+          "top1": "school_zones/set_pickup_delegate",
+          "reference_top1": "school_zones/set_pickup_delegate"
+        },
+        {
+          "query_id": "textiles/change_needle/0",
+          "top1": "conservation/request_treatment",
+          "reference_top1": "conservation/request_treatment"
+        }
+      ]
+    },
+    "scout": {
+      "family_macro_delta": 0.027777777777777776,
+      "paired_cluster_bootstrap_95": [
+        0.0,
+        0.08333333333333333
+      ],
+      "families": 4,
+      "candidate_misses": [
+        {
+          "query_id": "conservation/request_treatment/1",
+          "top1": "conservation/log_treatment",
+          "reference_top1": "conservation/request_treatment"
+        },
+        {
+          "query_id": "school_zones/log_pickup/0",
+          "top1": "beekeeping/replace_queen",
+          "reference_top1": "beekeeping/replace_queen"
+        },
+        {
+          "query_id": "school_zones/log_pickup/2",
+          "top1": "school_zones/set_pickup_delegate",
+          "reference_top1": "school_zones/set_pickup_delegate"
+        },
+        {
+          "query_id": "textiles/change_needle/0",
+          "top1": "conservation/request_treatment",
+          "reference_top1": "conservation/request_treatment"
+        }
+      ]
+    },
+    "rex": {
+      "family_macro_delta": 0.1111111111111111,
+      "paired_cluster_bootstrap_95": [
+        0.0,
+        0.2222222222222222
+      ],
+      "families": 4,
+      "candidate_misses": [
+        {
+          "query_id": "conservation/request_treatment/1",
+          "top1": "conservation/log_treatment",
+          "reference_top1": "conservation/log_treatment"
+        },
+        {
+          "query_id": "school_zones/log_pickup/0",
+          "top1": "beekeeping/replace_queen",
+          "reference_top1": "school_zones/set_pickup_delegate"
+        },
+        {
+          "query_id": "school_zones/log_pickup/2",
+          "top1": "school_zones/set_pickup_delegate",
+          "reference_top1": "school_zones/set_pickup_delegate"
+        },
+        {
+          "query_id": "textiles/change_needle/0",
+          "top1": "conservation/request_treatment",
+          "reference_top1": "textiles/adjust_tension"
+        }
+      ]
+    }
+  }
+}

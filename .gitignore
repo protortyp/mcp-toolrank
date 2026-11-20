@@ -1,0 +1,6 @@
+.venv/
+.work/
+artifacts/
+__pycache__/
+
+dist/

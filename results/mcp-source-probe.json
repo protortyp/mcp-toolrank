@@ -1,0 +1,40 @@
+{
+  "shard_revision": "0df3cf37f2abefb380370cfb02eabea2a35ae782",
+  "shard": "Kimi-K2/train-00000-of-00040.parquet",
+  "atlas_template_revision": "f8c0e6e8adf0b76a70cc706ad0bb9f96252728eb",
+  "atlas_template_server_names": 36,
+  "counts": {
+    "rows": 12963,
+    "all_labels_resolved": 8404,
+    "single_tool_resolved": 0,
+    "all_labels_linked_to_server": 8404,
+    "all_targets_have_candidate_permissive_sources": 3781,
+    "direct_atlas_server_name_overlap": 169
+  },
+  "candidate_distinct_repositories": 109,
+  "candidate_distinct_target_tools": 648,
+  "candidate_license_declarations": {
+    "mit": 3523,
+    "apache-2.0": 194,
+    "isc": 37,
+    "bsd-3-clause": 27
+  },
+  "top_candidate_repositories": {
+    "gongrzhe/office-word-mcp-server": 107,
+    "yokingma/time-mcp": 100,
+    "aakarsh-sasi/memory-bank-mcp": 98,
+    "waldzellai/waldzell-mcp": 98,
+    "falahgs/flux-imagegen-mcp-server": 89,
+    "quazaai/unitymcpintegration": 83,
+    "pinkpixel-dev/mcpollinations": 82,
+    "iamwavecut/mcp-think": 80,
+    "terryso/mcp-pinterest": 78,
+    "alxspiker/windows-command-line-mcp-server": 72,
+    "gongrzhe/terminal-controller-mcp": 70,
+    "cfdude/super-shell-mcp": 70,
+    "jonafly/rednote-mcp": 69,
+    "knowitall-wiki/mcpollinations": 68,
+    "ymadd/shadcn-ui-mcp-server": 67
+  },
+  "verification_scope": "Atlas exclusion uses direct server-name matching only. Repository aliases and source license revisions still need verification."
+}

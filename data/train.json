@@ -1,0 +1,420 @@
+[
+  {
+    "family": "warehouse",
+    "tools": [
+      {
+        "name": "reserve_stock",
+        "description": "Hold units of a warehouse item for an order.",
+        "queries": [
+          "Put five blue units aside for the customer.",
+          "Can you make sure those pieces aren't allocated to someone else?"
+        ]
+      },
+      {
+        "name": "release_reservation",
+        "description": "Return held inventory to available stock.",
+        "queries": [
+          "The order fell through so free its reserved units.",
+          "Undo the hold against those ten items."
+        ]
+      },
+      {
+        "name": "count_stock",
+        "description": "Read current physical on-hand inventory for an item.",
+        "queries": [
+          "How many of these are actually in the building?",
+          "Give me the latest shelf count for this SKU."
+        ]
+      },
+      {
+        "name": "adjust_stock",
+        "description": "Correct the recorded inventory after a physical count.",
+        "queries": [
+          "The shelf count was off by three, fix the inventory record.",
+          "Book the discrepancy against the inventory balance."
+        ]
+      }
+    ],
+    "none": []
+  },
+  {
+    "family": "scheduling",
+    "tools": [
+      {
+        "name": "check_availability",
+        "description": "Find time windows with no scheduling conflicts.",
+        "queries": [
+          "Which times are open Thursday for both speakers?",
+          "Find me half an hour when neither of us is booked."
+        ]
+      },
+      {
+        "name": "create_booking",
+        "description": "Add an appointment to the calendar.",
+        "queries": [
+          "Book the quarterly review for 10 on Wednesday.",
+          "Put me down for a call with Mina on Friday."
+        ]
+      },
+      {
+        "name": "move_booking",
+        "description": "Change the date or time of an existing appointment.",
+        "queries": [
+          "Push tomorrow's standup back an hour.",
+          "Move our existing call to after lunch."
+        ]
+      },
+      {
+        "name": "cancel_booking",
+        "description": "Remove an existing appointment.",
+        "queries": [
+          "Scratch today's one-on-one.",
+          "Take the consultation off my calendar."
+        ]
+      }
+    ],
+    "none": []
+  },
+  {
+    "family": "translations",
+    "tools": [
+      {
+        "name": "translate_text",
+        "description": "Convert written content into a requested language.",
+        "queries": [
+          "I need this paragraph in Korean.",
+          "Put these instructions into plain Italian."
+        ]
+      },
+      {
+        "name": "detect_language",
+        "description": "Identify which language a passage is written in.",
+        "queries": [
+          "Can you tell what language the label uses?",
+          "Is this written in Slovak or Czech?"
+        ]
+      },
+      {
+        "name": "transliterate",
+        "description": "Rewrite text in another script while retaining pronunciation.",
+        "queries": [
+          "Spell this name with Latin letters the way it sounds.",
+          "Convert the Cyrillic spelling into Roman characters."
+        ]
+      },
+      {
+        "name": "define_term",
+        "description": "Give the meaning and usage of a dictionary entry.",
+        "queries": [
+          "What does this word mean in this sentence?",
+          "Show the dictionary sense of that expression."
+        ]
+      }
+    ],
+    "none": []
+  },
+  {
+    "family": "billing",
+    "tools": [
+      {
+        "name": "get_invoice",
+        "description": "Fetch the stored invoice record and its line items.",
+        "queries": [
+          "Pull up the bill from last month with all the charges.",
+          "Find the original invoice for the second delivery."
+        ]
+      },
+      {
+        "name": "create_credit",
+        "description": "Issue a credit against a customer's invoice balance.",
+        "queries": [
+          "Take the duplicate charge off their balance.",
+          "Apply a credit for the defective unit on this bill."
+        ]
+      },
+      {
+        "name": "reconcile_payment",
+        "description": "Match a received payment to the correct invoice.",
+        "queries": [
+          "That incoming wire is for the August bill, link them.",
+          "The money arrived yesterday but the invoice still looks unpaid."
+        ]
+      },
+      {
+        "name": "send_reminder",
+        "description": "Notify a customer about an unpaid bill.",
+        "queries": [
+          "Remind them payment is overdue.",
+          "Ask the customer to pay the outstanding invoice."
+        ]
+      }
+    ],
+    "none": []
+  },
+  {
+    "family": "documents",
+    "tools": [
+      {
+        "name": "find_document",
+        "description": "Search document titles and text for matching files.",
+        "queries": [
+          "Find the notes where we discussed remote onboarding.",
+          "I don't remember the filename, only the phrase delayed approval."
+        ]
+      },
+      {
+        "name": "compare_versions",
+        "description": "Show textual differences between revisions of a document.",
+        "queries": [
+          "What changed between today's draft and Monday's?",
+          "Line up the two versions and show their edits."
+        ]
+      },
+      {
+        "name": "restore_version",
+        "description": "Make a prior saved revision the current document.",
+        "queries": [
+          "Roll the policy document back to yesterday's copy.",
+          "Undo the last version update by restoring the earlier file."
+        ]
+      },
+      {
+        "name": "list_versions",
+        "description": "Show the revision history and timestamps of a file.",
+        "queries": [
+          "When was this memo edited?",
+          "List all saved drafts of this particular file."
+        ]
+      }
+    ],
+    "none": []
+  },
+  {
+    "family": "media",
+    "tools": [
+      {
+        "name": "trim_audio",
+        "description": "Cut an audio recording to a selected time range.",
+        "queries": [
+          "Keep only the first thirty seconds of the clip.",
+          "I just need the segment between 1:15 and 2:00."
+        ]
+      },
+      {
+        "name": "normalize_audio",
+        "description": "Adjust loudness of a recording to a target level.",
+        "queries": [
+          "Bring this interview up to the standard playback volume.",
+          "Make the spoken sections about as loud as our other episodes."
+        ]
+      },
+      {
+        "name": "extract_audio",
+        "description": "Save the soundtrack from a video as an audio file.",
+        "queries": [
+          "I only want the sound from this MP4.",
+          "Can you pull out the voice track without the pictures?"
+        ]
+      },
+      {
+        "name": "transcribe_audio",
+        "description": "Convert spoken words in a recording to written text.",
+        "queries": [
+          "Write out what the guests say in this recording.",
+          "I need a transcript of the raw interview."
+        ]
+      }
+    ],
+    "none": []
+  },
+  {
+    "family": "packing",
+    "tools": [
+      {
+        "name": "print_label",
+        "description": "Render a ready-to-print address label for a parcel.",
+        "queries": [
+          "Make a label I can stick on this box.",
+          "Generate the printable label for the recipient address."
+        ]
+      },
+      {
+        "name": "validate_address",
+        "description": "Check whether a shipping address is complete and deliverable.",
+        "queries": [
+          "Will this address actually work for a delivery?",
+          "Check whether the postcode matches the destination."
+        ]
+      },
+      {
+        "name": "estimate_postage",
+        "description": "Calculate shipping charges for a specified parcel.",
+        "queries": [
+          "How much to send this two-kilo box?",
+          "Price out delivery to the customer before I confirm."
+        ]
+      },
+      {
+        "name": "track_delivery",
+        "description": "Fetch carrier scans and the current delivery status.",
+        "queries": [
+          "Where did the carrier last see this parcel?",
+          "Has the shipment made it to the recipient yet?"
+        ]
+      }
+    ],
+    "none": []
+  },
+  {
+    "family": "workshops",
+    "tools": [
+      {
+        "name": "register_attendee",
+        "description": "Add a named attendee to a workshop roster.",
+        "queries": [
+          "Sign Leo up for the Saturday class.",
+          "Please give this person a place in the workshop."
+        ]
+      },
+      {
+        "name": "mark_attendance",
+        "description": "Record that a registered attendee arrived at a workshop.",
+        "queries": [
+          "Ren is here, check them in.",
+          "Mark the participant present for today's session."
+        ]
+      },
+      {
+        "name": "waitlist_attendee",
+        "description": "Queue an attendee for a place when a workshop is full.",
+        "queries": [
+          "Add my name in case a space opens up.",
+          "The seminar is sold out, can I join the queue?"
+        ]
+      },
+      {
+        "name": "withdraw_attendee",
+        "description": "Remove a participant from a workshop roster and free the seat.",
+        "queries": [
+          "Jo can't come anymore, give the place back.",
+          "Drop the attendee from the workshop list."
+        ]
+      }
+    ],
+    "none": []
+  },
+  {
+    "family": "plants",
+    "tools": [
+      {
+        "name": "log_watering",
+        "description": "Record when a plant was watered.",
+        "queries": [
+          "I watered all the east window pots just now.",
+          "Add today's watering to the herb log."
+        ]
+      },
+      {
+        "name": "next_watering",
+        "description": "Estimate when a plant needs to be watered again.",
+        "queries": [
+          "When should I water the rubber plant next?",
+          "Which pots are due for water?"
+        ]
+      },
+      {
+        "name": "log_repotting",
+        "description": "Record that a plant was moved to a new pot.",
+        "queries": [
+          "Save the date I transferred the lemon tree.",
+          "Update the history now that the fern is in a bigger container."
+        ]
+      },
+      {
+        "name": "measure_growth",
+        "description": "Compare recorded plant heights over time.",
+        "queries": [
+          "How much taller are the seedlings this week?",
+          "Chart how the tomato heights have changed."
+        ]
+      }
+    ],
+    "none": []
+  },
+  {
+    "family": "reading",
+    "tools": [
+      {
+        "name": "borrow_book",
+        "description": "Check out an available library copy to a patron.",
+        "queries": [
+          "I'd like to take this copy home.",
+          "Lend this edition to the member."
+        ]
+      },
+      {
+        "name": "hold_book",
+        "description": "Request the next available copy of a library title.",
+        "queries": [
+          "Put me next in line for that novel.",
+          "Every copy is checked out, save one for me when it comes back."
+        ]
+      },
+      {
+        "name": "renew_loan",
+        "description": "Extend the due date of a checked-out library book.",
+        "queries": [
+          "I need another week with the book I have.",
+          "Can I keep this copy beyond Friday?"
+        ]
+      },
+      {
+        "name": "return_book",
+        "description": "Check a borrowed library copy back into the collection.",
+        "queries": [
+          "I brought the borrowed atlas back.",
+          "Close the loan and put the copy back on the shelf."
+        ]
+      }
+    ],
+    "none": []
+  },
+  {
+    "family": "geometry",
+    "tools": [
+      {
+        "name": "calculate_area",
+        "description": "Calculate the surface area enclosed by a flat shape.",
+        "queries": [
+          "How much fabric would cover this round piece?",
+          "Find the number of square meters inside the outline."
+        ]
+      },
+      {
+        "name": "calculate_perimeter",
+        "description": "Calculate the length around a flat shape.",
+        "queries": [
+          "How much edging goes around the border?",
+          "Measure the full distance along the outer edge."
+        ]
+      },
+      {
+        "name": "calculate_volume",
+        "description": "Calculate the capacity enclosed by a solid shape.",
+        "queries": [
+          "How many cubic centimeters would fit inside the cylinder?",
+          "Find the internal capacity of the box."
+        ]
+      },
+      {
+        "name": "calculate_surface_area",
+        "description": "Calculate the sum of exterior face areas of a solid shape.",
+        "queries": [
+          "How much paint covers every face of the cube?",
+          "Add up the area of all external faces."
+        ]
+      }
+    ],
+    "none": []
+  }
+]

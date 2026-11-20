@@ -1,0 +1,26 @@
+{
+  "base": "BAAI/bge-small-en-v1.5",
+  "base_revision": "5c38ec7c405ec4b44b94cc5a9bb96e735b38267a",
+  "training_sha256": "e3d9a8cd07089b3f2214bd7b9138c07532d4085822dfa8370b0669ba4c98be64",
+  "config": {
+    "training": ".work/next/modern-expanded/train.json",
+    "output": "artifacts/modern-conservative-11",
+    "record": "results/training/modern-conservative-11.json",
+    "device": "cuda",
+    "seed": 11,
+    "batch": 32,
+    "epochs": 1,
+    "lr": 5e-06,
+    "temperature": 0.05
+  },
+  "training_autocast": "bfloat16",
+  "epoch_losses": [
+    1.2136473560997345
+  ],
+  "weights_sha256": "16c609a9331a9c2786500722f96afdb19e901965cf1419e3e966010051b9655b",
+  "queries": 5098,
+  "tools": 263,
+  "max_seq_length": 512,
+  "torch": "2.8.0+cu128",
+  "gpu": "NVIDIA GeForce RTX 3090"
+}

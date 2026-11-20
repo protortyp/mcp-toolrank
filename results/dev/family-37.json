@@ -1,0 +1,58 @@
+{
+  "model": "artifacts/family-37",
+  "parameters": 33360000,
+  "precision": "torch.float32",
+  "split": "dev",
+  "schema": "plain",
+  "max_seq_length": 128,
+  "retrieval_batch": 32,
+  "performance": {
+    "device": "cuda",
+    "gpu": "NVIDIA GeForce RTX 3090",
+    "cpu_threads": 4,
+    "torch": "2.8.0+cu128",
+    "platform": "Linux-7.0.0-42-generic-x86_64-with-glibc2.39",
+    "cpu_model": "AMD Ryzen 9 5950X 16-Core Processor",
+    "query_p50_ms": 18.277816008776426,
+    "query_p95_ms": 21.054165030363947,
+    "queries_per_second_batch16": 932.1069717408739,
+    "peak_rss_after_profiling_mib": 1349.1640625,
+    "cuda_peak_allocated_mib": 143.1923828125
+  },
+  "documents_per_second": 325.0765557880441,
+  "documents": 9,
+  "queries": 24,
+  "missing_judged_tool_ids": 0,
+  "metrics": {
+    "recall@1": 0.7777777777777778,
+    "recall@5": 1.0,
+    "recall@10": 1.0,
+    "ndcg@10": 0.9107105144841319,
+    "complete@10": 1.0
+  },
+  "per_family": {
+    "coffee": {
+      "recall@1": 1.0,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "ndcg@10": 1.0,
+      "complete@10": 1.0
+    },
+    "printing": {
+      "recall@1": 0.6666666666666666,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "ndcg@10": 0.8551549589285763,
+      "complete@10": 1.0
+    },
+    "trails": {
+      "recall@1": 0.6666666666666666,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "ndcg@10": 0.8769765845238192,
+      "complete@10": 1.0
+    }
+  },
+  "benchmark_peak_rss_mib": 1412.3828125,
+  "benchmark_cuda_peak_mib": 145.14453125
+}

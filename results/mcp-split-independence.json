@@ -1,0 +1,13 @@
+{
+  "train_dev_repository": 0,
+  "train_dev_tool_text": 0,
+  "train_dev_query": 0,
+  "train_etom_repository": 0,
+  "train_etom_tool_text": 0,
+  "train_etom_query": 0,
+  "dev_etom_repository": 0,
+  "dev_etom_tool_text": 0,
+  "dev_etom_query": 0,
+  "train_etom_repository_alias": 0,
+  "dev_etom_repository_alias": 0
+}

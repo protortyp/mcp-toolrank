@@ -1,0 +1,15 @@
+{
+  "candidate_token_limit": 128,
+  "documents_over_limit": 28036,
+  "total_documents": 44453,
+  "one_or_more_positive_documents_over_limit": {
+    "queries": 5283,
+    "candidate_ndcg@10": 0.23218529208468933,
+    "scout_ndcg@10": 0.2693911481739385
+  },
+  "all_positive_documents_within_limit": {
+    "queries": 2678,
+    "candidate_ndcg@10": 0.33341549472971155,
+    "scout_ndcg@10": 0.32043918285819467
+  }
+}

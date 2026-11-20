@@ -1,0 +1,89 @@
+{
+  "model": "TaylorAI/bge-micro-v2",
+  "parameters": 17389824,
+  "precision": "torch.float32",
+  "split": "modern-dev",
+  "schema": "plain",
+  "max_seq_length": 512,
+  "retrieval_batch": 32,
+  "performance": null,
+  "corpus_sha256": "0d177d7648c4ab8b73a67179b7aeec0638e9480163c8bb23b1290edf451698e5",
+  "documents_per_second": 132.73055448008267,
+  "documents": 34,
+  "queries": 872,
+  "missing_judged_tool_ids": 0,
+  "metrics": {
+    "recall@1": 0.30485474006116214,
+    "recall@5": 0.8505351681957186,
+    "recall@10": 0.9753440366972477,
+    "ndcg@10": 0.8157659137392361,
+    "complete@10": 0.9415137614678899
+  },
+  "per_family": {
+    "ergodiclabs/twotruthsandatwist": {
+      "recall@1": 0.37083333333333335,
+      "recall@5": 0.9760416666666668,
+      "recall@10": 0.9916666666666668,
+      "ndcg@10": 0.9127686075763082,
+      "complete@10": 0.98125
+    },
+    "magic-sauce/quickchart-mcp-server": {
+      "recall@1": 0.5220588235294118,
+      "recall@5": 0.9779411764705882,
+      "recall@10": 1.0,
+      "ndcg@10": 0.9531552357115406,
+      "complete@10": 1.0
+    },
+    "ddkang1/mcp-think-tool": {
+      "recall@1": 0.17975567190226874,
+      "recall@5": 0.725567190226876,
+      "recall@10": 0.9594240837696335,
+      "ndcg@10": 0.683375762140272,
+      "complete@10": 0.9031413612565445
+    },
+    "linyimin0812/project-ingest-mcp": {
+      "recall@1": 0.3928571428571428,
+      "recall@5": 0.9404761904761905,
+      "recall@10": 0.9642857142857143,
+      "ndcg@10": 0.8834069582301861,
+      "complete@10": 0.9285714285714286
+    },
+    "junmer/mcp-server-lottiefiles": {
+      "recall@1": 0.42063492063492064,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "ndcg@10": 0.9923543608712558,
+      "complete@10": 1.0
+    },
+    "zeyynepkaraduman/memory-palace-mcp": {
+      "recall@1": 0.3284671532846715,
+      "recall@5": 0.8588807785888077,
+      "recall@10": 0.9695863746958636,
+      "ndcg@10": 0.8540049764992212,
+      "complete@10": 0.927007299270073
+    },
+    "ndchikin/reference-mcp": {
+      "recall@1": 0.59375,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "ndcg@10": 0.9949825493217617,
+      "complete@10": 1.0
+    },
+    "kkjdaniel/bgg-mcp": {
+      "recall@1": 0.5,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "ndcg@10": 0.9746170130607796,
+      "complete@10": 1.0
+    },
+    "openags/paper-search-mcp": {
+      "recall@1": 1.0,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "ndcg@10": 1.0,
+      "complete@10": 1.0
+    }
+  },
+  "benchmark_peak_rss_mib": 1447.21484375,
+  "benchmark_cuda_peak_mib": 160.26171875
+}

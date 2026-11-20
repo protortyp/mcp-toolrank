@@ -1,0 +1,38 @@
+{
+  "sha256": {
+    "dev.json": "9cf67cfaf7c4ba5b3b74b443f3ab6e3988862bc673190155af2b2583675f99b3",
+    "performance.json": "4cea711de476a89ae012222f9de9d400d16e2f976ecb905e06da667a9dbe4d54",
+    "test.json": "7382c27981f2cfa318a6612199d41d2c13eaba9ba5406e995afb8607a651d14e",
+    "train.json": "6e04f2328f8be9c74c6eba1e0ff9cb3f19dcc87a6bbbb73bc5c1a4b6409b0cf1"
+  },
+  "train_vs_dev": {
+    "families": 0,
+    "tool_ids": 0,
+    "tool_names": 0,
+    "normalized_queries": 0
+  },
+  "train_vs_test": {
+    "families": 0,
+    "tool_ids": 0,
+    "tool_names": 0,
+    "normalized_queries": 0
+  },
+  "dev_vs_test": {
+    "families": 0,
+    "tool_ids": 0,
+    "tool_names": 0,
+    "normalized_queries": 0
+  },
+  "train_vs_toolret": {
+    "queries": {
+      "exact_distinct_strings": 0,
+      "train_strings_with_max_char4_cosine_ge_0_8": 0,
+      "max_char4_cosine": 0.4628528545997305
+    },
+    "tool_text": {
+      "exact_distinct_strings": 0,
+      "train_strings_with_max_char4_cosine_ge_0_8": 0,
+      "max_char4_cosine": 0.5736321543411488
+    }
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "model": "BAAI/bge-small-en-v1.5",
+  "parameters": 33360000,
+  "precision": "torch.float32",
+  "split": "etom",
+  "schema": "openai",
+  "max_seq_length": 512,
+  "retrieval_batch": 24,
+  "performance": null,
+  "dataset_audit": {
+    "revision": "790f28727f567b88918420d163c524d46644a694",
+    "sha256": {
+      "mcp_registry.json": "3c362877ec5733cf0fa1d3451b2f353fb97674e66075da0d7a6f41c0f98cc608",
+      "level_1.json": "9b6fdab8926cb5e21abddf0178f018de27d5b9636bd549b45798898b92eee028",
+      "level_2.json": "67abbf2574eda7c48a455b8d537ec218219e774ac7814b48f138d5eb662f10e2",
+      "level_5.json": "3fbbc6445c69176e84d7b514b9558433d28ed8592d95c14e1e4d28eba39129ae"
+    },
+    "documents": 2375,
+    "queries_by_level": {
+      "etom-l1": 781,
+      "etom-l2": 768,
+      "etom-l5": 91
+    },
+    "skipped_queries_with_incomplete_qrels": {
+      "l2": 5
+    }
+  },
+  "documents_per_second": 619.2043736506586,
+  "documents": 2375,
+  "queries": 1640,
+  "missing_judged_tool_ids": 0,
+  "metrics": {
+    "recall@1": 0.7657474868578806,
+    "recall@5": 0.9157551723077868,
+    "recall@10": 0.9443073872544498,
+    "ndcg@10": 0.8769492822616508,
+    "complete@10": 0.9244673983214977,
+    "hit@1": 0.8056810845706908,
+    "hit@5": 0.9418979987088444,
+    "hit@10": 0.9632020658489348
+  },
+  "per_family": {
+    "etom-l1": {
+      "recall@1": 0.8629961587708067,
+      "recall@5": 0.9795134443021767,
+      "recall@10": 0.9871959026888605,
+      "ndcg@10": 0.9322665872184082,
+      "complete@10": 0.9871959026888605,
+      "hit@1": 0.8629961587708067,
+      "hit@5": 0.9795134443021767,
+      "hit@10": 0.9871959026888605
+    },
+    "etom-l2": {
+      "recall@1": 0.6668526785714285,
+      "recall@5": 0.8509176587301587,
+      "recall@10": 0.9006928943452381,
+      "ndcg@10": 0.8206956166741152,
+      "complete@10": 0.8606770833333334,
+      "hit@1": 0.7473958333333334,
+      "hit@5": 0.9036458333333334,
+      "hit@10": 0.9388020833333334
+    }
+  },
+  "benchmark_peak_rss_mib": 1458.05859375,
+  "benchmark_cuda_peak_mib": 376.7587890625,
+  "abstention": {
+    "threshold": 0.5642685294151306,
+    "answerable_coverage": 0.9993544222078761,
+    "none_false_accept_rate": 0.43956043956043955,
+    "answerable_correct_at_1_with_threshold": 0.8056810845706908
+  }
+}

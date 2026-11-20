@@ -1,0 +1,12 @@
+{
+  "token_batch_shape": [
+    2,
+    512
+  ],
+  "providers": [
+    "CPUExecutionProvider"
+  ],
+  "max_abs_error": 1.3783574104309082e-07,
+  "selector_top": "calendar_search",
+  "passed": true
+}

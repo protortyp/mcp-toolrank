@@ -1,0 +1,150 @@
+[
+  {
+    "family": "conservation",
+    "tools": [
+      {
+        "name": "record_condition",
+        "description": "Save an inspection report that describes existing damage to a museum object.",
+        "queries": [
+          "While unpacking the bowl I noticed a hairline crack, add it to the object's file.",
+          "Where do I document the missing paint found during intake?",
+          "Save an inspection entry for the tear we just saw."
+        ]
+      },
+      {
+        "name": "request_treatment",
+        "description": "Open a proposal for stabilization or repair by a conservator.",
+        "queries": [
+          "The frame is flaking and needs a conservator to work on it.",
+          "Can we start the paperwork to mend the broken mount?",
+          "Please send the damaged textile for stabilization."
+        ]
+      },
+      {
+        "name": "log_treatment",
+        "description": "Record repair or stabilization work already completed on an object.",
+        "queries": [
+          "Note that the conservator finished reinforcing the binding yesterday.",
+          "Update the item file with the restoration that has just been done.",
+          "Attach the final notes for the stabilization work."
+        ]
+      }
+    ],
+    "none": [
+      "What would this painting fetch at auction?",
+      "Draft the audio guide narration for this exhibit.",
+      "Check next week's museum admission prices."
+    ]
+  },
+  {
+    "family": "school_zones",
+    "tools": [
+      {
+        "name": "set_pickup_delegate",
+        "description": "Authorize a different adult to collect a student from school.",
+        "queries": [
+          "Can my sister collect Sam at dismissal today?",
+          "Our neighbor needs permission to take our child home.",
+          "Add the other parent as an approved pickup person."
+        ]
+      },
+      {
+        "name": "log_pickup",
+        "description": "Record that a student has actually been collected from the school.",
+        "queries": [
+          "Jules already left with their guardian, enter that in the register.",
+          "Note that Dad collected them at 3:20.",
+          "Please sign out the child who just walked out with their aunt."
+        ]
+      },
+      {
+        "name": "change_bus_stop",
+        "description": "Update the boarding or drop-off location assigned to a student.",
+        "queries": [
+          "The afternoon driver should drop Lou at Oak Street from now on.",
+          "Can we switch to the library stop instead of the corner?",
+          "Change where Nia boards the school bus."
+        ]
+      }
+    ],
+    "none": [
+      "Find the student's grades for science.",
+      "Notify the cafeteria that Mia needs a vegetarian lunch.",
+      "What time does the theater show start?"
+    ]
+  },
+  {
+    "family": "beekeeping",
+    "tools": [
+      {
+        "name": "check_colony_weight",
+        "description": "Read logged weight measurements from a hive scale.",
+        "queries": [
+          "Did the hive get lighter since the last inspection?",
+          "Pull up Friday's reading for the box on the scale.",
+          "How much does the monitored colony weigh now?"
+        ]
+      },
+      {
+        "name": "log_swarm",
+        "description": "Record the observation of a swarm leaving or gathering near a colony.",
+        "queries": [
+          "A cluster took off from the hive this morning, write down the event.",
+          "Make a record of the bees massed on the branch next to the boxes.",
+          "I saw the colony swarm yesterday, capture that in the log."
+        ]
+      },
+      {
+        "name": "replace_queen",
+        "description": "Record a scheduled or completed introduction of a replacement queen to a colony.",
+        "queries": [
+          "Add the new queen introduction to the hive notes.",
+          "The queen is failing and we're putting in a replacement, record that action.",
+          "Schedule the colony to be requeened after the old one is removed."
+        ]
+      }
+    ],
+    "none": [
+      "Find me a supplier for unpainted hive boxes.",
+      "What's the pollen count forecast in town?",
+      "Can you identify this insect from a photo?"
+    ]
+  },
+  {
+    "family": "textiles",
+    "tools": [
+      {
+        "name": "wind_bobbin",
+        "description": "Prepare a spool of lower thread for sewing.",
+        "queries": [
+          "I ran out of thread underneath; fill another little spool.",
+          "How do I get a fresh supply of the underside thread ready?",
+          "Wind up more thread for the bottom of the machine."
+        ]
+      },
+      {
+        "name": "adjust_tension",
+        "description": "Change thread tension to correct loose or tight stitches.",
+        "queries": [
+          "I'm getting loops on the underside of the seam, fix the thread pull.",
+          "The seam puckers because the upper thread pulls too hard.",
+          "Balance the top and bottom threads so the stitch knots sit in the fabric."
+        ]
+      },
+      {
+        "name": "change_needle",
+        "description": "Choose and install a different sewing machine needle.",
+        "queries": [
+          "The point is bent, put in a fresh one.",
+          "Swap to the kind of needle that can go through this denim.",
+          "I think the old needle is causing skipped stitches; replace it."
+        ]
+      }
+    ],
+    "none": [
+      "Calculate the resale value of my sewing machine.",
+      "Remove the coffee stain from this shirt.",
+      "Send the pattern to a friend by email."
+    ]
+  }
+]

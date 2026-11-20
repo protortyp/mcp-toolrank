@@ -1,0 +1,101 @@
+[
+  {
+    "family": "coffee",
+    "tools": [
+      {
+        "name": "estimate_grind",
+        "description": "Find a grinder setting for a brew method.",
+        "queries": [
+          "What should I set the grinder to for a French press?",
+          "How coarse should these beans be for cold brew?"
+        ]
+      },
+      {
+        "name": "scale_recipe",
+        "description": "Calculate new ingredient quantities for a different batch size.",
+        "queries": [
+          "How much coffee and water if I double the batch?",
+          "Adjust this recipe for a liter instead of half a liter."
+        ]
+      },
+      {
+        "name": "log_tasting",
+        "description": "Record flavor notes for a tasting session.",
+        "queries": [
+          "Save that this batch tasted like berries and cocoa.",
+          "Add my impressions of today's espresso to the tasting history."
+        ]
+      }
+    ],
+    "none": [
+      "Order beans from the shop downtown.",
+      "Check the grinder's warranty status."
+    ]
+  },
+  {
+    "family": "printing",
+    "tools": [
+      {
+        "name": "check_queue",
+        "description": "Read the status of pending print jobs.",
+        "queries": [
+          "Has my report reached the top of the printer queue?",
+          "Which things are still waiting to print?"
+        ]
+      },
+      {
+        "name": "cancel_job",
+        "description": "Remove a print job before it completes.",
+        "queries": [
+          "Stop printing the draft I sent.",
+          "Remove my job from the printer queue."
+        ]
+      },
+      {
+        "name": "resume_job",
+        "description": "Restart a paused print job.",
+        "queries": [
+          "The jam is cleared, continue from where it stopped.",
+          "Unpause the brochure job."
+        ]
+      }
+    ],
+    "none": [
+      "Install more memory in the printer.",
+      "Can you convert the report to French first?"
+    ]
+  },
+  {
+    "family": "trails",
+    "tools": [
+      {
+        "name": "close_segment",
+        "description": "Mark a hiking trail segment unavailable.",
+        "queries": [
+          "Block access to the river footbridge until it's fixed.",
+          "Mark the south path as closed."
+        ]
+      },
+      {
+        "name": "check_conditions",
+        "description": "Read the latest trail surface and access conditions.",
+        "queries": [
+          "Did the storm make the ridge path muddy?",
+          "What is the condition of the loop after the rain?"
+        ]
+      },
+      {
+        "name": "log_hike",
+        "description": "Record a completed hike with route and duration.",
+        "queries": [
+          "Save that we took the lower loop in two hours.",
+          "Add yesterday's walk to the hike journal."
+        ]
+      }
+    ],
+    "none": [
+      "Recommend a good waterproof coat.",
+      "How far above sea level is the summit?"
+    ]
+  }
+]

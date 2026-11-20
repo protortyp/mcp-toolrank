@@ -1,0 +1,72 @@
+{
+  "model": "Lux1997/Tool-Embed-0.6B",
+  "parameters": 595776512,
+  "precision": "torch.float32",
+  "split": "etom",
+  "schema": "plain",
+  "max_seq_length": 512,
+  "retrieval_batch": 24,
+  "performance": null,
+  "dataset_audit": {
+    "revision": "790f28727f567b88918420d163c524d46644a694",
+    "sha256": {
+      "mcp_registry.json": "3c362877ec5733cf0fa1d3451b2f353fb97674e66075da0d7a6f41c0f98cc608",
+      "level_1.json": "9b6fdab8926cb5e21abddf0178f018de27d5b9636bd549b45798898b92eee028",
+      "level_2.json": "67abbf2574eda7c48a455b8d537ec218219e774ac7814b48f138d5eb662f10e2",
+      "level_5.json": "3fbbc6445c69176e84d7b514b9558433d28ed8592d95c14e1e4d28eba39129ae"
+    },
+    "documents": 2375,
+    "queries_by_level": {
+      "etom-l1": 781,
+      "etom-l2": 768,
+      "etom-l5": 91
+    },
+    "skipped_queries_with_incomplete_qrels": {
+      "l2": 5
+    }
+  },
+  "documents_per_second": 293.1200742522919,
+  "documents": 2375,
+  "queries": 1640,
+  "missing_judged_tool_ids": 0,
+  "metrics": {
+    "recall@1": 0.8427925850779304,
+    "recall@5": 0.9548587414307234,
+    "recall@10": 0.9708513941406129,
+    "ndcg@10": 0.9305944006690703,
+    "complete@10": 0.9502905100064558,
+    "hit@1": 0.8870238863783085,
+    "hit@5": 0.9780503550677857,
+    "hit@10": 0.987088444157521
+  },
+  "per_family": {
+    "etom-l1": {
+      "recall@1": 0.941101152368758,
+      "recall@5": 0.9961587708066582,
+      "recall@10": 1.0,
+      "ndcg@10": 0.9755135086424522,
+      "complete@10": 1.0,
+      "hit@1": 0.941101152368758,
+      "hit@5": 0.9961587708066582,
+      "hit@10": 1.0
+    },
+    "etom-l2": {
+      "recall@1": 0.7428199404761905,
+      "recall@5": 0.9128596230158731,
+      "recall@10": 0.9412093874007937,
+      "ndcg@10": 0.884914943211764,
+      "complete@10": 0.8997395833333334,
+      "hit@1": 0.83203125,
+      "hit@5": 0.9596354166666666,
+      "hit@10": 0.9739583333333334
+    }
+  },
+  "benchmark_peak_rss_mib": 4266.83203125,
+  "benchmark_cuda_peak_mib": 2540.95068359375,
+  "abstention": {
+    "threshold": 0.6128144860267639,
+    "answerable_coverage": 0.9993544222078761,
+    "none_false_accept_rate": 0.2857142857142857,
+    "answerable_correct_at_1_with_threshold": 0.8863783085861846
+  }
+}

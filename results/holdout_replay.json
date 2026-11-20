@@ -1,0 +1,62 @@
+{
+  "method": "NumPy dense score matrix and argmax",
+  "device": "cpu",
+  "results": {
+    "candidate": {
+      "plain": {
+        "correct": 32,
+        "total": 36
+      },
+      "mcp": {
+        "correct": 32,
+        "total": 36
+      },
+      "openai": {
+        "correct": 32,
+        "total": 36
+      }
+    },
+    "scout": {
+      "plain": {
+        "correct": 30,
+        "total": 36
+      },
+      "mcp": {
+        "correct": 30,
+        "total": 36
+      },
+      "openai": {
+        "correct": 31,
+        "total": 36
+      }
+    },
+    "bge": {
+      "plain": {
+        "correct": 29,
+        "total": 36
+      },
+      "mcp": {
+        "correct": 30,
+        "total": 36
+      },
+      "openai": {
+        "correct": 30,
+        "total": 36
+      }
+    },
+    "rex": {
+      "plain": {
+        "correct": 27,
+        "total": 36
+      },
+      "mcp": {
+        "correct": 30,
+        "total": 36
+      },
+      "openai": {
+        "correct": 28,
+        "total": 36
+      }
+    }
+  }
+}

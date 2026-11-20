@@ -1,0 +1,22 @@
+{
+  "model": "artifacts/inbatch-11",
+  "parameters": 33360000,
+  "precision": "torch.float32",
+  "split": "toolret",
+  "schema": "plain",
+  "max_seq_length": 128,
+  "retrieval_batch": 32,
+  "performance": {
+    "device": "cpu",
+    "gpu": null,
+    "cpu_threads": 4,
+    "torch": "2.8.0+cu128",
+    "platform": "Linux-7.0.0-42-generic-x86_64-with-glibc2.39",
+    "cpu_model": "AMD Ryzen 9 5950X 16-Core Processor",
+    "query_p50_ms": 12.750798370689154,
+    "query_p95_ms": 14.443987875711173,
+    "queries_per_second_batch16": 207.14316905149818,
+    "peak_rss_after_profiling_mib": 1010.3828125,
+    "cuda_peak_allocated_mib": null
+  }
+}

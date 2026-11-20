@@ -1,0 +1,22 @@
+{
+  "model": "Lux1997/Tool-Embed-0.6B",
+  "parameters": 595776512,
+  "precision": "torch.float32",
+  "split": "toolret",
+  "schema": "plain",
+  "max_seq_length": 8192,
+  "retrieval_batch": 32,
+  "performance": {
+    "device": "cpu",
+    "gpu": null,
+    "cpu_threads": 4,
+    "torch": "2.8.0+cu128",
+    "platform": "Linux-7.0.0-42-generic-x86_64-with-glibc2.39",
+    "cpu_model": "AMD Ryzen 9 5950X 16-Core Processor",
+    "query_p50_ms": 192.63991015031934,
+    "query_p95_ms": 212.47088738018647,
+    "queries_per_second_batch16": 9.79749931517309,
+    "peak_rss_after_profiling_mib": 4268.15234375,
+    "cuda_peak_allocated_mib": null
+  }
+}
