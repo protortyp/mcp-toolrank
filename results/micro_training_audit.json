@@ -1,0 +1,422 @@
+{
+  "revision": "15869a8d1885d71e2f5d72b03ba0e5f1df024992",
+  "source_sha256": "555f26b18a0c2c8f1194c3764911adf129c61cfd2361a14784484d2126813918",
+  "protocol_sha256": "6041b61a0f7c6c753abc985262b5b6b48cb3e9d0ce6196653f6b7a0fcad778b1",
+  "train_sha256": "e3d9a8cd07089b3f2214bd7b9138c07532d4085822dfa8370b0669ba4c98be64",
+  "development_sha256": "0d177d7648c4ab8b73a67179b7aeec0638e9480163c8bb23b1290edf451698e5",
+  "checkpoints": {
+    "labels-11": "ea65d195802ee1740479833a01bf98888b72206e590e5a87957e89561baf1fac",
+    "toolrank": "16c609a9331a9c2786500722f96afdb19e901965cf1419e3e966010051b9655b",
+    "bge-small": "3c9f31665447c8911517620762200d2245a2518d6e7208acc78cd9db317e21ad",
+    "micro": "792472b64c3ca1c725e55f6a9d2a58143d4ce6b3ffde05bf55bc8427cb3733c8"
+  },
+  "torch": "2.8.0+cu128",
+  "device": "NVIDIA GeForce RTX 3090",
+  "development": {
+    "tools": 34,
+    "queries": 872,
+    "families": 9,
+    "results": {
+      "labels-11/dense": {
+        "top_one_judgments": {
+          "judged_positive": 607,
+          "unjudged_other_repository": 235,
+          "unjudged_same_repository": 30
+        },
+        "hit_at_5": 857
+      },
+      "labels-11/hybrid": {
+        "top_one_judgments": {
+          "judged_positive": 620,
+          "unjudged_other_repository": 228,
+          "unjudged_same_repository": 24
+        },
+        "hit_at_5": 858
+      },
+      "toolrank/dense": {
+        "top_one_judgments": {
+          "judged_positive": 577,
+          "unjudged_other_repository": 273,
+          "unjudged_same_repository": 22
+        },
+        "hit_at_5": 855
+      },
+      "toolrank/hybrid": {
+        "top_one_judgments": {
+          "judged_positive": 620,
+          "unjudged_other_repository": 230,
+          "unjudged_same_repository": 22
+        },
+        "hit_at_5": 866
+      },
+      "bge-small/dense": {
+        "top_one_judgments": {
+          "judged_positive": 545,
+          "unjudged_same_repository": 53,
+          "unjudged_other_repository": 274
+        },
+        "hit_at_5": 823
+      },
+      "bge-small/hybrid": {
+        "top_one_judgments": {
+          "judged_positive": 611,
+          "unjudged_other_repository": 233,
+          "unjudged_same_repository": 28
+        },
+        "hit_at_5": 856
+      },
+      "micro/dense": {
+        "top_one_judgments": {
+          "unjudged_same_repository": 56,
+          "judged_positive": 576,
+          "unjudged_other_repository": 240
+        },
+        "hit_at_5": 852
+      },
+      "micro/hybrid": {
+        "top_one_judgments": {
+          "judged_positive": 598,
+          "unjudged_other_repository": 244,
+          "unjudged_same_repository": 30
+        },
+        "hit_at_5": 861
+      }
+    },
+    "paired_vs_student_hybrid": {
+      "toolrank/hybrid": {
+        "hit_at_1": {
+          "both_miss": 242,
+          "comparison_only_hit": 10,
+          "candidate_only_hit": 10,
+          "both_hit": 610,
+          "student_minus_comparator": {
+            "delta": 0.0,
+            "ci95": [
+              -0.006861555226839977,
+              0.006264699664385197
+            ],
+            "clusters": 9
+          }
+        },
+        "hit_at_5": {
+          "both_miss": 3,
+          "comparison_only_hit": 11,
+          "candidate_only_hit": 3,
+          "both_hit": 855,
+          "student_minus_comparator": {
+            "delta": -0.009174311926605505,
+            "ci95": [
+              -0.015512680347150991,
+              0.0
+            ],
+            "clusters": 9
+          }
+        }
+      },
+      "bge-small/hybrid": {
+        "hit_at_1": {
+          "both_miss": 244,
+          "comparison_only_hit": 8,
+          "candidate_only_hit": 17,
+          "both_hit": 603,
+          "student_minus_comparator": {
+            "delta": 0.010321100917431193,
+            "ci95": [
+              0.0020957849916012346,
+              0.02958611156285575
+            ],
+            "clusters": 9
+          }
+        },
+        "hit_at_5": {
+          "both_miss": 8,
+          "comparison_only_hit": 6,
+          "candidate_only_hit": 8,
+          "both_hit": 850,
+          "student_minus_comparator": {
+            "delta": 0.0022935779816513763,
+            "ci95": [
+              -0.002136828340466001,
+              0.013046338672768889
+            ],
+            "clusters": 9
+          }
+        }
+      },
+      "micro/hybrid": {
+        "hit_at_1": {
+          "both_miss": 245,
+          "comparison_only_hit": 7,
+          "candidate_only_hit": 29,
+          "both_hit": 591,
+          "student_minus_comparator": {
+            "delta": 0.02522935779816514,
+            "ci95": [
+              0.006634199825849384,
+              0.0607828517660524
+            ],
+            "clusters": 9
+          }
+        },
+        "hit_at_5": {
+          "both_miss": 8,
+          "comparison_only_hit": 6,
+          "candidate_only_hit": 3,
+          "both_hit": 855,
+          "student_minus_comparator": {
+            "delta": -0.0034403669724770644,
+            "ci95": [
+              -0.010699766734217825,
+              0.008697559115179259
+            ],
+            "clusters": 9
+          }
+        }
+      },
+      "labels-11/dense": {
+        "hit_at_1": {
+          "both_miss": 241,
+          "comparison_only_hit": 11,
+          "candidate_only_hit": 24,
+          "both_hit": 596,
+          "student_minus_comparator": {
+            "delta": 0.014908256880733946,
+            "ci95": [
+              -0.0041933134723601455,
+              0.023770110760772904
+            ],
+            "clusters": 9
+          }
+        },
+        "hit_at_5": {
+          "both_miss": 6,
+          "comparison_only_hit": 8,
+          "candidate_only_hit": 9,
+          "both_hit": 849,
+          "student_minus_comparator": {
+            "delta": 0.0011467889908256881,
+            "ci95": [
+              -0.008697559115179252,
+              0.006410485021398004
+            ],
+            "clusters": 9
+          }
+        }
+      }
+    }
+  },
+  "development_with_training_distractors": {
+    "tools": 297,
+    "queries": 872,
+    "families": 9,
+    "results": {
+      "labels-11/dense": {
+        "top_one_judgments": {
+          "judged_positive": 531,
+          "unjudged_other_repository": 316,
+          "unjudged_same_repository": 25
+        },
+        "hit_at_5": 769
+      },
+      "labels-11/hybrid": {
+        "top_one_judgments": {
+          "judged_positive": 584,
+          "unjudged_other_repository": 267,
+          "unjudged_same_repository": 21
+        },
+        "hit_at_5": 837
+      },
+      "toolrank/dense": {
+        "top_one_judgments": {
+          "judged_positive": 517,
+          "unjudged_other_repository": 335,
+          "unjudged_same_repository": 20
+        },
+        "hit_at_5": 782
+      },
+      "toolrank/hybrid": {
+        "top_one_judgments": {
+          "judged_positive": 556,
+          "unjudged_other_repository": 299,
+          "unjudged_same_repository": 17
+        },
+        "hit_at_5": 849
+      },
+      "bge-small/dense": {
+        "top_one_judgments": {
+          "judged_positive": 443,
+          "unjudged_same_repository": 30,
+          "unjudged_other_repository": 399
+        },
+        "hit_at_5": 724
+      },
+      "bge-small/hybrid": {
+        "top_one_judgments": {
+          "judged_positive": 550,
+          "unjudged_other_repository": 304,
+          "unjudged_same_repository": 18
+        },
+        "hit_at_5": 834
+      },
+      "micro/dense": {
+        "top_one_judgments": {
+          "unjudged_same_repository": 48,
+          "judged_positive": 524,
+          "unjudged_other_repository": 300
+        },
+        "hit_at_5": 813
+      },
+      "micro/hybrid": {
+        "top_one_judgments": {
+          "judged_positive": 571,
+          "unjudged_other_repository": 274,
+          "unjudged_same_repository": 27
+        },
+        "hit_at_5": 848
+      }
+    },
+    "paired_vs_student_hybrid": {
+      "toolrank/hybrid": {
+        "hit_at_1": {
+          "both_miss": 275,
+          "comparison_only_hit": 13,
+          "candidate_only_hit": 41,
+          "both_hit": 543,
+          "student_minus_comparator": {
+            "delta": 0.03211009174311927,
+            "ci95": [
+              -0.003340850347483445,
+              0.056888433349411203
+            ],
+            "clusters": 9
+          }
+        },
+        "hit_at_5": {
+          "both_miss": 17,
+          "comparison_only_hit": 18,
+          "candidate_only_hit": 6,
+          "both_hit": 831,
+          "student_minus_comparator": {
+            "delta": -0.013761467889908258,
+            "ci95": [
+              -0.02109149068727276,
+              0.0
+            ],
+            "clusters": 9
+          }
+        }
+      },
+      "bge-small/hybrid": {
+        "hit_at_1": {
+          "both_miss": 271,
+          "comparison_only_hit": 17,
+          "candidate_only_hit": 51,
+          "both_hit": 533,
+          "student_minus_comparator": {
+            "delta": 0.0389908256880734,
+            "ci95": [
+              0.014134275618374558,
+              0.07080557488979487
+            ],
+            "clusters": 9
+          }
+        },
+        "hit_at_5": {
+          "both_miss": 22,
+          "comparison_only_hit": 13,
+          "candidate_only_hit": 16,
+          "both_hit": 821,
+          "student_minus_comparator": {
+            "delta": 0.0034403669724770644,
+            "ci95": [
+              0.0,
+              0.012554949420051913
+            ],
+            "clusters": 9
+          }
+        }
+      },
+      "micro/hybrid": {
+        "hit_at_1": {
+          "both_miss": 266,
+          "comparison_only_hit": 22,
+          "candidate_only_hit": 35,
+          "both_hit": 549,
+          "student_minus_comparator": {
+            "delta": 0.014908256880733946,
+            "ci95": [
+              -0.014392240948075926,
+              0.06774330235101149
+            ],
+            "clusters": 9
+          }
+        },
+        "hit_at_5": {
+          "both_miss": 17,
+          "comparison_only_hit": 18,
+          "candidate_only_hit": 7,
+          "both_hit": 830,
+          "student_minus_comparator": {
+            "delta": -0.01261467889908257,
+            "ci95": [
+              -0.028098175074880976,
+              0.008697559115179259
+            ],
+            "clusters": 9
+          }
+        }
+      },
+      "labels-11/dense": {
+        "hit_at_1": {
+          "both_miss": 275,
+          "comparison_only_hit": 13,
+          "candidate_only_hit": 66,
+          "both_hit": 518,
+          "student_minus_comparator": {
+            "delta": 0.06077981651376147,
+            "ci95": [
+              -0.00626469966438519,
+              0.10183482569849547
+            ],
+            "clusters": 9
+          }
+        },
+        "hit_at_5": {
+          "both_miss": 31,
+          "comparison_only_hit": 4,
+          "candidate_only_hit": 72,
+          "both_hit": 765,
+          "student_minus_comparator": {
+            "delta": 0.0779816513761468,
+            "ci95": [
+              0.0,
+              0.14596328121146354
+            ],
+            "clusters": 9
+          }
+        }
+      }
+    }
+  },
+  "training_mask": {
+    "queries_with_unjudged_same_repository": 4377,
+    "queries_with_masked_unknown": 4549,
+    "top_unjudged_in_same_repository": 3407,
+    "top_unjudged_masked": 3794,
+    "top_unjudged_above_best_positive": 736,
+    "top_unjudged_same_repository_above_best_positive": 500,
+    "queries": 5098,
+    "tools": 263,
+    "repositories": 39,
+    "distinct_ranked_pairs": 550,
+    "top_five_pairs_query_counts": [
+      435,
+      322,
+      91,
+      64,
+      57
+    ]
+  },
+  "external_compute_usd": 0,
+  "wall_seconds": 7.6783689020667225
+}

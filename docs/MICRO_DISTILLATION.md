@@ -28,9 +28,9 @@ Frozen gates evaluated label-only seed 11 on answerable requests.
 | ETOM compact | 91.86% | 92.70% | -0.84 [-1.30, -0.37] | Fail |
 | ETOM MCP JSON | 91.86% | 91.89% | -0.03 [-0.61, +0.55] | Pass |
 | ETOM OpenAI JSON | 91.44% | 91.80% | -0.35 [-0.95, +0.24] | Pass |
-| ToolRet | — | — | Pending | Running |
+| ToolRet | 35.06% | 37.00% | −1.94 [−3.41, −0.58] | Fail |
 
-**Keep ToolRank 33M.** Compact ETOM missed the −1.00-point lower bound. CPU INT8 ToolRet pending. [Overlap audit](../results/micro_holdout_overlap.json)
+**Keep ToolRank 33M.** The student missed lower-bound gates on compact ETOM and ToolRet. In one matched four-thread CPU run, 44,453-tool indexing took 821.34 s for Micro and 2,997.76 s for ToolRank. Hit@5 fell 2.26 points (35-source paired 95% interval −4.30 to −0.37), missing the −1.00-point floor. [Overlap audit](../results/micro_holdout_overlap.json)
 
 RTX 3090 FP32 ToolRet delta −2.13 hybrid nDCG@10 points (35-source paired 95% interval −3.59 to −0.84). Indexing took 36.56 vs 98.71 s. [GPU results](../results/micro_toolret_gpu.json)
 
@@ -69,3 +69,5 @@ uv run --no-sync python -m toolrank.evaluate_micro_holdout \
 ```
 
 [Training](../results/micro_distillation_training.json) · [Development](../results/micro_distillation_development.json) · [CPU label-only](../results/micro_labels_cpu.json) · [CPU distilled](../results/micro_distillation_cpu.json) · [Frozen gate](../toolrank/micro_holdout_protocol.json) · [Holdout](../results/micro_holdout.json)
+
+Development audit found 242 shared top-one misses. Training pairs included clear negatives and plausible alternatives. Review query-specific labels before changing the mask. [Training data audit](MICRO_TRAINING_AUDIT.md)
