@@ -325,8 +325,8 @@ async def list_upstream_tools(config):
             async with upstream.connect() as (read, write):
                 async with ClientSession(read, write) as session:
                     async with asyncio.timeout(upstream.timeout):
-                        await session.initialize()
-                        tools = await list_all_tools(session)
+                        initialized = await session.initialize()
+                        tools = await list_all_tools(session) if initialized.capabilities.tools is not None else {}
         except Exception:
             return {"status": "unavailable", "tools": []}
         return {"status": "ready", "tools": sorted(tools),

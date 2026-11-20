@@ -55,3 +55,23 @@ class InventoryTests(unittest.IsolatedAsyncioTestCase):
 
     async def test_empty_configuration_returns_an_empty_inventory(self):
         self.assertEqual(await list_upstream_tools(GatewayConfig(servers=[])), {})
+
+
+    async def test_server_without_tool_capability_is_ready_and_empty(self):
+        program = """import asyncio
+from mcp.server import Server
+from mcp.server.stdio import stdio_server
+
+async def main():
+    server = Server("tool-free")
+    async with stdio_server() as streams:
+        await server.run(*streams, server.create_initialization_options())
+
+asyncio.run(main())
+"""
+        config = GatewayConfig.model_validate({"servers": [
+            {"id": "resources", "command": sys.executable, "args": ["-c", program], "discover": ["removed"]}
+        ]})
+        self.assertEqual(await list_upstream_tools(config), {
+            "resources": {"status": "ready", "tools": [], "missing_discover": ["removed"]},
+        })
