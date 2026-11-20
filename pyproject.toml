@@ -25,6 +25,7 @@ onnx-backend = [
     "optimum==2.1.0",
     "optimum-onnx==0.1.0",
 ]
+mteb = ["mteb==2.27.18"]
 examples = ["langchain==1.2.12", "pydantic-ai-slim==1.68.0"]
 
 [build-system]
