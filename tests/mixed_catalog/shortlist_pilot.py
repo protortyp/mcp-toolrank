@@ -182,7 +182,7 @@ def run(args, protocol):
             for strategy in STRATEGIES:
                 workers = []
                 for seed in protocol["seeds"]:
-                    command = [str(args.worker_python.resolve()), __file__, "--fixture", str(fixture), "--worker", strategy,
+                    command = [str(args.worker_python.absolute()), __file__, "--fixture", str(fixture), "--worker", strategy,
                                "--checkpoint", str(args.checkpoint), "--seed", str(seed)]
                     workers.append(json.loads(subprocess.check_output(command, timeout=240)))
                 observations[strategy] = workers
