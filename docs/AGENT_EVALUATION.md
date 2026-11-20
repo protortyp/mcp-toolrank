@@ -25,3 +25,5 @@ PYTHONPATH=. uv run --locked --extra cpu --group research --with './cpu[gateway]
 ```
 
 Latency includes inference, startup, and invocation. Token counts use Qwen’s tokenizer and server usage. Trials measure tool workflow completion on these fixtures. [Raw results](../results/agent_evaluation.json)
+
+Native 7B shortlists saved 92.7–97.2% of schema tokens across 93 tools and completed 1/10 workflows each. [Agent pilot](MIXED_AGENT_EVAL.md)

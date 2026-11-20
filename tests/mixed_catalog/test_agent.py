@@ -1,7 +1,7 @@
 import unittest
 
 from agent import classify, summary
-from native_agent import NativeModel
+from native_agent import NativeModel, validate_batch
 
 
 class AgentEvaluatorTests(unittest.TestCase):
@@ -37,8 +37,18 @@ class AgentEvaluatorTests(unittest.TestCase):
             self.assertEqual(NativeModel.action(choice, names), {"tool_id": "catalog/read", "arguments": {"id": 1}})
         choice["message"]["tool_calls"].append(call)
         self.assertIsNone(NativeModel.action(choice, names))
+        self.assertEqual(len(NativeModel.actions(choice, names)), 2)
 
     def test_native_action_distinguishes_abstention_from_truncation(self):
         self.assertEqual(NativeModel.action({"message": {}, "finish_reason": "stop"}, {}),
                          {"tool_id": None, "arguments": {}})
         self.assertIsNone(NativeModel.action({"message": {}, "finish_reason": "length"}, {}))
+
+    def test_batch_validates_every_call_before_dispatch(self):
+        expected = [{"id": "catalog/first", "args": {"id": "1"}}, {"id": "provider/second", "args": {}}]
+        first = {"tool_id": "catalog/first", "arguments": {"id": "1"}}
+        second = {"tool_id": "provider/second", "arguments": {}}
+        visible = {row["id"] for row in expected}
+        self.assertEqual(validate_batch([first, second], expected, visible), (None, expected))
+        self.assertEqual(validate_batch([first, second], expected[:1], visible), ("wrong_tool_call", []))
+        self.assertEqual(validate_batch([first, second], expected, {"catalog/first"}), ("tool_outside_shortlist", []))

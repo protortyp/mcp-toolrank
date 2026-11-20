@@ -1,0 +1,8 @@
+[
+  {"id":"b01","request":"Get GBIF occurrence 246810 and list NWS weather product locations.","calls":[{"id":"gbif/gbif_get_occurrence","args":{"gbifId":"246810"},"receipt":{"record":"246810"}},{"id":"nws/weather__product_locations","args":{},"receipt":{"locations":71}}]},
+  {"id":"b02","request":"Get the hourly NWS forecast for Seattle office SEW grid x 124, y 67, and list the USGS earthquake data contributors.","calls":[{"id":"nws/weather__gridpoint_forecast_hourly","args":{"wfo":"SEW","x":124,"y":67},"receipt":{"periods":8}},{"id":"usgs_quakes/usgs_quakes_list_contributors","args":{},"receipt":{"contributors":15}}]},
+  {"id":"b03","request":"List works in the Crossref journal with ISSN 0028-0836 and find the FDC foods records for IDs 1001 and 1002 in one lookup.","calls":[{"id":"crossref/crossref_list_journal_works","args":{"issn":"0028-0836"},"receipt":{"works":90}},{"id":"fdc/fdc_get_foods","args":{"fdcIds":[1001,1002]},"receipt":{"food_records":2}}]},
+  {"id":"b04","request":"List NWS alert types and get the World Bank country profile for ESP.","calls":[{"id":"nws/weather__alerts_types","args":{},"receipt":{"alert_types":43}},{"id":"worldbank/worldbank_country_metadata","args":{"country":"ESP"},"receipt":{"country":"Spain"}}]},
+  {"id":"b05","request":"Find the OpenAlex work W22334455. Then request the Crossref work metadata for the DOI returned by OpenAlex.","ordered":true,"calls":[{"id":"openalex/openalex_get_work","args":{"workId":"W22334455"},"receipt":{"doi":"10.1038/s41586-020-2649-2"}},{"id":"crossref/crossref_work_by_doi","args":{"doi":"10.1038/s41586-020-2649-2"},"receipt":{"registered":true}}]},
+  {"id":"b06","request":"Delete the GBIF dataset reference and notify all subscribers that it has been removed.","calls":[]}
+]

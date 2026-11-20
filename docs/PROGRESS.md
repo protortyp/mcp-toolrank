@@ -10,3 +10,4 @@
 - Live NWS calls succeeded. Routing and rejection missed holdout targets. Qwen missed coverage and CPU latency targets. [NWS pilot](NWS_PILOT.md) · [Verifier](NWS_CAPABILITY.md)
 - BM25, BGE and ToolRank kept all required tools at five on mostly small native BFCL menus. ToolRank saved 7.5% of JSON. [BFCL](BFCL_SHORTLIST.md)
 - Explicit NWS and Crossref reads verified invocation filtering and optional byte caps. ToolRank top ten cut JSON 90.4% with 17/20 complete shortlists across 93 tools. [Mixed](MIXED_CATALOG.md)
+- 93-tool shortlists saved context. Batch results repeated (24/24), including the dependent workflow failure. [Agent pilot](MIXED_AGENT_EVAL.md)
