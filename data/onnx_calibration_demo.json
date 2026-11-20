@@ -1,0 +1,370 @@
+{
+  "catalog": {
+    "tools": [
+      {
+        "name": "search_catalog",
+        "description": "Find library print books and ebooks by title, author, or subject."
+      },
+      {
+        "name": "get_loan_details",
+        "description": "Look up the due date and renewal eligibility for one book already borrowed on your library account."
+      },
+      {
+        "name": "extend_loan",
+        "description": "Renew a current library loan and return its new due date."
+      },
+      {
+        "name": "place_hold",
+        "description": "Join the library waiting list for a book and choose a pickup branch."
+      },
+      {
+        "name": "cancel_hold",
+        "description": "Cancel a waiting-list request that you previously placed."
+      },
+      {
+        "name": "list_branch_hours",
+        "description": "Read staffed opening and closing times for a library branch."
+      },
+      {
+        "name": "find_public_computers",
+        "description": "See available public computer seats by library branch and time."
+      },
+      {
+        "name": "list_member_fees",
+        "description": "Read outstanding fines and service charges on the member account."
+      }
+    ]
+  },
+  "calibration": [
+    {
+      "query": "Send money to my account using the debit card registered with the library.",
+      "relevant": []
+    },
+    {
+      "query": "Update the password for my library login.",
+      "relevant": []
+    },
+    {
+      "query": "Register a new library card for a visiting student.",
+      "relevant": []
+    },
+    {
+      "query": "Order a replacement card for one that has been damaged.",
+      "relevant": []
+    },
+    {
+      "query": "Reserve a private recording studio at the library.",
+      "relevant": []
+    },
+    {
+      "query": "Ask the librarian to buy the latest edition for the collection.",
+      "relevant": []
+    },
+    {
+      "query": "Borrow the book remotely and send it to my house.",
+      "relevant": []
+    },
+    {
+      "query": "Return an ebook early and remove the download from my device.",
+      "relevant": []
+    },
+    {
+      "query": "Report a bicycle theft outside a library branch.",
+      "relevant": []
+    },
+    {
+      "query": "Send a text to the branch manager about noisy plumbing.",
+      "relevant": []
+    },
+    {
+      "query": "Charge my credit card for the lost book fee.",
+      "relevant": []
+    },
+    {
+      "query": "Change how long this branch remains open during a holiday.",
+      "relevant": []
+    },
+    {
+      "query": "Reassign somebody else's reservation to me.",
+      "relevant": []
+    },
+    {
+      "query": "Translate the library newsletter into Italian.",
+      "relevant": []
+    },
+    {
+      "query": "Book a public computer in person using the library kiosk.",
+      "relevant": []
+    },
+    {
+      "query": "Upload a document to the copy center and print thirty copies.",
+      "relevant": []
+    },
+    {
+      "query": "Find the contact email of the library\u2019s staff union.",
+      "relevant": []
+    },
+    {
+      "query": "Cancel my membership permanently.",
+      "relevant": []
+    },
+    {
+      "query": "Change the email address associated with my account.",
+      "relevant": []
+    },
+    {
+      "query": "Find out how to drive to the nearest bus stop.",
+      "relevant": []
+    },
+    {
+      "query": "Add a comment to a library book review the public can read.",
+      "relevant": []
+    },
+    {
+      "query": "Transfer a paper book from another city\u2019s library system.",
+      "relevant": []
+    },
+    {
+      "query": "File a library insurance claim for property I lost.",
+      "relevant": []
+    },
+    {
+      "query": "Set an automated reminder on my phone to return a book.",
+      "relevant": []
+    },
+    {
+      "query": "Sign me up for a beginner programming lesson at the library.",
+      "relevant": []
+    },
+    {
+      "query": "Report the barcode on a library card as stolen.",
+      "relevant": []
+    },
+    {
+      "query": "Request a transcript of a talk recorded at the library.",
+      "relevant": []
+    },
+    {
+      "query": "Order a meal from the cafe attached to the library.",
+      "relevant": []
+    },
+    {
+      "query": "Register an event and invite people on the library mailing list.",
+      "relevant": []
+    },
+    {
+      "query": "Tell me which libraries have working air conditioning.",
+      "relevant": []
+    },
+    {
+      "query": "Erase all records of my library visits from last year.",
+      "relevant": []
+    },
+    {
+      "query": "Check whether the library wifi supports a guest account.",
+      "relevant": []
+    },
+    {
+      "query": "Increase the file storage on the library public computers.",
+      "relevant": []
+    },
+    {
+      "query": "Pay the registration fee for a library book fair exhibitor.",
+      "relevant": []
+    },
+    {
+      "query": "Transfer an item I own into the library's donated collection.",
+      "relevant": []
+    },
+    {
+      "query": "Find a dentist available on my day off.",
+      "relevant": []
+    },
+    {
+      "query": "Find books about medieval drums.",
+      "relevant": [
+        "search_catalog"
+      ]
+    },
+    {
+      "query": "When is my loan of River Cities due?",
+      "relevant": [
+        "get_loan_details"
+      ]
+    },
+    {
+      "query": "Give me another loan period for the atlas I borrowed.",
+      "relevant": [
+        "extend_loan"
+      ]
+    },
+    {
+      "query": "How late is the East Branch open on Thursday?",
+      "relevant": [
+        "list_branch_hours"
+      ]
+    }
+  ],
+  "evaluation": [
+    {
+      "query": "Look up novels by Clara West.",
+      "relevant": [
+        "search_catalog"
+      ]
+    },
+    {
+      "query": "Find the book titled Garden Mechanics in the library catalogue.",
+      "relevant": [
+        "search_catalog"
+      ]
+    },
+    {
+      "query": "Show when the two books named Deep Fields and Petal Map need to be returned.",
+      "relevant": [
+        "get_loan_details"
+      ]
+    },
+    {
+      "query": "Can I still renew my current loan of The Long Canal?",
+      "relevant": [
+        "get_loan_details"
+      ]
+    },
+    {
+      "query": "Extend the due date on my borrowed Introduction to Weaving.",
+      "relevant": [
+        "extend_loan"
+      ]
+    },
+    {
+      "query": "Renew the loan of my Wind Atlas for another term.",
+      "relevant": [
+        "extend_loan"
+      ]
+    },
+    {
+      "query": "Put my name in the queue for Atlas of the Coast at South Branch.",
+      "relevant": [
+        "place_hold"
+      ]
+    },
+    {
+      "query": "Reserve the next available circulating copy of Maple Seasons for pickup downtown.",
+      "relevant": [
+        "place_hold"
+      ]
+    },
+    {
+      "query": "Withdraw the hold I have on Water Cycle Stories.",
+      "relevant": [
+        "cancel_hold"
+      ]
+    },
+    {
+      "query": "Take the book Pocket Gardens off my waiting-list requests.",
+      "relevant": [
+        "cancel_hold"
+      ]
+    },
+    {
+      "query": "When do the librarians stop staffing Central Branch on Wednesday?",
+      "relevant": [
+        "list_branch_hours"
+      ]
+    },
+    {
+      "query": "What are the opening hours for River Branch this Saturday?",
+      "relevant": [
+        "list_branch_hours"
+      ]
+    },
+    {
+      "query": "Are any computers free at South Branch after four on Monday?",
+      "relevant": [
+        "find_public_computers"
+      ]
+    },
+    {
+      "query": "Show the available public PCs in North Branch.",
+      "relevant": [
+        "find_public_computers"
+      ]
+    },
+    {
+      "query": "What charges are outstanding on my library account?",
+      "relevant": [
+        "list_member_fees"
+      ]
+    },
+    {
+      "query": "Tell me my current fine balance.",
+      "relevant": [
+        "list_member_fees"
+      ]
+    },
+    {
+      "query": "Apply my store credit toward the cost of a lost library book.",
+      "relevant": []
+    },
+    {
+      "query": "Email me when new gardening books are added.",
+      "relevant": []
+    },
+    {
+      "query": "Loan a borrowed item onward to a neighbor in a different town.",
+      "relevant": []
+    },
+    {
+      "query": "Mark a scarce book in the library database as damaged.",
+      "relevant": []
+    },
+    {
+      "query": "Deliver my holds to a new mailing address.",
+      "relevant": []
+    },
+    {
+      "query": "Change the pickup location on an existing hold.",
+      "relevant": []
+    },
+    {
+      "query": "Suggest a bookstore where I can purchase a copy.",
+      "relevant": []
+    },
+    {
+      "query": "Print my outstanding charges on an invoice.",
+      "relevant": []
+    },
+    {
+      "query": "Find out who is staffing the information desk on Tuesday.",
+      "relevant": []
+    },
+    {
+      "query": "Reserve the children's librarian to give a talk at my school.",
+      "relevant": []
+    },
+    {
+      "query": "Delete my review of a library item.",
+      "relevant": []
+    },
+    {
+      "query": "Request an accessible scan of a page of a journal.",
+      "relevant": []
+    },
+    {
+      "query": "Save the book cover image to my downloads folder.",
+      "relevant": []
+    },
+    {
+      "query": "Change my current computer booking from noon to late afternoon.",
+      "relevant": []
+    },
+    {
+      "query": "Check whether a private meeting room can be booked on Friday.",
+      "relevant": []
+    },
+    {
+      "query": "Issue a duplicate receipt for the library donation I made last month.",
+      "relevant": []
+    }
+  ]
+}

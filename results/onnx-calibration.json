@@ -1,0 +1,131 @@
+{
+  "scope": "Authored fictional library fixture and independent math checks. No production risk or coverage estimate.",
+  "calibration": {
+    "status": "calibrated",
+    "max_false_accept": 0.1,
+    "confidence": 0.95,
+    "no_match_cases": 36,
+    "answerable_cases": 4,
+    "min_score": 0.7193843722343445,
+    "order_statistic_rank": 36,
+    "accepted_no_match_on_calibration": 0,
+    "accepted_answerable_on_calibration": 0,
+    "scope": {
+      "catalog_sha256": "68457da36682cf4c76f1153d14b3aca1b812223ad4ec5af7d6667fa8f84b98b8",
+      "checkpoint_sha256": {
+        "tokenizer.json": "91f1def9b9391fdabe028cd3f3fcc4efd34e5d1f08c3bf2de513ebb5911a1854",
+        "sentence_bert_config.json": "65c2293c310f5476a8d1cbada277722c3e7ae5b5ddbaa2d2fe5d075f410d6d02",
+        "config_sentence_transformers.json": "7453db62f635567117454bf0599899107d43569c95d5353b5993d809c39379cf",
+        "onnx/embedding-int8.onnx": "ba0e544669eac502cac535d3ed53b9cf5b530b5fd929d4a7bddd787abe08ea33"
+      },
+      "catalog_precision": "int8",
+      "threads": 4,
+      "onnxruntime": "1.24.1",
+      "score": "maximum embedding cosine"
+    }
+  },
+  "repeat_calibration_exact": true,
+  "insufficient_sample": {
+    "status": "insufficient_no_match_cases",
+    "max_false_accept": 0.1,
+    "confidence": 0.95,
+    "no_match_cases": 24,
+    "answerable_cases": 0,
+    "min_score": null,
+    "minimum_no_match_cases": 29
+  },
+  "independent_fixture_evaluation": {
+    "dense": {
+      "catalog_size": 8,
+      "threads": 4,
+      "catalog_precision": "int8",
+      "hybrid": false,
+      "models": {
+        "embedding-int8.onnx": {
+          "k": 5,
+          "min_score": 0.7193843722343445,
+          "supported": 16,
+          "unsupported": 16,
+          "metrics": {
+            "hit@5": 1.0,
+            "recall@5": 1.0,
+            "ndcg@5": 0.9538662191964322
+          },
+          "accepted_supported": 2,
+          "accepted_unsupported": 0,
+          "supported_coverage": 0.125,
+          "unsupported_false_accept_rate": 0.0,
+          "query_p50_ms": 2.5280234403908253,
+          "query_p95_ms": 3.688657155726105
+        }
+      }
+    },
+    "hybrid": {
+      "catalog_size": 8,
+      "threads": 4,
+      "catalog_precision": "int8",
+      "hybrid": true,
+      "models": {
+        "embedding-int8.onnx": {
+          "k": 5,
+          "min_score": 0.7193843722343445,
+          "supported": 16,
+          "unsupported": 16,
+          "metrics": {
+            "hit@5": 1.0,
+            "recall@5": 1.0,
+            "ndcg@5": 0.8615986575892965
+          },
+          "accepted_supported": 2,
+          "accepted_unsupported": 0,
+          "supported_coverage": 0.125,
+          "unsupported_false_accept_rate": 0.0,
+          "query_p50_ms": 2.5633139302954078,
+          "query_p95_ms": 3.9418280939571555
+        }
+      }
+    }
+  },
+  "numerical_validation": {
+    "comparisons_against_scipy_exact_binomial": 480,
+    "uniform_simulation": {
+      "seed": 11,
+      "draws": 20000,
+      "calibration_negatives": 100,
+      "max_false_accept": 0.1,
+      "confidence": 0.95,
+      "violation_frequency": 0.02365,
+      "theoretical_violation_bound": 0.023711082663476827
+    }
+  },
+  "separate_fp32_calibration": {
+    "status": "calibrated",
+    "max_false_accept": 0.1,
+    "confidence": 0.95,
+    "no_match_cases": 36,
+    "answerable_cases": 4,
+    "min_score": 0.7322667241096497,
+    "order_statistic_rank": 36,
+    "accepted_no_match_on_calibration": 0,
+    "accepted_answerable_on_calibration": 0,
+    "scope": {
+      "catalog_sha256": "68457da36682cf4c76f1153d14b3aca1b812223ad4ec5af7d6667fa8f84b98b8",
+      "checkpoint_sha256": {
+        "tokenizer.json": "91f1def9b9391fdabe028cd3f3fcc4efd34e5d1f08c3bf2de513ebb5911a1854",
+        "sentence_bert_config.json": "65c2293c310f5476a8d1cbada277722c3e7ae5b5ddbaa2d2fe5d075f410d6d02",
+        "config_sentence_transformers.json": "7453db62f635567117454bf0599899107d43569c95d5353b5993d809c39379cf",
+        "onnx/embedding.onnx": "f2dcd00b68efc228ec20902441c8e258b40a81c9a464293010793914ad13298e"
+      },
+      "catalog_precision": "float32",
+      "threads": 4,
+      "onnxruntime": "1.24.1",
+      "score": "maximum embedding cosine"
+    }
+  },
+  "mcp_int8_hybrid_fixture": {
+    "accepted_answerable": 2,
+    "accepted_no_match": 0,
+    "answerable": 16,
+    "no_match": 16
+  }
+}
