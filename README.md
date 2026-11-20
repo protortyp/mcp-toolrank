@@ -21,6 +21,8 @@ Across 1,549 answerable ETOM requests, ToolRank had 35 more top-ranked hits than
 
 [34 MB CPU ONNX and PyTorch-free runner](docs/ONNX_INT8.md)
 
+[OpenAPI importer](docs/OPENAPI_CATALOG.md) builds one searchable catalog from local OpenAPI 3.0/3.1 JSON or YAML specs.
+
 [Checkpoint and model card](https://huggingface.co/christianengel/mcp-toolrank-33m)
 
 ```sh
