@@ -23,3 +23,5 @@ TOOLRANK_OFFLINE=1 PYTHONPATH=. uv run --project cpu --no-sync python \
 ```
 
 [Raw fit and holdout results](../results/gateway_calibration_smoke.json) · [NWS pilot](NWS_PILOT.md)
+
+BM25 overlap accepted most unsupported requests. Across three catalogs, cosine, margin, and lexical coverage each missed a preset target. [Rejection replay](ABSTENTION_REPLAY.md)
