@@ -1,6 +1,6 @@
-# Serve ToolRank with TEI
+# ToolRank with Text Embeddings Inference
 
-Download the pinned checkpoint. CPU TEI serves on loopback using offline loading and full-precision token ONNX (`onnx/model.onnx`). Standalone ranking uses pooled `onnx/embedding.onnx`.
+CPU TEI serves on loopback, loading pinned full-precision token-vector ONNX (`onnx/model.onnx`) offline. Standalone ranking uses pooled `onnx/embedding.onnx`.
 
 ```sh
 uvx --from huggingface-hub==0.36.2 hf download christianengel/mcp-toolrank-33m \
@@ -15,7 +15,7 @@ docker run --rm -p 127.0.0.1:8080:80 -e HF_HUB_OFFLINE=1 \
   --model-id /model --dtype float32 --max-client-batch-size 32
 ```
 
-Use `"prompt_name":"query"` for requests and unprompted `name: description` rows for tools. Rank normalized vectors by dot product.
+Queries use `"prompt_name":"query"`. Embed unprompted `name: description` tool rows. Rank normalized vectors by dot product.
 
 ```sh
 curl -fsS http://127.0.0.1:8080/embed -H 'Content-Type: application/json' \
@@ -24,7 +24,7 @@ curl -fsS http://127.0.0.1:8080/embed -H 'Content-Type: application/json' \
   -d '{"inputs":["list_exhibits: List museum exhibits"],"normalize":true}'
 ```
 
-TEI 1.9.4 on Linux x86-64 matched SentenceTransformers’ ordered top three on nine authored queries against nine documents, including over-length inputs. Cosine difference peaked below 4.18e-7.
+TEI 1.9.4 (Linux x86-64) matched SentenceTransformers’ ordered top three for nine authored queries against nine documents, including over-length inputs. Maximum cosine difference ≤4.18e-7.
 
 ```sh
 uv sync --locked --extra cpu
