@@ -28,11 +28,12 @@ const placeholder = document.querySelector("#placeholder");
 const scoreHint = document.querySelector("#score-hint");
 const example = document.querySelector("#example");
 const judgment = document.querySelector("#judgment");
+const contextSize = document.querySelector("#context-size");
 const rankingMode = document.querySelector("#ranking-mode");
 const benchmarkButton = document.querySelector("#benchmark");
 const benchmarkTable = document.querySelector("#benchmark-results");
 let worker;
-let ranked;
+let lastRequest;
 let exampleCatalog;
 
 function showStatus(message, failed = false) {
@@ -41,7 +42,9 @@ function showStatus(message, failed = false) {
 }
 
 function busy(active) {
-  for (const control of [button, reset, example, benchmarkButton, importButton, fileInput]) control.disabled = active;
+  for (const control of [button, reset, example, benchmarkButton, importButton, fileInput, rankingMode, query, catalog]) {
+    control.disabled = active;
+  }
 }
 
 function render(rows) {
@@ -58,11 +61,22 @@ function render(rows) {
     description.textContent = tool.description;
     line.append(name, value);
     li.append(line, description);
+    if (tool.inputSchema) {
+      const details = document.createElement("details");
+      details.className = "result-schema";
+      const summary = document.createElement("summary");
+      summary.textContent = "Input schema";
+      const schema = document.createElement("pre");
+      schema.textContent = JSON.stringify(tool.inputSchema, null, 2);
+      details.append(summary, schema);
+      li.append(details);
+    }
     return li;
   });
   listing.replaceChildren(...items);
-  placeholder.hidden = true;
-  scoreHint.hidden = false;
+  placeholder.hidden = rows.length > 0;
+  if (!rows.length) placeholder.textContent = "No indexed terms overlap with the request.";
+  scoreHint.hidden = rows.length === 0;
 }
 
 function initWorker() {
@@ -82,9 +96,8 @@ function initWorker() {
       showStatus(`Benchmarked ${data.answerable} of ${data.total} requests locally.`);
       return;
     }
-    ranked = data;
-    renderRanked();
-    showStatus(`Ranked ${data.count} tools.`);
+    renderRanked(data);
+    showStatus(`Ranked ${data.count} tools in ${data.queryMs.toFixed(1)} ms (setup ${data.setupMs.toFixed(1)} ms).`);
   };
   instance.onerror = () => {
     instance.terminate();
@@ -96,35 +109,37 @@ function initWorker() {
 }
 
 function clearRanking() {
-  ranked = undefined;
+  lastRequest = undefined;
   listing.replaceChildren();
   placeholder.hidden = false;
+  placeholder.textContent = "Run a request to see the closest matches.";
   scoreHint.hidden = true;
   judgment.hidden = true;
-  rankingMode.hidden = true;
+  contextSize.hidden = true;
 }
 
-function renderRanked() {
-  if (!ranked) return;
-  const mode = rankingMode.querySelector("input:checked").value;
-  render(ranked.results[mode]);
-  rankingMode.hidden = false;
+function renderRanked(ranked) {
+  const { rows, mode } = ranked;
+  render(rows);
+  const shortlistBytes = new TextEncoder().encode(JSON.stringify(rows.map(({ tool }) => tool))).length;
+  contextSize.textContent = `${rows.length} of ${ranked.count} tools · ${shortlistBytes.toLocaleString()} of ${ranked.catalogBytes.toLocaleString()} bytes of tool JSON`;
+  contextSize.hidden = false;
   scoreHint.textContent = mode === "hybrid"
     ? "Numbers show embedding cosine. Hybrid orders tools using cosine, TF-IDF and BM25."
-    : "Dense ranks by embedding cosine. A high score can appear even when no tool applies.";
-  judgment.hidden = ranked.relevant === null;
-  if (!judgment.hidden) {
-    judgment.textContent = ranked.relevant.length
-      ? `Labelled match: ${ranked.relevant.join(", ")}`
-      : "The benchmark labels this request as having no matching tool.";
-  }
+    : mode === "bm25" ? "Numbers show normalized BM25 scores." : "Numbers show embedding cosine.";
+  judgment.hidden = false;
+  judgment.textContent = ranked.relevant === null
+    ? "Applicability for this request is unverified."
+    : ranked.relevant.length
+    ? `Labelled match: ${ranked.relevant.join(", ")}`
+    : "The benchmark labels this request as having no matching tool.";
 }
 
 function renderBenchmark(result) {
   const percent = (value) => `${(100 * value).toFixed(2)}%`;
   const rows = Object.entries(result).map(([mode, { hitAt1, ndcgAt10 }]) => {
     const row = document.createElement("tr");
-    for (const value of [mode === "dense" ? "Dense" : "Hybrid", percent(hitAt1), percent(ndcgAt10)]) {
+    for (const value of [({ dense: "Dense", hybrid: "Hybrid", bm25: "BM25" })[mode], percent(hitAt1), percent(ndcgAt10)]) {
       const cell = document.createElement("td");
       cell.textContent = value;
       row.append(cell);
@@ -175,9 +190,21 @@ fileInput.addEventListener("change", async () => {
 
 example.addEventListener("change", loadExample);
 for (const field of [query, catalog]) {
-  field.addEventListener("input", () => { example.value = "custom"; });
+  field.addEventListener("input", () => {
+    example.value = "custom";
+    clearRanking();
+  });
 }
-rankingMode.addEventListener("change", renderRanked);
+function rank(request) {
+  const mode = rankingMode.querySelector("input:checked").value;
+  worker ??= initWorker();
+  busy(true);
+  worker.postMessage({ ...request, mode });
+  showStatus("Preparing ToolRank…");
+}
+rankingMode.addEventListener("change", () => {
+  if (lastRequest) rank(lastRequest);
+});
 resetExample();
 
 benchmarkButton.addEventListener("click", () => {
@@ -197,10 +224,8 @@ document.querySelector("#rank-form").addEventListener("submit", (event) => {
     const tools = parseCatalog(catalog.value);
     const apiCase = apiCases[example.value];
     const relevant = apiCase?.query === text && catalog.value === exampleCatalog ? apiCase.relevant : null;
-    worker ??= initWorker();
-    busy(true);
-    worker.postMessage({ tools, text, relevant });
-    showStatus("Preparing ToolRank…");
+    lastRequest = { tools, text, relevant };
+    rank(lastRequest);
   } catch (error) {
     busy(false);
     showStatus(error.message, true);

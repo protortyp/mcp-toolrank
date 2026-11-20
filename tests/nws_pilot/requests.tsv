@@ -1,0 +1,105 @@
+split	id	operation	query
+calibration	c01	alerts_active	Which advisories are valid across the country right now?
+calibration	c02	alerts_active_area	Show existing warnings for the state of Oklahoma.
+calibration	c03	alerts_active_count	How many warnings and watches are in effect, without listing the bulletins?
+calibration	c04	alerts_single	Get the original warning identified by urn:oid:2.49.0.1.840.0.a.
+calibration	c05	obs_station	Read the metadata for weather station KORD, such as its position.
+calibration	c06	station_observation_latest	Get the newest METAR observation available for KJFK.
+calibration	c07	station_observation_list	Fetch the sequence of observations reported from KBOS during a time range.
+calibration	c08	station_observation_time	Fetch the KDFW station observation stamped 2026-09-10T10:00:00Z.
+calibration	c09	point	Identify the forecast office and grid for 39.74,-104.99.
+calibration	c10	point_stations	List stations that report near the coordinate 39.74,-104.99.
+calibration	c11	gridpoint_forecast_hourly	Show the hour-by-hour prediction for the BOU 60,60 grid cell.
+calibration	c12	gridpoint_forecast	Get the outlook split into day and night for BOU grid cell 60,60.
+calibration	c13	zone	Find the boundary geometry of land forecast zone COZ040.
+calibration	c14	zone_list_type	List the zones categorized as marine forecast zones.
+calibration	c15	zone_forecast	Read the predicted conditions for land forecast zone COZ040.
+calibration	c16	product_types	Show the catalog of official weather product type codes.
+calibration	c17	product	Retrieve the text of an issued product by its UUID.
+calibration	c18	latest_product_type_location	Find the most recent Area Forecast Discussion issued by Denver.
+calibration	c19	radar_stations	List all the radar stations in the network.
+calibration	c20	radar_station_alarms	Show operational alarms raised by KTLX radar.
+calibration	c21	glossary	Show the official glossary of weather terms.
+calibration	c22	office	Get the mailing address of the BOU Weather Forecast Office.
+calibration	c23	transmitter	Read the metadata for weather radio transmitter KEC55.
+calibration	c24	taf	Get the specific terminal forecast for KMIA identified by its date and issuance time.
+calibration	cn01	-	Make a new unofficial rain alert for my county.
+calibration	cn02	-	Schedule an SMS whenever a storm watch is issued.
+calibration	cn03	-	Show the ten years of monthly snowfall normals for Denver.
+calibration	cn04	-	Get a European forecast for Madrid.
+calibration	cn05	-	Convert 70 Fahrenheit to Celsius.
+calibration	cn06	-	Predict rain using the pictures from my driveway camera.
+calibration	cn07	-	Read the sunrise time at 41.9,-87.6.
+calibration	cn08	-	Generate a printed weather report as a PDF attachment.
+calibration	cn09	-	Look up which city has ZIP code 60601.
+calibration	cn10	-	Change the latitude configured for weather station KORD.
+calibration	cn11	-	Translate this marine bulletin to Korean.
+calibration	cn12	-	Retrieve the local pollen count for tomorrow.
+calibration	cn13	-	Get historical street closures caused by flooding.
+calibration	cn14	-	Tell me the number of power customers currently affected by outages.
+calibration	cn15	-	List the governors of US states.
+calibration	cn16	-	Find the water temperature in my swimming pool.
+calibration	cn17	-	Measure outdoor UV using my phone camera.
+calibration	cn18	-	Search the web for today’s news on ocean warming.
+calibration	cn19	-	Reserve a research aircraft flight for a weather survey.
+calibration	cn20	-	Open a customer support ticket about an inaccurate forecast.
+calibration	cn21	-	Share a storm image on a social network.
+calibration	cn22	-	Rate my personal probability of being struck by lightning.
+calibration	cn23	-	Compare travel bookings between Chicago and St. Louis.
+calibration	cn24	-	Get current traffic speeds on a freeway.
+calibration	cn25	-	Download a street map with all the city’s buildings.
+calibration	cn26	-	Show nationwide tornado damage totals by insurer.
+calibration	cn27	-	What were the high and low temperatures in Denver in 1917?
+calibration	cn28	-	Show the latest sunspot number.
+calibration	cn29	-	Find today’s ski lift opening times.
+calibration	cn30	-	Get today’s sunrise from Mars.
+calibration	cn31	-	Tell me the water level my in-house IoT sensor measured.
+calibration	cn32	-	Publish an update to the National Weather Service glossary.
+holdout	h01	alerts_types	Export the vocabulary of alert event categories for a filter dropdown.
+holdout	h02	alerts_active_zone	Retrieve currently valid bulletins for NWS zone OKZ025.
+holdout	h03	alerts_active_region	Report active alerts for the Pacific Marine Region code PAC.
+holdout	h04	alerts_query	Search past and present advisories, with severity and date filters.
+holdout	h05	obs_stations	Get a national directory of surface observation stations.
+holdout	h06	obs_station	Does the KSEA observing station publish details about its location?
+holdout	h07	station_observation_latest	Print the most recently received surface report for KSFO.
+holdout	h08	zone_obs	Get observations recorded within forecast zone WAZ558.
+holdout	h09	gridpoint	Download all raw meteorological fields for SEW grid cell 124,68.
+holdout	h10	gridpoint_stations	Which observing sites are associated with the SEW 124,68 forecast grid?
+holdout	h11	point_radio	Which NOAA Weather Radio transmitters cover 47.45,-122.31?
+holdout	h12	point	Return the NWS metadata record for the GPS position 47.45,-122.31.
+holdout	h13	zone_list	Return a directory covering all NWS zone types, with no type filter.
+holdout	h14	zone_stations	Which observation sites are assigned to forecast zone WAZ558?
+holdout	h15	transmitter_zone	List radio transmitters serving the land forecast zone WAZ558.
+holdout	h16	product_locations	Show all product issuance location IDs.
+holdout	h17	products_type_locations	Show which locations issue the AFD text product.
+holdout	h18	products_type_location	List AFD products issued at Seattle, including older entries.
+holdout	h19	radar_station	Look up the installation metadata for radar KATX.
+holdout	h20	radar_servers	List the server endpoints in the radar network.
+holdout	h21	office_headlines	List the headlines posted by the Seattle weather office.
+holdout	h22	office_headline	Read one Seattle forecast-office headline by its headline identifier.
+holdout	h23	cwas	List the Center Weather Advisories issued by the ZSE service unit.
+holdout	h24	glossary	Pull the federal definitions list so I can look up graupel.
+holdout	hn01	-	Cancel the tornado warning for the county.
+holdout	hn02	-	Notify my calendar when the next forecast revision comes out.
+holdout	hn03	-	Get the 1991–2020 mean annual precipitation for Seattle.
+holdout	hn04	-	Get a detailed forecast for Auckland, New Zealand.
+holdout	hn05	-	Calculate the dew point from these temperature and humidity readings.
+holdout	hn06	-	Retrieve the current air quality index for Tacoma.
+holdout	hn07	-	Give me the next solar eclipse visible from Tacoma.
+holdout	hn08	-	Find our company weather incident report in the HR system.
+holdout	hn09	-	Resolve the street address of this house to a coordinate.
+holdout	hn10	-	Register a new NWS station in our parking lot.
+holdout	hn11	-	Summarize this forecast in plain language in a printable PowerPoint.
+holdout	hn12	-	Show tidal predictions for Puget Sound.
+holdout	hn13	-	Order a replacement rain sensor.
+holdout	hn14	-	Find road accident records associated with winter storms.
+holdout	hn15	-	Return the final score of the Mariners game.
+holdout	hn16	-	Read the water pressure at a residential meter.
+holdout	hn17	-	Estimate my roof repair cost after a hailstorm.
+holdout	hn18	-	Crop this satellite image and erase the legend.
+holdout	hn19	-	List overdue aircraft maintenance work orders.
+holdout	hn20	-	Retrieve tomorrow’s earthquakes from the observatory.
+holdout	hn21	-	Buy flood insurance for my house.
+holdout	hn22	-	Explain my airline ticket refund eligibility.
+holdout	hn23	-	Find an available hotel near Seattle airport.
+holdout	hn24	-	Get the current count of sunspots visible from Earth.

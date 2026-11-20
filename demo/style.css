@@ -58,3 +58,5 @@ table { width: 100%; margin-top: .65rem; border-collapse: collapse; font-size: .
 th, td { border-bottom: 1px solid var(--line); padding: .45rem .25rem; text-align: right; font-variant-numeric: tabular-nums; }
 th:first-child, td:first-child { text-align: left; }
 .catalog-actions { display: flex; flex-wrap: wrap; gap: .5rem; }
+.result-schema { margin-top: .5rem; padding-top: .4rem; font-size: .86rem; }
+.result-schema pre { max-height: 14rem; overflow: auto; padding: .65rem; background: #f6f7f2; }

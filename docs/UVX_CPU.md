@@ -1,17 +1,13 @@
-# Run ToolRank with uvx
+# CPU wheel
 
-Use uv and Python 3.12 from a clean directory. The PyTorch-free CPU wheel uses ONNX Runtime, NumPy, and Tokenizers.
+The ranker uses ONNX Runtime, NumPy and Tokenizers. The staged wheel supports Python 3.12 and 3.13. Published 0.1.0 requires 3.12.
 
 ```sh
-uvx --python 3.12 \
-  --from https://github.com/protortyp/mcp-toolrank/releases/download/cpu-v0.1.0/toolrank_cpu-0.1.0-py3-none-any.whl \
+uv build --wheel cpu --out-dir dist/staged
+uvx --python 3.13 --from dist/staged/toolrank_cpu-0.2.0-py3-none-any.whl \
   toolrank-cpu catalog.json "Find museum exhibits open today" --hybrid
 ```
 
-First ranking fetches the existing pinned 34 MB INT8 model and tokenizer from Hugging Face. SHA-256 checks cover downloads and local cache reuse. Requests and catalogs stay local.
+The CLI downloads and verifies the pinned 34 MB INT8 checkpoint by SHA-256 and tokenizer, checks cached files, and keeps inputs local. Use `--checkpoint DIR` for trusted local weights, `--catalog-cache DIR` for vectors, and `TOOLRANK_OFFLINE=1` with `uvx --offline` after caching.
 
-Use `--checkpoint DIR` for a compatible ONNX snapshot. After setup, set `TOOLRANK_OFFLINE=1` to require verified cached model files and add uvx `--offline` for cached dependencies. `--catalog-cache DIR` persists document embeddings across launches.
-
-Pass a tool array or MCP `tools/list` response. Convert OpenAPI JSON or YAML with the [catalog importer](OPENAPI_CATALOG.md). `--help` lists evaluation and calibration options.
-
-Build from this checkout with `uv build --wheel cpu --out-dir dist/cpu`.
+Pass a tool array or MCP `tools/list` response. See `toolrank-cpu --help` for evaluation and calibration. [OpenAPI import](OPENAPI_CATALOG.md) · [Gateway](GATEWAY.md) · [Published 0.1.0](https://github.com/protortyp/mcp-toolrank/releases/tag/cpu-v0.1.0)

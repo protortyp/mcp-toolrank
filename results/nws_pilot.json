@@ -1,0 +1,242 @@
+{
+  "catalog_tools": 69,
+  "spec_sha256": "ae478b69cdac6449e3b834dca636300f830dde552ac6abc180b1d5e82e2f1d35",
+  "requests_sha256": "0b6abde1b1a5fb0dcda1a1c58356a3cc8c0e34fbfb8fe0cbb1e5dcd08e87a278",
+  "protocol_sha256": "137ae2183f44450675b191ed094e85e83c1c66ea63a2021d17684e976dee5de0",
+  "source_sha256": "b25f1d144b08e3c113dfbd00984554d151576b83bef6d3e38a329d18da095764",
+  "checkpoint": {
+    "tokenizer.json": "91f1def9b9391fdabe028cd3f3fcc4efd34e5d1f08c3bf2de513ebb5911a1854",
+    "sentence_bert_config.json": "65c2293c310f5476a8d1cbada277722c3e7ae5b5ddbaa2d2fe5d075f410d6d02",
+    "config_sentence_transformers.json": "7453db62f635567117454bf0599899107d43569c95d5353b5993d809c39379cf",
+    "onnx/embedding-int8.onnx": "ba0e544669eac502cac535d3ed53b9cf5b530b5fd929d4a7bddd787abe08ea33"
+  },
+  "cpu_threads": 4,
+  "startup_and_index_ms": 363.0874508526176,
+  "warm_query_p95_ms": 2.769174729473889,
+  "calibration": {
+    "cosine": {
+      "status": "calibrated",
+      "max_false_accept": 0.1,
+      "confidence": 0.95,
+      "no_match_cases": 32,
+      "answerable_cases": 24,
+      "min_score": 0.648500919342041,
+      "order_statistic_rank": 32,
+      "accepted_no_match_on_calibration": 0,
+      "accepted_answerable_on_calibration": 11
+    },
+    "hybrid_max": {
+      "status": "calibrated",
+      "max_false_accept": 0.1,
+      "confidence": 0.95,
+      "no_match_cases": 32,
+      "answerable_cases": 24,
+      "min_score": 0.9492051005363464,
+      "order_statistic_rank": 32,
+      "accepted_no_match_on_calibration": 0,
+      "accepted_answerable_on_calibration": 10
+    },
+    "margin": {
+      "status": "calibrated",
+      "max_false_accept": 0.1,
+      "confidence": 0.95,
+      "no_match_cases": 32,
+      "answerable_cases": 24,
+      "min_score": 0.07349289208650589,
+      "order_statistic_rank": 32,
+      "accepted_no_match_on_calibration": 0,
+      "accepted_answerable_on_calibration": 1
+    },
+    "standardized": {
+      "status": "calibrated",
+      "max_false_accept": 0.1,
+      "confidence": 0.95,
+      "no_match_cases": 32,
+      "answerable_cases": 24,
+      "min_score": 3.7158946990966797,
+      "order_statistic_rank": 32,
+      "accepted_no_match_on_calibration": 0,
+      "accepted_answerable_on_calibration": 2
+    }
+  },
+  "holdout": {
+    "hybrid": {
+      "supported": 24,
+      "unsupported": 24,
+      "accepted_supported": 24,
+      "accepted_unsupported": 24,
+      "supported_hit_at_1": 10,
+      "supported_hit_at_5": 21,
+      "missed_supported_ids": [
+        "h04",
+        "h13",
+        "h24"
+      ],
+      "tool_json_bytes": 896352,
+      "shortlist_json_bytes": 67393,
+      "tool_json_reduction": 0.9248141355181893
+    },
+    "dense": {
+      "supported": 24,
+      "unsupported": 24,
+      "accepted_supported": 24,
+      "accepted_unsupported": 24,
+      "supported_hit_at_1": 13,
+      "supported_hit_at_5": 22,
+      "missed_supported_ids": [
+        "h07",
+        "h18"
+      ],
+      "tool_json_bytes": 896352,
+      "shortlist_json_bytes": 64178,
+      "tool_json_reduction": 0.9284008960765413
+    },
+    "bm25": {
+      "supported": 24,
+      "unsupported": 24,
+      "accepted_supported": 24,
+      "accepted_unsupported": 24,
+      "supported_hit_at_1": 10,
+      "supported_hit_at_5": 19,
+      "missed_supported_ids": [
+        "h04",
+        "h10",
+        "h12",
+        "h13",
+        "h24"
+      ],
+      "tool_json_bytes": 896352,
+      "shortlist_json_bytes": 67608,
+      "tool_json_reduction": 0.9245742743922031
+    },
+    "hybrid_cosine_cutoff": {
+      "supported": 24,
+      "unsupported": 24,
+      "accepted_supported": 14,
+      "accepted_unsupported": 3,
+      "supported_hit_at_1": 9,
+      "supported_hit_at_5": 14,
+      "missed_supported_ids": [
+        "h01",
+        "h04",
+        "h06",
+        "h07",
+        "h09",
+        "h13",
+        "h17",
+        "h18",
+        "h19",
+        "h24"
+      ],
+      "tool_json_bytes": 896352,
+      "shortlist_json_bytes": 13471,
+      "tool_json_reduction": 0.9849713059155332
+    },
+    "hybrid_hybrid_max_cutoff": {
+      "supported": 24,
+      "unsupported": 24,
+      "accepted_supported": 12,
+      "accepted_unsupported": 0,
+      "supported_hit_at_1": 6,
+      "supported_hit_at_5": 12,
+      "missed_supported_ids": [
+        "h01",
+        "h02",
+        "h04",
+        "h06",
+        "h07",
+        "h09",
+        "h10",
+        "h12",
+        "h13",
+        "h18",
+        "h19",
+        "h24"
+      ],
+      "tool_json_bytes": 896352,
+      "shortlist_json_bytes": 16703,
+      "tool_json_reduction": 0.981365579593731
+    },
+    "hybrid_margin_cutoff": {
+      "supported": 24,
+      "unsupported": 24,
+      "accepted_supported": 1,
+      "accepted_unsupported": 0,
+      "supported_hit_at_1": 1,
+      "supported_hit_at_5": 1,
+      "missed_supported_ids": [
+        "h01",
+        "h02",
+        "h03",
+        "h04",
+        "h05",
+        "h06",
+        "h07",
+        "h08",
+        "h09",
+        "h10",
+        "h11",
+        "h12",
+        "h13",
+        "h14",
+        "h15",
+        "h16",
+        "h17",
+        "h18",
+        "h19",
+        "h20",
+        "h21",
+        "h23",
+        "h24"
+      ],
+      "tool_json_bytes": 896352,
+      "shortlist_json_bytes": 1479,
+      "tool_json_reduction": 0.9983499785798436
+    },
+    "hybrid_standardized_cutoff": {
+      "supported": 24,
+      "unsupported": 24,
+      "accepted_supported": 2,
+      "accepted_unsupported": 1,
+      "supported_hit_at_1": 2,
+      "supported_hit_at_5": 2,
+      "missed_supported_ids": [
+        "h01",
+        "h02",
+        "h04",
+        "h05",
+        "h06",
+        "h07",
+        "h08",
+        "h09",
+        "h10",
+        "h11",
+        "h12",
+        "h13",
+        "h14",
+        "h15",
+        "h16",
+        "h17",
+        "h18",
+        "h19",
+        "h20",
+        "h22",
+        "h23",
+        "h24"
+      ],
+      "tool_json_bytes": 896352,
+      "shortlist_json_bytes": 4363,
+      "tool_json_reduction": 0.9951324925921959
+    }
+  },
+  "gate": {
+    "passed": false,
+    "checks": {
+      "top_five_recall_at_least_90_percent": false,
+      "tool_json_reduction_at_least_80_percent": true,
+      "false_acceptance_at_most_10_percent": false,
+      "supported_coverage_at_least_85_percent": false
+    }
+  },
+  "external_compute_usd": 0
+}

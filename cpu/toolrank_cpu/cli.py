@@ -8,9 +8,6 @@ from shutil import copyfileobj
 from tempfile import TemporaryDirectory
 from urllib.request import urlopen
 
-from . import rank_onnx
-
-
 def matches(path, expected):
     try:
         with path.open("rb") as stream:
@@ -43,4 +40,16 @@ def checkpoint():
 
 
 def main():
+    from . import rank_onnx
+
     rank_onnx.main(resolve_checkpoint=checkpoint)
+
+
+def gateway_main():
+    try:
+        from .gateway import main as run_gateway
+    except ModuleNotFoundError as error:
+        if error.name not in {"anyio", "httpx", "jsonschema", "mcp", "pydantic", "referencing"}:
+            raise
+        raise SystemExit("Install toolrank-cpu with the gateway extra.") from None
+    run_gateway()

@@ -1,0 +1,19 @@
+{
+  "ranking": "bm25",
+  "servers": [
+    {
+      "id": "clock",
+      "transport": "streamable_http",
+      "url": "http://127.0.0.1:8271/mcp",
+      "discover": ["get_current_time"],
+      "invoke": ["get_current_time"]
+    },
+    {
+      "id": "time_math",
+      "command": "uv",
+      "args": ["run", "--project", "cpu", "--locked", "--no-sync", "python", "examples/gateway_time_math.py"],
+      "discover": ["minutes_since_midnight"],
+      "invoke": ["minutes_since_midnight"]
+    }
+  ]
+}

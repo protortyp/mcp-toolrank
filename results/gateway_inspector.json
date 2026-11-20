@@ -1,0 +1,16 @@
+{
+  "client": "MCP Inspector 2.16.0",
+  "node": "24.22.1",
+  "transport": "stdio",
+  "methods": [
+    "invoke_tool",
+    "search_tools"
+  ],
+  "discovered_tools": 5,
+  "allowed_ids": [
+    "clock/get_current_time"
+  ],
+  "approved_invocation": "clock/get_current_time",
+  "denied_invocation": "repository/git_status",
+  "denial_code": "not_available"
+}

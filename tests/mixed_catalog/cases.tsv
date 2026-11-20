@@ -1,0 +1,29 @@
+id	tool_a	tool_b	intent_a	intent_b
+p01	crossref_work_by_doi	weather__obs_station	Get the citation metadata for DOI 10.1038/nature14539.	Find the recorded location of surface observing station KSEA.
+p02	gbif_get_dataset	weather__zone	Get the GBIF publisher and title for this biodiversity dataset UUID.	Return the boundary for land forecast zone COZ040.
+p03	usgs_quakes_count_earthquakes	weather__alerts_active_count	Count earthquakes above magnitude 4 within a specified past week.	Get the current count of active weather alerts without their details.
+p04	crossref_journal_by_issn	worldbank_country_metadata	Resolve the journal with ISSN 0036-8075.	Find Kenya's World Bank income group and region.
+p05	weather__station_observation_list	gbif_search_occurrences	Get the surface observations recorded at KBOS from 12 to 16 UTC.	List GBIF observations of this taxon in Massachusetts in May.
+p06	fdc_get_food	openalex_get_work	Return nutrients for the USDA food record with FDC ID 534358.	Fetch the OpenAlex work identified by W2741809807.
+p07	usgs_quakes_query_earthquakes	worldbank_indicator_series	List the individual earthquakes recorded around Chile above magnitude 5 last month.	Fetch Chile's World Bank indicator series for access to electricity.
+p08	weather__point_radio	crossref_find_works	Which weather radio transmitters serve the coordinates 47.45,-122.31?	Find Crossref publications about weather radio coverage.
+p09	weather__office	worldbank_list_sources	Find the mailing address of the SEW weather forecast office.	List the source databases available from the World Bank.
+p10	gbif_search_species	openalex_search_institutions	Find the GBIF taxonomic checklist record matching monarch butterfly.	Search OpenAlex for institutions whose names match Cornell University.
+p11	weather__products_type_location	crossref_list_journal_works	Find issued Area Forecast Discussion bulletins for the Seattle location.	List published works in the Crossref journal identified by ISSN 0036-8075.
+p12	usgs_quakes_list_contributors	fdc_search_foods	Who contributes records to the USGS earthquake event service?	Search FoodData Central for canned low sodium beans.
+p13	gbif_get_occurrence	weather__station_observation_time	Retrieve the indexed biodiversity record for numeric GBIF occurrence ID 223344.	Find the KSEA surface weather observation stamped 2026-08-17T16:00:00Z.
+p14	openalex_search_authors	weather__glossary	Find research author profiles in OpenAlex for Maria Santos.	Retrieve the NWS glossary so I can check the definition of sleet.
+p15	weather__gridpoint_forecast_hourly	worldbank_indicator_metadata	Get the hourly forecast rows for the SEW 124,68 forecast grid.	Find the World Bank definition and source for indicator EG.ELC.ACCS.ZS.
+p16	fdc_get_foods	usgs_quakes_list_catalogs	Get the full nutrition records for FDC IDs 534358 and 173944 together.	List all earthquake catalog codes supported by the USGS event service.
+p17	weather__zone_stations	gbif_search_occurrences	Which surface observation stations belong to land forecast zone WAZ558?	Find biodiversity occurrences reported from Washington State last July.
+p18	fdc_list_foods	openalex_search_works	Browse an abridged page of foods using the FDC list without any search term.	Find publications on food composition in the OpenAlex work index.
+p19	weather__obs_stations	usgs_quakes_list_contributors	Get the national registry of US weather observation stations.	Show organizations contributing earthquake data to the USGS event catalog.
+p20	crossref_find_works	worldbank_indicator_series	Find Crossref records about electrification in low-income countries.	Fetch annual World Bank rural electricity access values for Kenya.
+n01	-	-	Correct the publication title in Crossref.	Email the corrected record to my editor.
+n02	-	-	Restart the KATX radar.	Post the maintenance acknowledgement to Slack.
+n03	-	-	Retrieve tide predictions at a marina in Seattle.	Get the boat's current onboard water depth.
+n04	-	-	Use the station's street address to find its postal delivery route.	Change the address on that station's records.
+n05	-	-	Find my personal USDA shopping list.	Add one of the items to a grocery order.
+n06	-	-	Set up a subscription to real-time USGS seismic event notices.	Pause this existing earthquake SMS subscription.
+n07	-	-	Get the history of solar wind forecasts for Mars.	Produce a chart image with the values.
+n08	-	-	Classify a photographed butterfly in this image.	Edit the original photo to highlight its wings.

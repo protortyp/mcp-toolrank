@@ -1,0 +1,42 @@
+{
+  "revision": "a6708547cc9815e04a86a1d52115c25b0984e218",
+  "source_sha256": "091dfd4501a912d145650a1e5d82d19a44f0dfa9d6c65eec96b1ee8ada0e1e2f",
+  "platform": "Linux-7.0.0-42-generic-x86_64-with-glibc2.39",
+  "uv_version": "uv 0.11.14 (x86_64-unknown-linux-gnu)",
+  "artifacts": {
+    "toolrank_cpu-0.2.0-py3-none-any.whl": "a41cb657f5d366353b7992dba1df3d43abdb27088a0cfc43e073e5ee1351f8b4",
+    "toolrank_cpu-0.2.0.tar.gz": "f49087d0ce455c9054ec9ec7429103f569da21e0ac032e23460481032f4b6b00",
+    "mcp-toolrank-0.7.1.mcpb": "890fbdb2d525dbccebd4fa4b63996564d2e5446145b115028b4240896e512b61"
+  },
+  "wheel_rebuild_identical": true,
+  "offline_with_cached_dependencies": true,
+  "fresh_install_demos": [
+    {
+      "python": "3.12",
+      "elapsed_seconds": 1.3307900850195438,
+      "ordered_calls": [
+        "clock/current_utc_time",
+        "time_math/minutes_since_midnight"
+      ],
+      "minutes_match_clock_receipt": true,
+      "empty_model_cache": true
+    },
+    {
+      "python": "3.13",
+      "elapsed_seconds": 1.299969231011346,
+      "ordered_calls": [
+        "clock/current_utc_time",
+        "time_math/minutes_since_midnight"
+      ],
+      "minutes_match_clock_receipt": true,
+      "empty_model_cache": true
+    }
+  ],
+  "installed_onnx_cli_match": "get_current_time",
+  "desktop_bundle": {
+    "version": "0.7.1",
+    "search_match": "get_current_time",
+    "model_notices_verified": 43
+  },
+  "external_compute_usd": 0
+}

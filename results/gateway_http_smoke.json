@@ -1,0 +1,49 @@
+{
+  "wheel": {
+    "filename": "toolrank_cpu-0.2.0-py3-none-any.whl",
+    "sha256": "f8e01932a8e6e26fbc6070ce909e0516592fc91b54285a51ee3a45b8382f0474",
+    "python": "3.12.13",
+    "mcp_sdk": "1.30.0"
+  },
+  "mixed_example": {
+    "client": "MCP Inspector 2.16.0",
+    "node": "24.22.1",
+    "transport": "stdio",
+    "methods": [
+      "invoke_tool",
+      "search_tools"
+    ],
+    "discovered_tools": 4,
+    "allowed_ids": [
+      "clock/get_current_time"
+    ],
+    "approved_invocation": "clock/get_current_time",
+    "denied_invocation": "repository/git_status",
+    "denial_code": "not_available",
+    "config": "examples/gateway_http_config.json",
+    "upstream_transports": {
+      "clock": "streamable_http",
+      "repository": "stdio"
+    }
+  },
+  "public_discovery": {
+    "config": {
+      "id": "cloudflare_docs",
+      "transport": "streamable_http",
+      "url": "https://docs.mcp.cloudflare.com/mcp",
+      "discover": [
+        "search_cloudflare_documentation"
+      ]
+    },
+    "protocol_version_observed": "2025-11-25",
+    "match": "cloudflare_docs/search_cloudflare_documentation",
+    "invocable": false,
+    "upstreams": {
+      "clock": "ready",
+      "repository": "ready",
+      "cloudflare_docs": "ready"
+    },
+    "query": "Find the Cloudflare Workers documentation"
+  },
+  "external_compute_usd": 0
+}

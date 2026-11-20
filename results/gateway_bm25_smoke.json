@@ -1,0 +1,16 @@
+{
+  "wheel": "toolrank_cpu-0.2.0-py3-none-any.whl",
+  "wheel_sha256": "fefe1a24cac7229a84e52402f466528817935565dd48f0bd9ef401c0a1a4a930",
+  "ranking": "bm25",
+  "model_cache_empty": true,
+  "offline": true,
+  "discovered": [
+    "repository/git_status",
+    "clock/get_current_time",
+    "repository/git_diff_unstaged",
+    "clock/convert_time",
+    "repository/git_log"
+  ],
+  "invoked": "clock/get_current_time",
+  "external_compute_usd": 0
+}

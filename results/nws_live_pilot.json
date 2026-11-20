@@ -1,0 +1,29 @@
+{
+  "spec_sha256": "ae478b69cdac6449e3b834dca636300f830dde552ac6abc180b1d5e82e2f1d35",
+  "probes": [
+    {
+      "id": "nws/weather__obs_station",
+      "present_at_five": true,
+      "error": false,
+      "http_status": 200,
+      "expected_response_field": "properties",
+      "field_present": true
+    },
+    {
+      "id": "nws/weather__alerts_types",
+      "present_at_five": true,
+      "error": false,
+      "http_status": 200,
+      "expected_response_field": "eventTypes",
+      "field_present": true
+    },
+    {
+      "id": "nws/weather__glossary",
+      "present_at_five": true,
+      "error": false,
+      "http_status": 200,
+      "expected_response_field": "glossary",
+      "field_present": true
+    }
+  ]
+}

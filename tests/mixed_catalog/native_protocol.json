@@ -1,0 +1,9 @@
+{
+  "scope": "A second fixed diagnostic with a stronger local downstream agent and the native tool-call interface. Reuse the same 12 frozen cases, verified synthetic receipts, scoring, methods, and 4096-byte cap.",
+  "fixed_agent": "Qwen2.5-7B-Instruct Q4_K_M GGUF at bb5d59e06d9551d752d08b292a50eb208b07ab1f. llama.cpp b12559 Vulkan, native tool calling via Jinja, a 32768-token slot with prompt cache disabled, temperature zero.",
+  "llama_cpp_revision": "7e960f40f",
+  "runtime_change": "ff52ee964 crashed on the first 93-tool request, including on CPU under a debugger. Upgrade the runtime before collecting native-profile results.",
+  "seeds": [11],
+  "interpretation": "Compare each exposure method with this agent's own all-tools arm. The two agent profiles differ in both model and interface. No test-driven weight, threshold or prompt selection.",
+  "external_compute_usd": 0
+}

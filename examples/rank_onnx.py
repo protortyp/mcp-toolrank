@@ -16,20 +16,16 @@ import numpy as np
 import onnxruntime as ort
 from tokenizers import Tokenizer, __version__ as tokenizers_version
 
+if __package__:
+    from .catalog_lexical import CatalogLexicalIndex, top_indices
+else:
+    from catalog_lexical import CatalogLexicalIndex, top_indices
+
 
 def quantize_rows(matrix, bound):
     peaks = np.abs(matrix).max(axis=1, keepdims=True)
     scales = np.where(peaks > 0, peaks / bound, np.float32(1))
     return np.rint(matrix / scales).astype(np.int8), scales[:, 0]
-
-
-def top_indices(scores, limit):
-    if limit >= len(scores):
-        return np.argsort(-scores, kind="stable")
-    cutoff = np.partition(scores, len(scores) - limit)[-limit]
-    higher = np.flatnonzero(scores > cutoff)
-    ties = np.flatnonzero(scores == cutoff)[:limit - len(higher)]
-    return np.concatenate((higher[np.argsort(-scores[higher], kind="stable")], ties))
 
 
 def encode_compact_catalog(batches, size):
@@ -140,10 +136,6 @@ class OnnxToolRank:
         descriptions = [f"{item['name']}: {item.get('description') or ''}" for item in self.tools]
         self.lexical_index = None
         if hybrid and descriptions:
-            if __package__:
-                from .catalog_lexical import CatalogLexicalIndex
-            else:
-                from catalog_lexical import CatalogLexicalIndex
             self.lexical_index = CatalogLexicalIndex(descriptions)
         batches = (self.encode(descriptions[i:i + 32]) for i in range(0, len(descriptions), 32))
         self.catalog = None

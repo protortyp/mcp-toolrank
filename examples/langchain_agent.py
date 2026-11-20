@@ -1,10 +1,8 @@
-import argparse
-from langchain.agents import create_agent
-from langchain_core.language_models.fake_chat_models import GenericFakeChatModel
-from langchain_core.messages import AIMessage
+import json
 
-from examples.local_tools import CATALOG, QUERY, find_accessible_entry, list_exhibits
-from toolrank.selector import ToolSelector
+from langchain.agents import create_agent
+
+from examples.local_tools import find_accessible_entry, list_exhibits
 
 
 def build_agent(chat_model, selector, query):
@@ -13,19 +11,37 @@ def build_agent(chat_model, selector, query):
     return create_agent(chat_model, tools=[functions[hit.tool["name"]] for hit in hits])
 
 
-class LocalToolCallingModel(GenericFakeChatModel):
-    def bind_tools(self, tools, **kwargs):
-        return self
+async def run_gateway(args):
+    from langchain_core.messages import AIMessage, HumanMessage, SystemMessage, ToolMessage
+    from langchain_openai import ChatOpenAI
+    from langsmith import tracing_context
+
+    from examples.gateway_agent import Proposal, SYSTEM, Turn, gateway_session, run_workflow
+
+    model = ChatOpenAI(model=args.model, base_url=args.url, api_key="local", temperature=0)
+
+    async def advance(query, observations, menu):
+        messages = [SystemMessage(content=SYSTEM), HumanMessage(content=query)]
+        for entry in observations:
+            call = entry.proposal
+            messages.extend((AIMessage(content="", tool_calls=[{"name": call.name, "args": call.args, "id": call.id}]),
+                             ToolMessage(content=json.dumps(entry.content), tool_call_id=call.id)))
+        model_with_tools = model.bind_tools([{"type": "function", "function": tool} for tool in menu],
+                                            parallel_tool_calls=False) if menu else model
+        response = await model_with_tools.ainvoke(messages)
+        if response.invalid_tool_calls:
+            raise RuntimeError("Model proposed malformed tool calls")
+        return Turn(response.text, tuple(Proposal(call["name"], call["args"], call["id"])
+                                         for call in response.tool_calls))
+
+    with tracing_context(enabled=False):
+        async with gateway_session(args) as client:
+            return await run_workflow(client, args.query, advance)
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument("checkpoint")
-    args = parser.parse_args()
-    selector = ToolSelector.from_checkpoint(args.checkpoint, CATALOG)
-    model = LocalToolCallingModel(messages=iter([
-        AIMessage(content="", tool_calls=[{"name": "find_accessible_entry", "args": {}, "id": "demo"}]),
-        AIMessage(content="Use the north entrance."),
-    ]))
-    result = build_agent(model, selector, QUERY).invoke({"messages": [{"role": "user", "content": QUERY}]})
-    print([message.content for message in result["messages"] if message.type == "tool"])
+    import asyncio
+
+    from examples.gateway_agent import arguments
+
+    print(asyncio.run(run_gateway(arguments())).answer)

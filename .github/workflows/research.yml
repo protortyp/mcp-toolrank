@@ -1,0 +1,38 @@
+name: Matched benchmarks
+
+on:
+  workflow_dispatch:
+    inputs:
+      include_toolret:
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+jobs:
+  retrieval:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+      - uses: astral-sh/setup-uv@94527f2e458b27549849d47d273a16bec83a01e9 # v7
+        with:
+          python-version: "3.12"
+      - run: uv sync --locked --extra cpu --group research
+      - env:
+          WITH_TOOLRET: ${{ inputs.include_toolret }}
+        run: |
+          options=()
+          datasets=(etom-plain etom-mcp etom-openai api)
+          if [[ "$WITH_TOOLRET" == "true" ]]; then
+            options+=(--toolret)
+            datasets+=(toolret)
+          fi
+          uv run --no-sync python -m toolrank.fetch_baseline --toolrank artifacts/toolrank --models bge toolrank "${options[@]}"
+          uv run --no-sync python -m toolrank.baseline_comparison --toolrank artifacts/toolrank \
+            --models bge toolrank --datasets "${datasets[@]}" --output dist/baseline_comparison.json
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: baseline-comparison
+          path: dist/baseline_comparison.json

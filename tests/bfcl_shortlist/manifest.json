@@ -1,0 +1,25 @@
+{
+  "scope": "Frozen input manifest",
+  "revision": "6ea57973c7a6097fd7c5915698c54c17c5b1b6c8",
+  "datasets": {
+    "live_multiple": {
+      "requests": 1053,
+      "catalogs_with_more_than_five_tools": 156,
+      "data_sha256": "fd8ccfad4d911420d0e3341dbe2fff77d1d341da934248b9bb2bda24ab3a10c8",
+      "gold_sha256": "97e90d59c5bd76c55a2920ce93e5566e9046307d3f558578f085f9d3a56c3084",
+      "all_ids_join_and_gold_tools_present": true
+    },
+    "live_parallel_multiple": {
+      "requests": 24,
+      "catalogs_with_more_than_five_tools": 4,
+      "data_sha256": "21d4b9319c1faac431e22757b367ea28917fe467364c3a4b17f16ec06d4f6e79",
+      "gold_sha256": "f5b5f360556c5feb51db46fb9f56ee4b304f4b45b161599bbb14161c98a2873f",
+      "all_ids_join_and_gold_tools_present": true
+    },
+    "live_irrelevance": {
+      "requests": 884,
+      "catalogs_with_more_than_five_tools": 72,
+      "data_sha256": "6559fda2beaceb609a2cd2e504c65b4a56cb448e1ef88fddfd199e163d163349"
+    }
+  }
+}

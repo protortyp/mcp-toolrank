@@ -1,0 +1,989 @@
+{
+  "hardware": {
+    "cpu": "AMD Ryzen 9 5950X 16-Core Processor",
+    "platform": "Linux-7.0.0-42-generic-x86_64-with-glibc2.39",
+    "python": "3.12.13"
+  },
+  "scope": "Fresh processes with warmed filesystem. Timings exclude transport, disk download, fixture loading and Python startup. First search includes index construction. Warm latency uses the same shuffled cases. Peak RSS is process-wide on Linux.",
+  "dataset": {
+    "cases.tsv": "fcb69e41f96b55a8d61748dd67bbb197091bb990128f746c2ed1c40d59694584",
+    "onnx_int8_holdout.json": "ec11f47f29f6560bf0039f29674ac4765b85c35a9ac724f8406507e929387d8c",
+    "spec.json.gz": "05e691fdd3f421dc43ec4c7f468d0f1a4b1cfd1a5a32fc61236e1c755b5d96e2"
+  },
+  "limit": 10,
+  "catalog_tools": 93,
+  "supported_requests": 20,
+  "unsupported_requests": 8,
+  "seeds": [
+    11,
+    23,
+    37
+  ],
+  "warm_rounds": 3,
+  "source_sha256": "b7107b35028ee492305425f6c417c187e84f8056b876766f3fb2a46a1d4fcb62",
+  "checkpoint_checksums": {
+    "tokenizer.json": "91f1def9b9391fdabe028cd3f3fcc4efd34e5d1f08c3bf2de513ebb5911a1854",
+    "sentence_bert_config.json": "65c2293c310f5476a8d1cbada277722c3e7ae5b5ddbaa2d2fe5d075f410d6d02",
+    "config_sentence_transformers.json": "7453db62f635567117454bf0599899107d43569c95d5353b5993d809c39379cf",
+    "onnx/embedding-int8.onnx": "ba0e544669eac502cac535d3ed53b9cf5b530b5fd929d4a7bddd787abe08ea33"
+  },
+  "revision": "a4cfd4aa294651c069b534f4dcc3f9abcf069889",
+  "external_compute_usd": 0,
+  "results": {
+    "bm25": {
+      "full_positive_retained": 18,
+      "required_tool_hits": 38,
+      "unsupported_with_suggestions": 8,
+      "unsupported_no_lexical_overlap": 0,
+      "ndcg_at_10": 0.8577137810081243,
+      "process_medians": {
+        "import_ms": 261.8162438739091,
+        "model_setup_ms": 0.027820002287626266,
+        "first_search_ms": 4.45014494471252,
+        "cold_first_search_ms": 269.82982992194593,
+        "warm_search_p50_ms": 0.3443275345489383,
+        "warm_search_p95_ms": 1.3851331314072013,
+        "peak_rss_mib": 82.484375
+      },
+      "processes": [
+        {
+          "seed": 11,
+          "import_ms": 265.3518649749458,
+          "model_setup_ms": 0.027820002287626266,
+          "first_search_ms": 4.45014494471252,
+          "cold_first_search_ms": 269.82982992194593,
+          "warm_search_p50_ms": 0.3398930421099067,
+          "warm_search_p95_ms": 1.3851331314072013,
+          "peak_rss_mib": 82.234375,
+          "model_libraries": []
+        },
+        {
+          "seed": 23,
+          "import_ms": 261.8162438739091,
+          "model_setup_ms": 0.029189977794885635,
+          "first_search_ms": 8.015182102099061,
+          "cold_first_search_ms": 269.86061595380306,
+          "warm_search_p50_ms": 0.3443275345489383,
+          "warm_search_p95_ms": 1.2689669383689761,
+          "peak_rss_mib": 82.484375,
+          "model_libraries": []
+        },
+        {
+          "seed": 37,
+          "import_ms": 258.9179009664804,
+          "model_setup_ms": 0.023039989173412323,
+          "first_search_ms": 3.693288192152977,
+          "cold_first_search_ms": 262.63422914780676,
+          "warm_search_p50_ms": 0.38018799386918545,
+          "warm_search_p95_ms": 1.5384092112071812,
+          "peak_rss_mib": 82.484375,
+          "model_libraries": []
+        }
+      ],
+      "results": {
+        "p15": {
+          "ids": [
+            "worldbank/worldbank_indicator_metadata",
+            "nws/weather__gridpoint_forecast_hourly",
+            "worldbank/worldbank_list_sources",
+            "worldbank/worldbank_indicator_series",
+            "worldbank/worldbank_country_metadata",
+            "nws/weather__gridpoint_forecast",
+            "nws/weather__gridpoint",
+            "nws/weather__zone_forecast",
+            "fdc/fdc_search_foods",
+            "crossref/crossref_find_works"
+          ],
+          "decision": "ranked_unverified"
+        },
+        "p18": {
+          "ids": [
+            "fdc/fdc_list_foods",
+            "fdc/fdc_search_foods",
+            "fdc/fdc_get_foods",
+            "openalex/openalex_search_authors",
+            "openalex/openalex_search_works",
+            "openalex/openalex_get_work",
+            "openalex/openalex_search_institutions",
+            "fdc/fdc_get_food",
+            "crossref/crossref_find_works",
+            "gbif/gbif_search_species"
+          ],
+          "decision": "ranked_unverified"
+        },
+        "n05": {
+          "ids": [
+            "usgs_quakes/usgs_quakes_list_contributors",
+            "fdc/fdc_search_foods",
+            "crossref/crossref_find_works",
+            "usgs_quakes/usgs_quakes_list_catalogs",
+            "fdc/fdc_get_food",
+            "nws/weather__sigmetsByATSUByDate",
+            "nws/weather__sigmetsByATSU",
+            "worldbank/worldbank_list_sources",
+            "openalex/openalex_search_authors",
+            "nws/weather__zone_list_type"
+          ],
+          "decision": "ranked_unverified"
+        },
+        "n08": {
+          "ids": [
+            "nws/weather__office_weatherstory_image",
+            "nws/weather__satellite_thumbnails",
+            "usgs_quakes/usgs_quakes_list_contributors",
+            "usgs_quakes/usgs_quakes_list_catalogs",
+            "worldbank/worldbank_list_sources",
+            "gbif/gbif_get_occurrence",
+            "openalex/openalex_get_work",
+            "openalex/openalex_search_authors",
+            "fdc/fdc_get_foods",
+            "nws/weather__icons"
+          ],
+          "decision": "ranked_unverified"
+        },
+        "n06": {
+          "ids": [
+            "usgs_quakes/usgs_quakes_list_contributors",
+            "usgs_quakes/usgs_quakes_query_earthquakes",
+            "usgs_quakes/usgs_quakes_list_catalogs",
+            "usgs_quakes/usgs_quakes_count_earthquakes",
+            "nws/weather__icons",
+            "nws/weather__iconsDualCondition",
+            "nws/weather__station_observation_time",
+            "worldbank/worldbank_country_metadata",
+            "nws/weather__sigmet",
+            "nws/weather__taf"
+          ],
+          "decision": "ranked_unverified"
+        },
+        "p17": {
+          "ids": [
+            "nws/weather__zone_stations",
+            "gbif/gbif_search_occurrences",
+            "nws/weather__zone_forecast",
+            "nws/weather__zone_obs",
+            "nws/weather__obs_stations",
+            "nws/weather__station_observation_time",
+            "nws/weather__point_stations",
+            "nws/weather__station_observation_latest",
+            "nws/weather__gridpoint_stations",
+            "nws/weather__station_observation_list"
+          ],
+          "decision": "ranked_unverified"
+        },
+        "p19": {
+          "ids": [
+            "usgs_quakes/usgs_quakes_list_contributors",
+            "usgs_quakes/usgs_quakes_list_catalogs",
+            "usgs_quakes/usgs_quakes_count_earthquakes",
+            "usgs_quakes/usgs_quakes_query_earthquakes",
+            "nws/weather__obs_stations",
+            "nws/weather__station_observation_latest",
+            "nws/weather__point_stations",
+            "nws/weather__zone_stations",
+            "nws/weather__gridpoint_stations",
+            "nws/weather__station_observation_list"
+          ],
+          "decision": "ranked_unverified"
+        },
+        "p07": {
+          "ids": [
+            "worldbank/worldbank_indicator_series",
+            "worldbank/worldbank_indicator_metadata",
+            "usgs_quakes/usgs_quakes_query_earthquakes",
+            "worldbank/worldbank_list_sources",
+            "usgs_quakes/usgs_quakes_count_earthquakes",
+            "usgs_quakes/usgs_quakes_list_contributors",
+            "worldbank/worldbank_country_metadata",
+            "gbif/gbif_get_dataset",
+            "fdc/fdc_get_foods",
+            "usgs_quakes/usgs_quakes_list_catalogs"
+          ],
+          "decision": "ranked_unverified"
+        },
+        "p06": {
+          "ids": [
+            "fdc/fdc_get_food",
+            "openalex/openalex_get_work",
+            "crossref/crossref_work_by_doi",
+            "fdc/fdc_search_foods",
+            "openalex/openalex_search_institutions",
+            "fdc/fdc_list_foods",
+            "fdc/fdc_get_foods",
+            "gbif/gbif_get_occurrence",
+            "openalex/openalex_search_authors",
+            "crossref/crossref_journal_by_issn"
+          ],
+          "decision": "ranked_unverified"
+        },
+        "n03": {
+          "ids": [
+            "nws/weather__zone_forecast",
+            "usgs_quakes/usgs_quakes_query_earthquakes",
+            "usgs_quakes/usgs_quakes_list_catalogs",
+            "worldbank/worldbank_list_sources",
+            "worldbank/worldbank_indicator_series",
+            "crossref/crossref_work_by_doi",
+            "fdc/fdc_get_foods",
+            "openalex/openalex_search_authors",
+            "nws/weather__icons",
+            "nws/weather__icons_summary"
+          ],
+          "decision": "ranked_unverified"
+        },
+        "p16": {
+          "ids": [
+            "usgs_quakes/usgs_quakes_list_catalogs",
+            "usgs_quakes/usgs_quakes_query_earthquakes",
+            "usgs_quakes/usgs_quakes_list_contributors",
+            "usgs_quakes/usgs_quakes_count_earthquakes",
+            "fdc/fdc_get_foods",
+            "fdc/fdc_list_foods",
+            "fdc/fdc_get_food",
+            "fdc/fdc_search_foods",
+            "nws/weather__product_types",
+            "nws/weather__sigmetsByATSUByDate"
+          ],
+          "decision": "ranked_unverified"
+        },
+        "p20": {
+          "ids": [
+            "worldbank/worldbank_indicator_series",
+            "worldbank/worldbank_country_metadata",
+            "crossref/crossref_find_works",
+            "worldbank/worldbank_list_sources",
+            "worldbank/worldbank_indicator_metadata",
+            "fdc/fdc_get_foods",
+            "crossref/crossref_journal_by_issn",
+            "openalex/openalex_search_authors",
+            "fdc/fdc_list_foods",
+            "crossref/crossref_list_journal_works"
+          ],
+          "decision": "ranked_unverified"
+        },
+        "p04": {
+          "ids": [
+            "worldbank/worldbank_country_metadata",
+            "crossref/crossref_journal_by_issn",
+            "crossref/crossref_list_journal_works",
+            "worldbank/worldbank_indicator_metadata",
+            "worldbank/worldbank_list_sources",
+            "nws/weather__alerts_active_region",
+            "worldbank/worldbank_indicator_series",
+            "fdc/fdc_search_foods",
+            "crossref/crossref_find_works",
+            "usgs_quakes/usgs_quakes_query_earthquakes"
+          ],
+          "decision": "ranked_unverified"
+        },
+        "p08": {
+          "ids": [
+            "nws/weather__transmitters",
+            "crossref/crossref_find_works",
+            "crossref/crossref_journal_by_issn",
+            "nws/weather__area_radio",
+            "nws/weather__point_radio",
+            "crossref/crossref_list_journal_works",
+            "crossref/crossref_work_by_doi",
+            "openalex/openalex_search_works",
+            "nws/weather__transmitter",
+            "nws/weather__transmitter_zone"
+          ],
+          "decision": "ranked_unverified"
+        },
+        "p05": {
+          "ids": [
+            "gbif/gbif_search_occurrences",
+            "usgs_quakes/usgs_quakes_list_contributors",
+            "nws/weather__station_observation_list",
+            "nws/weather__zone_obs",
+            "usgs_quakes/usgs_quakes_list_catalogs",
+            "nws/weather__cwas",
+            "gbif/gbif_get_occurrence",
+            "worldbank/worldbank_list_sources",
+            "gbif/gbif_get_dataset",
+            "nws/weather__cwa"
+          ],
+          "decision": "ranked_unverified"
+        },
+        "p03": {
+          "ids": [
+            "nws/weather__alerts_active_count",
+            "usgs_quakes/usgs_quakes_count_earthquakes",
+            "usgs_quakes/usgs_quakes_query_earthquakes",
+            "nws/weather__alerts_active_region",
+            "nws/weather__alerts_active_area",
+            "nws/weather__alerts_active_zone",
+            "nws/weather__alerts_active",
+            "fdc/fdc_get_foods",
+            "nws/weather__sigmetsByATSUByDate",
+            "nws/weather__zone_forecast"
+          ],
+          "decision": "ranked_unverified"
+        },
+        "p02": {
+          "ids": [
+            "gbif/gbif_get_dataset",
+            "nws/weather__zone_forecast",
+            "nws/weather__zone_obs",
+            "nws/weather__zone_stations",
+            "nws/weather__alerts_active_zone",
+            "gbif/gbif_search_species",
+            "gbif/gbif_get_occurrence",
+            "nws/weather__transmitter_zone",
+            "gbif/gbif_search_occurrences",
+            "worldbank/worldbank_indicator_metadata"
+          ],
+          "decision": "ranked_unverified"
+        },
+        "p09": {
+          "ids": [
+            "worldbank/worldbank_list_sources",
+            "worldbank/worldbank_indicator_metadata",
+            "usgs_quakes/usgs_quakes_list_catalogs",
+            "nws/weather__office",
+            "nws/weather__office_headlines",
+            "worldbank/worldbank_indicator_series",
+            "worldbank/worldbank_country_metadata",
+            "nws/weather__cwas",
+            "nws/weather__office_briefing_download_latest",
+            "nws/weather__office_weatherstory_image"
+          ],
+          "decision": "ranked_unverified"
+        },
+        "p01": {
+          "ids": [
+            "crossref/crossref_work_by_doi",
+            "nws/weather__products_type_location",
+            "nws/weather__location_products",
+            "crossref/crossref_find_works",
+            "nws/weather__station_observation_latest",
+            "nws/weather__latest_product_type_location",
+            "nws/weather__obs_station",
+            "nws/weather__radar_station",
+            "nws/weather__station_observation_list",
+            "nws/weather__tafs"
+          ],
+          "decision": "ranked_unverified"
+        },
+        "n01": {
+          "ids": [
+            "crossref/crossref_find_works",
+            "crossref/crossref_work_by_doi",
+            "crossref/crossref_journal_by_issn",
+            "usgs_quakes/usgs_quakes_list_contributors",
+            "crossref/crossref_list_journal_works",
+            "usgs_quakes/usgs_quakes_list_catalogs",
+            "worldbank/worldbank_list_sources",
+            "gbif/gbif_get_dataset",
+            "openalex/openalex_search_works",
+            "fdc/fdc_get_food"
+          ],
+          "decision": "ranked_unverified"
+        },
+        "n04": {
+          "ids": [
+            "usgs_quakes/usgs_quakes_list_contributors",
+            "nws/weather__station_observation_latest",
+            "nws/weather__alerts_active_count",
+            "crossref/crossref_find_works",
+            "usgs_quakes/usgs_quakes_count_earthquakes",
+            "nws/weather__tafs",
+            "usgs_quakes/usgs_quakes_query_earthquakes",
+            "nws/weather__obs_station",
+            "nws/weather__radar_station",
+            "nws/weather__station_observation_list"
+          ],
+          "decision": "ranked_unverified"
+        },
+        "n02": {
+          "ids": [
+            "usgs_quakes/usgs_quakes_list_contributors",
+            "nws/weather__radar_servers",
+            "nws/weather__radar_spgds",
+            "nws/weather__radar_stations",
+            "nws/weather__radar_queue",
+            "nws/weather__radar_server",
+            "nws/weather__radar_station",
+            "nws/weather__radar_profiler",
+            "nws/weather__radar_station_alarms",
+            "usgs_quakes/usgs_quakes_list_catalogs"
+          ],
+          "decision": "ranked_unverified"
+        },
+        "p11": {
+          "ids": [
+            "crossref/crossref_journal_by_issn",
+            "crossref/crossref_list_journal_works",
+            "crossref/crossref_find_works",
+            "crossref/crossref_work_by_doi",
+            "openalex/openalex_search_authors",
+            "nws/weather__gridpoint_forecast",
+            "openalex/openalex_search_works",
+            "nws/weather__location_products",
+            "nws/weather__gridpoint_forecast_hourly",
+            "nws/weather__alerts_active_area"
+          ],
+          "decision": "ranked_unverified"
+        },
+        "p14": {
+          "ids": [
+            "openalex/openalex_search_authors",
+            "openalex/openalex_search_institutions",
+            "crossref/crossref_find_works",
+            "openalex/openalex_get_work",
+            "nws/weather__glossary",
+            "worldbank/worldbank_indicator_metadata",
+            "openalex/openalex_search_works",
+            "worldbank/worldbank_indicator_series",
+            "nws/weather__office_headlines",
+            "nws/weather__alerts_active_zone"
+          ],
+          "decision": "ranked_unverified"
+        },
+        "p12": {
+          "ids": [
+            "usgs_quakes/usgs_quakes_list_contributors",
+            "usgs_quakes/usgs_quakes_list_catalogs",
+            "usgs_quakes/usgs_quakes_query_earthquakes",
+            "fdc/fdc_search_foods",
+            "fdc/fdc_list_foods",
+            "usgs_quakes/usgs_quakes_count_earthquakes",
+            "fdc/fdc_get_food",
+            "gbif/gbif_search_occurrences",
+            "openalex/openalex_search_institutions",
+            "gbif/gbif_search_species"
+          ],
+          "decision": "ranked_unverified"
+        },
+        "p13": {
+          "ids": [
+            "gbif/gbif_get_occurrence",
+            "gbif/gbif_search_occurrences",
+            "gbif/gbif_search_species",
+            "nws/weather__station_observation_latest",
+            "gbif/gbif_get_dataset",
+            "crossref/crossref_work_by_doi",
+            "crossref/crossref_journal_by_issn",
+            "nws/weather__station_observation_list",
+            "nws/weather__station_observation_time",
+            "crossref/crossref_find_works"
+          ],
+          "decision": "ranked_unverified"
+        },
+        "p10": {
+          "ids": [
+            "openalex/openalex_search_institutions",
+            "gbif/gbif_search_species",
+            "openalex/openalex_search_authors",
+            "fdc/fdc_search_foods",
+            "openalex/openalex_search_works",
+            "gbif/gbif_search_occurrences",
+            "gbif/gbif_get_occurrence",
+            "openalex/openalex_get_work",
+            "crossref/crossref_find_works",
+            "gbif/gbif_get_dataset"
+          ],
+          "decision": "ranked_unverified"
+        },
+        "n07": {
+          "ids": [
+            "nws/weather__office_weatherstory_image",
+            "nws/weather__tafs",
+            "nws/weather__satellite_thumbnails",
+            "worldbank/worldbank_indicator_series",
+            "nws/weather__latest_product_type_location",
+            "nws/weather__radar_profiler",
+            "nws/weather__sigmetsByATSUByDate",
+            "crossref/crossref_list_journal_works",
+            "nws/weather__sigmetsByATSU",
+            "crossref/crossref_journal_by_issn"
+          ],
+          "decision": "ranked_unverified"
+        }
+      }
+    },
+    "hybrid": {
+      "full_positive_retained": 17,
+      "required_tool_hits": 37,
+      "unsupported_with_suggestions": 8,
+      "unsupported_no_lexical_overlap": 0,
+      "ndcg_at_10": 0.8670068269555292,
+      "process_medians": {
+        "import_ms": 260.463560000062,
+        "model_setup_ms": 190.99635817110538,
+        "first_search_ms": 317.82174087129533,
+        "cold_first_search_ms": 765.1308891363442,
+        "warm_search_p50_ms": 4.073971998877823,
+        "warm_search_p95_ms": 5.242913321126252,
+        "peak_rss_mib": 186.609375
+      },
+      "processes": [
+        {
+          "seed": 11,
+          "import_ms": 260.463560000062,
+          "model_setup_ms": 187.67076288349926,
+          "first_search_ms": 306.4796889666468,
+          "cold_first_search_ms": 754.614011850208,
+          "warm_search_p50_ms": 4.004150978289545,
+          "warm_search_p95_ms": 5.242913321126252,
+          "peak_rss_mib": 187.40234375,
+          "model_libraries": [
+            "onnxruntime",
+            "tokenizers"
+          ]
+        },
+        {
+          "seed": 23,
+          "import_ms": 270.1206221245229,
+          "model_setup_ms": 198.3347311615944,
+          "first_search_ms": 333.2473370246589,
+          "cold_first_search_ms": 801.7026903107762,
+          "warm_search_p50_ms": 4.073971998877823,
+          "warm_search_p95_ms": 4.998377175070345,
+          "peak_rss_mib": 186.609375,
+          "model_libraries": [
+            "onnxruntime",
+            "tokenizers"
+          ]
+        },
+        {
+          "seed": 37,
+          "import_ms": 256.3127900939435,
+          "model_setup_ms": 190.99635817110538,
+          "first_search_ms": 317.82174087129533,
+          "cold_first_search_ms": 765.1308891363442,
+          "warm_search_p50_ms": 4.3550890404731035,
+          "warm_search_p95_ms": 5.737470695748925,
+          "peak_rss_mib": 185.92578125,
+          "model_libraries": [
+            "onnxruntime",
+            "tokenizers"
+          ]
+        }
+      ],
+      "results": {
+        "p15": {
+          "ids": [
+            "worldbank/worldbank_indicator_metadata",
+            "nws/weather__gridpoint_forecast_hourly",
+            "worldbank/worldbank_list_sources",
+            "worldbank/worldbank_indicator_series",
+            "nws/weather__gridpoint_forecast",
+            "nws/weather__gridpoint",
+            "worldbank/worldbank_country_metadata",
+            "nws/weather__zone_forecast",
+            "nws/weather__gridpoint_stations",
+            "nws/weather__sigmetsByATSUByDate"
+          ],
+          "decision": "ranked_unverified"
+        },
+        "p18": {
+          "ids": [
+            "fdc/fdc_list_foods",
+            "openalex/openalex_search_works",
+            "fdc/fdc_search_foods",
+            "fdc/fdc_get_foods",
+            "openalex/openalex_get_work",
+            "fdc/fdc_get_food",
+            "openalex/openalex_search_institutions",
+            "openalex/openalex_search_authors",
+            "crossref/crossref_find_works",
+            "crossref/crossref_work_by_doi"
+          ],
+          "decision": "ranked_unverified"
+        },
+        "n05": {
+          "ids": [
+            "fdc/fdc_search_foods",
+            "fdc/fdc_get_food",
+            "fdc/fdc_get_foods",
+            "fdc/fdc_list_foods",
+            "nws/weather__products_query",
+            "usgs_quakes/usgs_quakes_list_contributors",
+            "worldbank/worldbank_list_sources",
+            "usgs_quakes/usgs_quakes_list_catalogs",
+            "gbif/gbif_search_species",
+            "nws/weather__products_type"
+          ],
+          "decision": "ranked_unverified"
+        },
+        "n08": {
+          "ids": [
+            "nws/weather__office_weatherstory_image",
+            "nws/weather__satellite_thumbnails",
+            "openalex/openalex_get_work",
+            "gbif/gbif_get_occurrence",
+            "nws/weather__icons_summary",
+            "nws/weather__iconsDualCondition",
+            "nws/weather__icons",
+            "usgs_quakes/usgs_quakes_list_contributors",
+            "usgs_quakes/usgs_quakes_list_catalogs",
+            "openalex/openalex_search_authors"
+          ],
+          "decision": "ranked_unverified"
+        },
+        "n06": {
+          "ids": [
+            "usgs_quakes/usgs_quakes_list_contributors",
+            "usgs_quakes/usgs_quakes_query_earthquakes",
+            "usgs_quakes/usgs_quakes_list_catalogs",
+            "usgs_quakes/usgs_quakes_count_earthquakes",
+            "nws/weather__station_observation_time",
+            "nws/weather__icons",
+            "nws/weather__iconsDualCondition",
+            "nws/weather__sigmet",
+            "nws/weather__taf",
+            "nws/weather__alerts_single"
+          ],
+          "decision": "ranked_unverified"
+        },
+        "p17": {
+          "ids": [
+            "nws/weather__zone_stations",
+            "nws/weather__zone_obs",
+            "nws/weather__obs_stations",
+            "nws/weather__gridpoint_stations",
+            "nws/weather__point_stations",
+            "nws/weather__zone_forecast",
+            "nws/weather__zone",
+            "nws/weather__obs_station",
+            "nws/weather__alerts_active_zone",
+            "nws/weather__station_observation_latest"
+          ],
+          "decision": "ranked_unverified"
+        },
+        "p19": {
+          "ids": [
+            "usgs_quakes/usgs_quakes_list_contributors",
+            "usgs_quakes/usgs_quakes_list_catalogs",
+            "usgs_quakes/usgs_quakes_query_earthquakes",
+            "usgs_quakes/usgs_quakes_count_earthquakes",
+            "nws/weather__obs_stations",
+            "nws/weather__point_stations",
+            "nws/weather__station_observation_list",
+            "nws/weather__zone_stations",
+            "nws/weather__obs_station",
+            "nws/weather__gridpoint_stations"
+          ],
+          "decision": "ranked_unverified"
+        },
+        "p07": {
+          "ids": [
+            "worldbank/worldbank_indicator_series",
+            "usgs_quakes/usgs_quakes_query_earthquakes",
+            "usgs_quakes/usgs_quakes_count_earthquakes",
+            "worldbank/worldbank_indicator_metadata",
+            "worldbank/worldbank_list_sources",
+            "usgs_quakes/usgs_quakes_list_contributors",
+            "usgs_quakes/usgs_quakes_list_catalogs",
+            "worldbank/worldbank_country_metadata",
+            "nws/weather__station_observation_list",
+            "nws/weather__sigmetsByATSUByDate"
+          ],
+          "decision": "ranked_unverified"
+        },
+        "p06": {
+          "ids": [
+            "fdc/fdc_get_food",
+            "fdc/fdc_search_foods",
+            "openalex/openalex_get_work",
+            "fdc/fdc_get_foods",
+            "fdc/fdc_list_foods",
+            "openalex/openalex_search_works",
+            "openalex/openalex_search_authors",
+            "crossref/crossref_work_by_doi",
+            "openalex/openalex_search_institutions",
+            "gbif/gbif_get_occurrence"
+          ],
+          "decision": "ranked_unverified"
+        },
+        "n03": {
+          "ids": [
+            "nws/weather__zone_forecast",
+            "usgs_quakes/usgs_quakes_query_earthquakes",
+            "nws/weather__alerts_active_region",
+            "nws/weather__station_observation_latest",
+            "nws/weather__gridpoint",
+            "usgs_quakes/usgs_quakes_list_catalogs",
+            "nws/weather__sigmetsByATSUByDate",
+            "nws/weather__alerts_active_area",
+            "nws/weather__gridpoint_forecast",
+            "nws/weather__cwsu"
+          ],
+          "decision": "ranked_unverified"
+        },
+        "p16": {
+          "ids": [
+            "usgs_quakes/usgs_quakes_list_catalogs",
+            "usgs_quakes/usgs_quakes_query_earthquakes",
+            "usgs_quakes/usgs_quakes_count_earthquakes",
+            "usgs_quakes/usgs_quakes_list_contributors",
+            "fdc/fdc_get_foods",
+            "fdc/fdc_get_food",
+            "fdc/fdc_list_foods",
+            "worldbank/worldbank_indicator_metadata",
+            "fdc/fdc_search_foods",
+            "worldbank/worldbank_list_sources"
+          ],
+          "decision": "ranked_unverified"
+        },
+        "p20": {
+          "ids": [
+            "worldbank/worldbank_indicator_series",
+            "worldbank/worldbank_country_metadata",
+            "worldbank/worldbank_list_sources",
+            "crossref/crossref_find_works",
+            "worldbank/worldbank_indicator_metadata",
+            "crossref/crossref_work_by_doi",
+            "crossref/crossref_journal_by_issn",
+            "crossref/crossref_list_journal_works",
+            "fdc/fdc_list_foods",
+            "gbif/gbif_get_occurrence"
+          ],
+          "decision": "ranked_unverified"
+        },
+        "p04": {
+          "ids": [
+            "worldbank/worldbank_country_metadata",
+            "crossref/crossref_journal_by_issn",
+            "worldbank/worldbank_indicator_metadata",
+            "crossref/crossref_list_journal_works",
+            "worldbank/worldbank_list_sources",
+            "worldbank/worldbank_indicator_series",
+            "crossref/crossref_find_works",
+            "openalex/openalex_search_institutions",
+            "nws/weather__alerts_active_region",
+            "crossref/crossref_work_by_doi"
+          ],
+          "decision": "ranked_unverified"
+        },
+        "p08": {
+          "ids": [
+            "nws/weather__transmitters",
+            "nws/weather__point_radio",
+            "nws/weather__area_radio",
+            "nws/weather__transmitter",
+            "nws/weather__transmitter_zone",
+            "nws/weather__radar_station",
+            "nws/weather__obs_station",
+            "crossref/crossref_find_works",
+            "nws/weather__point",
+            "nws/weather__radar_server"
+          ],
+          "decision": "ranked_unverified"
+        },
+        "p05": {
+          "ids": [
+            "gbif/gbif_search_occurrences",
+            "nws/weather__station_observation_list",
+            "gbif/gbif_get_occurrence",
+            "nws/weather__zone_obs",
+            "nws/weather__station_observation_latest",
+            "nws/weather__station_observation_time",
+            "gbif/gbif_get_dataset",
+            "nws/weather__sigmetsByATSUByDate",
+            "usgs_quakes/usgs_quakes_list_contributors",
+            "gbif/gbif_search_species"
+          ],
+          "decision": "ranked_unverified"
+        },
+        "p03": {
+          "ids": [
+            "nws/weather__alerts_active_count",
+            "usgs_quakes/usgs_quakes_count_earthquakes",
+            "nws/weather__alerts_active",
+            "usgs_quakes/usgs_quakes_query_earthquakes",
+            "nws/weather__alerts_active_region",
+            "nws/weather__alerts_active_area",
+            "nws/weather__alerts_active_zone",
+            "nws/weather__alerts_single",
+            "nws/weather__alerts_query",
+            "nws/weather__sigmetsByATSUByDate"
+          ],
+          "decision": "ranked_unverified"
+        },
+        "p02": {
+          "ids": [
+            "gbif/gbif_get_dataset",
+            "nws/weather__zone_forecast",
+            "gbif/gbif_get_occurrence",
+            "nws/weather__zone_obs",
+            "gbif/gbif_search_species",
+            "nws/weather__zone",
+            "gbif/gbif_search_occurrences",
+            "nws/weather__zone_stations",
+            "nws/weather__gridpoint_forecast",
+            "nws/weather__gridpoint"
+          ],
+          "decision": "ranked_unverified"
+        },
+        "p09": {
+          "ids": [
+            "worldbank/worldbank_list_sources",
+            "nws/weather__office",
+            "worldbank/worldbank_indicator_metadata",
+            "nws/weather__office_headlines",
+            "nws/weather__office_weatherstory",
+            "nws/weather__office_briefing",
+            "nws/weather__office_headline",
+            "worldbank/worldbank_country_metadata",
+            "nws/weather__office_briefing_download",
+            "nws/weather__office_briefing_download_latest"
+          ],
+          "decision": "ranked_unverified"
+        },
+        "p01": {
+          "ids": [
+            "crossref/crossref_work_by_doi",
+            "nws/weather__obs_station",
+            "nws/weather__radar_station",
+            "crossref/crossref_find_works",
+            "nws/weather__station_observation_latest",
+            "nws/weather__station_observation_list",
+            "worldbank/worldbank_indicator_metadata",
+            "nws/weather__radar_profiler",
+            "nws/weather__radar_station_alarms",
+            "crossref/crossref_journal_by_issn"
+          ],
+          "decision": "ranked_unverified"
+        },
+        "n01": {
+          "ids": [
+            "crossref/crossref_find_works",
+            "crossref/crossref_work_by_doi",
+            "crossref/crossref_journal_by_issn",
+            "crossref/crossref_list_journal_works",
+            "openalex/openalex_search_works",
+            "gbif/gbif_get_dataset",
+            "openalex/openalex_search_authors",
+            "usgs_quakes/usgs_quakes_list_contributors",
+            "gbif/gbif_get_occurrence",
+            "worldbank/worldbank_list_sources"
+          ],
+          "decision": "ranked_unverified"
+        },
+        "n04": {
+          "ids": [
+            "nws/weather__radar_station",
+            "nws/weather__obs_station",
+            "nws/weather__radar_station_alarms",
+            "nws/weather__station_observation_latest",
+            "usgs_quakes/usgs_quakes_list_contributors",
+            "nws/weather__station_observation_list",
+            "nws/weather__tafs",
+            "nws/weather__station_observation_time",
+            "nws/weather__radar_profiler",
+            "nws/weather__alerts_active_count"
+          ],
+          "decision": "ranked_unverified"
+        },
+        "n02": {
+          "ids": [
+            "nws/weather__radar_queue",
+            "nws/weather__radar_server",
+            "nws/weather__radar_profiler",
+            "nws/weather__radar_station_alarms",
+            "nws/weather__radar_station",
+            "usgs_quakes/usgs_quakes_list_contributors",
+            "nws/weather__radar_servers",
+            "nws/weather__radar_stations",
+            "nws/weather__radar_spgds",
+            "nws/weather__alerts_active_count"
+          ],
+          "decision": "ranked_unverified"
+        },
+        "p11": {
+          "ids": [
+            "crossref/crossref_journal_by_issn",
+            "crossref/crossref_list_journal_works",
+            "crossref/crossref_find_works",
+            "nws/weather__alerts_active_area",
+            "nws/weather__gridpoint_forecast",
+            "openalex/openalex_search_works",
+            "crossref/crossref_work_by_doi",
+            "nws/weather__office",
+            "nws/weather__gridpoint",
+            "nws/weather__gridpoint_forecast_hourly"
+          ],
+          "decision": "ranked_unverified"
+        },
+        "p14": {
+          "ids": [
+            "openalex/openalex_search_authors",
+            "nws/weather__glossary",
+            "openalex/openalex_search_institutions",
+            "crossref/crossref_find_works",
+            "openalex/openalex_search_works",
+            "openalex/openalex_get_work",
+            "worldbank/worldbank_indicator_metadata",
+            "nws/weather__office",
+            "nws/weather__office_briefing",
+            "gbif/gbif_search_species"
+          ],
+          "decision": "ranked_unverified"
+        },
+        "p12": {
+          "ids": [
+            "usgs_quakes/usgs_quakes_list_contributors",
+            "usgs_quakes/usgs_quakes_query_earthquakes",
+            "usgs_quakes/usgs_quakes_list_catalogs",
+            "fdc/fdc_list_foods",
+            "fdc/fdc_get_food",
+            "usgs_quakes/usgs_quakes_count_earthquakes",
+            "fdc/fdc_search_foods",
+            "gbif/gbif_search_occurrences",
+            "nws/weather__cwsu",
+            "openalex/openalex_search_authors"
+          ],
+          "decision": "ranked_unverified"
+        },
+        "p13": {
+          "ids": [
+            "gbif/gbif_get_occurrence",
+            "gbif/gbif_search_occurrences",
+            "gbif/gbif_search_species",
+            "gbif/gbif_get_dataset",
+            "usgs_quakes/usgs_quakes_query_earthquakes",
+            "crossref/crossref_journal_by_issn",
+            "usgs_quakes/usgs_quakes_count_earthquakes",
+            "worldbank/worldbank_indicator_series",
+            "crossref/crossref_work_by_doi",
+            "nws/weather__sigmetsByATSUByDate"
+          ],
+          "decision": "ranked_unverified"
+        },
+        "p10": {
+          "ids": [
+            "gbif/gbif_search_species",
+            "openalex/openalex_search_institutions",
+            "openalex/openalex_search_authors",
+            "gbif/gbif_search_occurrences",
+            "gbif/gbif_get_occurrence",
+            "openalex/openalex_search_works",
+            "openalex/openalex_get_work",
+            "crossref/crossref_find_works",
+            "gbif/gbif_get_dataset",
+            "fdc/fdc_search_foods"
+          ],
+          "decision": "ranked_unverified"
+        },
+        "n07": {
+          "ids": [
+            "nws/weather__office_weatherstory_image",
+            "nws/weather__satellite_thumbnails",
+            "nws/weather__radar_profiler",
+            "nws/weather__tafs",
+            "worldbank/worldbank_indicator_series",
+            "nws/weather__sigmetsByATSUByDate",
+            "nws/weather__icons",
+            "nws/weather__gridpoint",
+            "nws/weather__sigmetsByATSU",
+            "nws/weather__icons_summary"
+          ],
+          "decision": "ranked_unverified"
+        }
+      }
+    }
+  }
+}

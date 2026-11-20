@@ -1,0 +1,12 @@
+{
+  "selection_split": "Calibration only. Four stratified folds with seed 20261120 screened candidate counts and OpenAPI parameter text. ToolRank hybrid with compact descriptions and five candidates passed that screen.",
+  "frozen_system": "INT8 ToolRank hybrid, top five candidates. Qwen3 Reranker 0.6B on each compact operation description. Rank those candidates by yes-minus-no logits. Accept the whole request when any candidate clears the cutoff. A second arm applies the existing deployed cosine cutoff.",
+  "threshold": "Choose the exact-binomial order-statistic cutoff on the original 32 calibration negatives per system, risk 0.10 and confidence 0.95 under exchangeability. Compare counts on capability_holdout.tsv once. No fine-tuning or threshold adjustment on that holdout.",
+  "promotion_gate": {
+    "min_fraction_supported_with_gold_at_five": 0.85,
+    "max_fraction_unsupported_accepted": 0.1,
+    "max_cpu_p95_ms_for_span_of_five_tools": 25
+  },
+  "limitations": "A second authored catalog-specific check, with emphasis on confusing capabilities. It does not establish a deployment false-accept rate. No live invocation or generation.",
+  "external_compute_usd": 0
+}

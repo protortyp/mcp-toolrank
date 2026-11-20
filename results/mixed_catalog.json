@@ -1,0 +1,182 @@
+{
+  "scope": {
+    "catalog_tools": 93,
+    "providers": [
+      "crossref",
+      "fdc",
+      "gbif",
+      "nws",
+      "openalex",
+      "usgs_quakes",
+      "worldbank"
+    ],
+    "full_matches_array_bytes": 61853
+  },
+  "methods": {
+    "all": {
+      "requests": 28,
+      "answerable": 20,
+      "complete": 20,
+      "required_tool_hits": 40,
+      "required_tools": 40,
+      "unsupported_with_suggestions": 8,
+      "mean_visible_tools": 93.0,
+      "tool_json_reduction": 0.0,
+      "largest_matches_array_bytes": 61853
+    },
+    "bm25_joint_top5": {
+      "requests": 28,
+      "answerable": 20,
+      "complete": 16,
+      "required_tool_hits": 36,
+      "required_tools": 40,
+      "unsupported_with_suggestions": 8,
+      "mean_visible_tools": 5.0,
+      "tool_json_reduction": 0.9599765342251559,
+      "largest_matches_array_bytes": 5534
+    },
+    "bm25_joint_top10": {
+      "requests": 28,
+      "answerable": 20,
+      "complete": 18,
+      "required_tool_hits": 38,
+      "required_tools": 40,
+      "unsupported_with_suggestions": 8,
+      "mean_visible_tools": 10.0,
+      "tool_json_reduction": 0.914288716796275,
+      "largest_matches_array_bytes": 8887
+    },
+    "bm25_joint_top10_4096_bytes": {
+      "requests": 28,
+      "answerable": 20,
+      "complete": 17,
+      "required_tool_hits": 37,
+      "required_tools": 40,
+      "unsupported_with_suggestions": 8,
+      "mean_visible_tools": 7.892857142857143,
+      "tool_json_reduction": 0.9397309519575214,
+      "largest_matches_array_bytes": 4072
+    },
+    "bm25_split_top5": {
+      "requests": 28,
+      "answerable": 20,
+      "complete": 15,
+      "required_tool_hits": 35,
+      "required_tools": 40,
+      "unsupported_with_suggestions": 8,
+      "mean_visible_tools": 5.0,
+      "tool_json_reduction": 0.9589256555288922,
+      "largest_matches_array_bytes": 5365
+    },
+    "bge_joint_top5": {
+      "requests": 28,
+      "answerable": 20,
+      "complete": 15,
+      "required_tool_hits": 35,
+      "required_tools": 40,
+      "unsupported_with_suggestions": 8,
+      "mean_visible_tools": 5.0,
+      "tool_json_reduction": 0.9544882913636248,
+      "largest_matches_array_bytes": 5937
+    },
+    "bge_joint_top10": {
+      "requests": 28,
+      "answerable": 20,
+      "complete": 19,
+      "required_tool_hits": 39,
+      "required_tools": 40,
+      "unsupported_with_suggestions": 8,
+      "mean_visible_tools": 10.0,
+      "tool_json_reduction": 0.9065647583787366,
+      "largest_matches_array_bytes": 9432
+    },
+    "bge_joint_top10_4096_bytes": {
+      "requests": 28,
+      "answerable": 20,
+      "complete": 17,
+      "required_tool_hits": 37,
+      "required_tools": 40,
+      "unsupported_with_suggestions": 8,
+      "mean_visible_tools": 7.285714285714286,
+      "tool_json_reduction": 0.9384329435458726,
+      "largest_matches_array_bytes": 4096
+    },
+    "bge_split_top5": {
+      "requests": 28,
+      "answerable": 20,
+      "complete": 17,
+      "required_tool_hits": 37,
+      "required_tools": 40,
+      "unsupported_with_suggestions": 8,
+      "mean_visible_tools": 5.0,
+      "tool_json_reduction": 0.9552400738155673,
+      "largest_matches_array_bytes": 5463
+    },
+    "toolrank_joint_top5": {
+      "requests": 28,
+      "answerable": 20,
+      "complete": 14,
+      "required_tool_hits": 34,
+      "required_tools": 40,
+      "unsupported_with_suggestions": 8,
+      "mean_visible_tools": 5.0,
+      "tool_json_reduction": 0.9536556720888928,
+      "largest_matches_array_bytes": 5977
+    },
+    "toolrank_joint_top10": {
+      "requests": 28,
+      "answerable": 20,
+      "complete": 17,
+      "required_tool_hits": 37,
+      "required_tools": 40,
+      "unsupported_with_suggestions": 8,
+      "mean_visible_tools": 10.0,
+      "tool_json_reduction": 0.9041731432359211,
+      "largest_matches_array_bytes": 9486
+    },
+    "toolrank_joint_top10_4096_bytes": {
+      "requests": 28,
+      "answerable": 20,
+      "complete": 16,
+      "required_tool_hits": 36,
+      "required_tools": 40,
+      "unsupported_with_suggestions": 8,
+      "mean_visible_tools": 7.142857142857143,
+      "tool_json_reduction": 0.9384271694871019,
+      "largest_matches_array_bytes": 4093
+    },
+    "toolrank_split_top5": {
+      "requests": 28,
+      "answerable": 20,
+      "complete": 17,
+      "required_tool_hits": 37,
+      "required_tools": 40,
+      "unsupported_with_suggestions": 8,
+      "mean_visible_tools": 5.0,
+      "tool_json_reduction": 0.9544207348760079,
+      "largest_matches_array_bytes": 5465
+    }
+  },
+  "local_startup_index_ms": 842.4720829352736,
+  "joint_query_all_comparators_p95_ms": 9.486366691999137,
+  "source_sha256": "b68958ea527e6004c60da06d269596c0acf0ea52e194dffb59c07ea337e1b0e9",
+  "case_sha256": "fcb69e41f96b55a8d61748dd67bbb197091bb990128f746c2ed1c40d59694584",
+  "protocol_sha256": "7f87bc5b514d65cb9e7d4ddcc9da65f3a0e9d72f919e6c299333aa29e8c67160",
+  "nws_gzip_sha256": "05e691fdd3f421dc43ec4c7f468d0f1a4b1cfd1a5a32fc61236e1c755b5d96e2",
+  "api_sha256": "ec11f47f29f6560bf0039f29674ac4765b85c35a9ac724f8406507e929387d8c",
+  "checkpoint_checksums": {
+    "bge": {
+      "tokenizer.json": "d241a60d5e8f04cc1b2b3e9ef7a4921b27bf526d9f6050ab90f9267a1f9e5c66",
+      "sentence_bert_config.json": "84e39fda68ccbff05bfa723ae9c0e70e23e2ec373b76e0f8c6e71af72a693cbf",
+      "config_sentence_transformers.json": "b65ac9c94d093308d78a5f6c4e431362a588836a4dda28c671757740cb959fe7",
+      "onnx/embedding-int8.onnx": "ac4f382df446339180e6fbfa711b85eb681db976944e8e60f35fa8b7e99a0aa7"
+    },
+    "toolrank": {
+      "tokenizer.json": "91f1def9b9391fdabe028cd3f3fcc4efd34e5d1f08c3bf2de513ebb5911a1854",
+      "sentence_bert_config.json": "65c2293c310f5476a8d1cbada277722c3e7ae5b5ddbaa2d2fe5d075f410d6d02",
+      "config_sentence_transformers.json": "7453db62f635567117454bf0599899107d43569c95d5353b5993d809c39379cf",
+      "onnx/embedding-int8.onnx": "ba0e544669eac502cac535d3ed53b9cf5b530b5fd929d4a7bddd787abe08ea33"
+    }
+  },
+  "external_compute_usd": 0
+}

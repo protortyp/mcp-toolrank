@@ -6,7 +6,6 @@ from pathlib import Path
 from urllib.parse import urlparse
 
 from toolrank.core import read_json, write_json
-from toolrank.source_probe import normalized_name
 
 
 REVISION = "790f28727f567b88918420d163c524d46644a694"
@@ -16,6 +15,8 @@ LEVELS = (1, 2, 5)
 
 
 def reserved_families(registry):
+    from toolrank.source_probe import normalized_name
+
     names = set()
     repos = set()
     for server in registry["servers"]:

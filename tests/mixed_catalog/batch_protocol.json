@@ -1,0 +1,8 @@
+{
+  "scope": "Six fresh read-only workflows. Compare all tools against BM25, BGE hybrid, and ToolRank hybrid top ten. Accept native parallel proposals for unordered operations. Ordered operations require observing the previous receipt. Validate every call in a proposed batch before dispatching any allowlisted fixture call.",
+  "models": "Same Qwen2.5-7B GGUF, llama.cpp b12559, and INT8 encoders as native_protocol.json. Single seed at temperature zero. No tuned scores, thresholds or prompts on these cases.",
+  "llama_cpp_revision": "7e960f40f",
+  "methods": ["all", "bm25_top10", "bge_top10", "toolrank_top10"],
+  "seeds": [11],
+  "external_compute_usd": 0
+}

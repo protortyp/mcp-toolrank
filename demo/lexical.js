@@ -71,6 +71,10 @@ export function lexicalIndex(tools, documents) {
     }
     const tfidfScale = .4 / (Math.sqrt(norm) || 1);
     const bm25Scale = .15 / (Math.max(...names) || 1);
-    return cosine.map((score, i) => score + tfidfScale * lexical[i] + bm25Scale * names[i]);
+    const normalizedBm25 = names.map((score) => score * bm25Scale / .15);
+    return {
+      bm25: normalizedBm25,
+      hybrid: cosine.map((score, i) => score + tfidfScale * lexical[i] + bm25Scale * names[i]),
+    };
   };
 }

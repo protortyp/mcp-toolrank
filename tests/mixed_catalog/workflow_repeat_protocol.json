@@ -1,0 +1,8 @@
+{
+  "scope": "Repeat both complete-catalog dispatch policies on the same frozen tasks and prompt. Check the serial execution effect with a second seed at temperature zero.",
+  "methods": ["all_strict", "all_serial"],
+  "model_revision": "bb5d59e06d9551d752d08b292a50eb208b07ab1f",
+  "llama_cpp_revision": "7e960f40f",
+  "seeds": [23],
+  "external_compute_usd": 0
+}

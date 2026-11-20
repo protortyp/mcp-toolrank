@@ -1,0 +1,23 @@
+{
+  "browser": "Chromium 159.0.8154.6",
+  "default_mode": "BM25",
+  "bm25_artifact_requests": 0,
+  "bm25_wasm_requests": 0,
+  "no_overlap_matches": 0,
+  "hybrid_artifact_requests": 5,
+  "dense_reused_encoder": true,
+  "benchmark_modes": 3,
+  "benchmark_answerable": 72,
+  "benchmark_total": 96,
+  "imported_schema_visible": true,
+  "network_get_only": true,
+  "custom_input_in_requests": false,
+  "desktop_and_mobile_checked": true,
+  "revision": "db27e5d463e124487b0d3198bb1989ff5bad57fd",
+  "checkpoint_revision": "a24a121266154006e2bd2e32a41576437c3455c2",
+  "onnx_sha256": "ba0e544669eac502cac535d3ed53b9cf5b530b5fd929d4a7bddd787abe08ea33",
+  "archive": {
+    "name": "toolrank-browser-preview.zip",
+    "sha256": "290129559cad0139afcd7424c26de739b58e116592e2390805c76bcf4edd9097"
+  }
+}

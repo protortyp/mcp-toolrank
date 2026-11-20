@@ -2,7 +2,7 @@
   "manifest_version": "0.4",
   "name": "mcp-toolrank",
   "display_name": "MCP ToolRank",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "description": "Search a local MCP tool catalog with the ToolRank CPU embedding model.",
   "author": {"name": "Christian Engel"},
   "repository": {"type": "git", "url": "https://github.com/protortyp/mcp-toolrank"},

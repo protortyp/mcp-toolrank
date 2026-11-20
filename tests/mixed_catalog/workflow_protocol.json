@@ -1,0 +1,11 @@
+{
+  "scope": "Fresh authored read-only workflows over 93 tools and seven MCP stdio fixture servers. Seven supported requests require a second call using the first receipt. Two unsupported requests score only true abstention. Receipts are synthetic and only expected, allowlisted calls can execute.",
+  "methods": ["all_strict", "all_serial", "all_compact_serial", "toolrank_serial", "toolrank_compact_serial"],
+  "policy": "Same native prompt and tool proposals in each arm. Strict mode rejects multi-call turns. Serial mode considers only the first proposal, validates identity and arguments, then makes fresh proposals after observing the receipt. Both policies reject any proposal for unsupported requests. No speculative or repeated dispatch.",
+  "compression": "Remove title, description, examples and comment annotations on input subschemas. Keep top-level tool descriptions, defaults, validation keywords and every candidate ID in the original order. Match an explicitly supplied top-level schema default if the expected call omits the parameter.",
+  "model_revision": "bb5d59e06d9551d752d08b292a50eb208b07ab1f",
+  "llama_cpp_revision": "7e960f40f",
+  "seeds": [17],
+  "minimum_practical_effect": "For all-tools compaction, at least 15% schema tokens saved and at least as many supported completions as all_serial before proposing integration.",
+  "external_compute_usd": 0
+}
