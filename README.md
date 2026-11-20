@@ -17,6 +17,8 @@ Across 1,549 answerable ETOM requests, ToolRank had 35 more top-ranked hits than
 
 [MCP stdio setup](docs/MCP_SERVER.md)
 
+[Desktop MCP bundle](docs/MCP_BUNDLE.md) includes the existing CPU encoder for local JSON catalogs in MCPB 0.4 uv hosts (Linux x86-64 tested).
+
 [34 MB CPU ONNX and PyTorch-free runner](docs/ONNX_INT8.md)
 
 [Checkpoint and model card](https://huggingface.co/christianengel/mcp-toolrank-33m)
