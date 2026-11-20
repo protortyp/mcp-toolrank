@@ -9,10 +9,10 @@ On 11 simulated workflows, the ToolRank hybrid cut schema tokens by 85% compared
 The demo passes a clock reading between two local servers. It runs without a model download.
 
 ```sh
-uvx --python 3.12 --from 'toolrank-cpu[gateway] @ https://github.com/protortyp/mcp-toolrank/releases/download/cpu-v0.2.0/toolrank_cpu-0.2.0-py3-none-any.whl' toolrank-gateway --demo
+uvx --python 3.12 --from 'toolrank-cpu[gateway] @ https://github.com/protortyp/mcp-toolrank/releases/download/cpu-v0.3.0/toolrank_cpu-0.3.0-py3-none-any.whl' toolrank-gateway --demo
 ```
 
-Set separate discovery and invocation allowlists. Pass the `search_tools` result’s ID and revision with arguments to `invoke_tool`. [Configuration](examples/gateway_config.json) · [Gateway guide](docs/GATEWAY.md) · [Release preview](docs/RELEASE_PREVIEW.md)
+Inventory with `--list-upstream-tools`. Set separate discovery and invocation allowlists. Pass arguments plus `search_tools` ID and revision to `invoke_tool`. [Configuration](examples/gateway_config.json) · [Gateway guide](docs/GATEWAY.md) · [CPU release](https://github.com/protortyp/mcp-toolrank/releases/tag/cpu-v0.3.0)
 
 Use `toolrank-cpu` for static catalogs on Python 3.12 or 3.13. [CLI and offline setup](docs/UVX_CPU.md) · [OpenAPI import](docs/OPENAPI_CATALOG.md)
 
