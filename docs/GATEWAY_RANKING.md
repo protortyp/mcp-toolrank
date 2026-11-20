@@ -1,6 +1,6 @@
 # BM25 and hybrid gateway ranking
 
-Hybrid remains default after leading ETOM. BM25 suits fast starts and shared vocabulary. The BM25 wheel discovered clock and Git tools and called the clock offline with an empty model cache.
+Hybrid remains default after leading ETOM. BM25 suits fast starts and shared vocabulary. The wheel discovered clock and Git tools and called the clock offline with an empty model cache.
 
 | Catalog | Mode | nDCG@10 (%) | All positives in top ten | Cold first search | Warm p50 | Peak RSS |
 | --- | --- | ---: | ---: | ---: | ---: | ---: |
@@ -9,9 +9,9 @@ Hybrid remains default after leading ETOM. BM25 suits fast starts and shared voc
 | ETOM, 2,375 tools | BM25 | 88.68 | 1,427/1,549 | 0.32 s | 0.94 ms | 126 MiB |
 | ETOM, 2,375 tools | Hybrid | 92.70 | 1,465/1,549 | 9.42 s | 6.04 ms | 287 MiB |
 
-Three fresh processes per mode timed `Gateway.search` with matched catalogs, labels, schemas, tie breaks, and shuffled queries. Cold uses warm files and empty embeddings. Timing covers model load, indexing, and ranking. Downloads, MCP transport, and fixture loading excluded. Process RSS measured on shared Ryzen 9 5950X.
+Three fresh processes per mode timed `Gateway.search` with matched catalogs, labels, schemas, tie breaks, and shuffled queries. Cold runs used warm files and uncached embeddings. Timings cover model load, indexing, and ranking. Downloads, MCP transport, and fixture loading were untimed. RSS is process-wide on a shared Ryzen 9 5950X.
 
-Mixed uses pinned NWS OpenAPI and six API fixtures. ETOM uses registry-filtered official level 1/2/5 labels with flattened level 2 equivalence groups. BM25 drops zero scores. Both suggested tools for all 8 mixed and 91 ETOM unsupported requests. JSON records checkpoint fingerprints, seeds, and warm p95.
+Mixed uses pinned NWS OpenAPI and six API fixtures. ETOM filters official levels 1/2/5 by pinned registry and flattens level 2 equivalence groups. BM25 drops zero scores. Both suggested tools for all 8 mixed and 91 ETOM unsupported requests. JSON records checkpoint fingerprints, seeds, and warm p95.
 
 ```sh
 uv sync --project cpu --locked --extra gateway --no-editable
