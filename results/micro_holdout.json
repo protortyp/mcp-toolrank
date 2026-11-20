@@ -1,0 +1,576 @@
+{
+  "protocol": {
+    "candidate": "labels-11",
+    "candidate_int8_sha256": "58305402dd632c32a81f305a26d8b39b0609f2795872cca43d942f95cd215e39",
+    "baseline": "ToolRank 33M published dynamic INT8",
+    "baseline_int8_sha256": "ba0e544669eac502cac535d3ed53b9cf5b530b5fd929d4a7bddd787abe08ea33",
+    "training_selection": "Use seed 11 of the label-only arm. Development showed consistent improvement over untuned micro and no meaningful cumulative benefit from the additional distillation objective.",
+    "datasets": {
+      "api": {
+        "ndcg_lower_bound": -0.02
+      },
+      "etom-plain": {
+        "ndcg_lower_bound": -0.01
+      },
+      "etom-mcp": {
+        "ndcg_lower_bound": -0.01
+      },
+      "etom-openai": {
+        "ndcg_lower_bound": -0.01
+      },
+      "toolret": {
+        "ndcg_lower_bound": -0.015
+      }
+    },
+    "max_hit5_point_loss": 0.01,
+    "threads": 4,
+    "doc_batch": 32,
+    "query_batch": 1,
+    "max_graph_mib": 20,
+    "max_p95_ratio": 0.67,
+    "evaluation": "Matched production hybrid score and stable tool IDs. Use query-weighted paired bootstrap by provider/source. Report dense results, compare supported requests, and record unsupported counts without calibrating on holdout. Evaluate one fixed checkpoint once. Repeat qualifying comparisons and verify release packaging before publishing."
+  },
+  "protocol_sha256": "50b38658190aed73278d6ca9db8ec6af4fe5add23ab2413134e52c5390d58e6a",
+  "platform": "Linux-7.0.0-42-generic-x86_64-with-glibc2.39",
+  "revision": "4bb7d8893f1236a45aea6cefa4d7eade21693aaf",
+  "source_sha256": "43272ef52fc87bcc14b8200dab40b1173322be81e6012a0cb3935a5ccc3091ef",
+  "cpu_profile_sha256": "478adea600ce7a79531b3ec1949cb3c3b11604ba6cbe6bd3991d6b53c5f7a707",
+  "datasets": {
+    "api": {
+      "tools": 24,
+      "answerable": 72,
+      "unsupported": 24,
+      "unavailable_judgments": 0,
+      "index_seconds": {
+        "micro": 0.021819221088662744,
+        "toolrank": 0.055773797910660505
+      },
+      "metrics": {
+        "micro": {
+          "dense": {
+            "recall@1": 0.7361111111111112,
+            "recall@5": 1.0,
+            "recall@10": 1.0,
+            "ndcg@10": 0.8935141187500056,
+            "complete@10": 1.0,
+            "hit@1": 0.7361111111111112,
+            "complete@1": 0.7361111111111112,
+            "hit@5": 1.0,
+            "complete@5": 1.0,
+            "hit@10": 1.0
+          },
+          "hybrid": {
+            "recall@1": 0.8055555555555556,
+            "recall@5": 1.0,
+            "recall@10": 1.0,
+            "ndcg@10": 0.9199996401914995,
+            "complete@10": 1.0,
+            "hit@1": 0.8055555555555556,
+            "complete@1": 0.8055555555555556,
+            "hit@5": 1.0,
+            "complete@5": 1.0,
+            "hit@10": 1.0
+          }
+        },
+        "toolrank": {
+          "dense": {
+            "recall@1": 0.7638888888888888,
+            "recall@5": 1.0,
+            "recall@10": 1.0,
+            "ndcg@10": 0.8991663068581661,
+            "complete@10": 1.0,
+            "hit@1": 0.7638888888888888,
+            "complete@1": 0.7638888888888888,
+            "hit@5": 1.0,
+            "complete@5": 1.0,
+            "hit@10": 1.0
+          },
+          "hybrid": {
+            "recall@1": 0.7916666666666666,
+            "recall@5": 1.0,
+            "recall@10": 1.0,
+            "ndcg@10": 0.9157293077639483,
+            "complete@10": 1.0,
+            "hit@1": 0.7916666666666666,
+            "complete@1": 0.7916666666666666,
+            "hit@5": 1.0,
+            "complete@5": 1.0,
+            "hit@10": 1.0
+          }
+        }
+      },
+      "micro_minus_toolrank": {
+        "dense": {
+          "ndcg@10": {
+            "delta": -0.0056521881081605975,
+            "ci95": [
+              -0.057570806064509004,
+              0.045774763776883436
+            ],
+            "clusters": 6
+          },
+          "hit@5": {
+            "delta": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "clusters": 6
+          },
+          "complete@10": {
+            "delta": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "clusters": 6
+          }
+        },
+        "hybrid": {
+          "ndcg@10": {
+            "delta": 0.0042703324275512764,
+            "ci95": [
+              -0.015377926934522603,
+              0.029900210651755618
+            ],
+            "clusters": 6
+          },
+          "hit@5": {
+            "delta": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "clusters": 6
+          },
+          "complete@10": {
+            "delta": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "clusters": 6
+          }
+        }
+      },
+      "fingerprint": {
+        "versions": {
+          "api": "repository fixture"
+        },
+        "sha256": {
+          "data/onnx_int8_holdout.json": "ec11f47f29f6560bf0039f29674ac4765b85c35a9ac724f8406507e929387d8c"
+        }
+      },
+      "passes": true,
+      "wall_seconds": 0.35474679595790803
+    },
+    "etom-plain": {
+      "tools": 2375,
+      "answerable": 1549,
+      "unsupported": 91,
+      "unavailable_judgments": 0,
+      "index_seconds": {
+        "micro": 2.4503910429775715,
+        "toolrank": 8.754739836091176
+      },
+      "metrics": {
+        "micro": {
+          "dense": {
+            "recall@1": 0.7722901103630607,
+            "recall@5": 0.9094077592302253,
+            "recall@10": 0.9432921393218359,
+            "ndcg@10": 0.8763595550193364,
+            "complete@10": 0.9225306649451259,
+            "hit@1": 0.8102001291155584,
+            "complete@1": 0.7508069722401549,
+            "hit@5": 0.9347966429954809,
+            "complete@5": 0.8870238863783085,
+            "hit@10": 0.961265332472563
+          },
+          "hybrid": {
+            "recall@1": 0.8341894924528882,
+            "recall@5": 0.9442005595007531,
+            "recall@10": 0.9615942697285498,
+            "ndcg@10": 0.91863913337007,
+            "complete@10": 0.9386701097482246,
+            "hit@1": 0.8760490639122014,
+            "complete@1": 0.8095545513234345,
+            "hit@5": 0.9690122659780503,
+            "complete@5": 0.921239509360878,
+            "hit@10": 0.9799870884441575
+          }
+        },
+        "toolrank": {
+          "dense": {
+            "recall@1": 0.7933090473116297,
+            "recall@5": 0.9277475483414799,
+            "recall@10": 0.9533400965292508,
+            "ndcg@10": 0.895377584081836,
+            "complete@10": 0.9328599096191091,
+            "hit@1": 0.8334409296320207,
+            "complete@1": 0.7701743060038735,
+            "hit@5": 0.9522272433828276,
+            "complete@5": 0.9031633311814073,
+            "hit@10": 0.9703034215622982
+          },
+          "hybrid": {
+            "recall@1": 0.8450782378800455,
+            "recall@5": 0.9480678778935719,
+            "recall@10": 0.9647898797995635,
+            "ndcg@10": 0.9270148348205017,
+            "complete@10": 0.9457714654615881,
+            "hit@1": 0.8870238863783085,
+            "complete@1": 0.8205293737895416,
+            "hit@5": 0.974176888315042,
+            "complete@5": 0.9231762427372499,
+            "hit@10": 0.9819238218205294
+          }
+        }
+      },
+      "micro_minus_toolrank": {
+        "dense": {
+          "ndcg@10": {
+            "delta": -0.019018029062499706,
+            "ci95": [
+              -0.028420152267733034,
+              -0.00973850779860668
+            ],
+            "clusters": 322
+          },
+          "hit@5": {
+            "delta": -0.017430600387346677,
+            "ci95": [
+              -0.027110619428161297,
+              -0.0080536946106594
+            ],
+            "clusters": 322
+          },
+          "complete@10": {
+            "delta": -0.010329244673983214,
+            "ci95": [
+              -0.020917678812415654,
+              0.0
+            ],
+            "clusters": 322
+          }
+        },
+        "hybrid": {
+          "ndcg@10": {
+            "delta": -0.008375701450431698,
+            "ci95": [
+              -0.012980461339414436,
+              -0.0036549771176016617
+            ],
+            "clusters": 322
+          },
+          "hit@5": {
+            "delta": -0.005164622336991607,
+            "ci95": [
+              -0.011054036549948035,
+              0.0006196364830124473
+            ],
+            "clusters": 322
+          },
+          "complete@10": {
+            "delta": -0.0071013557133634605,
+            "ci95": [
+              -0.012726781100919939,
+              -0.001915194487405695
+            ],
+            "clusters": 322
+          }
+        }
+      },
+      "fingerprint": {
+        "versions": {
+          "etom": "790f28727f567b88918420d163c524d46644a694"
+        },
+        "sha256": {
+          ".work/next/etom/mcp_registry.json": "3c362877ec5733cf0fa1d3451b2f353fb97674e66075da0d7a6f41c0f98cc608",
+          ".work/next/etom/level_1.json": "9b6fdab8926cb5e21abddf0178f018de27d5b9636bd549b45798898b92eee028",
+          ".work/next/etom/level_2.json": "67abbf2574eda7c48a455b8d537ec218219e774ac7814b48f138d5eb662f10e2",
+          ".work/next/etom/level_5.json": "3fbbc6445c69176e84d7b514b9558433d28ed8592d95c14e1e4d28eba39129ae"
+        }
+      },
+      "passes": false,
+      "wall_seconds": 20.893055635970086
+    },
+    "etom-mcp": {
+      "tools": 2375,
+      "answerable": 1549,
+      "unsupported": 91,
+      "unavailable_judgments": 0,
+      "index_seconds": {
+        "micro": 48.563060918822885,
+        "toolrank": 183.66641336702742
+      },
+      "metrics": {
+        "micro": {
+          "dense": {
+            "recall@1": 0.7372728949552706,
+            "recall@5": 0.8992499000891512,
+            "recall@10": 0.9377132712348981,
+            "ndcg@10": 0.8564176869819174,
+            "complete@10": 0.9134925758553906,
+            "hit@1": 0.7734021949644933,
+            "complete@1": 0.7165913492575855,
+            "hit@5": 0.9270497094899935,
+            "complete@5": 0.8734667527437057,
+            "hit@10": 0.960619754680439
+          },
+          "hybrid": {
+            "recall@1": 0.8290417781056904,
+            "recall@5": 0.945420240400873,
+            "recall@10": 0.963665498478281,
+            "ndcg@10": 0.9186408654743294,
+            "complete@10": 0.9431891542930924,
+            "hit@1": 0.8708844415752098,
+            "complete@1": 0.8056810845706908,
+            "hit@5": 0.9709489993544222,
+            "complete@5": 0.920593931568754,
+            "hit@10": 0.9799870884441575
+          }
+        },
+        "toolrank": {
+          "dense": {
+            "recall@1": 0.7467882504841834,
+            "recall@5": 0.9071136524332135,
+            "recall@10": 0.9389990470042116,
+            "ndcg@10": 0.8632163964444929,
+            "complete@10": 0.9180116204002582,
+            "hit@1": 0.7817947062621046,
+            "complete@1": 0.7249838605551969,
+            "hit@5": 0.9315687540348612,
+            "complete@5": 0.8863783085861846,
+            "hit@10": 0.9586830213040671
+          },
+          "hybrid": {
+            "recall@1": 0.8280465123428326,
+            "recall@5": 0.948664268806296,
+            "recall@10": 0.9626540932706201,
+            "ndcg@10": 0.9189140111450931,
+            "complete@10": 0.9406068431245965,
+            "hit@1": 0.8695932859909619,
+            "complete@1": 0.8043899289864429,
+            "hit@5": 0.973531310522918,
+            "complete@5": 0.9244673983214977,
+            "hit@10": 0.9812782440284055
+          }
+        }
+      },
+      "micro_minus_toolrank": {
+        "dense": {
+          "ndcg@10": {
+            "delta": -0.006798709462575303,
+            "ci95": [
+              -0.019750462151309215,
+              0.006692173070663511
+            ],
+            "clusters": 322
+          },
+          "hit@5": {
+            "delta": -0.004519044544867657,
+            "ci95": [
+              -0.01813334288747435,
+              0.009277821136839441
+            ],
+            "clusters": 322
+          },
+          "complete@10": {
+            "delta": -0.004519044544867657,
+            "ci95": [
+              -0.016508051833679312,
+              0.007441022182159192
+            ],
+            "clusters": 322
+          }
+        },
+        "hybrid": {
+          "ndcg@10": {
+            "delta": -0.00027314567076378986,
+            "ci95": [
+              -0.006078340466782657,
+              0.00551527523071672
+            ],
+            "clusters": 322
+          },
+          "hit@5": {
+            "delta": -0.0025823111684958036,
+            "ci95": [
+              -0.008403905956420156,
+              0.003349074127731336
+            ],
+            "clusters": 322
+          },
+          "complete@10": {
+            "delta": 0.0025823111684958036,
+            "ci95": [
+              -0.002626611543508971,
+              0.007947283362903368
+            ],
+            "clusters": 322
+          }
+        }
+      },
+      "fingerprint": {
+        "versions": {
+          "etom": "790f28727f567b88918420d163c524d46644a694"
+        },
+        "sha256": {
+          ".work/next/etom/mcp_registry.json": "3c362877ec5733cf0fa1d3451b2f353fb97674e66075da0d7a6f41c0f98cc608",
+          ".work/next/etom/level_1.json": "9b6fdab8926cb5e21abddf0178f018de27d5b9636bd549b45798898b92eee028",
+          ".work/next/etom/level_2.json": "67abbf2574eda7c48a455b8d537ec218219e774ac7814b48f138d5eb662f10e2",
+          ".work/next/etom/level_5.json": "3fbbc6445c69176e84d7b514b9558433d28ed8592d95c14e1e4d28eba39129ae"
+        }
+      },
+      "passes": true,
+      "wall_seconds": 242.07378822006285
+    },
+    "etom-openai": {
+      "tools": 2375,
+      "answerable": 1549,
+      "unsupported": 91,
+      "unavailable_judgments": 0,
+      "index_seconds": {
+        "micro": 49.80466213193722,
+        "toolrank": 189.0177537468262
+      },
+      "metrics": {
+        "micro": {
+          "dense": {
+            "recall@1": 0.7289387930769468,
+            "recall@5": 0.9008576962095362,
+            "recall@10": 0.9363890682160534,
+            "ndcg@10": 0.851046224746125,
+            "complete@10": 0.9122014202711427,
+            "hit@1": 0.76307295029051,
+            "complete@1": 0.7088444157520981,
+            "hit@5": 0.9276952872821175,
+            "complete@5": 0.8779857972885733,
+            "hit@10": 0.9593285990961911
+          },
+          "hybrid": {
+            "recall@1": 0.8212625657105966,
+            "recall@5": 0.9430423621998832,
+            "recall@10": 0.9622283193458145,
+            "ndcg@10": 0.914417214362091,
+            "complete@10": 0.9406068431245965,
+            "hit@1": 0.8612007746933505,
+            "complete@1": 0.7992253066494512,
+            "hit@5": 0.9670755326016786,
+            "complete@5": 0.9199483537766301,
+            "hit@10": 0.9812782440284055
+          }
+        },
+        "toolrank": {
+          "dense": {
+            "recall@1": 0.7271519259737466,
+            "recall@5": 0.9042308401733837,
+            "recall@10": 0.9358679947124104,
+            "ndcg@10": 0.8545813924067648,
+            "complete@10": 0.9154293092317625,
+            "hit@1": 0.7617817947062621,
+            "complete@1": 0.7056165267914783,
+            "hit@5": 0.9309231762427372,
+            "complete@5": 0.8844415752098128,
+            "hit@10": 0.9573918657198193
+          },
+          "hybrid": {
+            "recall@1": 0.827024347505303,
+            "recall@5": 0.9466844969104491,
+            "recall@10": 0.9625572566018015,
+            "ndcg@10": 0.9179543075433406,
+            "complete@10": 0.9412524209167205,
+            "hit@1": 0.8695932859909619,
+            "complete@1": 0.8030987734021949,
+            "hit@5": 0.9715945771465462,
+            "complete@5": 0.921885087153002,
+            "hit@10": 0.9806326662362814
+          }
+        }
+      },
+      "micro_minus_toolrank": {
+        "dense": {
+          "ndcg@10": {
+            "delta": -0.00353516766063977,
+            "ci95": [
+              -0.01669886128568472,
+              0.009345471373739046
+            ],
+            "clusters": 322
+          },
+          "hit@5": {
+            "delta": -0.0032278889606197547,
+            "ci95": [
+              -0.016393701194601026,
+              0.01049920535081044
+            ],
+            "clusters": 322
+          },
+          "complete@10": {
+            "delta": -0.0032278889606197547,
+            "ci95": [
+              -0.015248611296651268,
+              0.008606775115483998
+            ],
+            "clusters": 322
+          }
+        },
+        "hybrid": {
+          "ndcg@10": {
+            "delta": -0.003537093181249621,
+            "ci95": [
+              -0.009535600855317522,
+              0.002379125416694038
+            ],
+            "clusters": 322
+          },
+          "hit@5": {
+            "delta": -0.004519044544867657,
+            "ci95": [
+              -0.01096827366182205,
+              0.001973749219887664
+            ],
+            "clusters": 322
+          },
+          "complete@10": {
+            "delta": -0.0006455777921239509,
+            "ci95": [
+              -0.006597360999867835,
+              0.005
+            ],
+            "clusters": 322
+          }
+        }
+      },
+      "fingerprint": {
+        "versions": {
+          "etom": "790f28727f567b88918420d163c524d46644a694"
+        },
+        "sha256": {
+          ".work/next/etom/mcp_registry.json": "3c362877ec5733cf0fa1d3451b2f353fb97674e66075da0d7a6f41c0f98cc608",
+          ".work/next/etom/level_1.json": "9b6fdab8926cb5e21abddf0178f018de27d5b9636bd549b45798898b92eee028",
+          ".work/next/etom/level_2.json": "67abbf2574eda7c48a455b8d537ec218219e774ac7814b48f138d5eb662f10e2",
+          ".work/next/etom/level_5.json": "3fbbc6445c69176e84d7b514b9558433d28ed8592d95c14e1e4d28eba39129ae"
+        }
+      },
+      "passes": true,
+      "wall_seconds": 248.88075057510287
+    }
+  },
+  "external_compute_usd": 0,
+  "checkpoints": {
+    "micro": {
+      "tokenizer.json": "91f1def9b9391fdabe028cd3f3fcc4efd34e5d1f08c3bf2de513ebb5911a1854",
+      "sentence_bert_config.json": "948201d8329907aae938fa62f9ceeed53f5694dacc2b87b9f3b78b37ee986529",
+      "config_sentence_transformers.json": "6b36664f54b02eca75474bd6abdbcc9c54e1cba43b59dfe192035f8429f44b23",
+      "onnx/embedding-int8.onnx": "58305402dd632c32a81f305a26d8b39b0609f2795872cca43d942f95cd215e39"
+    },
+    "toolrank": {
+      "tokenizer.json": "91f1def9b9391fdabe028cd3f3fcc4efd34e5d1f08c3bf2de513ebb5911a1854",
+      "sentence_bert_config.json": "65c2293c310f5476a8d1cbada277722c3e7ae5b5ddbaa2d2fe5d075f410d6d02",
+      "config_sentence_transformers.json": "7453db62f635567117454bf0599899107d43569c95d5353b5993d809c39379cf",
+      "onnx/embedding-int8.onnx": "ba0e544669eac502cac535d3ed53b9cf5b530b5fd929d4a7bddd787abe08ea33"
+    }
+  }
+}
