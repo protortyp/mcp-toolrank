@@ -31,7 +31,7 @@ textarea { display: block; width: 100%; margin-top: .55rem; resize: vertical; fo
 button { min-height: 2.6rem; padding: .55rem 1rem; border: 1px solid var(--accent); border-radius: 8px; background: var(--accent); color: #fff; font: inherit; font-weight: 650; cursor: pointer; }
 button.secondary { background: #fff; color: var(--accent); font-size: .86rem; }
 button:disabled { cursor: wait; opacity: .65; }
-button:focus-visible, textarea:focus-visible, a:focus-visible { outline: 3px solid #429877; outline-offset: 2px; }
+button:focus-visible, textarea:focus-visible, select:focus-visible, summary:focus-visible, a:focus-visible { outline: 3px solid #429877; outline-offset: 2px; }
 .hint, #placeholder, #status { color: var(--muted); font-size: .86rem; }
 #status { margin-bottom: 0; min-height: 1.4em; }
 #status.error { color: #922b25; }
@@ -46,3 +46,14 @@ li p { color: var(--muted); font-size: .9rem; margin: .35rem 0 0; white-space: p
   .workspace { grid-template-columns: 1fr; }
   form, section { padding: 1.15rem; }
 }
+
+select { width: 100%; margin: .5rem 0 1.1rem; padding: .6rem; border: 1px solid #a9b7ae; border-radius: 8px; background: #fbfcf9; color: var(--ink); font: inherit; }
+fieldset { border: 0; padding: 0; margin: .85rem 0 .45rem; }
+legend { font-size: .85rem; font-weight: 650; }
+fieldset label { display: inline-flex; align-items: center; gap: .2rem; margin: .3rem .8rem .2rem 0; font-size: .9rem; font-weight: 550; }
+input[type=radio] { accent-color: var(--accent); }
+details { margin-top: 1.25rem; border-top: 1px solid var(--line); padding-top: 1rem; }
+summary { color: var(--accent); cursor: pointer; font-weight: 650; }
+table { width: 100%; margin-top: .65rem; border-collapse: collapse; font-size: .86rem; }
+th, td { border-bottom: 1px solid var(--line); padding: .45rem .25rem; text-align: right; font-variant-numeric: tabular-nums; }
+th:first-child, td:first-child { text-align: left; }

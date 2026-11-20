@@ -1,5 +1,6 @@
 import { Tokenizer } from "@huggingface/tokenizers";
 import { env, InferenceSession, Tensor } from "onnxruntime-web/wasm";
+import { lexicalIndex } from "./lexical.js";
 
 const revision = "a24a121266154006e2bd2e32a41576437c3455c2";
 const root = `https://huggingface.co/christianengel/mcp-toolrank-33m/resolve/${revision}/`;
@@ -7,6 +8,7 @@ const batchSize = 32;
 let model;
 let catalogKey;
 let catalogVectors;
+let lexicalScore;
 
 function status(message) {
   self.postMessage({ kind: "status", message });
@@ -70,28 +72,66 @@ function dot(a, b) {
   return score;
 }
 
-self.onmessage = async ({ data: { tools, text } }) => {
+async function prepare(tools) {
+  if (!model) {
+    status("Downloading the model and starting the browser runtime…");
+    model = await load();
+  }
+  const key = JSON.stringify(tools);
+  if (catalogKey === key) return;
+  status(`Embedding ${tools.length} tools…`);
+  const documents = tools.map(({ name, description }) => `${name}: ${description}`);
+  const vectors = [];
+  for (let i = 0; i < documents.length; i += batchSize) {
+    vectors.push(...await encode(model, documents.slice(i, i + batchSize)));
+  }
+  lexicalScore = lexicalIndex(tools, documents);
+  catalogVectors = vectors;
+  catalogKey = key;
+}
+
+function rankings(tools, text, vector, limit) {
+  const cosine = catalogVectors.map((document) => dot(vector, document));
+  const hybrid = lexicalScore(text, cosine);
+  function ordered(scores) {
+    return tools.map((tool, i) => ({ tool, score: cosine[i], relevance: scores[i] }))
+      .sort((left, right) => right.relevance - left.relevance)
+      .slice(0, limit).map(({ tool, score }) => ({ tool, score }));
+  }
+  return { dense: ordered(cosine), hybrid: ordered(hybrid) };
+}
+
+async function benchmark(tools, cases) {
+  const answerable = cases.filter(({ relevant }) => relevant.length);
+  const scores = { dense: { hit: 0, ndcg: 0 }, hybrid: { hit: 0, ndcg: 0 } };
+  for (const { query, relevant } of answerable) {
+    const [vector] = await encode(model, [model.prefix + query]);
+    const ranked = rankings(tools, query, vector, 10);
+    for (const [mode, results] of Object.entries(ranked)) {
+      const rank = results.findIndex(({ tool }) => relevant.includes(tool.name));
+      if (rank < 0) continue;
+      scores[mode].hit += Number(rank === 0);
+      scores[mode].ndcg += 1 / Math.log2(rank + 2);
+    }
+  }
+  const result = Object.fromEntries(Object.entries(scores).map(([mode, { hit, ndcg }]) => [
+    mode, { hitAt1: hit / answerable.length, ndcgAt10: ndcg / answerable.length },
+  ]));
+  self.postMessage({ kind: "benchmark", result, answerable: answerable.length, total: cases.length });
+}
+
+self.onmessage = async ({ data: { tools, text, cases, relevant } }) => {
   try {
-    if (!model) {
-      status("Downloading the model and starting the browser runtime…");
-      model = await load();
+    await prepare(tools);
+    if (cases) {
+      status("Evaluating the API holdout…");
+      await benchmark(tools, cases);
+    } else {
+      const [request] = await encode(model, [model.prefix + text]);
+      self.postMessage({
+        kind: "results", results: rankings(tools, text, request, 5), count: tools.length, relevant,
+      });
     }
-    const key = JSON.stringify(tools);
-    if (catalogKey !== key) {
-      status(`Embedding ${tools.length} tools…`);
-      const docs = tools.map(({ name, description }) => `${name}: ${description}`);
-      const vectors = [];
-      for (let i = 0; i < docs.length; i += batchSize) {
-        vectors.push(...await encode(model, docs.slice(i, i + batchSize)));
-      }
-      catalogVectors = vectors;
-      catalogKey = key;
-    }
-    const [request] = await encode(model, [model.prefix + text]);
-    const results = tools.map((tool, i) => ({ tool, score: dot(request, catalogVectors[i]) }))
-      .sort((left, right) => right.score - left.score)
-      .slice(0, 5);
-    self.postMessage({ kind: "results", results, count: tools.length });
   } catch (error) {
     self.postMessage({ kind: "error", message: error instanceof Error ? error.message : "ToolRank failed." });
   }

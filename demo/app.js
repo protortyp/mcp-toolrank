@@ -1,3 +1,5 @@
+import holdout from "../data/onnx_int8_holdout.json";
+
 const samples = [
   { name: "search_calendar", description: "Find scheduled meetings and events within a date range." },
   { name: "create_calendar_event", description: "Schedule a new meeting with a title, time and participants." },
@@ -7,7 +9,13 @@ const samples = [
   { name: "get_train_departures", description: "List the next trains departing from a station." },
   { name: "search_email", description: "Find email messages by sender, date or keywords." },
 ];
+const apiTools = Object.values(holdout.tools).map(({ name, description }) => ({ name, description }));
+const apiCases = Object.fromEntries(holdout.queries.map(({ id, query, positives }) => [
+  id, { query, relevant: positives.map((key) => holdout.tools[key].name) },
+]));
+const defaultExample = "crossref/005";
 const catalog = document.querySelector("#catalog");
+const catalogEditor = document.querySelector("#catalog-editor");
 const query = document.querySelector("#query");
 const status = document.querySelector("#status");
 const button = document.querySelector("#submit");
@@ -15,16 +23,22 @@ const reset = document.querySelector("#sample");
 const listing = document.querySelector("#ranking");
 const placeholder = document.querySelector("#placeholder");
 const scoreHint = document.querySelector("#score-hint");
+const example = document.querySelector("#example");
+const judgment = document.querySelector("#judgment");
+const rankingMode = document.querySelector("#ranking-mode");
+const benchmarkButton = document.querySelector("#benchmark");
+const benchmarkTable = document.querySelector("#benchmark-results");
 let worker;
+let ranked;
+let exampleCatalog;
 
 function showStatus(message, failed = false) {
   status.textContent = message;
   status.classList.toggle("error", failed);
 }
 
-function idle() {
-  button.disabled = false;
-  reset.disabled = false;
+function busy(active) {
+  for (const control of [button, reset, example, benchmarkButton]) control.disabled = active;
 }
 
 function render(rows) {
@@ -55,18 +69,24 @@ function initWorker() {
       showStatus(data.message);
       return;
     }
-    idle();
+    busy(false);
     if (data.kind === "error") {
       showStatus(data.message, true);
       return;
     }
-    render(data.results);
+    if (data.kind === "benchmark") {
+      renderBenchmark(data.result);
+      showStatus(`Benchmarked ${data.answerable} of ${data.total} requests locally.`);
+      return;
+    }
+    ranked = data;
+    renderRanked();
     showStatus(`Ranked ${data.count} tools.`);
   };
   instance.onerror = () => {
     instance.terminate();
     worker = undefined;
-    idle();
+    busy(false);
     showStatus("The browser runtime could not start. Reload the page and try again.", true);
   };
   return instance;
@@ -97,29 +117,95 @@ function parseCatalog(text) {
   }).sort((left, right) => left.name < right.name ? -1 : Number(left.name > right.name));
 }
 
-function loadSample() {
-  catalog.value = JSON.stringify({ tools: samples }, null, 2);
-  showStatus("");
-}
-reset.addEventListener("click", loadSample);
-loadSample();
-
-document.querySelector("#rank-form").addEventListener("submit", (event) => {
-  event.preventDefault();
+function clearRanking() {
+  ranked = undefined;
   listing.replaceChildren();
   placeholder.hidden = false;
   scoreHint.hidden = true;
+  judgment.hidden = true;
+  rankingMode.hidden = true;
+}
+
+function renderRanked() {
+  if (!ranked) return;
+  const mode = rankingMode.querySelector("input:checked").value;
+  render(ranked.results[mode]);
+  rankingMode.hidden = false;
+  scoreHint.textContent = mode === "hybrid"
+    ? "Numbers show embedding cosine. Hybrid orders tools using cosine, TF-IDF and BM25."
+    : "Dense ranks by embedding cosine. A high score can appear even when no tool applies.";
+  judgment.hidden = ranked.relevant === null;
+  if (!judgment.hidden) {
+    judgment.textContent = ranked.relevant.length
+      ? `Labelled match: ${ranked.relevant.join(", ")}`
+      : "The benchmark labels this request as having no matching tool.";
+  }
+}
+
+function renderBenchmark(result) {
+  const percent = (value) => `${(100 * value).toFixed(2)}%`;
+  const rows = Object.entries(result).map(([mode, { hitAt1, ndcgAt10 }]) => {
+    const row = document.createElement("tr");
+    for (const value of [mode === "dense" ? "Dense" : "Hybrid", percent(hitAt1), percent(ndcgAt10)]) {
+      const cell = document.createElement("td");
+      cell.textContent = value;
+      row.append(cell);
+    }
+    return row;
+  });
+  benchmarkTable.querySelector("tbody").replaceChildren(...rows);
+  benchmarkTable.hidden = false;
+}
+
+function loadExample() {
+  clearRanking();
+  showStatus("");
+  const id = example.value;
+  if (id === "custom") {
+    catalogEditor.open = true;
+    return;
+  }
+  exampleCatalog = JSON.stringify({ tools: id === "calendar" ? samples : apiTools }, null, 2);
+  catalog.value = exampleCatalog;
+  query.value = id === "calendar" ? "Find tomorrow’s meetings" : apiCases[id].query;
+}
+
+function resetExample() {
+  example.value = defaultExample;
+  catalogEditor.open = false;
+  loadExample();
+}
+reset.addEventListener("click", resetExample);
+example.addEventListener("change", loadExample);
+for (const field of [query, catalog]) {
+  field.addEventListener("input", () => { example.value = "custom"; });
+}
+rankingMode.addEventListener("change", renderRanked);
+resetExample();
+
+benchmarkButton.addEventListener("click", () => {
+  worker ??= initWorker();
+  busy(true);
+  benchmarkTable.hidden = true;
+  worker.postMessage({ tools: parseCatalog(JSON.stringify(apiTools)), cases: Object.values(apiCases) });
+  showStatus("Preparing the benchmark…");
+});
+
+document.querySelector("#rank-form").addEventListener("submit", (event) => {
+  event.preventDefault();
+  clearRanking();
   try {
     const text = query.value.trim();
     if (!text) throw new Error("Enter a request to rank the tools.");
     const tools = parseCatalog(catalog.value);
+    const apiCase = apiCases[example.value];
+    const relevant = apiCase?.query === text && catalog.value === exampleCatalog ? apiCase.relevant : null;
     worker ??= initWorker();
-    button.disabled = true;
-    reset.disabled = true;
-    worker.postMessage({ tools, text });
+    busy(true);
+    worker.postMessage({ tools, text, relevant });
     showStatus("Preparing ToolRank…");
   } catch (error) {
-    idle();
+    busy(false);
     showStatus(error.message, true);
   }
 });

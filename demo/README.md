@@ -13,19 +13,21 @@ models:
 
 # ToolRank MCP Selector
 
-Try the sample catalog or paste an MCP `tools/list` JSON-RPC response, result object, or array of tool definitions. Enter a request to rank the top five tools by cosine similarity. Catalogs can contain up to 128 tools. High scores can point to unsuitable tools when the catalog lacks a relevant match.
+Try published examples or paste MCP `tools/list` responses, result objects, or arrays (up to 128 tools). A browser worker runs the 34 MB INT8 model, caching tool embeddings locally. Requests and catalogs stay in your browser. First use downloads the model, tokenizer, and WebAssembly runtime.
 
-The first run downloads the 34 MB INT8 ONNX model, a WebAssembly runtime, and a tokenizer. A browser worker processes requests and catalog contents on your device and caches catalog embeddings in memory.
+After querying, compare Dense and Hybrid top-five results without re-embedding. Dense ranks by embedding cosine. Hybrid adds TF-IDF and name-weighted BM25. Displayed scores remain embedding cosine. Benchmark examples label matches and no-matches. Unlabeled requests can score high without an applicable tool.
+
+**Evaluate the API holdout** compares Hit@1 and nDCG@10 locally over 72 answerable requests and 24 tools. Metrics exclude 24 no-match requests. Rejection remains unmeasured.
 
 ## Run locally
 
-In `demo`, install dependencies and start Vite.
+Run in the repository’s `demo` directory.
 
 ```sh
 npm ci
 npm run dev
 ```
 
-Build the Space’s static files with `npm run build`.
+`npm run build` generates the static Space bundle.
 
-[Model and evaluation](https://huggingface.co/christianengel/mcp-toolrank-33m) · [Source and Python integration](https://github.com/protortyp/mcp-toolrank)
+[Model](https://huggingface.co/christianengel/mcp-toolrank-33m) · [API holdout](https://huggingface.co/datasets/christianengel/toolrank-api-holdout) · [Source and integration guides](https://github.com/protortyp/mcp-toolrank)
