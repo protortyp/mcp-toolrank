@@ -27,7 +27,7 @@ form, section { padding: 1.5rem; background: #fff; border: 1px solid var(--line)
 label { display: block; font-weight: 650; }
 textarea { display: block; width: 100%; margin-top: .55rem; resize: vertical; font: inherit; color: var(--ink); border: 1px solid #a9b7ae; border-radius: 8px; padding: .75rem; background: #fbfcf9; }
 #catalog { font: .82rem/1.55 ui-monospace, monospace; }
-.catalog-heading { display: flex; align-items: center; justify-content: space-between; gap: .8rem; margin-top: 1.2rem; }
+.catalog-heading { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: .8rem; margin-top: 1.2rem; }
 button { min-height: 2.6rem; padding: .55rem 1rem; border: 1px solid var(--accent); border-radius: 8px; background: var(--accent); color: #fff; font: inherit; font-weight: 650; cursor: pointer; }
 button.secondary { background: #fff; color: var(--accent); font-size: .86rem; }
 button:disabled { cursor: wait; opacity: .65; }
@@ -57,3 +57,4 @@ summary { color: var(--accent); cursor: pointer; font-weight: 650; }
 table { width: 100%; margin-top: .65rem; border-collapse: collapse; font-size: .86rem; }
 th, td { border-bottom: 1px solid var(--line); padding: .45rem .25rem; text-align: right; font-variant-numeric: tabular-nums; }
 th:first-child, td:first-child { text-align: left; }
+.catalog-actions { display: flex; flex-wrap: wrap; gap: .5rem; }

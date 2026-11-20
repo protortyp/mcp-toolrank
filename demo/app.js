@@ -1,3 +1,4 @@
+import { importCatalog, parseCatalog } from "./catalog.js";
 import holdout from "../data/onnx_int8_holdout.json";
 
 const samples = [
@@ -15,6 +16,8 @@ const apiCases = Object.fromEntries(holdout.queries.map(({ id, query, positives 
 ]));
 const defaultExample = "crossref/005";
 const catalog = document.querySelector("#catalog");
+const importButton = document.querySelector("#import-file");
+const fileInput = document.querySelector("#catalog-file");
 const catalogEditor = document.querySelector("#catalog-editor");
 const query = document.querySelector("#query");
 const status = document.querySelector("#status");
@@ -38,7 +41,7 @@ function showStatus(message, failed = false) {
 }
 
 function busy(active) {
-  for (const control of [button, reset, example, benchmarkButton]) control.disabled = active;
+  for (const control of [button, reset, example, benchmarkButton, importButton, fileInput]) control.disabled = active;
 }
 
 function render(rows) {
@@ -90,31 +93,6 @@ function initWorker() {
     showStatus("The browser runtime could not start. Reload the page and try again.", true);
   };
   return instance;
-}
-
-function parseCatalog(text) {
-  let data;
-  try {
-    data = JSON.parse(text);
-  } catch {
-    throw new Error("The catalog must be valid JSON.");
-  }
-  const tools = Array.isArray(data) ? data : (data?.result?.tools ?? data?.tools);
-  if (!Array.isArray(tools) || tools.length < 1 || tools.length > 128) {
-    throw new Error("Provide a catalog with 1 to 128 tools.");
-  }
-  const seen = new Set();
-  return tools.map((tool) => {
-    const name = typeof tool?.name === "string" ? tool.name.trim() : "";
-    if (!name || name.length > 256 || seen.has(name)) {
-      throw new Error("Tool names must be unique and contain 1 to 256 characters.");
-    }
-    if (tool.description != null && typeof tool.description !== "string") {
-      throw new Error("Tool descriptions must be strings.");
-    }
-    seen.add(name);
-    return { name, description: (tool.description ?? "").slice(0, 12000) };
-  }).sort((left, right) => left.name < right.name ? -1 : Number(left.name > right.name));
 }
 
 function clearRanking() {
@@ -176,6 +154,25 @@ function resetExample() {
   loadExample();
 }
 reset.addEventListener("click", resetExample);
+importButton.addEventListener("click", () => fileInput.click());
+fileInput.addEventListener("change", async () => {
+  const file = fileInput.files[0];
+  fileInput.value = "";
+  if (!file) return;
+  busy(true);
+  try {
+    const tools = await importCatalog(file);
+    clearRanking();
+    catalog.value = JSON.stringify({ tools }, null, 2);
+    example.value = "custom";
+    showStatus(`Loaded ${tools.length} tools.`);
+  } catch (error) {
+    showStatus(error.message, true);
+  } finally {
+    busy(false);
+  }
+});
+
 example.addEventListener("change", loadExample);
 for (const field of [query, catalog]) {
   field.addEventListener("input", () => { example.value = "custom"; });
