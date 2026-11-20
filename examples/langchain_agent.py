@@ -1,10 +1,6 @@
-import argparse
 from langchain.agents import create_agent
-from langchain_core.language_models.fake_chat_models import GenericFakeChatModel
-from langchain_core.messages import AIMessage
 
-from examples.local_tools import CATALOG, QUERY, find_accessible_entry, list_exhibits
-from toolrank.selector import ToolSelector
+from examples.local_tools import find_accessible_entry, list_exhibits
 
 
 def build_agent(chat_model, selector, query):
@@ -13,19 +9,23 @@ def build_agent(chat_model, selector, query):
     return create_agent(chat_model, tools=[functions[hit.tool["name"]] for hit in hits])
 
 
-class LocalToolCallingModel(GenericFakeChatModel):
-    def bind_tools(self, tools, **kwargs):
-        return self
+async def run_gateway(args):
+    from langchain_core.tools import StructuredTool
+    from langchain_openai import ChatOpenAI
+
+    from examples.gateway_clock import clock_tool
+
+    model = ChatOpenAI(model=args.model, base_url=args.url, api_key="local", temperature=0)
+    async with clock_tool(args) as clock:
+        tool = StructuredTool.from_function(coroutine=clock)
+        agent = create_agent(model, tools=[tool], system_prompt="Call the clock tool to answer time queries.")
+        response = await agent.ainvoke({"messages": [{"role": "user", "content": args.query}]})
+        print(response["messages"][-1].content)
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument("checkpoint")
-    args = parser.parse_args()
-    selector = ToolSelector.from_checkpoint(args.checkpoint, CATALOG)
-    model = LocalToolCallingModel(messages=iter([
-        AIMessage(content="", tool_calls=[{"name": "find_accessible_entry", "args": {}, "id": "demo"}]),
-        AIMessage(content="Use the north entrance."),
-    ]))
-    result = build_agent(model, selector, QUERY).invoke({"messages": [{"role": "user", "content": QUERY}]})
-    print([message.content for message in result["messages"] if message.type == "tool"])
+    import asyncio
+
+    from examples.gateway_clock import arguments
+
+    asyncio.run(run_gateway(arguments()))

@@ -1,0 +1,18 @@
+{
+  "timeout_seconds": 30,
+  "servers": [
+    {
+      "id": "clock",
+      "command": "uvx",
+      "args": ["--python", "3.12", "mcp-server-time==2026.11.18"],
+      "discover": ["get_current_time", "convert_time"],
+      "invoke": ["get_current_time"]
+    },
+    {
+      "id": "repository",
+      "command": "uvx",
+      "args": ["--python", "3.12", "mcp-server-git==2026.11.18", "--repository", "."],
+      "discover": ["git_status", "git_log", "git_diff_unstaged"]
+    }
+  ]
+}

@@ -74,7 +74,9 @@ export function normalizeCatalog(data) {
       throw new Error("Tool descriptions must be strings.");
     }
     seen.add(name);
-    return { name, description: (tool.description ?? "").slice(0, 12000) };
+    const normalized = { name, description: (tool.description ?? "").slice(0, 12000) };
+    if (object(tool.inputSchema)) normalized.inputSchema = tool.inputSchema;
+    return normalized;
   }).sort((left, right) => left.name < right.name ? -1 : Number(left.name > right.name));
 }
 

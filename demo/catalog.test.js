@@ -40,3 +40,9 @@ test("rejects over-limit files before reading and keeps the 128-tool limit", asy
   const people = Array.from({ length: 129 }, (_, index) => ({ name: `tool_${index}` }));
   assert.throws(() => parseCatalog(JSON.stringify(people)), /1 to 128 tools/);
 });
+
+test("keeps imported MCP input schemas for local inspection", () => {
+  const inputSchema = { type: "object", properties: { ref: { type: "string" } }, required: ["ref"] };
+  const tools = parseCatalog(JSON.stringify({ tools: [{ name: "lookup", inputSchema }] }));
+  assert.deepEqual(tools[0].inputSchema, inputSchema);
+});

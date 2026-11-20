@@ -44,3 +44,13 @@ def checkpoint():
 
 def main():
     rank_onnx.main(resolve_checkpoint=checkpoint)
+
+
+def gateway_main():
+    try:
+        from .gateway import main as run_gateway
+    except ModuleNotFoundError as error:
+        if error.name != "mcp":
+            raise
+        raise SystemExit("Install toolrank-cpu with the gateway extra.") from None
+    run_gateway()

@@ -92,18 +92,18 @@ async function prepare(tools) {
 
 function rankings(tools, text, vector, limit) {
   const cosine = catalogVectors.map((document) => dot(vector, document));
-  const hybrid = lexicalScore(text, cosine);
-  function ordered(scores) {
-    return tools.map((tool, i) => ({ tool, score: cosine[i], relevance: scores[i] }))
+  const { hybrid, bm25 } = lexicalScore(text, cosine);
+  function ordered(scores, displayed = cosine) {
+    return tools.map((tool, i) => ({ tool, score: displayed[i], relevance: scores[i] }))
       .sort((left, right) => right.relevance - left.relevance)
       .slice(0, limit).map(({ tool, score }) => ({ tool, score }));
   }
-  return { dense: ordered(cosine), hybrid: ordered(hybrid) };
+  return { dense: ordered(cosine), hybrid: ordered(hybrid), bm25: ordered(bm25, bm25) };
 }
 
 async function benchmark(tools, cases) {
   const answerable = cases.filter(({ relevant }) => relevant.length);
-  const scores = { dense: { hit: 0, ndcg: 0 }, hybrid: { hit: 0, ndcg: 0 } };
+  const scores = Object.fromEntries(["dense", "hybrid", "bm25"].map((mode) => [mode, { hit: 0, ndcg: 0 }]));
   for (const { query, relevant } of answerable) {
     const [vector] = await encode(model, [model.prefix + query]);
     const ranked = rankings(tools, query, vector, 10);
@@ -122,14 +122,19 @@ async function benchmark(tools, cases) {
 
 self.onmessage = async ({ data: { tools, text, cases, relevant } }) => {
   try {
+    const start = performance.now();
     await prepare(tools);
+    const ready = performance.now();
     if (cases) {
       status("Evaluating the API holdout…");
       await benchmark(tools, cases);
     } else {
       const [request] = await encode(model, [model.prefix + text]);
+      const results = rankings(tools, text, request, 5);
       self.postMessage({
-        kind: "results", results: rankings(tools, text, request, 5), count: tools.length, relevant,
+        kind: "results", results, count: tools.length, relevant,
+        setupMs: ready - start, queryMs: performance.now() - ready,
+        catalogBytes: new TextEncoder().encode(JSON.stringify(tools)).length,
       });
     }
   } catch (error) {

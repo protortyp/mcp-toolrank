@@ -55,11 +55,13 @@
           <legend>Ranking</legend>
           <label><input type="radio" name="ranking" value="hybrid" checked> Hybrid</label>
           <label><input type="radio" name="ranking" value="dense"> Dense</label>
+          <label><input type="radio" name="ranking" value="bm25"> BM25</label>
         </fieldset>
         <p id="judgment" class="hint" hidden></p>
         <p id="placeholder">Run a request to compare the five closest matches.</p>
         <ol id="ranking"></ol>
         <p id="score-hint" class="hint" hidden></p>
+        <p id="context-size" class="hint" hidden></p>
         <details>
           <summary>Evaluate the API holdout</summary>
           <p class="hint">Rank 72 answerable requests against 24 tools. The 24 requests without a match are excluded from these ranking metrics.</p>

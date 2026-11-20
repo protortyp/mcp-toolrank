@@ -28,6 +28,7 @@ const placeholder = document.querySelector("#placeholder");
 const scoreHint = document.querySelector("#score-hint");
 const example = document.querySelector("#example");
 const judgment = document.querySelector("#judgment");
+const contextSize = document.querySelector("#context-size");
 const rankingMode = document.querySelector("#ranking-mode");
 const benchmarkButton = document.querySelector("#benchmark");
 const benchmarkTable = document.querySelector("#benchmark-results");
@@ -58,6 +59,16 @@ function render(rows) {
     description.textContent = tool.description;
     line.append(name, value);
     li.append(line, description);
+    if (tool.inputSchema) {
+      const details = document.createElement("details");
+      details.className = "result-schema";
+      const summary = document.createElement("summary");
+      summary.textContent = "Input schema";
+      const schema = document.createElement("pre");
+      schema.textContent = JSON.stringify(tool.inputSchema, null, 2);
+      details.append(summary, schema);
+      li.append(details);
+    }
     return li;
   });
   listing.replaceChildren(...items);
@@ -84,7 +95,7 @@ function initWorker() {
     }
     ranked = data;
     renderRanked();
-    showStatus(`Ranked ${data.count} tools.`);
+    showStatus(`Ranked ${data.count} tools in ${data.queryMs.toFixed(1)} ms (setup ${data.setupMs.toFixed(1)} ms).`);
   };
   instance.onerror = () => {
     instance.terminate();
@@ -101,20 +112,27 @@ function clearRanking() {
   placeholder.hidden = false;
   scoreHint.hidden = true;
   judgment.hidden = true;
+  contextSize.hidden = true;
   rankingMode.hidden = true;
 }
 
 function renderRanked() {
   if (!ranked) return;
   const mode = rankingMode.querySelector("input:checked").value;
-  render(ranked.results[mode]);
+  const rows = ranked.results[mode];
+  render(rows);
+  const shortlistBytes = new TextEncoder().encode(JSON.stringify(rows.map(({ tool }) => tool))).length;
+  contextSize.textContent = `${rows.length} of ${ranked.count} tools · ${shortlistBytes.toLocaleString()} of ${ranked.catalogBytes.toLocaleString()} bytes of tool JSON`;
+  contextSize.hidden = false;
   rankingMode.hidden = false;
   scoreHint.textContent = mode === "hybrid"
     ? "Numbers show embedding cosine. Hybrid orders tools using cosine, TF-IDF and BM25."
-    : "Dense ranks by embedding cosine. A high score can appear even when no tool applies.";
-  judgment.hidden = ranked.relevant === null;
+    : mode === "bm25" ? "Numbers show normalized BM25 scores." : "Numbers show embedding cosine.";
+  judgment.hidden = false;
   if (!judgment.hidden) {
-    judgment.textContent = ranked.relevant.length
+    judgment.textContent = ranked.relevant === null
+      ? "Applicability for this request is unverified."
+      : ranked.relevant.length
       ? `Labelled match: ${ranked.relevant.join(", ")}`
       : "The benchmark labels this request as having no matching tool.";
   }
@@ -124,7 +142,7 @@ function renderBenchmark(result) {
   const percent = (value) => `${(100 * value).toFixed(2)}%`;
   const rows = Object.entries(result).map(([mode, { hitAt1, ndcgAt10 }]) => {
     const row = document.createElement("tr");
-    for (const value of [mode === "dense" ? "Dense" : "Hybrid", percent(hitAt1), percent(ndcgAt10)]) {
+    for (const value of [({ dense: "Dense", hybrid: "Hybrid", bm25: "BM25" })[mode], percent(hitAt1), percent(ndcgAt10)]) {
       const cell = document.createElement("td");
       cell.textContent = value;
       row.append(cell);

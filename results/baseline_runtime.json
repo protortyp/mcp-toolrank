@@ -1,0 +1,252 @@
+{
+  "source_sha256": "883d586000f98a661c5eb1f91973e4e84172c5a7a365fcbb3f4575d7f080f932",
+  "measurement_scope": "CPU reference with local snapshots on a shared Ryzen 5950X. Process RSS includes imports and earlier catalogs. Dense CPU scope is API and native MCP, while full ToolRet dense indexing is in the GPU baseline artifact.",
+  "commands": {
+    "bge": "OPENBLAS_NUM_THREADS=4 OMP_NUM_THREADS=4 uv run --no-sync python -m toolrank.baseline_runtime bge --datasets api etom-mcp --output /tmp/bge.json",
+    "toolrank": "OPENBLAS_NUM_THREADS=4 OMP_NUM_THREADS=4 uv run --no-sync python -m toolrank.baseline_runtime toolrank --toolrank /path/to/toolrank --datasets api etom-mcp --output /tmp/toolrank.json",
+    "toolscout": "OPENBLAS_NUM_THREADS=4 OMP_NUM_THREADS=4 uv run --no-sync python -m toolrank.baseline_runtime toolscout --datasets api --output /tmp/toolscout.json",
+    "tool-embed": "OPENBLAS_NUM_THREADS=4 OMP_NUM_THREADS=4 uv run --no-sync python -m toolrank.baseline_runtime tool-embed --datasets api --output /tmp/tool-embed.json",
+    "lexical": "OPENBLAS_NUM_THREADS=4 OMP_NUM_THREADS=4 uv run --no-sync python -m toolrank.baseline_runtime lexical --datasets api etom-mcp toolret --output /tmp/lexical.json"
+  },
+  "profiles": {
+    "bge": {
+      "model": "bge",
+      "checkpoint_load_ms": 2273.267982993275,
+      "threads": 4,
+      "torch_version": "2.8.0+cpu",
+      "cpu": "AMD Ryzen 9 5950X 16-Core Processor",
+      "cpu_affinity": 32,
+      "datasets": {
+        "api": {
+          "tools": 24,
+          "profile_requests": 48,
+          "lexical_index_ms": 6.918539991602302,
+          "embedding_index_ms": 159.1251972131431,
+          "modes": {
+            "dense": {
+              "first_query_ms": 14.111757976934314,
+              "warm_p50_ms": 13.884822023101151,
+              "warm_p95_ms": 16.413609124720097,
+              "batch16_queries_per_second": 171.1873758718596
+            },
+            "hybrid": {
+              "first_query_ms": 17.489201156422496,
+              "warm_p50_ms": 15.028637018986046,
+              "warm_p95_ms": 17.237925704102963,
+              "batch16_queries_per_second": 176.07752161280277
+            }
+          },
+          "process_high_water_rss_mib": 535.03125
+        },
+        "etom-mcp": {
+          "tools": 2375,
+          "profile_requests": 48,
+          "lexical_index_ms": 429.83161518350244,
+          "embedding_index_ms": 143680.57575216517,
+          "modes": {
+            "dense": {
+              "first_query_ms": 17.669736873358488,
+              "warm_p50_ms": 18.41312798205763,
+              "warm_p95_ms": 25.93259266577661,
+              "batch16_queries_per_second": 56.29121673413393
+            },
+            "hybrid": {
+              "first_query_ms": 27.657595928758383,
+              "warm_p50_ms": 21.447270060889423,
+              "warm_p95_ms": 27.194982825312763,
+              "batch16_queries_per_second": 54.32936487286362
+            }
+          },
+          "process_high_water_rss_mib": 1094.0625
+        }
+      }
+    },
+    "toolrank": {
+      "model": "toolrank",
+      "checkpoint_load_ms": 1573.0589139275253,
+      "threads": 4,
+      "torch_version": "2.8.0+cpu",
+      "cpu": "AMD Ryzen 9 5950X 16-Core Processor",
+      "cpu_affinity": 32,
+      "datasets": {
+        "api": {
+          "tools": 24,
+          "profile_requests": 48,
+          "lexical_index_ms": 6.924242014065385,
+          "embedding_index_ms": 165.65834684297442,
+          "modes": {
+            "dense": {
+              "first_query_ms": 15.424608020111918,
+              "warm_p50_ms": 13.550341478548944,
+              "warm_p95_ms": 16.193669254425913,
+              "batch16_queries_per_second": 149.48373876338744
+            },
+            "hybrid": {
+              "first_query_ms": 14.75833309814334,
+              "warm_p50_ms": 14.291928033344448,
+              "warm_p95_ms": 16.94243513047695,
+              "batch16_queries_per_second": 149.3121148831108
+            }
+          },
+          "process_high_water_rss_mib": 530.1796875
+        },
+        "etom-mcp": {
+          "tools": 2375,
+          "profile_requests": 48,
+          "lexical_index_ms": 420.9023271687329,
+          "embedding_index_ms": 138190.49609801732,
+          "modes": {
+            "dense": {
+              "first_query_ms": 16.636165091767907,
+              "warm_p50_ms": 16.441961051896214,
+              "warm_p95_ms": 24.468344438355413,
+              "batch16_queries_per_second": 54.84897575053964
+            },
+            "hybrid": {
+              "first_query_ms": 22.650596918538213,
+              "warm_p50_ms": 20.60216257814318,
+              "warm_p95_ms": 28.517042193561785,
+              "batch16_queries_per_second": 55.83865177803269
+            }
+          },
+          "process_high_water_rss_mib": 1122.6796875
+        }
+      }
+    },
+    "toolscout": {
+      "model": "toolscout",
+      "checkpoint_load_ms": 1800.851341104135,
+      "threads": 4,
+      "torch_version": "2.8.0+cpu",
+      "cpu": "AMD Ryzen 9 5950X 16-Core Processor",
+      "cpu_affinity": 32,
+      "datasets": {
+        "api": {
+          "tools": 24,
+          "profile_requests": 48,
+          "lexical_index_ms": 8.090827148407698,
+          "embedding_index_ms": 193.98964289575815,
+          "modes": {
+            "dense": {
+              "first_query_ms": 19.240118796005845,
+              "warm_p50_ms": 17.581979045644403,
+              "warm_p95_ms": 20.679932681377977,
+              "batch16_queries_per_second": 141.46238853177587
+            },
+            "hybrid": {
+              "first_query_ms": 19.941464997828007,
+              "warm_p50_ms": 18.473768490366638,
+              "warm_p95_ms": 22.8046462405473,
+              "batch16_queries_per_second": 140.64017686218136
+            }
+          },
+          "process_high_water_rss_mib": 531.78125
+        }
+      }
+    },
+    "tool-embed": {
+      "model": "tool-embed",
+      "checkpoint_load_ms": 2766.6581228841096,
+      "threads": 4,
+      "torch_version": "2.8.0+cpu",
+      "cpu": "AMD Ryzen 9 5950X 16-Core Processor",
+      "cpu_affinity": 32,
+      "datasets": {
+        "api": {
+          "tools": 24,
+          "profile_requests": 48,
+          "lexical_index_ms": 7.84368091262877,
+          "embedding_index_ms": 2546.776148956269,
+          "modes": {
+            "dense": {
+              "first_query_ms": 299.2004919797182,
+              "warm_p50_ms": 277.59789244737476,
+              "warm_p95_ms": 309.97579080285504,
+              "batch16_queries_per_second": 6.155330477094751
+            },
+            "hybrid": {
+              "first_query_ms": 326.61551609635353,
+              "warm_p50_ms": 272.2866960102692,
+              "warm_p95_ms": 302.0995283033699,
+              "batch16_queries_per_second": 6.460471379287814
+            }
+          },
+          "process_high_water_rss_mib": 3810.91015625
+        }
+      }
+    },
+    "lexical": {
+      "model": "lexical",
+      "checkpoint_load_ms": 0.0009601935744285583,
+      "threads": 4,
+      "torch_version": "2.8.0+cpu",
+      "cpu": "AMD Ryzen 9 5950X 16-Core Processor",
+      "cpu_affinity": 32,
+      "datasets": {
+        "api": {
+          "tools": 24,
+          "profile_requests": 48,
+          "lexical_index_ms": 5.75946387834847,
+          "embedding_index_ms": null,
+          "modes": {
+            "bm25": {
+              "first_query_ms": 0.18406403250992298,
+              "warm_p50_ms": 0.09845243766903877,
+              "warm_p95_ms": 0.10583812836557627,
+              "batch16_queries_per_second": 55943.40224768495
+            },
+            "tfidf": {
+              "first_query_ms": 0.38942904211580753,
+              "warm_p50_ms": 0.3028020728379488,
+              "warm_p95_ms": 0.31960654305294156,
+              "batch16_queries_per_second": 31195.245837386734
+            }
+          },
+          "process_high_water_rss_mib": 304.1328125
+        },
+        "etom-mcp": {
+          "tools": 2375,
+          "profile_requests": 48,
+          "lexical_index_ms": 372.57348094135523,
+          "embedding_index_ms": null,
+          "modes": {
+            "bm25": {
+              "first_query_ms": 0.40725991129875183,
+              "warm_p50_ms": 0.2563510788604617,
+              "warm_p95_ms": 0.27803353732451797,
+              "batch16_queries_per_second": 6062.072561467461
+            },
+            "tfidf": {
+              "first_query_ms": 1.6946198884397745,
+              "warm_p50_ms": 1.322595402598381,
+              "warm_p95_ms": 1.3872275012545288,
+              "batch16_queries_per_second": 4061.5992276283055
+            }
+          },
+          "process_high_water_rss_mib": 334.47265625
+        },
+        "toolret": {
+          "tools": 44453,
+          "profile_requests": 48,
+          "lexical_index_ms": 7031.922279857099,
+          "embedding_index_ms": null,
+          "modes": {
+            "bm25": {
+              "first_query_ms": 3.350498154759407,
+              "warm_p50_ms": 3.4976911265403032,
+              "warm_p95_ms": 3.9038306334987283,
+              "batch16_queries_per_second": 308.70124217483146
+            },
+            "tfidf": {
+              "first_query_ms": 30.14702000655234,
+              "warm_p50_ms": 33.389931079000235,
+              "warm_p95_ms": 37.19879757845774,
+              "batch16_queries_per_second": 191.4163295076854
+            }
+          },
+          "process_high_water_rss_mib": 780.1796875
+        }
+      }
+    }
+  }
+}

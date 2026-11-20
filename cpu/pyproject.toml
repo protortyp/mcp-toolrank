@@ -1,8 +1,8 @@
 [project]
 name = "toolrank-cpu"
-version = "0.1.0"
+version = "0.2.0"
 description = "Local ToolRank CPU retrieval for MCP and OpenAPI catalogs"
-requires-python = ">=3.12,<3.13"
+requires-python = ">=3.12,<3.14"
 license = "Apache-2.0"
 dependencies = [
     "numpy==2.5.5",
@@ -12,6 +12,13 @@ dependencies = [
 
 [project.scripts]
 toolrank-cpu = "toolrank_cpu.cli:main"
+toolrank-gateway = "toolrank_cpu.cli:gateway_main"
+
+[project.optional-dependencies]
+gateway = [
+    "jsonschema==4.26.0",
+    "mcp==1.30.0",
+]
 
 [build-system]
 requires = ["hatchling"]
