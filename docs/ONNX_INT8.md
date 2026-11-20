@@ -42,3 +42,5 @@ uv run --no-sync python -m toolrank.validate_onnx artifacts/toolrank --output ar
 ```
 
 [Timing replay](../results/onnx-int8/cpu-replay.json) · [Validation](../results/onnx-int8/validation.json) · [Frozen API cases](../data/onnx_int8_holdout.json) · [License](../LICENSE)
+
+[FastEmbed integration](FASTEMBED.md)
