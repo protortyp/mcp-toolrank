@@ -1,7 +1,8 @@
-"""Compare the packaged gateway indexes on the same 93-tool catalog and requests."""
+"""Compare the packaged gateway indexes on matched MCP catalogs."""
 import argparse
 import asyncio
 import json
+from math import log2
 from pathlib import Path
 import random
 import resource
@@ -42,7 +43,7 @@ async def measure(args):
     samples = []
     observed = {}
     randomizer = random.Random(args.seed)
-    for _ in range(3):
+    for _ in range(payload["rounds"]):
         for case in randomizer.sample(cases, len(cases)):
             start = perf_counter()
             result = await gateway.search(case["query"], 10)
@@ -57,10 +58,9 @@ async def measure(args):
     return {"process": process, "observed": observed}
 
 
-def run(args):
+def mixed_payload():
     import csv
-    import platform
-    from run import CASES, INDEPENDENT, NWS, catalog, checkpoint_checksums, digest
+    from run import CASES, INDEPENDENT, NWS, catalog, digest
 
     tools = catalog()
     names = {entry.tool.name: entry.id for entry in tools}
@@ -72,6 +72,56 @@ def run(args):
                  for row in csv.DictReader(stream, delimiter="\t")]
     payload = {"tools": [{"server": row.server, "tool": row.tool.model_dump(),
                           "invocable": row.invocable, "revision": row.revision} for row in tools], "cases": cases}
+    return payload | {"rounds": 3}, {path.name: digest(path) for path in (CASES, INDEPENDENT, NWS)}
+
+
+def etom_payload(root):
+    from toolrank.etom import FILES, load
+
+    _, labels, audit = load("plain", root)
+    registry = json.loads((root / FILES[0]).read_text())
+    providers = sorted(registry["servers"], key=lambda server: server["server_name"])
+    ids = {}
+    entries = []
+    for index, server in enumerate(providers):
+        alias = f"provider-{index:04d}"
+        for operation in server["tools"]:
+            name = operation["tool_name"]
+            ids[f"{server['server_name']}::{name}"] = f"{alias}/{name}"
+            entries.append({"server": alias, "invocable": False, "revision": "static-fixture", "tool": {
+                "name": name, "description": operation["tool_description"], "inputSchema": operation["input_schema"],
+            }})
+    cases = [{"id": id_, "query": query, "expected": sorted(ids[positive] for positive in positives)}
+             for id_, query, _, positives in labels]
+    return {"cases": cases, "tools": entries, "rounds": 1}, audit
+
+
+def quality(observed, cases):
+    counts = {"full_positive_retained": 0, "required_tool_hits": 0,
+              "unsupported_with_suggestions": 0, "unsupported_no_lexical_overlap": 0}
+    ndcg = []
+    for case in cases:
+        relevant = set(case["expected"])
+        actual = observed[case["id"]]
+        if relevant:
+            counts["full_positive_retained"] += relevant.issubset(actual["ids"])
+            counts["required_tool_hits"] += len(relevant.intersection(actual["ids"]))
+            discounts = [1 / log2(i + 2) for i in range(10)]
+            dcg = sum(discount for discount, id_ in zip(discounts, actual["ids"]) if id_ in relevant)
+            ndcg.append(dcg / sum(discounts[:len(relevant)]))
+        else:
+            counts["unsupported_with_suggestions"] += bool(actual["ids"])
+            counts["unsupported_no_lexical_overlap"] += actual["decision"] == "no_lexical_overlap"
+    return counts | {"ndcg_at_10": sum(ndcg) / len(ndcg)}
+
+
+def run(args):
+    import platform
+    from toolrank_cpu.rank_onnx import checkpoint_checksums
+    from run import digest
+
+    payload, data = etom_payload(args.etom) if args.etom else mixed_payload()
+    cases = payload["cases"]
     seeds = (11, 23, 37)
     results = {}
     with TemporaryDirectory() as temporary:
@@ -87,29 +137,21 @@ def run(args):
             if any(worker["observed"] != observed for worker in workers):
                 raise RuntimeError(f"Nonreproducible gateway ranking: {strategy}")
             processes = [worker["process"] for worker in workers]
-            counts = {"both_tools_retained": 0, "required_tool_hits": 0,
-                      "unsupported_with_suggestions": 0, "unsupported_no_lexical_overlap": 0}
-            for case in cases:
-                relevant = set(case["expected"])
-                actual = observed[case["id"]]
-                if relevant:
-                    counts["both_tools_retained"] += relevant.issubset(actual["ids"])
-                    counts["required_tool_hits"] += len(relevant.intersection(actual["ids"]))
-                else:
-                    counts["unsupported_with_suggestions"] += bool(actual["ids"])
-                    counts["unsupported_no_lexical_overlap"] += actual["decision"] == "no_lexical_overlap"
             metrics = {key: median(row[key] for row in processes)
                        for key in processes[0] if key not in {"seed", "model_libraries"}}
-            results[strategy] = {**counts, "process_medians": metrics, "processes": processes, "results": observed}
+            results[strategy] = quality(observed, cases) | {"process_medians": metrics, "processes": processes}
+            if args.etom is None:
+                results[strategy]["results"] = observed
     cpu = next(line.split(":", 1)[1].strip() for line in Path("/proc/cpuinfo").read_text().splitlines()
                if line.startswith("model name"))
     output = {"hardware": {"cpu": cpu, "platform": platform.platform(), "python": platform.python_version()},
               "scope": "Fresh processes with warmed filesystem. Timings exclude transport, disk download, fixture "
                        "loading and Python startup. First search includes index construction. Warm latency uses the "
-                       "same 28 queries in three shuffled rounds. Peak RSS is process-wide on Linux.",
-              "limit": 10, "catalog_tools": len(tools), "supported_requests": sum(bool(row["expected"]) for row in cases),
+                       "same shuffled cases. Peak RSS is process-wide on Linux.",
+              "dataset": data, "limit": 10, "catalog_tools": len(payload["tools"]),
+              "supported_requests": sum(bool(row["expected"]) for row in cases),
               "unsupported_requests": sum(not row["expected"] for row in cases), "seeds": list(seeds),
-              "digests": {path.name: digest(path) for path in (CASES, INDEPENDENT, NWS, Path(__file__))},
+              "warm_rounds": payload["rounds"], "source_sha256": digest(Path(__file__)),
               "checkpoint_checksums": checkpoint_checksums(args.checkpoint, "embedding-int8.onnx"),
               "revision": subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip(),
               "external_compute_usd": 0, "results": results}
@@ -120,6 +162,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--checkpoint", type=Path, required=True)
     parser.add_argument("--output", type=Path)
+    parser.add_argument("--etom", type=Path, help="use a local pinned ETOM snapshot instead of the mixed catalog")
     parser.add_argument("--worker", choices=("bm25", "hybrid"), help=argparse.SUPPRESS)
     parser.add_argument("--fixture", type=Path, help=argparse.SUPPRESS)
     parser.add_argument("--seed", type=int, help=argparse.SUPPRESS)

@@ -14,7 +14,9 @@ async def run(args):
     async with stdio_client(StdioServerParameters(command=args.gateway, args=command)) as (read, write):
         async with ClientSession(read, write) as session:
             await session.initialize()
-            discovery = await session.call_tool("search_tools", {"query": "What time is it in Tokyo?", "limit": 10})
+            discovery = await session.call_tool("search_tools", {
+                "query": "What time is it in Tokyo, and what is the Git repository status?", "limit": 10,
+            })
             if discovery.isError:
                 raise RuntimeError("Gateway discovery failed")
             matches = discovery.structuredContent["matches"]
